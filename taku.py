@@ -11,7 +11,7 @@ def run():
 
 
 def printer1(obs, infos):
-    print(f"{obs} \n\nNow choose 'one' command from {infos['admissible_commands'][0]}\n")
+    print(f"{obs[0]} \nNow choose 'one' command from {infos['admissible_commands'][0]}")
 
 def get_default_env(printer = printer1):
     from textworld import EnvInfos
@@ -26,9 +26,35 @@ def get_default_env(printer = printer1):
     return env, obs[0], infos
 
 def step(env, cmd, printer = printer1):
-    obs, reward, is_terminal, infos = env.step([cmd])
+    obs, reward, is_not_terminal, infos = env.step([cmd])
     if printer:
-        printer(obs[0], infos)
-    return obs[0], infos
+        printer(obs, infos)
+    if not is_not_terminal:
+        print('\n\nGAME OVER!')
+    return obs, infos
+
+LEVELS = ['easy', 'medium', 'hard']
+DATASET_NAMES = ['train', 'test', 'valid']
+def get_game_name(level_index = 0, game_index = 0, dataset_index = 1):
+    import glob
+    level_name = LEVELS[level_index]
+    dataset_name = DATASET_NAMES[dataset_index]
+    GAME_NAMES = glob.glob(f'/home/taku/research/zhuobinggang/commonsense-rl/games/twc/{level_name}/{dataset_name}/*ulx')
+    game_name = GAME_NAMES[game_index]
+    print(game_name)
+    return game_name
+
+def get_game_env(level_index = 0, game_index = 0, dataset_index = 1, printer = printer1, max_step = 50):
+    from textworld import EnvInfos
+    from games import dataset
+    infos_to_request = EnvInfos(description=True, inventory=True, admissible_commands=True, won=True, lost=True,location = True,
+            last_action=True, facts=True,entities=True, max_score = True, moves = True, score = True)
+    game_path = get_game_name(level_index, game_index, dataset_index)
+    env, game_file_names = dataset.get_game_env(game_path, infos_to_request, max_step)
+    obs, infos = env.reset()
+    printer(obs, infos)
+    return env
+
+
 
 
