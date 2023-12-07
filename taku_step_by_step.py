@@ -41,10 +41,34 @@ Next action you can take: {available_actions}
 To complete your task, have you made any mistakes that hindered you from completing tasks more efficiently? Which action (only one) should you take next? Let's think step by step."""
     print(template)
 
+def printer_step_by_step3(enviroment, inventory, available_actions, action_obs_pairs = []):
+    task = 'You are a experienced text game player, your goal is put things in there proper locations and improve your score.'
+    available_action_text = ''
+    for act in available_actions:
+        available_action_text += f'* {act}\n'
+    action_history = ''
+    if len(action_obs_pairs) > 0:
+        for idx, (act, obs) in enumerate(action_obs_pairs):
+            action_history += f'Action {idx}: {act} -> {obs} '
+    else:
+        action_history = 'No action was taken now.'
+    template = f"""Task: {task}
+Action history: {action_history}
+Inventory: {inventory}
+Current enviroment: {enviroment}
+
+Action you can take: 
+{available_action_text}
+
+Question: To put things in there proper locations and improve your score, what should you do? Think step by step then choose 'one' action from above list.
+Consideration: <fill in>
+Next action: <fill in>
+"""
+    print(template)
 
 # A simple version
 def printer_step_by_step2(enviroment, inventory, available_actions, action_obs_pairs = []):
-    task = 'Your task is put things in there proper locations and improve your score.'
+    task = 'You are a experienced text game player, your goal is put things in there proper locations and improve your score.'
     action_history = ''
     if len(action_obs_pairs) > 0:
         for idx, (act, obs) in enumerate(action_obs_pairs):
@@ -56,12 +80,11 @@ Action history: {action_history}
 Current enviroment: {enviroment}
 Inventory: {inventory}
 
-Next action you can take: {available_actions}
-To complete your task, which action (only one) should you take next? Let's think step by step."""
+To complete your goal, think step by step then choose 'one' action from: {available_actions}"""
     print(template)
 
 
-def act_step_by_step(env, command = None, printer = printer_step_by_step2):
+def act_step_by_step(env, command = None, printer = printer_step_by_step3):
     if not hasattr(env, 'action_obs_pairs'):
         env.action_obs_pairs = []
     action_obs_pairs = env.action_obs_pairs
