@@ -128,17 +128,20 @@ def act_step_by_step(env, command = None, printer = printer_step_by_step4):
         inventory = info['inventory'][0].strip().replace('\n','')
         # TODO: print(obs, infos)
         action_obs_pairs.append((command, obs))
-        enviroment, _ = step(env, 'look', printer = None)
+        enviroment = info['description']
         enviroment = enviroment[0].strip().replace('\n','')
         available_actions = info['admissible_commands'][0]
         env.counter_taku += 1
     else: # 重新开始的情况
         print('RESTAR\n\n')
-        _ = env.reset()
-        enviroment, info = step(env, 'look', printer = None)
+        _, info = env.reset()
+        enviroment = info['description']
         enviroment = enviroment[0].strip().replace('\n','')
         inventory = info['inventory'][0].strip().replace('\n','')
         available_actions = info['admissible_commands'][0]
         action_obs_pairs = []
         env.counter_taku = 0
-    return printer(enviroment, inventory, available_actions, action_obs_pairs)
+    if info['won'][0]:
+        print(f"YOU WIN, score at {info['score']}/{info['max_score']}, steps {info['moves']}")
+    else:
+        return printer(enviroment, inventory, available_actions, action_obs_pairs)

@@ -1,6 +1,7 @@
 from openai import OpenAI
 from taku_step_by_step import get_game_env, ONE_SHOT_EXP
 import taku_step_by_step as taku
+import pyperclip
 client = OpenAI()
 
 def quest_gpt4(system_msg, user_msg):
@@ -12,7 +13,11 @@ def quest_gpt4(system_msg, user_msg):
         {"role": "user", "content": user_msg}
       ]
     )
-    print(completion.choices[0].message)
+    print(completion.choices[0].message.content)
+    print(completion.usage)
+    # To clipboard
+    text_to_paste = f'{completion.choices[0].message.content}\n{completion.usage}'
+    pyperclip.copy(text_to_paste)
     return completion
 
 
