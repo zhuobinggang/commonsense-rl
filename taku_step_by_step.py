@@ -142,6 +142,12 @@ def act_step_by_step(env, command = None, printer = printer_step_by_step4):
         action_obs_pairs = []
         env.counter_taku = 0
     if info['won'][0]:
+        # 打引结束信息
         print(f"YOU WIN, score at {info['score']}/{info['max_score']}, steps {info['moves']}")
+        action_history = ''
+        if len(action_obs_pairs) > 0:
+            for idx, (act, obs) in enumerate(action_obs_pairs):
+                action_history += f'Action {idx}: {act} -> {obs} '
+        print(action_history)
     else:
         return printer(enviroment, inventory, available_actions, action_obs_pairs)

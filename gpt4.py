@@ -32,6 +32,7 @@ def call_gpt4_and_print(enviroment, inventory, available_actions, action_obs_pai
             action_history += f'Action {idx}: {act} -> {obs} '
     else:
         action_history = 'No action was taken now.'
+    print(action_history)
     system_msg = f"""Task: {task}
 Example walkthrough: {ONE_SHOT_EXP}
 Action history: {action_history}
