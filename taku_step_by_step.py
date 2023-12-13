@@ -141,4 +141,4 @@ def act_step_by_step(env, command = None, printer = printer_step_by_step4):
         available_actions = info['admissible_commands'][0]
         action_obs_pairs = []
         env.counter_taku = 0
-    printer(enviroment, inventory, available_actions, action_obs_pairs)
+    return printer(enviroment, inventory, available_actions, action_obs_pairs)
