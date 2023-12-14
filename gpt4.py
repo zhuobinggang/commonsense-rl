@@ -43,7 +43,8 @@ Current enviroment: {enviroment}"""
 Question: To put things in there proper locations and improve your score, what should you do? Think step by step then choose 'one' action from above list.
 Consideration: <fill in>
 Next action: <fill in>"""
-    return quest_gpt4(system_msg, user_msg)
+    # return quest_gpt4(system_msg, user_msg)
+    return f'{system_msg}\n{user_msg}'
     
 def act_step_by_step(env, command = None, caller = call_gpt4_and_print):
     return taku.act_step_by_step(env, command, caller)
