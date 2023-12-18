@@ -24,7 +24,7 @@ def quest_gpt4(system_msg, user_msg, gpt3 = False):
     return completion
 
 
-def call_gpt4_and_print(enviroment, inventory, available_actions, action_obs_pairs = []):
+def call_gpt4_and_print(enviroment, inventory, available_actions, action_obs_pairs = [], zero_shot = True):
     task = 'You are a experienced text game player, your goal is put things in there proper locations and improve your score.'
     available_action_text = ''
     for act in available_actions:
@@ -36,7 +36,13 @@ def call_gpt4_and_print(enviroment, inventory, available_actions, action_obs_pai
     else:
         action_history = 'No action was taken now.'
     print(action_history)
-    system_msg = f"""Task: {task}
+    if zero_shot:
+        system_msg = f"""Task: {task}
+Action history: {action_history}
+Inventory: {inventory}
+Current enviroment: {enviroment}"""
+    else:
+        system_msg = f"""Task: {task}
 Example walkthrough: {ONE_SHOT_EXP}
 Action history: {action_history}
 Inventory: {inventory}
@@ -46,31 +52,8 @@ Current enviroment: {enviroment}"""
 Question: To put things in there proper locations and improve your score, what should you do? Think step by step then choose 'one' action from above list.
 Consideration: <fill in>
 Next action: <fill in>"""
-    return quest_gpt4(system_msg, user_msg, gpt3 = False)
+    return quest_gpt4(system_msg, user_msg, gpt3 = True)
     # return f'{system_msg}\n{user_msg}'
-
-def call_gpt4_and_print_zeroshot(enviroment, inventory, available_actions, action_obs_pairs = []):
-    task = 'You are a experienced text game player, your goal is put things in there proper locations and improve your score.'
-    available_action_text = ''
-    for act in available_actions:
-        available_action_text += f'* {act}\n'
-    action_history = ''
-    if len(action_obs_pairs) > 0:
-        for idx, (act, obs) in enumerate(action_obs_pairs):
-            action_history += f'Action {idx}: {act} -> {obs} '
-    else:
-        action_history = 'No action was taken now.'
-    print(action_history)
-    system_msg = f"""Task: {task}
-Action history: {action_history}
-Inventory: {inventory}
-Current enviroment: {enviroment}"""
-    user_msg = f"""Action you can take: 
-{available_action_text}
-Question: To put things in there proper locations and improve your score, what should you do? Think step by step then choose 'one' action from above list.
-Consideration: <fill in>
-Next action: <fill in>"""
-    return quest_gpt4(system_msg, user_msg, gpt3 = False)
     
-def act_step_by_step(env, command = None, caller = call_gpt4_and_print_zeroshot):
+def act_step_by_step(env, command = None, caller = call_gpt4_and_print):
     return taku.act_step_by_step(env, command, caller)
