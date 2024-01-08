@@ -55,5 +55,8 @@ Next action: <fill in>"""
     return quest_gpt4(system_msg, user_msg, gpt3 = True)
     # return f'{system_msg}\n{user_msg}'
     
+
+# 流程： taku.act_step_by_step负责基础的字符串处理+引擎交互+结果存储
+# call_gpt4_and_print负责将上一步的结果汇总成prompt并向openai发送请求
 def act_step_by_step(env, command = None, caller = call_gpt4_and_print):
     return taku.act_step_by_step(env, command, caller)

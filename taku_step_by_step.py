@@ -5,6 +5,7 @@ def get_game_env(level_index = 0, game_index = 0, dataset_index = 1, printer = N
     printer = None
     need_reset = False
     env = taku.get_game_env(level_index, game_index, dataset_index, printer, max_step, need_reset)
+    env.meta_info = f'get_game_env({level_index},{game_index},{dataset_index})'
     env.counter_taku = 0
     return env
 
@@ -115,24 +116,33 @@ Next action: <fill in>
 """
     print(template)
 
-
-
 def act_step_by_step(env, command = None, printer = printer_step_by_step4):
     if not hasattr(env, 'action_obs_pairs'):
         env.action_obs_pairs = []
+    if not hasattr(env, 'available_actions'): # 2024.1.8 增加env.available_actions
+        env.available_actions = []
+    if not hasattr(env, 'last_reward'): # 2024.1.8 增加env.instant_reward
+        env.last_reward = 0
+        env.instant_reward = 0
     action_obs_pairs = env.action_obs_pairs
     if command:
-        obs, info = step(env, command, printer = None)
+        obs, info = step(env, command, printer = None, need_reward = False)
         obs = obs[0].strip().replace('\n','')
         inventory = info['inventory'][0].strip().replace('\n','')
         enviroment = info['description']
         enviroment = enviroment[0].strip().replace('\n','')
-        # TODO: 如果obs和enviroment重复，应该被截断
+        # 如果obs和enviroment重复，应该被截断
         if obs == enviroment:
             obs = obs.split('.')[0] + '.'
         action_obs_pairs.append((command, obs))
         available_actions = info['admissible_commands'][0]
         env.counter_taku += 1
+        # TODO: 记录瞬时奖励
+        new_reward = info['score'][0]
+        env.instant_reward = new_reward - env.last_reward
+        env.last_reward = new_reward
+        if env.instant_reward != 0:
+            print(f'RECORDED REWARD: {env.instant_reward}')
     else: # 重新开始的情况
         print('RESTAR\n\n')
         _, info = env.reset()
@@ -142,6 +152,9 @@ def act_step_by_step(env, command = None, printer = printer_step_by_step4):
         available_actions = info['admissible_commands'][0]
         action_obs_pairs = []
         env.counter_taku = 0
+        env.last_reward = 0
+        env.instant_reward = 0
+    env.available_actions = available_actions
     if info['won'][0]:
         # 打引结束信息
         print(f"YOU WIN, score at {info['score']}/{info['max_score']}, steps {info['moves']}")
@@ -152,3 +165,32 @@ def act_step_by_step(env, command = None, printer = printer_step_by_step4):
         print(action_history)
     else:
         return printer(enviroment, inventory, available_actions, action_obs_pairs)
+
+
+
+# 2024.1.8 : 将上一步的available action list保存在env里边，command用序号输入
+def printer_command_with_index(enviroment, inventory, available_actions, action_obs_pairs = []):
+    available_action_text = ''
+    for idx, act in enumerate(available_actions):
+        available_action_text += f'[{idx}] {act}\n'
+    action_history = ''
+    if len(action_obs_pairs) > 0:
+        for idx, (act, obs) in enumerate(action_obs_pairs):
+            action_history += f'Action {idx}: {act} -> {obs} '
+    else:
+        action_history = ''
+    template = f"""Action history: {action_history}
+Inventory: {inventory}
+Current enviroment: {enviroment}
+Action you can take: 
+{available_action_text}
+"""
+    # print(template)
+    return template
+
+
+# 2024.1.8 : 将上一步的available action list保存在env里边，command用序号输入
+def interact_with_env(env, command_idx = -1, printer = printer_command_with_index):
+    command = None if command_idx == -1 else env.available_actions[command_idx]
+    return act_step_by_step(env, command, printer)
+

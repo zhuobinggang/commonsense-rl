@@ -25,13 +25,13 @@ def get_default_env(printer = printer1):
         printer(obs[0], infos)
     return env, obs[0], infos
 
-def step(env, cmd, printer = printer1):
+def step(env, cmd, printer = printer1, need_reward = False):
     obs, reward, is_not_terminal, infos = env.step([cmd])
     if printer:
         printer(obs, infos)
     if not is_not_terminal:
         print('\n\nGAME OVER!')
-    return obs, infos
+    return (obs, infos) if not need_reward else (obs, infos, reward)
 
 LEVELS = ['easy', 'medium', 'hard']
 DATASET_NAMES = ['train', 'test', 'valid']
