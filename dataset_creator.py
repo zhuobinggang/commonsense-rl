@@ -12,8 +12,10 @@ def interact_with_env_and_record_dataset(env, command_idx = -1, printer = printe
     print(x) # 打印发现
 
 
-def save_dataset(env, filename):
+def save_dataset(env, filename = None):
     dataset = env.dataset
+    if not filename:
+        filename = 'exp/supervised_learning_dataset/' + env.meta_name + '.pickle'
     # TODO: 处理错位问题
     dataset_fixed = []
     for i in range(len(dataset) - 1):

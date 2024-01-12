@@ -6,6 +6,7 @@ def get_game_env(level_index = 0, game_index = 0, dataset_index = 1, printer = N
     need_reset = False
     env = taku.get_game_env(level_index, game_index, dataset_index, printer, max_step, need_reset)
     env.meta_info = f'get_game_env({level_index},{game_index},{dataset_index})'
+    env.meta_name = f'{taku.DATASET_NAMES[dataset_index]}_{taku.LEVELS[level_index]}_{game_index}'
     env.counter_taku = 0
     return env
 
