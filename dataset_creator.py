@@ -16,7 +16,7 @@ def save_dataset(env, filename = None):
     dataset = env.dataset
     if not filename:
         filename = 'exp/supervised_learning_dataset/' + env.meta_name + '.pickle'
-    # TODO: 处理错位问题
+    # 处理错位问题
     dataset_fixed = []
     for i in range(len(dataset) - 1):
         x, _, _ = dataset[i]
@@ -33,3 +33,68 @@ def load_dataset(filename):
         dic = pickle.load(handle)
     return dic
 
+
+########## 1.15整理数据集
+
+def read_full_dataset():
+    import glob
+    dataset_files = glob.glob(f'exp/supervised_learning_dataset/*pickle')
+    full_dataset = []
+    for file in dataset_files:
+        dic = load_dataset(file)
+        full_dataset += dic['dataset']
+    return full_dataset
+
+
+def num_tokens_from_string(string: str, encoding_name: str = 'cl100k_base') -> int:
+    import tiktoken
+    encoding = tiktoken.get_encoding(encoding_name)
+    num_tokens = len(encoding.encode(string))
+    return num_tokens
+
+def randomize_full_dataset(ds = None):
+    if not ds:
+        ds = read_full_dataset()
+    import numpy as np
+    np.random.seed(20240115)
+    np.random.shuffle(ds)
+    return ds
+
+def save_randomized_full_dataset(ds = None):
+    pass # NOTE: just create new instance every time
+
+
+DEFAULT_SYSTEM_PROMPT = 'Select next action to improve your score.'
+def create_json_row_dialogue(context, label):
+    prompt = context.strip() + '\nNext action: '
+    return {
+        "messages": [
+            {"role": "system", "content": DEFAULT_SYSTEM_PROMPT},
+            {"role": "user", "content": prompt},
+            {"role": "assistant", "content": str(label)},
+        ]
+    }
+
+def create_json_row_prompt_completion(context, label):
+    prompt = context.strip() + '\nNext action: '
+    return {"prompt": prompt, "completion": str(label)}
+
+
+def write_to_jsonl_dialogue_format(ds = None):
+    if not ds:
+        ds = randomize_full_dataset(None)
+    import json
+    with open("train_twc_player_dialogue.jsonl", "w") as f:
+        for context, label, reward in ds:
+            example_str = json.dumps(create_json_row_dialogue(context, label))
+            f.write(example_str + "\n")
+
+
+def write_to_jsonl_prompt_completion_format(ds = None):
+    if not ds:
+        ds = randomize_full_dataset(None)
+    import json
+    with open("train_twc_player_prompt_completion.jsonl", "w") as f:
+        for context, label, reward in ds:
+            example_str = json.dumps(create_json_row_prompt_completion(context, label))
+            f.write(example_str + "\n")

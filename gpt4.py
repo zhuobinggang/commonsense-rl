@@ -1,8 +1,9 @@
 from openai import OpenAI
-from taku_step_by_step import get_game_env, ONE_SHOT_EXP
+from taku_step_by_step import get_game_env, ONE_SHOT_EXP, printer_command_with_index
 import taku_step_by_step as taku
 import pyperclip
 client = OpenAI()
+from dataset_creator import DEFAULT_SYSTEM_PROMPT
 
 def quest_gpt4(system_msg, user_msg, gpt3 = False):
     if gpt3:
@@ -60,3 +61,38 @@ Next action: <fill in>"""
 # call_gpt4_and_print负责将上一步的结果汇总成prompt并向openai发送请求
 def act_step_by_step(env, command = None, caller = call_gpt4_and_print):
     return taku.act_step_by_step(env, command, caller)
+
+### 20240115 use finetuned gpt3.5
+def quest_finetuned_gpt35(prompt):
+    model = "ft:gpt-3.5-turbo-1106:tottori-university-nlp-lab::8hBX82zF"
+    completion = client.chat.completions.create(
+      model=model,
+      messages=[
+        {"role": "system", "content": DEFAULT_SYSTEM_PROMPT},
+        {"role": "user", "content": prompt}
+      ]
+    )
+    print(completion.choices[0].message.content)
+    print(completion.usage)
+    # To clipboard
+    text_to_paste = f'{completion.choices[0].message.content}\n{completion.usage}'
+    pyperclip.copy(text_to_paste)
+    dic = {'response': completion.choices[0].message.content, 'usage': str(completion.usage)}
+    return dic
+
+
+def call_finetuned_gpt35_and_print(enviroment, inventory, available_actions, action_obs_pairs = []):
+    prompt = printer_command_with_index(enviroment, inventory, available_actions, action_obs_pairs)
+    prompt = prompt.strip() + '\nNext action: '
+    print(prompt)
+    response_dic = quest_finetuned_gpt35(prompt)
+    return prompt, response_dic
+
+def act_step_by_step_finetuned_model(env, command_idx = -1, caller = call_finetuned_gpt35_and_print):
+    if not hasattr(env, 'record'): # 2024.1.16 增加env.record
+        env.record = []
+    command = None if command_idx == -1 else env.available_actions[command_idx]
+    gpt_response = taku.act_step_by_step(env, command, caller)
+    if gpt_response is not None:
+        x, y = gpt_response
+        env.record.append((x,y))
