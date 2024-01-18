@@ -96,3 +96,11 @@ def act_step_by_step_finetuned_model(env, command_idx = -1, caller = call_finetu
     if gpt_response is not None:
         x, y = gpt_response
         env.record.append((x,y))
+
+def save_record(env, filename = None):
+    if not filename:
+        filename = 'exp/finetuned_model_walkthrough/' + env.meta_name + '.pickle'
+    dic = {'env_meta': env.meta_info, 'record': env.record}
+    import pickle
+    with open(filename, 'wb') as handle:
+        pickle.dump(dic, handle, protocol=pickle.HIGHEST_PROTOCOL)
