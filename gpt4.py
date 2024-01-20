@@ -104,3 +104,23 @@ def save_record(env, filename = None):
     import pickle
     with open(filename, 'wb') as handle:
         pickle.dump(dic, handle, protocol=pickle.HIGHEST_PROTOCOL)
+
+##### 1.20 finetuned gpt35 with action explanation ####
+
+
+def quest_finetuned_gpt35_with_action_explanation(prompt):
+    model = "ft:gpt-3.5-turbo-1106:tottori-university-nlp-lab::8iggnTFZ"
+    completion = client.chat.completions.create(
+      model=model,
+      messages=[
+        {"role": "system", "content": DEFAULT_SYSTEM_PROMPT},
+        {"role": "user", "content": prompt}
+      ]
+    )
+    print(completion.choices[0].message.content)
+    print(completion.usage)
+    # To clipboard
+    text_to_paste = f'{completion.choices[0].message.content}\n{completion.usage}'
+    pyperclip.copy(text_to_paste)
+    dic = {'response': completion.choices[0].message.content, 'usage': str(completion.usage)}
+    return dic

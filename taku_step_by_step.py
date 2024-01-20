@@ -168,6 +168,51 @@ def act_step_by_step(env, command = None, printer = printer_step_by_step4):
         return printer(enviroment, inventory, available_actions, action_obs_pairs)
 
 
+# 2024.01.18 返回所有必要信息而不是调用回调函数
+def act_step_by_step_simple(env, command = None):
+    if not hasattr(env, 'action_obs_pairs'):
+        env.action_obs_pairs = []
+    if not hasattr(env, 'available_actions'): # 2024.1.8 增加env.available_actions
+        env.available_actions = []
+    if not hasattr(env, 'last_reward'): # 2024.1.8 增加env.instant_reward
+        env.last_reward = 0
+        env.instant_reward = 0
+    action_obs_pairs = env.action_obs_pairs
+    if command:
+        obs, info = step(env, command, printer = None, need_reward = False)
+        obs = obs[0].strip().replace('\n','')
+        inventory = info['inventory'][0].strip().replace('\n','')
+        enviroment = info['description']
+        enviroment = enviroment[0].strip().replace('\n','')
+        # 如果obs和enviroment重复，应该被截断
+        if obs == enviroment:
+            obs = obs.split('.')[0] + '.'
+        action_obs_pairs.append((command, obs))
+        available_actions = info['admissible_commands'][0]
+        env.counter_taku += 1
+        # TODO: 记录瞬时奖励
+        new_reward = info['score'][0]
+        env.instant_reward = new_reward - env.last_reward
+        env.last_reward = new_reward
+        if env.instant_reward != 0:
+            print(f'RECORDED REWARD: {env.instant_reward}')
+    else: # 重新开始的情况
+        print('RESTAR\n\n')
+        _, info = env.reset()
+        enviroment = info['description']
+        enviroment = enviroment[0].strip().replace('\n','')
+        inventory = info['inventory'][0].strip().replace('\n','')
+        available_actions = info['admissible_commands'][0]
+        action_obs_pairs = []
+        env.counter_taku = 0
+        env.last_reward = 0
+        env.instant_reward = 0
+    env.available_actions = available_actions
+    if info['won'][0]:
+        # 打引结束信息
+        print(f"YOU WIN, score at {info['score']}/{info['max_score']}, steps {info['moves']}")
+    return enviroment, inventory, available_actions, action_obs_pairs
+
 
 # 2024.1.8 : 将上一步的available action list保存在env里边，command用序号输入
 def printer_command_with_index(enviroment, inventory, available_actions, action_obs_pairs = []):

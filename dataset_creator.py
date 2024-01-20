@@ -38,7 +38,8 @@ def load_dataset(filename):
 
 def read_full_dataset():
     import glob
-    dataset_files = glob.glob(f'exp/supervised_learning_dataset/*pickle')
+    pickles = 'exp/supervised_learning_dataset/*pickle'
+    dataset_files = glob.glob(pickles)
     full_dataset = []
     for file in dataset_files:
         dic = load_dataset(file)
