@@ -128,6 +128,16 @@ def read_full_dataset():
     return full_dataset
 
 
+def read_hard_dataset_only():
+    import glob
+    pickles = 'exp/supervised_dataset_plus/train_hard_*pickle'
+    dataset_files = glob.glob(pickles)
+    full_dataset = []
+    for file in dataset_files:
+        dic = load_dataset(file)
+        full_dataset += dic['dataset']
+    return full_dataset
+
 def num_tokens_from_string(string: str, encoding_name: str = 'cl100k_base') -> int:
     import tiktoken
     encoding = tiktoken.get_encoding(encoding_name)
@@ -172,6 +182,16 @@ def write_to_jsonl_dialogue_format(ds = None):
             f.write(example_str + "\n")
 
 
+def write_to_jsonl_dialogue_format_hard_only(ds = None):
+    if not ds:
+        ds = read_hard_dataset_only()
+        ds = randomize_full_dataset(ds)
+    import json
+    with open("train_twc_player_dialogue_explanation_plus_hard_only.jsonl", "w") as f:
+        for context, label, reward in ds:
+            example_str = json.dumps(create_json_row_dialogue(context, label))
+            f.write(example_str + "\n")
+
 def write_to_jsonl_prompt_completion_format(ds = None):
     if not ds:
         ds = randomize_full_dataset(None)
@@ -205,7 +225,7 @@ def test_script_example():
     x = interact_with_env_and_record_walkthrough(env) # END
     save_walkthrough(env)
 
-#### 2024.1.20 计算所有种类选项的占比，分析是否存在数据不均衡问题
+#### 2024.1.20 计算所有种类选项的占比，分析是否存在数据不均衡问题，有，1:5
 def analyse_label_category_percentage():
     ds = randomize_full_dataset()
     dic = {'A': 0, 'B': 0, 'C': 0, 'D': 0}
@@ -214,4 +234,13 @@ def analyse_label_category_percentage():
         dic[cate] += 1
     return dic
 
+
+#### 2024.1.20 计算hard种类选项的占比，分析是否存在数据不均衡问题，1:3左右
+def analyse_label_category_percentage_hard_only():
+    ds = read_hard_dataset_only()
+    dic = {'A': 0, 'B': 0, 'C': 0, 'D': 0}
+    for x, label, reward in ds:
+        cate, command_idx = label.split('-')
+        dic[cate] += 1
+    return dic
 
