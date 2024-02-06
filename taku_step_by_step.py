@@ -227,6 +227,14 @@ def act_step_by_step_obs_augment(env, command = None):
         print(f"YOU WIN, score at {info['score']}/{info['max_score']}, steps {info['moves']}")
     return enviroment, inventory, available_actions, action_obs_pairs
 
+def act_step_by_step_obs_augment_manually(env, command = None):
+    enviroment, inventory, available_actions, action_obs_pairs = act_step_by_step_obs_augment(env, command)
+    print(enviroment)
+    print(inventory)
+    for item in available_actions:
+        print(item)
+
+
 # 2024.01.18 返回所有必要信息而不是调用回调函数
 def act_step_by_step_simple(env, command = None):
     if not hasattr(env, 'action_obs_pairs'):
