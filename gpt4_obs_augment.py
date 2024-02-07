@@ -3,7 +3,9 @@ from taku_step_by_step import get_game_env, ONE_SHOT_EXP, act_step_by_step_obs_a
 import pyperclip
 client = OpenAI()
 
-ONE_SHOT_EXP_AUGMENT = """Action 0: insert dirty yellow dress into washing machine -> You put the dirty yellow dress into the washing machine.Your score has just gone up by one point.Right position. Action 1: take dirty yellow T-shirt from bench -> You take the dirty yellow T-shirt from the bench. Action 2: insert dirty yellow T-shirt into washing machine -> You put the dirty yellow T-shirt into the washing machine.Your score has just gone up by one point.Right position. Action 3: take wet azure dress from suspended shelf -> You take the wet azure dress from the suspended shelf. Action 4: insert wet azure dress into clothes drier -> You put the wet azure dress into the clothes drier.Your score has just gone up by one point.Right position. Action 5: take white cap from bench -> You take the white cap from the bench. Action 6: go east -> -= Corridor =-You've entered a corridor. Action 7: put white cap on hat rack -> You put the white cap on the hat rack.Your score has just gone up by one point.Right position. Action 8: take dirty cardigan -> You pick up the dirty cardigan from the ground. Action 9: take dirty checkered shirt from shoe cabinet -> You take the dirty checkered shirt from the shoe cabinet. Action 10: take dirty maroon dress -> You pick up the dirty maroon dress from the ground. Action 11: go west -> -= Laundry Room =-You've entered a laundry room. Action 12: insert dirty cardigan into washing machine -> You put the dirty cardigan into the washing machine.Your score has just gone up by one point.Right position. Action 13: insert dirty checkered shirt into washing machine -> You put the dirty checkered shirt into the washing machine.Your score has just gone up by one point.Right position. Action 14: insert dirty maroon dress into washing machine -> You put the dirty maroon dress into the washing machine.Your score has just gone up by one point."""
+ONE_SHOT_EXP_AUGMENT = """Action 0: insert dirty yellow dress into washing machine -> You put the dirty yellow dress into the washing machine.Your score has just gone up by one point.Right position. Action 1: take dirty yellow T-shirt from bench -> You take the dirty yellow T-shirt from the bench. Action 2: insert dirty yellow T-shirt into washing machine -> You put the dirty yellow T-shirt into the washing machine.Your score has just gone up by one point.Right position. Action 3: take wet azure dress from suspended shelf -> You take the wet azure dress from the suspended shelf. Action 4: insert wet azure dress into clothes drier -> You put the wet azure dress into the clothes drier.Your score has just gone up by one point.Right position. Action 5: take white cap from bench -> You take the white cap from the bench. Action 6: go east -> -= Corridor =-You've entered a corridor. Action 7: put white cap on hat rack -> You put the white cap on the hat rack.Your score has just gone up by one point.Right position. Action 8: take dirty cardigan -> You pick up the dirty cardigan from the ground. Action 9: take dirty checkered shirt from shoe cabinet -> You take the dirty checkered shirt from the shoe cabinet. Action 10: take dirty maroon dress -> You pick up the dirty maroon dress from the ground. Action 11: go west -> -= Laundry Room =-You've entered a laundry room. Action 12: insert dirty cardigan into washing machine -> You put the dirty cardigan into the washing machine.Your score has just gone up by one point.Right position. Action 13: insert dirty checkered shirt into washing machine -> You put the dirty checkered shirt into the washing machine.Your score has just gone up by one point.Right position. Action 14: insert dirty maroon dress into washing machine -> You put the dirty maroon dress into the washing machine.Your score has just gone up by one point.Right position."""
+
+ONE_SHOT_EXP_AUGMENT_SIMPLE = """Action 0: take dirty gray underpants from work table -> You take the dirty gray underpants from the work table. Action 1: insert dirty gray underpants into washing machine -> You put the dirty gray underpants into the washing machine.Your score has just gone up by one point.Right position."""
 
 def quest_gpt4(system_msg, user_msg, gpt3 = False):
     if gpt3:
@@ -32,7 +34,7 @@ def quest_gpt4(system_msg, user_msg, gpt3 = False):
     dic = {'response': content, 'usage': usage}
     return dic
 
-def call_gpt4_and_print_raw(enviroment, inventory, available_actions, action_obs_pairs = [], zero_shot = True, gpt3 = False, question_template = None):
+def call_gpt4_and_print_raw(enviroment, inventory, available_actions, action_obs_pairs = [], zero_shot = True, gpt3 = False, question_template = None, ONE_SHOT_EASY = False):
     task = 'You are a experienced text game player, your goal is put things in there proper locations and improve your score.'
     available_action_text = ''
     for act in available_actions:
@@ -49,8 +51,9 @@ Action history: {action_history}
 Inventory: {inventory}
 Current enviroment: {enviroment}"""
     else:
+        walkthrough = ONE_SHOT_EXP_AUGMENT_SIMPLE if ONE_SHOT_EASY else ONE_SHOT_EXP_AUGMENT
         system_msg = f"""Task: {task}
-Example walkthrough: {ONE_SHOT_EXP_AUGMENT}
+Example walkthrough: {walkthrough}
 Action history: {action_history}
 Inventory: {inventory}
 Current enviroment: {enviroment}"""
@@ -63,29 +66,29 @@ Current enviroment: {enviroment}"""
     return x, y
 
 #### 2024.1.25 ablation expriment
-def call_gpt4_and_print_sub_COT(enviroment, inventory, available_actions, action_obs_pairs = [], zero_shot = True, gpt3 = False):
+def call_gpt4_and_print_sub_COT(enviroment, inventory, available_actions, action_obs_pairs = [], zero_shot = True, gpt3 = False, ONE_SHOT_EASY = False):
     # NOTE: -COT 删除了部分提示
     question_template = """Question: To put things in there proper locations and improve your score, what should you do? Choose 'one' action from above list.
 Next action: <fill in>"""
-    return call_gpt4_and_print_raw(enviroment, inventory, available_actions, action_obs_pairs, zero_shot, gpt3, question_template)
+    return call_gpt4_and_print_raw(enviroment, inventory, available_actions, action_obs_pairs, zero_shot, gpt3, question_template, ONE_SHOT_EASY)
 
 
-def call_gpt4_and_print(enviroment, inventory, available_actions, action_obs_pairs = [], zero_shot = True, gpt3 = False):
+def call_gpt4_and_print(enviroment, inventory, available_actions, action_obs_pairs = [], zero_shot = True, gpt3 = False, ONE_SHOT_EASY = False):
     question_template = f"""Question: To put things in there proper locations and improve your score, what should you do? Think step by step then choose 'one' action from above list.
 Consideration: <fill in>
 Next action: <fill in>"""
-    return call_gpt4_and_print_raw(enviroment, inventory, available_actions, action_obs_pairs, zero_shot, gpt3, question_template)
+    return call_gpt4_and_print_raw(enviroment, inventory, available_actions, action_obs_pairs, zero_shot, gpt3, question_template, ONE_SHOT_EASY)
     
 
-def interact_with_env_raw(env, command = None, gpt3 = False, cot = True, zero_shot = True):
+def interact_with_env_raw(env, command = None, gpt3 = False, cot = True, zero_shot = True, ONE_SHOT_EASY = False):
     if not hasattr(env, 'dataset'): # 2024.1.8 增加env.dataset
         env.dataset = []
     enviroment, inventory, available_actions, action_obs_pairs = act_step_by_step_obs_augment(env, command)
     if not hasattr(env, 'end'):
         if cot:
-            x, y = call_gpt4_and_print(enviroment, inventory, available_actions, action_obs_pairs, zero_shot = zero_shot, gpt3 = gpt3)
+            x, y = call_gpt4_and_print(enviroment, inventory, available_actions, action_obs_pairs, zero_shot = zero_shot, gpt3 = gpt3, ONE_SHOT_EASY = ONE_SHOT_EASY)
         else:
-            x, y = call_gpt4_and_print_sub_COT(enviroment, inventory, available_actions, action_obs_pairs, zero_shot = zero_shot, gpt3 = gpt3)
+            x, y = call_gpt4_and_print_sub_COT(enviroment, inventory, available_actions, action_obs_pairs, zero_shot = zero_shot, gpt3 = gpt3, ONE_SHOT_EASY = ONE_SHOT_EASY)
         env.dataset.append((x,y))
 
 def interact_with_env(env, command = None):
@@ -99,6 +102,9 @@ def interact_with_env_without_cot(env, command = None):
 
 def interact_with_env_oneshot(env, command = None):
     return interact_with_env_raw(env, command, gpt3 = False, cot = True, zero_shot = False)
+
+def interact_with_env_oneshot_simple(env, command = None):
+    return interact_with_env_raw(env, command, gpt3 = False, cot = True, zero_shot = False, ONE_SHOT_EASY = True)
 
 def save_dataset_raw(env, filename):
     dataset = env.dataset
