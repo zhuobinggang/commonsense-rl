@@ -173,7 +173,7 @@ def is_placing_item(command):
     return command.split()[0] in ['put', 'insert']
 RIGHT_POSITION = 'Right position.'
 WRONG_POSITION = 'Wrong position, you should put it somewhere else, maybe the other room.'
-def act_step_by_step_obs_augment(env, command = None):
+def act_step_by_step_obs_augment(env, command = None, no_augment = False):
     if not hasattr(env, 'action_obs_pairs'):
         env.action_obs_pairs = []
     if not hasattr(env, 'available_actions'): # 2024.1.8 增加env.available_actions
@@ -198,16 +198,20 @@ def act_step_by_step_obs_augment(env, command = None):
         env.instant_reward = new_reward - env.last_reward
         env.last_reward = new_reward
         # 2024.1.21 如果放错位置应该提供足够的提示
-        if env.instant_reward != 0:
-            print(f'RECORDED REWARD: {env.instant_reward}')
-            obs += RIGHT_POSITION
+        if no_augment:
+            print('NO AUGMENT')
+            pass
         else:
-            if is_placing_item(command):
-                obs_lower = obs.lower()
-                if obs_lower.startswith("you can't") or obs_lower.startswith('you need'):
-                    pass
-                else:
-                    obs += WRONG_POSITION
+            if env.instant_reward != 0:
+                print(f'RECORDED REWARD: {env.instant_reward}')
+                obs += RIGHT_POSITION
+            else:
+                if is_placing_item(command):
+                    obs_lower = obs.lower()
+                    if obs_lower.startswith("you can't") or obs_lower.startswith('you need'):
+                        pass
+                    else:
+                        obs += WRONG_POSITION
         action_obs_pairs.append((command, obs))
     else: # 重新开始的情况
         print('RESTAR\n\n')

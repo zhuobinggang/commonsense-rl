@@ -5,11 +5,12 @@ import pyperclip
 client = OpenAI()
 from dataset_creator import DEFAULT_SYSTEM_PROMPT
 
-def quest_gpt4(system_msg, user_msg, gpt3 = False):
+def quest_gpt4(system_msg = 'You are a helpful assistant.', user_msg = 'Tell me a joker.', gpt3 = False):
     if gpt3:
         model="gpt-3.5-turbo"
     else:
-        model = "gpt-4-1106-preview"
+        # model = "gpt-4-1106-preview"
+        model = "gpt-4-0125-preview"
     completion = client.chat.completions.create(
       model=model,
       messages=[
