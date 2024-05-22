@@ -1,6 +1,7 @@
 import taku
 step = taku.step
 
+# env = get_game_env(2, 0, 1)
 def get_game_env(level_index = 0, game_index = 0, dataset_index = 1, printer = None, max_step = 50, need_reset = False):
     printer = None
     need_reset = False
@@ -15,12 +16,12 @@ def dd():
     env = get_game_env()
     action_obs_pairs = []
     command = ''
-    obs, info = step(env, command, printer = None)
+    obs, info = step(env, command, caller  = None)
     obs = obs[0].strip().replace('\n','')
     inventory = info['inventory'][0].strip().replace('\n','')
     # TODO: print(obs, infos)
     action_obs_pairs.append((command, obs))
-    enviroment, _ = step(env, 'look', printer = None)
+    enviroment, _ = step(env, 'look', caller = None)
     enviroment = enviroment[0].strip().replace('\n','')
     available_actions = info['admissible_commands'][0]
     printer_step_by_step(enviroment, inventory, available_actions, action_obs_pairs)
@@ -117,9 +118,13 @@ Next action: <fill in>
 """
     print(template)
 
-def act_step_by_step(env, command = None, printer = printer_step_by_step4):
+def act_step_by_step(env, command = None, caller = printer_step_by_step4):
     if not hasattr(env, 'action_obs_pairs'):
         env.action_obs_pairs = []
+    if not hasattr(env, 'system_user_msgs'): # 2024.5.22
+        env.system_user_msgs = []
+    if not hasattr(env, 'gpt_responses'): # 2024.5.22
+        env.gpt_responses = []
     if not hasattr(env, 'available_actions'): # 2024.1.8 增加env.available_actions
         env.available_actions = []
     if not hasattr(env, 'last_reward'): # 2024.1.8 增加env.instant_reward
@@ -127,13 +132,13 @@ def act_step_by_step(env, command = None, printer = printer_step_by_step4):
         env.instant_reward = 0
     action_obs_pairs = env.action_obs_pairs
     if command:
-        obs, info = step(env, command, printer = None, need_reward = False)
+        obs, info = step(env, command, caller = None, need_reward = False)
         obs = obs[0].strip().replace('\n','')
         inventory = info['inventory'][0].strip().replace('\n','')
-        enviroment = info['description']
-        enviroment = enviroment[0].strip().replace('\n','')
-        # 如果obs和enviroment重复，应该被截断
-        if obs == enviroment:
+        description = info['description']
+        description = description[0].strip().replace('\n','')
+        # 如果obs和description重复，应该被截断
+        if obs == description:
             obs = obs.split('.')[0] + '.'
         action_obs_pairs.append((command, obs))
         available_actions = info['admissible_commands'][0]
@@ -147,8 +152,8 @@ def act_step_by_step(env, command = None, printer = printer_step_by_step4):
     else: # 重新开始的情况
         print('RESTAR\n\n')
         _, info = env.reset()
-        enviroment = info['description']
-        enviroment = enviroment[0].strip().replace('\n','')
+        description = info['description']
+        description = description[0].strip().replace('\n','')
         inventory = info['inventory'][0].strip().replace('\n','')
         available_actions = info['admissible_commands'][0]
         action_obs_pairs = []
@@ -165,7 +170,7 @@ def act_step_by_step(env, command = None, printer = printer_step_by_step4):
                 action_history += f'Action {idx}: {act} -> {obs} '
         print(action_history)
     else:
-        return printer(enviroment, inventory, available_actions, action_obs_pairs)
+        return caller(description, inventory, available_actions, action_obs_pairs)
 
 # 2024.01.21 观察增强，如果是放错位置要有足够的提示
 def is_placing_item(command):
