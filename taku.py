@@ -31,6 +31,7 @@ def step(env, cmd, caller = printer1, need_reward = False):
         caller(obs, infos)
     if not is_not_terminal:
         print('\n\nGAME OVER!')
+    env.info = infos # Added 2024.5.23
     return (obs, infos) if not need_reward else (obs, infos, reward)
 
 LEVELS = ['easy', 'medium', 'hard']

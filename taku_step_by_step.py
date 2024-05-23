@@ -118,7 +118,7 @@ Next action: <fill in>
 """
     print(template)
 
-def act_step_by_step(env, command = None, caller = printer_step_by_step4):
+def initiate_env(env):
     if not hasattr(env, 'action_obs_pairs'):
         env.action_obs_pairs = []
     if not hasattr(env, 'system_user_msgs'): # 2024.5.22
@@ -130,6 +130,15 @@ def act_step_by_step(env, command = None, caller = printer_step_by_step4):
     if not hasattr(env, 'last_reward'): # 2024.1.8 增加env.instant_reward
         env.last_reward = 0
         env.instant_reward = 0
+    if not hasattr(env, 'score_by_step'): # 2024.2.9 增加env.score_by_step
+        env.score_by_step = []
+    if not hasattr(env, 'end'): # 2024.5.22
+        env.end = False
+    if not hasattr(env, 'info'): # 2024.5.23
+        env.info = None # Will be injected in taku.step()
+
+def act_step_by_step(env, command = None, caller = printer_step_by_step4):
+    initiate_env(env)
     action_obs_pairs = env.action_obs_pairs
     if command:
         obs, info = step(env, command, caller = None, need_reward = False)
@@ -179,16 +188,10 @@ def is_placing_item(command):
 RIGHT_POSITION = 'Right position.'
 WRONG_POSITION = 'Wrong position, you should put it somewhere else, maybe the other room.'
 def act_step_by_step_obs_augment(env, command = None, no_augment = False):
-    if not hasattr(env, 'action_obs_pairs'):
-        env.action_obs_pairs = []
-    if not hasattr(env, 'available_actions'): # 2024.1.8 增加env.available_actions
-        env.available_actions = []
-    if not hasattr(env, 'last_reward'): # 2024.1.8 增加env.instant_reward
-        env.last_reward = 0
-        env.instant_reward = 0
+    initiate_env(env)
     action_obs_pairs = env.action_obs_pairs
     if command:
-        obs, info = step(env, command, printer = None, need_reward = False)
+        obs, info = step(env, command, caller = None, need_reward = False)
         obs = obs[0].strip().replace('\n','')
         inventory = info['inventory'][0].strip().replace('\n','')
         enviroment = info['description']
