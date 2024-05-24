@@ -1,6 +1,6 @@
-from gpt4o import *
-from gpt4 import quest_gpt, GPT_Caller
+from gpt4 import quest_gpt, GPT_Caller, get_game_env
 import taku_step_by_step as taku
+from global_variable import * 
 
 #### 保存相邻房间的信息 ####
 #### TODO: 直接填加一个字段叫做Another room:
@@ -12,18 +12,19 @@ class Caller_Neighbor(GPT_Caller):
         super().__init__(env, zero_shot, gpt_type, cot, one_shot_easy, no_augment, step_limit)
         self.last_desc = ''
         self.another_room_info = 'Unknown'
+        self.filename = f'ANOTHER_ROOM_True_ZERO_SHOT_{zero_shot}_COT_{cot}_GPT_{gpt_type}_ONE_SHOT_EASY_{one_shot_easy}_NO_AUGMENT_{no_augment}_STEP_LIMIT_{step_limit}_{env.meta_info}.pkl' 
     def __call__(self, description, inventory, available_actions, action_obs_pairs):
         # system_msg, user_msg = get_system_user_msg(description, inventory, available_actions, action_obs_pairs = action_obs_pairs, zero_shot = self.zero_shot)
-        system_msg, user_msg = get_system_user_msg_v3(description, inventory, available_actions, action_obs_pairs, zero_shot = self.zero_shot, cot = self.cot, one_shot_easy = self.one_shot_easy, no_augment = self.no_augment, self.another_room_info) # NOTE: changed get_system_user_msg v2 to v3
+        system_msg, user_msg = get_system_user_msg_v3(description, inventory, available_actions, action_obs_pairs, zero_shot = self.zero_shot, cot = self.cot, one_shot_easy = self.one_shot_easy, no_augment = self.no_augment, another_room_info=self.another_room_info) # NOTE: changed get_system_user_msg v2 to v3
         dd = quest_gpt(system_msg, user_msg, gpt_type = self.gpt_type)
         if self.env is not None:
-            self.env.system_user_msgs.append(system_msg + user_msg)
+            self.env.system_user_msgs.append(system_msg + '\n' + user_msg)
             self.env.gpt_responses.append(dd)
         return dd
     def step(self, command):
         if self.step_counter < self.step_limit:
             self.step_counter += 1
-            if command.startswith('go '): # NOTE: record last room info
+            if command and command.startswith('go '): # NOTE: record last room info
                 self.another_room_info = self.last_desc
                 print('UPDATED ANOTHER ROOM INFO')
             description, inventory, available_actions, action_obs_pairs = taku.act_step_by_step_obs_augment(self.env, command)
@@ -67,9 +68,17 @@ Current enviroment: {enviroment}"""
 Example walkthrough: {walkthrough}
 Action history: {action_history}
 Inventory: {inventory}
+Another room: {another_room_info}
 Current enviroment: {enviroment}"""
     question_template = QUESTION_TEMPLATE if cot else QUESTION_TEMPLATE_NO_COT
     user_msg = f"""Action you can take: 
 {available_action_text}
 {question_template}"""
     return system_msg, user_msg
+
+def run(game_idx = 0):
+    env = get_game_env(2, game_idx)
+    caller = Caller_Neighbor(env, zero_shot = False, gpt_type = 'gpt-4o-2024-05-13', cot = True, one_shot_easy = False, no_augment = False)
+    caller.step(None) # first step
+    return caller
+
