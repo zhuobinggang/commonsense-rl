@@ -6,8 +6,3 @@ def run(game_idx = 0):
     caller.step(None) # first step
     return caller
 
-#### 保存相邻房间的信息 ####
-#### TODO: 直接填加一个字段叫做Another room:
-#### TODO: 需要找到判断房间移动的准确根据, 大概从env里面可以找到？
-#### TODO: 把step之后的info也保存到env里面，可能有重要信息
-
