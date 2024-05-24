@@ -18,3 +18,9 @@ QUESTION_TEMPLATE = """Question: To put things in there proper locations and imp
 Consideration: <fill in>
 Next action: <fill in>"""
 
+TASK = 'You are a experienced text game player, your goal is put things in there proper locations and improve your score.'
+QUESTION = "To put things in there proper locations and improve your score, what should you do? Think step by step then choose 'one' action from above list."
+QUESTION_NO_COT = "To put things in there proper locations and improve your score, what should you do? Choose 'one' action from above list."
+FILL_IN_TEMPLATE = '<fill in>'
+
+

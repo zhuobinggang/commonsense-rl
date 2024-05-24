@@ -1,6 +1,6 @@
 from openai import OpenAI
 from taku_step_by_step import get_game_env, ONE_SHOT_EXP, printer_command_with_index
-from global_variable import * 
+import global_variable as G
 import taku_step_by_step as taku
 import pyperclip
 client = OpenAI()
@@ -123,38 +123,79 @@ Consideration: <fill in>
 Next action: <fill in>"""
     return system_msg, user_msg
 
+class Prompt_builder:
+    def __init__(self, task = G.TASK, action_history = None, inventory = None, current_enviroment = None, example = None,  action_list = None, question = G.QUESTION, consideration = G.FILL_IN_TEMPLATE, next_action = G.FILL_IN_TEMPLATE, another_room_info = None):
+        self.task = task
+        self.action_history = action_history
+        self.inventory = inventory
+        self.current_enviroment = current_enviroment
+        self.example = example
+        self.action_history = action_history
+        self.action_list = action_list
+        self.question = question
+        self.consideration = consideration
+        self.next_action = next_action
+        self.another_room_info = another_room_info
+        self.system_msg = ''
+        self.user_msg = ''
+        self.prompt = ''
+    def build(self):
+        system_msg = ''
+        system_msg += f'Task: {self.task}\n' if self.task else ''
+        system_msg += f'Example walkthrough: {self.example}\n' if self.example else ''
+        system_msg += f'Action history: {self.action_history}\n' if self.action_history else ''
+        system_msg += f'Inventory: {self.inventory}\n' if self.inventory else ''
+        system_msg += f'Another room: {self.another_room_info}\n' if self.another_room_info else ''
+        system_msg += f'Current enviroment: {self.current_enviroment}\n' if self.current_enviroment else ''
+        system_msg = system_msg.strip()
+        self.system_msg = system_msg
+        user_msg = ''
+        user_msg += f'Action you can take:\n{self.action_list}\n' if self.action_list else ''
+        user_msg += f'Question: {self.question}\n' if self.question else ''
+        user_msg += f'Consideration: {self.consideration}\n' if self.consideration else ''
+        user_msg += f'Next action: {self.next_action}\n' if self.next_action else ''
+        user_msg = user_msg.strip()
+        self.user_msg = user_msg
+        self.prompt = f'{system_msg}\n{user_msg}'
 
-def get_system_user_msg_v2(enviroment, inventory, available_actions, action_obs_pairs = [], zero_shot = True, cot = True, one_shot_easy = False, no_augment = False):
-    task = 'You are a experienced text game player, your goal is put things in there proper locations and improve your score.'
+
+def get_system_user_msg_builder(current_enviroment, inventory, available_actions, action_obs_pairs = [], zero_shot = True, cot = True, one_shot_easy = False, no_augment = False):
+    builder = Prompt_builder()
+    builder.inventory = inventory
+    builder.current_enviroment = current_enviroment
     available_action_text = ''
     for act in available_actions:
         available_action_text += f'* {act}\n'
+    builder.action_list = available_action_text
     action_history = ''
     if len(action_obs_pairs) > 0:
         for idx, (act, obs) in enumerate(action_obs_pairs):
             action_history += f'Action {idx}: {act} -> {obs} '
     else:
         action_history = 'No action was taken now.'
+    builder.action_history = action_history
     if zero_shot:
-        system_msg = f"""Task: {task}
-Action history: {action_history}
-Inventory: {inventory}
-Current enviroment: {enviroment}"""
+        builder.example = None
+    else: # one shot
+        if one_shot_easy and no_augment:
+            builder.example = G.ONE_SHOT_EXP_SIMPLE_NO_AUG
+        elif one_shot_easy and not no_augment:
+            builder.example = G.ONE_SHOT_EXP_AUGMENT_SIMPLE
+        elif not one_shot_easy and no_augment:
+            builder.example = G.ONE_SHOT_EXP_NO_AUG
+        elif not one_shot_easy and not no_augment: # 提案手法
+            builder.example = G.ONE_SHOT_EXP_AUGMENT
+    if cot:
+        builder.question = G.QUESTION
     else:
-        if no_augment:
-            walkthrough = ONE_SHOT_EXP_SIMPLE_NO_AUG if one_shot_easy else ONE_SHOT_EXP_NO_AUG
-        else: 
-            walkthrough = ONE_SHOT_EXP_AUGMENT_SIMPLE if one_shot_easy else ONE_SHOT_EXP_AUGMENT
-        system_msg = f"""Task: {task}
-Example walkthrough: {walkthrough}
-Action history: {action_history}
-Inventory: {inventory}
-Current enviroment: {enviroment}"""
-    question_template = QUESTION_TEMPLATE if cot else QUESTION_TEMPLATE_NO_COT
-    user_msg = f"""Action you can take: 
-{available_action_text}
-{question_template}"""
-    return system_msg, user_msg
+        builder.question = G.QUESTION_NO_COT
+        builder.consideration = None
+    return builder
+
+def get_system_user_msg_v2(current_enviroment, inventory, available_actions, action_obs_pairs = [], zero_shot = True, cot = True, one_shot_easy = False, no_augment = False):
+    builder = get_system_user_msg_builder(current_enviroment, inventory, available_actions, action_obs_pairs, zero_shot, cot, one_shot_easy, no_augment)
+    builder.build()
+    return builder.system_msg, builder.user_msg
 
 
 ################### taku added 2024.5.22 END #######################
