@@ -27,7 +27,7 @@ def quest_gpt(system_msg, user_msg, gpt_type):
         line = line.lower()
         if line.startswith('next action:'):
             text_to_paste = line.replace('next action:', '').strip()
-            pyperclip.copy(text_to_paste)
+            pyperclip.copy(f"c('{text_to_paste}')")
             print(f'COMMAND GOT: {text_to_paste}')
             copied = True
     if not copied:
