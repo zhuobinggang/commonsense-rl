@@ -54,7 +54,7 @@ def get_system_user_msg_v3(enviroment, inventory, available_actions, action_obs_
 def run(game_idx = 0):
     env = get_game_env(2, game_idx)
     # 提案手法
-    caller = Caller_Neighbor(env, zero_shot = False, gpt_type = 'gpt-4o-2024-05-13', cot = True, one_shot_easy = False, no_augment = False)
+    # caller = Caller_Neighbor(env, zero_shot = False, gpt_type = 'gpt-4o-2024-05-13', cot = True, one_shot_easy = False, no_augment = False)
     # -GPT4o
     # caller = Caller_Neighbor(env, zero_shot = False, gpt_type = 'gpt-4-1106-preview', cot = True, one_shot_easy = False, no_augment = False)
     # # -GPT4
@@ -63,8 +63,8 @@ def run(game_idx = 0):
     # # TODO: 需要检查prompt
     # caller = Caller_Neighbor(env, zero_shot = True, gpt_type = 'gpt-4o-2024-05-13', cot = True, one_shot_easy = False, no_augment = False)
     # # -COT
-    # # TODO: 需要检查prompt
-    # caller = Caller_Neighbor(env, zero_shot = False, gpt_type = 'gpt-4o-2024-05-13', cot = False, one_shot_easy = False, no_augment = False)
+    # # NOTE: 检查prompt OK
+    caller = Caller_Neighbor(env, zero_shot = False, gpt_type = 'gpt-4o-2024-05-13', cot = False, one_shot_easy = False, no_augment = False)
     # # -FA
     # # TODO: 需要首先支持将Another room选项关闭
     # # TODO: 需要检查prompt
