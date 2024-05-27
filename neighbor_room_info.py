@@ -35,7 +35,7 @@ class GPT_Caller_Easy_Call:
     def __call__(self, command):
         if self.step_counter < self.step_limit:
             self.step_counter += 1
-            description, inventory, available_actions, action_obs_pairs = taku.act_step_by_step_obs_augment(self.env, command)
+            description, inventory, available_actions, action_obs_pairs = taku.act_step_by_step_obs_augment(self.env, command, not self.no_augment)
             if self.env.end:
                 print('YOU WIN! NO API CALL NEED.')
                 self.save()
@@ -59,7 +59,7 @@ class Caller_Neighbor(GPT_Caller_Easy_Call):
         super().__init__(env, zero_shot, gpt_type, cot, one_shot_easy, no_augment, step_limit)
         self.last_desc = ''
         self.another_room_info = 'Unknown'
-        self.filename = f'ANOTHER_ROOM_True_ZERO_SHOT_{zero_shot}_COT_{cot}_GPT_{gpt_type}_ONE_SHOT_EASY_{one_shot_easy}_NO_AUGMENT_{no_augment}_STEP_LIMIT_{step_limit}_{env.meta_info}.pkl' 
+        self.filename = f'ANOTHER_ROOM_{not disable_another_room}_ZERO_SHOT_{zero_shot}_COT_{cot}_GPT_{gpt_type}_ONE_SHOT_EASY_{one_shot_easy}_NO_AUGMENT_{no_augment}_STEP_LIMIT_{step_limit}_{env.meta_info}.pkl' 
         self.disable_another_room = disable_another_room
         print(f'ANOTHER ROOM INFO: {not self.disable_another_room}')
     def call_gpt(self, description, inventory, available_actions, action_obs_pairs):
@@ -79,7 +79,7 @@ class Caller_Neighbor(GPT_Caller_Easy_Call):
             if command and command.startswith('go '): # NOTE: record last room info
                 self.another_room_info = self.last_desc
                 print('UPDATED ANOTHER ROOM INFO')
-            description, inventory, available_actions, action_obs_pairs = taku.act_step_by_step_obs_augment(self.env, command)
+            description, inventory, available_actions, action_obs_pairs = taku.act_step_by_step_obs_augment(self.env, command, not self.no_augment)
             self.last_desc = description # NOTE
             if self.env.end:
                 print('YOU WIN! NO API CALL NEED.')
@@ -103,7 +103,11 @@ def run(game_idx = 0):
     # 提案手法
     # caller = Caller_Neighbor(env, zero_shot = False, gpt_type = 'gpt-4o-2024-05-13', cot = True, one_shot_easy = False, no_augment = False, step_limit = 30)
     # -GPT4o
-    # caller = Caller_Neighbor(env, zero_shot = False, gpt_type = 'gpt-4-1106-preview', cot = True, one_shot_easy = False, no_augment = False)
+    # caller = Caller_Neighbor(env, zero_shot = False, gpt_type = 'gpt-4-1106-preview', cot = True, one_shot_easy = False, no_augment = False, step_limit = 30) # 差最后两个环境没试。不过暂时先做优先级更高的
+    # caller = Caller_Neighbor(env, zero_shot = False, gpt_type = 'gpt-4-1106-preview', cot = True, one_shot_easy = False, no_augment = False, step_limit = 20) 
+    # caller = Caller_Neighbor(env, zero_shot = False, gpt_type = 'gpt-4o-2024-05-13', cot = False, one_shot_easy = False, no_augment = False, step_limit = 20, disable_another_room = True)  # NOTE: 关闭另一房间信息
+    # caller = Caller_Neighbor(env, zero_shot = True, gpt_type = 'gpt-4o-2024-05-13', cot = True, one_shot_easy = False, no_augment = False, step_limit = 20, disable_another_room = True)  # NOTE: 关闭另一房间信息
+    caller = Caller_Neighbor(env, zero_shot = False, gpt_type = 'gpt-4o-2024-05-13', cot = True, one_shot_easy = False, no_augment = True, step_limit = 20, disable_another_room = True)  # NOTE: 关闭另一房间信息
     # # -GPT4
     # caller = Caller_Neighbor(env, zero_shot = False, gpt_type = 'gpt-3.5-turbo-0613', cot = True, one_shot_easy = False, no_augment = False)
     # # -one-shot 
@@ -111,7 +115,7 @@ def run(game_idx = 0):
     # caller = Caller_Neighbor(env, zero_shot = True, gpt_type = 'gpt-4o-2024-05-13', cot = True, one_shot_easy = False, no_augment = False)
     # # -COT
     # # NOTE: 检查prompt OK
-    caller = Caller_Neighbor(env, zero_shot = False, gpt_type = 'gpt-4o-2024-05-13', cot = False, one_shot_easy = False, no_augment = False, step_limit = 30)
+    # caller = Caller_Neighbor(env, zero_shot = False, gpt_type = 'gpt-4o-2024-05-13', cot = False, one_shot_easy = False, no_augment = False, step_limit = 30)
     # # -FA
     # # TODO: 需要首先支持将Another room选项关闭
     # # TODO: 需要检查prompt
