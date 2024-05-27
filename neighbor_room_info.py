@@ -35,7 +35,7 @@ class GPT_Caller_Easy_Call:
     def __call__(self, command):
         if self.step_counter < self.step_limit:
             self.step_counter += 1
-            description, inventory, available_actions, action_obs_pairs = taku.act_step_by_step_obs_augment(self.env, command, not self.no_augment)
+            description, inventory, available_actions, action_obs_pairs = taku.act_step_by_step_obs_augment(self.env, command, self.no_augment)
             if self.env.end:
                 print('YOU WIN! NO API CALL NEED.')
                 self.save()
@@ -79,7 +79,7 @@ class Caller_Neighbor(GPT_Caller_Easy_Call):
             if command and command.startswith('go '): # NOTE: record last room info
                 self.another_room_info = self.last_desc
                 print('UPDATED ANOTHER ROOM INFO')
-            description, inventory, available_actions, action_obs_pairs = taku.act_step_by_step_obs_augment(self.env, command, not self.no_augment)
+            description, inventory, available_actions, action_obs_pairs = taku.act_step_by_step_obs_augment(self.env, command, self.no_augment)
             self.last_desc = description # NOTE
             if self.env.end:
                 print('YOU WIN! NO API CALL NEED.')
