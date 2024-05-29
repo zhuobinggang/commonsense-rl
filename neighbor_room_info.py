@@ -17,15 +17,8 @@ class GPT_Caller_Easy_Call:
         self.step_limit = step_limit 
         self.filename = f'ZERO_SHOT_{zero_shot}_COT_{cot}_GPT_{gpt_type}_ONE_SHOT_EASY_{one_shot_easy}_NO_AUGMENT_{no_augment}_STEP_LIMIT_{step_limit}_{env.meta_info}.pkl' 
         print(self.filename)
-        # print(f'ZERO SHOT: {zero_shot}')
-        # print(f'COT: {cot}')
-        # print(f'GPT VERSION: {gpt_type}')
-        # print(f'ONE_SHOT_EASY: {one_shot_easy}')
-        # print(f'NO_AUGMENT: {no_augment}')
-        # print(f'STEP_LIMIT: {step_limit}')
         self.step_counter = 0
     def call_gpt(self, description, inventory, available_actions, action_obs_pairs):
-        # system_msg, user_msg = get_system_user_msg(description, inventory, available_actions, action_obs_pairs = action_obs_pairs, zero_shot = self.zero_shot)
         system_msg, user_msg = get_system_user_msg_v2(description, inventory, available_actions, action_obs_pairs, zero_shot = self.zero_shot, cot = self.cot, one_shot_easy = self.one_shot_easy, no_augment = self.no_augment)
         dd = quest_gpt(system_msg, user_msg, gpt_type = self.gpt_type)
         if self.env is not None:
@@ -63,7 +56,6 @@ class Caller_Neighbor(GPT_Caller_Easy_Call):
         self.disable_another_room = disable_another_room
         print(f'ANOTHER ROOM INFO: {not self.disable_another_room}')
     def call_gpt(self, description, inventory, available_actions, action_obs_pairs):
-        # system_msg, user_msg = get_system_user_msg(description, inventory, available_actions, action_obs_pairs = action_obs_pairs, zero_shot = self.zero_shot)
         if self.disable_another_room: # added 2024.5.24 to disable the another room info
             system_msg, user_msg = get_system_user_msg_v2(description, inventory, available_actions, action_obs_pairs, zero_shot = self.zero_shot, cot = self.cot, one_shot_easy = self.one_shot_easy, no_augment = self.no_augment) 
         else: # DEFAULT
