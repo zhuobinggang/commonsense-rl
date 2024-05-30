@@ -23,4 +23,8 @@ QUESTION = "To put things in there proper locations and improve your score, what
 QUESTION_NO_COT = "To put things in there proper locations and improve your score, what should you do? Choose 'one' action from above list."
 FILL_IN_TEMPLATE = '<fill in>'
 
+########################
+GPT4 = 'gpt-4-1106-preview'
+GPT35 = 'gpt-3.5-turbo-0613'
+GPT4o = 'gpt-4o-2024-05-13'
 

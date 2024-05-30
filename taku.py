@@ -45,19 +45,18 @@ def get_game_name(level_index = 0, game_index = 0, dataset_index = 1):
     print(game_name)
     return game_name
 
-def get_game_env(level_index = 0, game_index = 0, dataset_index = 1, printer = printer1, max_step = 50, need_reset = True):
+def get_game_env(level_index = 0, game_index = 0, dataset_index = 1):
+    game_path = get_game_name(level_index, game_index, dataset_index)
+    return get_game_env_by_path(game_path)
+
+
+def get_game_env_by_path(game_path, need_reset = True):
     from textworld import EnvInfos
     from games import dataset
     infos_to_request = EnvInfos(description=True, inventory=True, admissible_commands=True, won=True, lost=True,location = True,
             last_action=True, facts=True,entities=True, max_score = True, moves = True, score = True)
-    game_path = get_game_name(level_index, game_index, dataset_index)
-    env, game_file_names = dataset.get_game_env(game_path, infos_to_request, max_step)
+    env, game_file_names = dataset.get_game_env(game_path, infos_to_request, max_episode_steps = 50)
     if need_reset:
         obs, infos = env.reset()
-        if printer:
-            printer(obs, infos)
     return env
-
-
-
 
