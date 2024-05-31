@@ -152,7 +152,7 @@ def twc_config():
     set_defaults(config)
     game_options = get_game_options(config)
     config.game_options = game_options
-    rngs = game_options.rngs
+    rngs = game_options.rngs # ?
     config.rngs = rngs
     set_difficulty_level(config)
     return config
@@ -245,7 +245,7 @@ class TWCGameMaker:
         self.maker = GameMaker(self.config.game_options)
 
     def make_game(self):
-        rng_grammar = self.config.rngs["grammar"]
+        rng_grammar = self.config.rngs["grammar"] # ?什么是rngs
         self.maker.grammar = textworld.generator.make_grammar(self.maker.options.grammar, rng=rng_grammar)
 
         self.place_rooms()
