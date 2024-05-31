@@ -237,7 +237,7 @@ class RandomWalk:
 class TWCGameMaker:
     def __init__(self, config):
         self.config = config
-        self.data = TWCData(config)
+        self.data = TWCData(config) # 通过TWCData消耗config
         self.maker = GameMaker(config.game_options)
         self.num_games = 0
 
@@ -245,10 +245,10 @@ class TWCGameMaker:
         self.maker = GameMaker(self.config.game_options)
 
     def make_game(self):
-        rng_grammar = self.config.rngs["grammar"] # ?什么是rngs
-        self.maker.grammar = textworld.generator.make_grammar(self.maker.options.grammar, rng=rng_grammar)
+        rng_grammar = self.config.rngs["grammar"] # ?什么是rngs, 就是不同的对象搞了不同的随机数
+        self.maker.grammar = textworld.generator.make_grammar(self.maker.options.grammar, rng=rng_grammar) # 看看这个什么意思
 
-        self.place_rooms()
+        self.place_rooms() # 这里应该要调用文件+随机选取吧？
 
         placed_objects = []
 
@@ -257,8 +257,8 @@ class TWCGameMaker:
                 print()
                 print("====== Placing furniture ======")
 
-            furniture = self.place_furniture()
-            if not furniture:
+            furniture = self.place_furniture() # 为什么同时放置家具和object?
+            if not furniture: 
                 print()
                 print(f"Could not generate the game with the provided configuration")
                 sys.exit(-1)
@@ -308,7 +308,7 @@ class TWCGameMaker:
 
     def place_rooms(self):
         rng = self.config.rngs["map"]
-        assert self.config.rooms <= len(self.data.rooms)
+        assert self.config.rooms <= len(self.data.rooms) # 这里的self.data是什么？
         initial_room = self.config.initial_room or rng.choice(self.data.rooms)
         rooms_to_place = self.pick_rooms(initial_room)
         if self.config.verbose:
@@ -428,7 +428,7 @@ class TWCGameMaker:
         for property_ in self.data.entities[name]["properties"]:
             entity.add_property(property_)
         holder.add(entity)
-        self.log_entity_placement(entity, holder)
+        self.log_entity_placement(entity, holder) # 这里的holder是房间
         return entity
 
     def log_entity_placement(self, entity, holder):
@@ -444,12 +444,12 @@ class TWCGameMaker:
     def attempt_place_entity(self, name):
         if self.maker.find_by_name(name):
             return
-        holder = self.pick_correct_location(self.data.entities[name]["locations"])
+        holder = self.pick_correct_location(self.data.entities[name]["locations"]) # 首先要存在这个房间才能放这个家具？
         if holder is None:
             return None
         return self.place_at(name, holder)
 
-    def place_entities(self, names):
+    def place_entities(self, names): # 将默认的家具名字传入，然后尝试布置家具？
         return [self.attempt_place_entity(name) for name in names]
 
     def place_random_entities(self, nb_entities, pool=None):
@@ -669,7 +669,7 @@ class TWCGameMaker:
         rng = self.config.rngs["objects"]
         if distribute_evenly is None:
             distribute_evenly = rng.choice([True, False])
-        self.place_entities(DEFAULT_FURNITURE)
+        self.place_entities(DEFAULT_FURNITURE) # 首先放了默认的家具, 可是下面的代码是什么意思？
         upper_bound = max(2 * len(self.maker.rooms), 0.33 * self.config.objects)
         nb_furniture = rng.randint(len(self.maker.rooms), min(upper_bound, len(self.data.locations) + 1))
         if distribute_evenly:
@@ -758,15 +758,15 @@ def play(path):
 
 
 def main():
-    config = twc_config()
+    config = twc_config() # 根据传进来的参数获得设置, config.objects = 7 config.rooms = 2
     twc_game_maker = TWCGameMaker(config)
     assert config.rooms <= len(twc_game_maker.data.rooms), \
         f"The maximum number of rooms is {len(twc_game_maker.data.rooms)}"
     assert config.objects > 0,\
         "The number of objects should  be greater than 0"
     assert config.take <= config.objects, \
-        "The number of objects to find must be less than the total number of objects"
-    if config.initial_room:
+        "The number of objects to find must be less than the total number of objects" # 跟初始阶段inventory有关系
+    if config.initial_room: # 说明这是一个字符串，比如说bedroom之类的
         assert config.initial_room in twc_game_maker.data.rooms, f"Unknown room {config.initial_room}"
     assert config.intermediate_reward >= 0 and config.reward > 0, \
         "Rewards should be greater than 0"
