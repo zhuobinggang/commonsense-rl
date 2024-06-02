@@ -16,7 +16,8 @@ def get_game_env(game_path, requested_infos, max_episode_steps, batch_size=1, mo
                                           max_episode_steps=max_episode_steps,
                                           name='cleanup-'+mode,batch_size=batch_size)
     # env_id = make_batch(env_id, batch_size=batch_size, parallel=True)
-    env = gym.make(env_id)
+    #env = gym.make(env_id)
+    env = textworld.gym.make(env_id)
     game_names = [os.path.basename(game_file) for game_file in game_file_names]
     return env, sorted(game_names)
 

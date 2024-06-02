@@ -55,7 +55,7 @@ def get_game_env_by_path(game_path, need_reset = True):
     from games import dataset
     infos_to_request = EnvInfos(description=True, inventory=True, admissible_commands=True, won=True, lost=True,location = True,
             last_action=True, facts=True,entities=True, max_score = True, moves = True, score = True)
-    env, game_file_names = dataset.get_game_env(game_path, infos_to_request, max_episode_steps = 50)
+    env, game_file_names = dataset.get_game_env(game_path, infos_to_request, max_episode_steps = 50, mode = 'test')
     if need_reset:
         obs, infos = env.reset()
     return env
