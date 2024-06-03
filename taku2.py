@@ -1,5 +1,6 @@
 # All you need is here
 from neighbor_room_info import Caller_Neighbor , get_game_env
+from taku import get_game_env_by_path
 from common import get_time_str
 import global_variable as G
 
@@ -10,6 +11,6 @@ class Caller(Caller_Neighbor):
 
 def run(game_idx = 0):
     env = get_game_env(2, game_idx)
-    caller = Caller(env, step_limit = 50, no_augment = True)
+    caller = Caller(env, step_limit = 20, gpt_type = G.GPT4)
     caller(None) # first step
     return caller
