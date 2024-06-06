@@ -20,50 +20,46 @@ The r_1 and the r_0 are rooms.
 Understand "small kitchen" as r_1.
 The internal name of r_1 is "small kitchen".
 The printed name of r_1 is "-= Small Kitchen =-".
-The small kitchen part 0 is some text that varies. The small kitchen part 0 is "You've entered a small kitchen.
+The small kitchen part 0 is some text that varies. The small kitchen part 0 is "You find yourself in a small kitchen. An ordinary one.
 
- You can make out a garbage can. You idly wonder how they came up with the name TextWorld for this place. It's pretty fitting.[if c_0 is open and there is something in the c_0] The garbage can contains [a list of things in the c_0].[end if]".
-The small kitchen part 1 is some text that varies. The small kitchen part 1 is "[if c_0 is open and the c_0 contains nothing] Empty! What kind of nightmare TextWorld is this?[end if]".
-The small kitchen part 2 is some text that varies. The small kitchen part 2 is " You can see [if c_1 is locked]a locked[else if c_1 is open]an opened[otherwise]a closed[end if]".
-The small kitchen part 3 is some text that varies. The small kitchen part 3 is " kitchen pantry nearby.[if c_1 is open and there is something in the c_1] The kitchen pantry contains [a list of things in the c_1].[end if]".
-The small kitchen part 4 is some text that varies. The small kitchen part 4 is "[if c_1 is open and the c_1 contains nothing] The kitchen pantry is empty! What a waste of a day![end if]".
-The small kitchen part 5 is some text that varies. The small kitchen part 5 is " [if c_2 is locked]A locked[else if c_2 is open]An open[otherwise]A closed[end if]".
-The small kitchen part 6 is some text that varies. The small kitchen part 6 is " fridge is in the corner.[if c_2 is open and there is something in the c_2] The fridge contains [a list of things in the c_2].[end if]".
-The small kitchen part 7 is some text that varies. The small kitchen part 7 is "[if c_2 is open and the c_2 contains nothing] The fridge is empty! What a waste of a day![end if]".
-The small kitchen part 8 is some text that varies. The small kitchen part 8 is " You rest your hand against a wall, but you miss the wall and fall onto a sink.[if c_3 is open and there is something in the c_3] The sink contains [a list of things in the c_3]. You idly wonder how they came up with the name TextWorld for this place. It's pretty fitting.[end if]".
-The small kitchen part 9 is some text that varies. The small kitchen part 9 is "[if c_3 is open and the c_3 contains nothing] The sink is empty! This is the worst thing that could possibly happen, ever![end if]".
-The small kitchen part 10 is some text that varies. The small kitchen part 10 is " You rest your hand against a wall, but you miss the wall and fall onto a dining table. The dining table is usual.[if there is something on the s_0] On the dining table you can see [a list of things on the s_0].[end if]".
-The small kitchen part 11 is some text that varies. The small kitchen part 11 is "[if there is nothing on the s_0] The dining table appears to be empty.[end if]".
-The small kitchen part 12 is some text that varies. The small kitchen part 12 is "
+ You see [if c_0 is locked]a locked[else if c_0 is open]an opened[otherwise]a closed[end if]".
+The small kitchen part 1 is some text that varies. The small kitchen part 1 is " garbage can.[if c_0 is open and there is something in the c_0] The garbage can contains [a list of things in the c_0].[end if]".
+The small kitchen part 2 is some text that varies. The small kitchen part 2 is "[if c_0 is open and the c_0 contains nothing] Empty! What kind of nightmare TextWorld is this?[end if]".
+The small kitchen part 3 is some text that varies. The small kitchen part 3 is " You see a kitchen pantry.[if c_1 is open and there is something in the c_1] The kitchen pantry contains [a list of things in the c_1].[end if]".
+The small kitchen part 4 is some text that varies. The small kitchen part 4 is "[if c_1 is open and the c_1 contains nothing] The kitchen pantry is empty! This is the worst thing that could possibly happen, ever![end if]".
+The small kitchen part 5 is some text that varies. The small kitchen part 5 is " You can make out a fridge.[if c_2 is open and there is something in the c_2] The fridge contains [a list of things in the c_2]![end if]".
+The small kitchen part 6 is some text that varies. The small kitchen part 6 is "[if c_2 is open and the c_2 contains nothing] Empty! What kind of nightmare TextWorld is this?[end if]".
+The small kitchen part 7 is some text that varies. The small kitchen part 7 is " You can see a sink.[if c_3 is open and there is something in the c_3] The sink contains [a list of things in the c_3].[end if]".
+The small kitchen part 8 is some text that varies. The small kitchen part 8 is "[if c_3 is open and the c_3 contains nothing] The sink is empty, what a horrible day![end if]".
+The small kitchen part 9 is some text that varies. The small kitchen part 9 is " You can make out a dining table. [if there is something on the s_0]You see [a list of things on the s_0] on the dining table.[end if]".
+The small kitchen part 10 is some text that varies. The small kitchen part 10 is "[if there is nothing on the s_0]The dining table appears to be empty. Hm. Oh well[end if]".
+The small kitchen part 11 is some text that varies. The small kitchen part 11 is "
 
  There is [if d_0 is open]an open[otherwise]a closed[end if]".
-The small kitchen part 13 is some text that varies. The small kitchen part 13 is " wooden door leading west.".
-The description of r_1 is "[small kitchen part 0][small kitchen part 1][small kitchen part 2][small kitchen part 3][small kitchen part 4][small kitchen part 5][small kitchen part 6][small kitchen part 7][small kitchen part 8][small kitchen part 9][small kitchen part 10][small kitchen part 11][small kitchen part 12][small kitchen part 13]".
+The small kitchen part 12 is some text that varies. The small kitchen part 12 is " wooden door leading west.".
+The description of r_1 is "[small kitchen part 0][small kitchen part 1][small kitchen part 2][small kitchen part 3][small kitchen part 4][small kitchen part 5][small kitchen part 6][small kitchen part 7][small kitchen part 8][small kitchen part 9][small kitchen part 10][small kitchen part 11][small kitchen part 12]".
 
 west of r_1 and east of r_0 is a door called d_0.
 Understand "small bedroom" as r_0.
 The internal name of r_0 is "small bedroom".
 The printed name of r_0 is "-= Small Bedroom =-".
-The small bedroom part 0 is some text that varies. The small bedroom part 0 is "You are in a small bedroom. An usual one.
+The small bedroom part 0 is some text that varies. The small bedroom part 0 is "You've entered a small bedroom. The room seems oddly familiar, as though it were only superficially different from the other rooms in the building.
 
- You make out [if c_4 is locked]a locked[else if c_4 is open]an opened[otherwise]a closed[end if]".
-The small bedroom part 1 is some text that varies. The small bedroom part 1 is " bedroom cabinet.[if c_4 is open and there is something in the c_4] The bedroom cabinet contains [a list of things in the c_4].[end if]".
-The small bedroom part 2 is some text that varies. The small bedroom part 2 is "[if c_4 is open and the c_4 contains nothing] The bedroom cabinet is empty! This is the worst thing that could possibly happen, ever![end if]".
-The small bedroom part 3 is some text that varies. The small bedroom part 3 is " What's that over there? It looks like it's a wardrobe. The light flickers for a second, but nothing else happens.[if c_5 is open and there is something in the c_5] The wardrobe contains [a list of things in the c_5].[end if]".
-The small bedroom part 4 is some text that varies. The small bedroom part 4 is "[if c_5 is open and the c_5 contains nothing] The wardrobe is empty, what a horrible day![end if]".
-The small bedroom part 5 is some text that varies. The small bedroom part 5 is " You see a writing desk. Now why would someone leave that there? The writing desk is ordinary.[if there is something on the s_1] On the writing desk you make out [a list of things on the s_1].[end if]".
-The small bedroom part 6 is some text that varies. The small bedroom part 6 is "[if there is nothing on the s_1] But the thing hasn't got anything on it. It would have been so cool if there was stuff on the writing desk.[end if]".
-The small bedroom part 7 is some text that varies. The small bedroom part 7 is " You can see an end table. [if there is something on the s_2]You see [a list of things on the s_2] on the end table. Wow! Just like in the movies![end if]".
-The small bedroom part 8 is some text that varies. The small bedroom part 8 is "[if there is nothing on the s_2]Unfortunately, there isn't a thing on it.[end if]".
-The small bedroom part 9 is some text that varies. The small bedroom part 9 is " You make out a sofa. [if there is something on the s_3]On the sofa you make out [a list of things on the s_3].[end if]".
-The small bedroom part 10 is some text that varies. The small bedroom part 10 is "[if there is nothing on the s_3]But there isn't a thing on it.[end if]".
-The small bedroom part 11 is some text that varies. The small bedroom part 11 is " You make out a bed. The bed is normal.[if there is something on the s_4] On the bed you make out [a list of things on the s_4]. Wow! Just like in the movies![end if]".
-The small bedroom part 12 is some text that varies. The small bedroom part 12 is "[if there is nothing on the s_4] Unfortunately, there isn't a thing on it. Hm. Oh well[end if]".
-The small bedroom part 13 is some text that varies. The small bedroom part 13 is "
+ You can make out a bedroom cabinet.[if c_4 is open and there is something in the c_4] The bedroom cabinet contains [a list of things in the c_4].[end if]".
+The small bedroom part 1 is some text that varies. The small bedroom part 1 is "[if c_4 is open and the c_4 contains nothing] The bedroom cabinet is empty, what a horrible day![end if]".
+The small bedroom part 2 is some text that varies. The small bedroom part 2 is " You can see a wardrobe.[if c_5 is open and there is something in the c_5] The wardrobe contains [a list of things in the c_5]![end if]".
+The small bedroom part 3 is some text that varies. The small bedroom part 3 is "[if c_5 is open and the c_5 contains nothing] The wardrobe is empty, what a horrible day![end if]".
+The small bedroom part 4 is some text that varies. The small bedroom part 4 is " You see a writing desk. The writing desk is usual.[if there is something on the s_1] On the writing desk you make out [a list of things on the s_1].[end if]".
+The small bedroom part 5 is some text that varies. The small bedroom part 5 is "[if there is nothing on the s_1] But the thing hasn't got anything on it.[end if]".
+The small bedroom part 6 is some text that varies. The small bedroom part 6 is " You can see a sofa. I guess it's true what they say, if you're looking for a sofa, go to TextWorld. The sofa is normal.[if there is something on the s_2] On the sofa you can make out [a list of things on the s_2]. I mean, just wow! Isn't TextWorld just the best?[end if]".
+The small bedroom part 7 is some text that varies. The small bedroom part 7 is "[if there is nothing on the s_2] But the thing hasn't got anything on it. It would have been so cool if there was stuff on the sofa! oh well.[end if]".
+The small bedroom part 8 is some text that varies. The small bedroom part 8 is " You see a bed. The bed is standard.[if there is something on the s_3] On the bed you can see [a list of things on the s_3].[end if]".
+The small bedroom part 9 is some text that varies. The small bedroom part 9 is "[if there is nothing on the s_3] The bed appears to be empty. You move on, clearly infuriated by your TextWorld experience.[end if]".
+The small bedroom part 10 is some text that varies. The small bedroom part 10 is "
 
  There is [if d_0 is open]an open[otherwise]a closed[end if]".
-The small bedroom part 14 is some text that varies. The small bedroom part 14 is " wooden door leading east.".
-The description of r_0 is "[small bedroom part 0][small bedroom part 1][small bedroom part 2][small bedroom part 3][small bedroom part 4][small bedroom part 5][small bedroom part 6][small bedroom part 7][small bedroom part 8][small bedroom part 9][small bedroom part 10][small bedroom part 11][small bedroom part 12][small bedroom part 13][small bedroom part 14]".
+The small bedroom part 11 is some text that varies. The small bedroom part 11 is " wooden door leading east.".
+The description of r_0 is "[small bedroom part 0][small bedroom part 1][small bedroom part 2][small bedroom part 3][small bedroom part 4][small bedroom part 5][small bedroom part 6][small bedroom part 7][small bedroom part 8][small bedroom part 9][small bedroom part 10][small bedroom part 11]".
 
 east of r_0 and west of r_1 is a door called d_0.
 
@@ -77,34 +73,34 @@ The o_2 and the o_0 and the o_1 and the o_3 and the o_4 and the o_5 are object-l
 The o_2 and the o_0 and the o_1 and the o_3 and the o_4 and the o_5 are privately-named.
 The r_1 and the r_0 are rooms.
 The r_1 and the r_0 are privately-named.
-The s_0 and the s_1 and the s_2 and the s_3 and the s_4 are supporters.
-The s_0 and the s_1 and the s_2 and the s_3 and the s_4 are privately-named.
+The s_0 and the s_1 and the s_2 and the s_3 are supporters.
+The s_0 and the s_1 and the s_2 and the s_3 are privately-named.
 
-The description of d_0 is "it is what it is, a wooden door [if open]You can see inside it.[else if closed]You can't see inside it because the lid's in your way.[otherwise]There is a lock on it.[end if]".
+The description of d_0 is "The wooden door looks hefty. [if open]You can see inside it.[else if closed]You can't see inside it because the lid's in your way.[otherwise]There is a lock on it.[end if]".
 The printed name of d_0 is "wooden door".
 Understand "wooden door" as d_0.
 Understand "wooden" as d_0.
 Understand "door" as d_0.
 The d_0 is open.
-The description of c_0 is "The garbage can looks strong, and impossible to crack. [if open]You can see inside it.[else if closed]You can't see inside it because the lid's in your way.[otherwise]There is a lock on it.[end if]".
+The description of c_0 is "The garbage can looks strong, and impossible to destroy. [if open]You can see inside it.[else if closed]You can't see inside it because the lid's in your way.[otherwise]There is a lock on it.[end if]".
 The printed name of c_0 is "garbage can".
 Understand "garbage can" as c_0.
 Understand "garbage" as c_0.
 Understand "can" as c_0.
 The c_0 is in r_1.
 The c_0 is open.
-The description of c_1 is "The kitchen pantry looks strong, and impossible to crack. [if open]You can see inside it.[else if closed]You can't see inside it because the lid's in your way.[otherwise]There is a lock on it.[end if]".
+The description of c_1 is "The kitchen pantry looks strong, and impossible to destroy. [if open]It is open.[else if closed]It is closed.[otherwise]It is locked.[end if]".
 The printed name of c_1 is "kitchen pantry".
 Understand "kitchen pantry" as c_1.
 Understand "kitchen" as c_1.
 Understand "pantry" as c_1.
 The c_1 is in r_1.
 The c_1 is open.
-The description of c_2 is "The fridge looks strong, and impossible to destroy. [if open]You can see inside it.[else if closed]You can't see inside it because the lid's in your way.[otherwise]There is a lock on it.[end if]".
+The description of c_2 is "The fridge looks strong, and impossible to break. [if open]It is open.[else if closed]It is closed.[otherwise]It is locked.[end if]".
 The printed name of c_2 is "fridge".
 Understand "fridge" as c_2.
 The c_2 is in r_1.
-The description of c_3 is "The sink looks strong, and impossible to crack. [if open]You can see inside it.[else if closed]You can't see inside it because the lid's in your way.[otherwise]There is a lock on it.[end if]".
+The description of c_3 is "The sink looks strong, and impossible to break. [if open]You can see inside it.[else if closed]You can't see inside it because the lid's in your way.[otherwise]There is a lock on it.[end if]".
 The printed name of c_3 is "sink".
 Understand "sink" as c_3.
 The c_3 is in r_1.
@@ -116,75 +112,69 @@ Understand "bedroom" as c_4.
 Understand "cabinet" as c_4.
 The c_4 is in r_0.
 The c_4 is open.
-The description of c_5 is "The wardrobe looks strong, and impossible to break. [if open]It is open.[else if closed]It is closed.[otherwise]It is locked.[end if]".
+The description of c_5 is "The wardrobe looks strong, and impossible to destroy. [if open]It is open.[else if closed]It is closed.[otherwise]It is locked.[end if]".
 The printed name of c_5 is "wardrobe".
 Understand "wardrobe" as c_5.
 The c_5 is in r_0.
 The c_5 is open.
-The description of f_0 is "You couldn't pay me to eat that usual thing.".
+The description of f_0 is "You couldn't pay me to eat that standard thing.".
 The printed name of f_0 is "bag of cookies".
 Understand "bag of cookies" as f_0.
 Understand "bag" as f_0.
 Understand "cookies" as f_0.
 The f_0 is in r_0.
-The description of o_2 is "The computer monitor is unremarkable.".
+The description of o_2 is "The computer monitor is antiquated.".
 The printed name of o_2 is "computer monitor".
 Understand "computer monitor" as o_2.
 Understand "computer" as o_2.
 Understand "monitor" as o_2.
 The o_2 is in r_0.
-The description of s_0 is "The dining table is stable.".
+The description of s_0 is "The dining table is reliable.".
 The printed name of s_0 is "dining table".
 Understand "dining table" as s_0.
 Understand "dining" as s_0.
 Understand "table" as s_0.
 The s_0 is in r_1.
-The description of s_1 is "The writing desk is shaky.".
+The description of s_1 is "The writing desk is solidly built.".
 The printed name of s_1 is "writing desk".
 Understand "writing desk" as s_1.
 Understand "writing" as s_1.
 Understand "desk" as s_1.
 The s_1 is in r_0.
-The description of s_2 is "The end table is reliable.".
-The printed name of s_2 is "end table".
-Understand "end table" as s_2.
-Understand "end" as s_2.
-Understand "table" as s_2.
+The description of s_2 is "The sofa is durable.".
+The printed name of s_2 is "sofa".
+Understand "sofa" as s_2.
 The s_2 is in r_0.
-The description of s_3 is "The sofa is durable.".
-The printed name of s_3 is "sofa".
-Understand "sofa" as s_3.
+The description of s_3 is "The bed is shaky.".
+The printed name of s_3 is "bed".
+Understand "bed" as s_3.
 The s_3 is in r_0.
-The description of s_4 is "The bed is stable.".
-The printed name of s_4 is "bed".
-Understand "bed" as s_4.
-The s_4 is in r_0.
-The description of o_0 is "The used noodle cup is expensive looking.".
+The description of o_0 is "The used noodle cup is modern.".
 The printed name of o_0 is "used noodle cup".
 Understand "used noodle cup" as o_0.
 Understand "used" as o_0.
 Understand "noodle" as o_0.
 Understand "cup" as o_0.
 The o_0 is in the c_4.
-The description of o_1 is "The chili oil is expensive looking.".
+The description of o_1 is "The chili oil is antiquated.".
 The printed name of o_1 is "chili oil".
 Understand "chili oil" as o_1.
 Understand "chili" as o_1.
 Understand "oil" as o_1.
-The o_1 is on the s_3.
-The description of o_3 is "The family photo seems well matched to everything else here".
+The o_1 is on the s_2.
+The description of o_3 is "The family photo would seem to be well matched to everything else here".
 The printed name of o_3 is "family photo".
 Understand "family photo" as o_3.
 Understand "family" as o_3.
 Understand "photo" as o_3.
-The o_3 is on the s_4.
-The description of o_4 is "The game software is expensive looking.".
+The o_3 is on the s_3.
+The description of o_4 is "The game software appears to be out of place here".
 The printed name of o_4 is "game software".
 Understand "game software" as o_4.
 Understand "game" as o_4.
 Understand "software" as o_4.
 The o_4 is on the s_0.
-The description of o_5 is "The apple core is expensive looking.".
+The description of o_5 is "The apple core is well-used.".
 The printed name of o_5 is "apple core".
 Understand "apple core" as o_5.
 Understand "apple" as o_5.

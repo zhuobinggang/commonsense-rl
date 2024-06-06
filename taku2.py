@@ -11,6 +11,13 @@ class Caller(Caller_Neighbor):
 
 def run(game_idx = 0):
     env = get_game_env(2, game_idx)
-    caller = Caller(env, step_limit = 20, gpt_type = G.GPT4)
+    caller = Caller(env, step_limit = 20, gpt_type = G.GPT4, zero_shot = True)
+    caller(None) # first step
+    return caller
+
+def run_disscussion():
+    env = get_game_env_by_path('/home/taku/research/zhuobinggang/commonsense-rl/exp/handmade_game_exp/games/taku_handmade_env1.ulx' )
+    env.meta_info = 'dd'
+    caller = Caller(env, step_limit = 20, gpt_type = G.GPT35)
     caller(None) # first step
     return caller
