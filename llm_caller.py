@@ -40,7 +40,9 @@ class Prompt_builder:
 
 
 class Builder1: # 2024.8.9之前的
-    def __init__(self, current_enviroment, inventory, available_actions, action_obs_pairs = [], zero_shot = True, cot = True, one_shot_easy = False, no_augment = False):
+    def __init__(self):
+        pass
+    def build(self, current_enviroment, inventory, available_actions, action_obs_pairs = [], zero_shot = True, cot = True, one_shot_easy = False, no_augment = False):
         builder = Prompt_builder()
         builder.inventory = inventory
         builder.current_enviroment = current_enviroment
@@ -72,9 +74,9 @@ class Builder1: # 2024.8.9之前的
             builder.question = G.QUESTION_NO_COT
             builder.consideration = None
         self.builder = builder 
+        self.builder.build()
 
     def sys_usr_msg(self):
-        self.builder.build()
         return self.builder.system_msg, self.builder.user_msg
 
 
@@ -107,7 +109,7 @@ def quest_gpt_raw(system_msg, user_msg, gpt_type):
     return completion, dic
 
 class GPT_Caller:
-    def __init__(self, env, zero_shot = True, gpt_type = 'gpt-3.5-turbo-0613',  cot = True, one_shot_easy = False, no_augment = False, step_limit = 20):
+    def __init__(self, env, zero_shot = True, gpt_type = 'gpt-3.5-turbo-0613',  cot = True, one_shot_easy = False, no_augment = False, step_limit = 20, builder = None):
         self.zero_shot = zero_shot
         self.gpt_type = gpt_type
         self.env = env
@@ -125,9 +127,11 @@ class GPT_Caller:
         # print(f'NO_AUGMENT: {no_augment}')
         # print(f'STEP_LIMIT: {step_limit}')
         self.step_counter = 0
+        # Add 2024.8.9
+        self.builder = builder or Builder1()
     def __call__(self, description, inventory, available_actions, action_obs_pairs):
-        builder = Builder1(description, inventory, available_actions, action_obs_pairs, zero_shot = self.zero_shot, cot = self.cot, one_shot_easy = self.one_shot_easy, no_augment = self.no_augment)
-        system_msg, user_msg = builder.sys_usr_msg()
+        self.builder.build(description, inventory, available_actions, action_obs_pairs, zero_shot = self.zero_shot, cot = self.cot, one_shot_easy = self.one_shot_easy, no_augment = self.no_augment)
+        system_msg, user_msg = self.builder.sys_usr_msg()
         dd, dic = quest_gpt_raw(system_msg, user_msg, gpt_type = self.gpt_type)
         if self.env is not None:
             self.env.env.system_user_msgs.append(system_msg + user_msg)
