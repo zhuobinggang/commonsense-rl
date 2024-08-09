@@ -7,6 +7,10 @@ client = OpenAI()
 from dataset_creator import DEFAULT_SYSTEM_PROMPT
 
 def quest_gpt(system_msg, user_msg, gpt_type):
+    completion, dic = quest_gpt_raw(system_msg, user_msg, gpt_type)
+    return completion
+
+def quest_gpt_raw(system_msg, user_msg, gpt_type):
     completion = client.chat.completions.create(
       model=gpt_type, # 
       messages=[
@@ -34,7 +38,7 @@ def quest_gpt(system_msg, user_msg, gpt_type):
         pyperclip.copy('')
         print(f'BE CAREFULL!')
     dic = {'response': content, 'usage': usage}
-    return completion
+    return completion, dic
 
 def quest_gpt4(system_msg = 'You are a helpful assistant.', user_msg = 'Tell me a joker.', gpt3 = False):
     if gpt3:
@@ -74,7 +78,7 @@ class GPT_Caller:
     def step(self, command):
         if self.step_counter < self.step_limit:
             self.step_counter += 1
-            description, inventory, available_actions, action_obs_pairs = taku.act_step_by_step_obs_augment(self.env, command)
+            description, inventory, available_actions, action_obs_pairs = taku.act_step_by_step_obs_augment(self.env, command, no_augment = self.no_augment) # 2024.8.9 修复bug？好像step这一步没有考虑augmentation的问题
             if self.env.end:
                 print('YOU WIN! NO API CALL NEED.')
                 self.save()

@@ -9,6 +9,7 @@ def get_game_env(level_index = 0, game_index = 0, dataset_index = 1, printer = N
     env.meta_info = f'get_game_env({level_index},{game_index},{dataset_index})'
     env.meta_name = f'{taku.DATASET_NAMES[dataset_index]}_{taku.LEVELS[level_index]}_{game_index}'
     env.counter_taku = 0
+    initiate_env(env)
     return env
 
 
@@ -138,7 +139,7 @@ def initiate_env(env):
         env.info = None # Will be injected in taku.step()
 
 def act_step_by_step(env, command = None, caller = printer_step_by_step4):
-    initiate_env(env)
+    #initiate_env(env)
     action_obs_pairs = env.action_obs_pairs
     if command:
         obs, info = step(env, command, caller = None, need_reward = False)
@@ -188,7 +189,7 @@ def is_placing_item(command):
 RIGHT_POSITION = 'Right position.'
 WRONG_POSITION = 'Wrong position, you should put it somewhere else, maybe the other room.'
 def act_step_by_step_obs_augment(env, command = None, no_augment = False):
-    initiate_env(env)
+    #initiate_env(env)
     action_obs_pairs = env.action_obs_pairs
     if command:
         obs, info = step(env, command, caller = None, need_reward = False)
