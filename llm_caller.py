@@ -27,7 +27,7 @@ class Prompt_builder:
         system_msg += f'Inventory: {self.inventory}\n' if self.inventory else ''
         system_msg += f'Another room: {self.another_room_info}\n' if self.another_room_info else ''
         system_msg += f'Current enviroment: {self.current_enviroment}\n' if self.current_enviroment else ''
-        system_msg = system_msg.strip()
+        system_msg = system_msg.strip() + '\n'
         self.system_msg = system_msg
         user_msg = ''
         user_msg += f'Action you can take:\n{self.action_list}\n' if self.action_list else ''
@@ -41,7 +41,7 @@ class Prompt_builder:
 
 class Builder1: # 2024.8.9之前的
     def __init__(self):
-        pass
+        self.builder = None
     def build(self, current_enviroment, inventory, available_actions, action_obs_pairs = [], zero_shot = True, cot = True, one_shot_easy = False, no_augment = False):
         builder = Prompt_builder()
         builder.inventory = inventory
