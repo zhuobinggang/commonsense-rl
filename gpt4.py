@@ -68,7 +68,6 @@ class GPT_Caller:
         # print(f'STEP_LIMIT: {step_limit}')
         self.step_counter = 0
     def __call__(self, description, inventory, available_actions, action_obs_pairs):
-        # system_msg, user_msg = get_system_user_msg(description, inventory, available_actions, action_obs_pairs = action_obs_pairs, zero_shot = self.zero_shot)
         system_msg, user_msg = get_system_user_msg_v2(description, inventory, available_actions, action_obs_pairs, zero_shot = self.zero_shot, cot = self.cot, one_shot_easy = self.one_shot_easy, no_augment = self.no_augment)
         dd = quest_gpt(system_msg, user_msg, gpt_type = self.gpt_type)
         if self.env is not None:

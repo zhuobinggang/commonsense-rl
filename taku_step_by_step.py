@@ -8,7 +8,6 @@ def get_game_env(level_index = 0, game_index = 0, dataset_index = 1, printer = N
     env = taku.get_game_env(level_index, game_index, dataset_index, printer, max_step, need_reset)
     env.meta_info = f'get_game_env({level_index},{game_index},{dataset_index})'
     env.meta_name = f'{taku.DATASET_NAMES[dataset_index]}_{taku.LEVELS[level_index]}_{game_index}'
-    env.counter_taku = 0
     initiate_env(env)
     return env
 
@@ -201,7 +200,6 @@ def act_step_by_step_obs_augment(env, command = None, no_augment = False):
         if obs == enviroment:
             obs = obs.split('.')[0] + '.'
         available_actions = info['admissible_commands'][0]
-        env.counter_taku += 1
         # TODO: 记录瞬时奖励
         new_reward = info['score'][0]
         env.instant_reward = new_reward - env.last_reward
@@ -230,7 +228,6 @@ def act_step_by_step_obs_augment(env, command = None, no_augment = False):
         inventory = info['inventory'][0].strip().replace('\n','')
         available_actions = info['admissible_commands'][0]
         action_obs_pairs = []
-        env.counter_taku = 0
         env.last_reward = 0
         env.instant_reward = 0
     env.available_actions = available_actions
@@ -269,7 +266,6 @@ def act_step_by_step_simple(env, command = None):
             obs = obs.split('.')[0] + '.'
         action_obs_pairs.append((command, obs))
         available_actions = info['admissible_commands'][0]
-        env.counter_taku += 1
         # TODO: 记录瞬时奖励
         new_reward = info['score'][0]
         env.instant_reward = new_reward - env.last_reward
@@ -284,7 +280,6 @@ def act_step_by_step_simple(env, command = None):
         inventory = info['inventory'][0].strip().replace('\n','')
         available_actions = info['admissible_commands'][0]
         action_obs_pairs = []
-        env.counter_taku = 0
         env.last_reward = 0
         env.instant_reward = 0
     env.available_actions = available_actions
