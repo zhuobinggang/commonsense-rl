@@ -1,4 +1,7 @@
 import global_variable as G
+from openai import OpenAI
+import pyperclip
+client = OpenAI()
 
 class Prompt_builder:
     def __init__(self, task = G.TASK, action_history = None, inventory = None, current_enviroment = None, example = None,  action_list = None, question = G.QUESTION, consideration = G.FILL_IN_TEMPLATE, next_action = G.FILL_IN_TEMPLATE, another_room_info = None):
@@ -68,7 +71,7 @@ class Builder1: # 2024.8.9之前的
         else:
             builder.question = G.QUESTION_NO_COT
             builder.consideration = None
-       self.builder = builder 
+        self.builder = builder 
 
     def sys_usr_msg(self):
         self.builder.build()
@@ -94,7 +97,7 @@ def quest_gpt_raw(system_msg, user_msg, gpt_type):
         line = line.lower()
         if line.startswith('next action:'):
             text_to_paste = line.replace('next action:', '').strip()
-            pyperclip.copy(f"c('{text_to_paste}')")
+            pyperclip.copy(f"c.act_and_call('{text_to_paste}')")
             print(f'COMMAND GOT: {text_to_paste}')
             copied = True
     if not copied:
@@ -113,6 +116,7 @@ class GPT_Caller:
         self.no_augment = no_augment
         self.step_limit = step_limit 
         self.filename = f'ZERO_SHOT_{zero_shot}_COT_{cot}_GPT_{gpt_type}_ONE_SHOT_EASY_{one_shot_easy}_NO_AUGMENT_{no_augment}_STEP_LIMIT_{step_limit}_{env.env.meta_info}.pkl' 
+        self.filename_raw = f'ZERO_SHOT_{zero_shot}_COT_{cot}_GPT_{gpt_type}_ONE_SHOT_EASY_{one_shot_easy}_NO_AUGMENT_{no_augment}_STEP_LIMIT_{step_limit}_{env.env.meta_info}' 
         print(self.filename)
         # print(f'ZERO SHOT: {zero_shot}')
         # print(f'COT: {cot}')
@@ -124,10 +128,11 @@ class GPT_Caller:
     def __call__(self, description, inventory, available_actions, action_obs_pairs):
         builder = Builder1(description, inventory, available_actions, action_obs_pairs, zero_shot = self.zero_shot, cot = self.cot, one_shot_easy = self.one_shot_easy, no_augment = self.no_augment)
         system_msg, user_msg = builder.sys_usr_msg()
-        dd, _ = quest_gpt_raw(system_msg, user_msg, gpt_type = self.gpt_type)
+        dd, dic = quest_gpt_raw(system_msg, user_msg, gpt_type = self.gpt_type)
         if self.env is not None:
             self.env.env.system_user_msgs.append(system_msg + user_msg)
             self.env.env.gpt_responses.append(dd)
+            self.env.env.readable_log += (system_msg + user_msg + '\n\n\n' + dic['response'] + '\n\n\n\n')
         return dd
     def act_and_call(self, command = None): # if None, a new begining
         if self.step_counter < self.step_limit:
@@ -143,10 +148,15 @@ class GPT_Caller:
             print(f'NO MORE ACTION CAN TAKE, STEP_COUNTER NOW: {self.step_counter}')
             self.save()
     def save(self):
-        filename = 'exp/auto_filename/' + self.filename
         env = self.env.env
+        filename = 'exp/auto_filename/' + self.filename_raw + f'score_{env.last_reward}.txt'
+        f = open(filename, 'w')
+        f.write(env.readable_log)
+        f.close()
         # 处理错位问题
-        dic = {'env_meta': env.meta_info, 'system_user_msgs': env.system_user_msgs, 'gpt_responses': env.gpt_responses}
-        import pickle
-        with open(filename, 'wb') as handle:
-            pickle.dump(dic, handle, protocol=pickle.HIGHEST_PROTOCOL)
+        # dic = {'env_meta': env.meta_info, 'system_user_msgs': env.system_user_msgs, 'gpt_responses': env.gpt_responses}
+        # import pickle
+        # with open(filename, 'wb') as handle:
+        #     pickle.dump(dic, handle, protocol=pickle.HIGHEST_PROTOCOL)
+    def log(self):
+        print(self.env.env.readable_log)

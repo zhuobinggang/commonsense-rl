@@ -31,6 +31,8 @@ class Env:
             env.end = False
         if not hasattr(env, 'info'): # 2024.5.23
             env.info = None # Will be injected in taku.step()
+        if not hasattr(env, 'readable_log'): # 2024.8.9
+            env.readable_log = '' 
     
     def get_game_name(self, level_index = 0, game_index = 0, dataset_index = 1):
         import glob
@@ -77,7 +79,7 @@ class Env:
         action_obs_pairs = env.action_obs_pairs
         no_augment = no_augment or self.no_augment
         if command:
-            obs, info = self._step(env, command)
+            obs, info = self._step(command)
             # CLEAN OBS
             obs = obs[0].strip().replace('\n','')
             inventory = info['inventory'][0].strip().replace('\n','')
