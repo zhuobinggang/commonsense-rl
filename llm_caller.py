@@ -139,7 +139,7 @@ class GPT_Caller:
             self.env.env.readable_log += (system_msg + user_msg + '\n\n\n' + dic['response'] + '\n\n\n\n')
         return dd
     def act_and_call(self, command = None): # if None, a new begining
-        if self.step_counter < self.step_limit:
+        if self.step_counter <= self.step_limit:
             self.step_counter += 1
             description, inventory, available_actions, action_obs_pairs = self.env.act(command, no_augment = self.no_augment) # 2024.8.9 修复bug？好像step这一步没有考虑augmentation的问题
             if self.env.env.end:
