@@ -117,9 +117,7 @@ class GPT_Caller:
         self.one_shot_easy = one_shot_easy
         self.no_augment = no_augment
         self.step_limit = step_limit 
-        self.filename = f'ZERO_SHOT_{zero_shot}_COT_{cot}_GPT_{gpt_type}_ONE_SHOT_EASY_{one_shot_easy}_NO_AUGMENT_{no_augment}_STEP_LIMIT_{step_limit}_{env.env.meta_info}.pkl' 
-        self.filename_raw = f'ZERO_SHOT_{zero_shot}_COT_{cot}_GPT_{gpt_type}_ONE_SHOT_EASY_{one_shot_easy}_NO_AUGMENT_{no_augment}_STEP_LIMIT_{step_limit}_{env.env.meta_info}' 
-        print(self.filename)
+        self.file_name_generate()
         # print(f'ZERO SHOT: {zero_shot}')
         # print(f'COT: {cot}')
         # print(f'GPT VERSION: {gpt_type}')
@@ -129,6 +127,17 @@ class GPT_Caller:
         self.step_counter = 0
         # Add 2024.8.9
         self.builder = builder or Builder1()
+
+    def file_name_generate(self):
+        shot = 'ZERO_SHOT' if self.zero_shot else 'ONE_SHOT'
+        if not self.zero_shot:
+            shot += '_EASY' if self.one_shot_easy else '_NORMAL'
+        cot = 'COT_ON' if self.cot else 'COT_OFF'
+        augment = 'AUGMENT_OFF' if self.no_augment else 'AUGMENT_ON'
+        self.filename = f'{shot}_{cot}_{self.gpt_type}_{augment}_STEP_LIMIT_{self.step_limit}_{self.env.env.meta_info}.pkl' 
+        self.filename_raw = f'{shot}_{cot}_{self.gpt_type}_{augment}_STEP_LIMIT_{self.step_limit}_{self.env.env.meta_info}' 
+        print(self.filename_raw)
+
     def __call__(self, description, inventory, available_actions, action_obs_pairs):
         self.builder.build(description, inventory, available_actions, action_obs_pairs, zero_shot = self.zero_shot, cot = self.cot, one_shot_easy = self.one_shot_easy, no_augment = self.no_augment)
         system_msg, user_msg = self.builder.sys_usr_msg()

@@ -1,0 +1,1 @@
+保持action list和所有其他提示技巧，只是用gpt4o-mini来实验
