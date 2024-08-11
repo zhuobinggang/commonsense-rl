@@ -1,5 +1,6 @@
 import global_variable as G
 from openai import OpenAI
+import re
 import pyperclip
 client = OpenAI()
 
@@ -99,14 +100,15 @@ def quest_gpt_raw(system_msg, user_msg, gpt_type):
         line = line.lower()
         if line.startswith('next action:'):
             text_to_paste = line.replace('next action:', '').strip()
-            pyperclip.copy(f"c.act_and_call('{text_to_paste}')")
+            the_command = text_to_paste
+            pyperclip.copy(f"c.act_until_error('{text_to_paste}')")
             print(f'COMMAND GOT: {text_to_paste}')
             copied = True
     if not copied:
         pyperclip.copy('')
         print(f'BE CAREFULL!')
     dic = {'response': content, 'usage': usage}
-    return completion, dic
+    return completion, dic, the_command
 
 class GPT_Caller:
     def __init__(self, env, zero_shot = True, gpt_type = 'gpt-3.5-turbo-0613',  cot = True, one_shot_easy = False, no_augment = False, step_limit = 20, builder = None):
@@ -141,25 +143,60 @@ class GPT_Caller:
     def __call__(self, description, inventory, available_actions, action_obs_pairs):
         self.builder.build(description, inventory, available_actions, action_obs_pairs, zero_shot = self.zero_shot, cot = self.cot, one_shot_easy = self.one_shot_easy, no_augment = self.no_augment)
         system_msg, user_msg = self.builder.sys_usr_msg()
-        dd, dic = quest_gpt_raw(system_msg, user_msg, gpt_type = self.gpt_type)
+        dd, dic, the_command = quest_gpt_raw(system_msg, user_msg, gpt_type = self.gpt_type)
+        print('call: ' + the_command)
         if self.env is not None:
             self.env.env.system_user_msgs.append(system_msg + user_msg)
             self.env.env.gpt_responses.append(dd)
             self.env.env.readable_log += (system_msg + user_msg + '\n\n\n' + dic['response'] + '\n\n\n\n')
-        return dd
-    def act_and_call(self, command = None): # if None, a new begining
+        return the_command
+
+    def is_command_available(self, the_command, available_actions):
+        available_actions = [act.lower() for act in available_actions]
+        if the_command in available_actions:
+            return True
+        commands = []
+        for act in available_actions:
+            if act.startswith('take'):
+                commands.append(re.sub('\sfrom\s.*', '', act))
+            if act.startswith('go '):
+                commands.append(act)
+            if act.startswith('put '):
+                commands.append(act)
+            if act.startswith('insert '):
+                commands.append(act.replace('insert', 'put').replace('into', 'in'))
+        if the_command not in commands:
+            print('XXXXXXXXXXXX')
+            print(the_command)
+            print(commands)
+            return False
+        else:
+            return True
+
+    def act_and_call(self, command = None): # if None, a new begining. Return the command got
         if self.step_counter <= self.step_limit:
             self.step_counter += 1
             description, inventory, available_actions, action_obs_pairs = self.env.act(command, no_augment = self.no_augment) # 2024.8.9 修复bug？好像step这一步没有考虑augmentation的问题
             if self.env.env.end:
                 print('YOU WIN! NO API CALL NEED.')
                 self.save()
+                return None
             else:
                 self.env.env.score_by_step.append(self.env.env.last_reward)
-                _ = self.__call__(description, inventory, available_actions, action_obs_pairs)
+                the_command = self.__call__(description, inventory, available_actions, action_obs_pairs)
+                # NOTE: Added 2024.8.11
+                the_command = re.sub('^\d\.\s*', '', the_command)
+                return the_command if self.is_command_available(the_command, available_actions) else None
         else:
             print(f'NO MORE ACTION CAN TAKE, STEP_COUNTER NOW: {self.step_counter}')
             self.save()
+            return None
+
+    def act_until_error(self, command = None):
+        next_command = self.act_and_call(command)
+        while next_command is not None:
+            next_command = self.act_and_call(next_command)
+
     def save(self):
         env = self.env.env
         filename = 'exp/auto_filename/' + self.filename_raw + f'score_{env.last_reward}.txt'
@@ -171,5 +208,5 @@ class GPT_Caller:
         # import pickle
         # with open(filename, 'wb') as handle:
         #     pickle.dump(dic, handle, protocol=pickle.HIGHEST_PROTOCOL)
-    def log(self):
-        print(self.env.env.readable_log)
+    def log(self, index = -4000):
+        print(self.env.env.readable_log[index:])

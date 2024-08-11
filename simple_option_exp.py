@@ -11,9 +11,9 @@ class Builder_Simple_Option(Builder1):
         move_actions = [act for act in available_actions if act.startswith('go ')]
         if len(move_actions) > 0:
             move_action = [act for act in available_actions if act.startswith('go ')][0]
-            builder.action_list = f'1. take [object]\n2. put [object in inventory] on [supporter]\n3. insert [object in inventory] into [container]\n4. {move_action}' # NOTE: NEW
+            builder.action_list = f'1. take [object]\n2. put [object in inventory] on [supporter]\n3. put [object in inventory] in [container]\n4. {move_action}' # NOTE: NEW
         else:
-            builder.action_list = f'1. take [object]\n2. put [object in inventory] on [supporter]\n3. insert [object in inventory] into [container]' # NOTE: NEW
+            builder.action_list = f'1. take [object]\n2. put [object in inventory] on [supporter]\n3. put [object in inventory] in [container]' # NOTE: NEW
         action_history = ''
         if len(action_obs_pairs) > 0:
             for idx, (act, obs) in enumerate(action_obs_pairs):
