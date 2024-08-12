@@ -1,3 +1,5 @@
+## EXP with simple action list. Ended at 2024.8.12.
+
 from env import Env
 from llm_caller import GPT_Caller, Builder1
 from simple_option_exp import Builder_Simple_Option

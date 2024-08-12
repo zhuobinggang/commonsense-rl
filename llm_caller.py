@@ -2,10 +2,23 @@ import global_variable as G
 from openai import OpenAI
 import re
 import pyperclip
+
 client = OpenAI()
 
+
 class Prompt_builder:
-    def __init__(self, task = G.TASK, action_history = None, inventory = None, current_enviroment = None, example = None,  action_list = None, question = G.QUESTION, consideration = G.FILL_IN_TEMPLATE, next_action = G.FILL_IN_TEMPLATE, another_room_info = None):
+
+    def __init__(self,
+                 task=G.TASK,
+                 action_history=None,
+                 inventory=None,
+                 current_enviroment=None,
+                 example=None,
+                 action_list=None,
+                 question=G.QUESTION,
+                 consideration=G.FILL_IN_TEMPLATE,
+                 next_action=G.FILL_IN_TEMPLATE,
+                 another_room_info=None):
         self.task = task
         self.action_history = action_history
         self.inventory = inventory
@@ -20,6 +33,7 @@ class Prompt_builder:
         self.system_msg = ''
         self.user_msg = ''
         self.prompt = ''
+
     def build(self):
         system_msg = ''
         system_msg += f'Task: {self.task}\n' if self.task else ''
@@ -40,10 +54,20 @@ class Prompt_builder:
         self.prompt = f'{system_msg}\n{user_msg}'
 
 
-class Builder1: # 2024.8.9之前的
+class Builder1:  # 2024.8.9之前的
+
     def __init__(self):
         self.builder = None
-    def build(self, current_enviroment, inventory, available_actions, action_obs_pairs = [], zero_shot = True, cot = True, one_shot_easy = False, no_augment = False):
+
+    def build(self,
+              current_enviroment,
+              inventory,
+              available_actions,
+              action_obs_pairs=[],
+              zero_shot=True,
+              cot=True,
+              one_shot_easy=False,
+              no_augment=False):
         builder = Prompt_builder()
         builder.inventory = inventory
         builder.current_enviroment = current_enviroment
@@ -60,21 +84,21 @@ class Builder1: # 2024.8.9之前的
         builder.action_history = action_history
         if zero_shot:
             builder.example = None
-        else: # one shot
+        else:  # one shot
             if one_shot_easy and no_augment:
                 builder.example = G.ONE_SHOT_EXP_SIMPLE_NO_AUG
             elif one_shot_easy and not no_augment:
                 builder.example = G.ONE_SHOT_EXP_AUGMENT_SIMPLE
             elif not one_shot_easy and no_augment:
                 builder.example = G.ONE_SHOT_EXP_NO_AUG
-            elif not one_shot_easy and not no_augment: # 提案手法
+            elif not one_shot_easy and not no_augment:  # 提案手法
                 builder.example = G.ONE_SHOT_EXP_AUGMENT
         if cot:
             builder.question = G.QUESTION
         else:
             builder.question = G.QUESTION_NO_COT
             builder.consideration = None
-        self.builder = builder 
+        self.builder = builder
         self.builder.build()
 
     def sys_usr_msg(self):
@@ -83,23 +107,27 @@ class Builder1: # 2024.8.9之前的
 
 def quest_gpt_raw(system_msg, user_msg, gpt_type):
     completion = client.chat.completions.create(
-      model=gpt_type, # 
-      messages=[
-        {"role": "system", "content": system_msg},
-        {"role": "user", "content": user_msg}
-      ],
-      temperature = 0
-    )
+        model=gpt_type,  # 
+        messages=[{
+            "role": "system",
+            "content": system_msg
+        }, {
+            "role": "user",
+            "content": user_msg
+        }],
+        temperature=0)
     # To clipboard
     content = completion.choices[0].message.content
     usage = str(completion.usage)
     # To clipboard
     # NOTE: 自动提取command
     copied = False
+    the_command = ''
     for line in content.split('\n'):
         line = line.lower()
         if line.startswith('next action:'):
             text_to_paste = line.replace('next action:', '').strip()
+            text_to_paste = re.sub('^\d\.\s*', '', text_to_paste)
             the_command = text_to_paste
             pyperclip.copy(f"c.act_until_error('{text_to_paste}')")
             print(f'COMMAND GOT: {text_to_paste}')
@@ -110,15 +138,25 @@ def quest_gpt_raw(system_msg, user_msg, gpt_type):
     dic = {'response': content, 'usage': usage}
     return completion, dic, the_command
 
+
 class GPT_Caller:
-    def __init__(self, env, zero_shot = True, gpt_type = 'gpt-3.5-turbo-0613',  cot = True, one_shot_easy = False, no_augment = False, step_limit = 20, builder = None):
+
+    def __init__(self,
+                 env,
+                 zero_shot=True,
+                 gpt_type='gpt-3.5-turbo-0613',
+                 cot=True,
+                 one_shot_easy=False,
+                 no_augment=False,
+                 step_limit=20,
+                 builder=None):
         self.zero_shot = zero_shot
         self.gpt_type = gpt_type
         self.env = env
-        self.cot =cot 
+        self.cot = cot
         self.one_shot_easy = one_shot_easy
         self.no_augment = no_augment
-        self.step_limit = step_limit 
+        self.step_limit = step_limit
         self.file_name_generate()
         # print(f'ZERO SHOT: {zero_shot}')
         # print(f'COT: {cot}')
@@ -136,19 +174,29 @@ class GPT_Caller:
             shot += '_EASY' if self.one_shot_easy else '_NORMAL'
         cot = 'COT_ON' if self.cot else 'COT_OFF'
         augment = 'AUGMENT_OFF' if self.no_augment else 'AUGMENT_ON'
-        self.filename = f'{shot}_{cot}_{self.gpt_type}_{augment}_STEP_LIMIT_{self.step_limit}_{self.env.env.meta_info}.pkl' 
-        self.filename_raw = f'{shot}_{cot}_{self.gpt_type}_{augment}_STEP_LIMIT_{self.step_limit}_{self.env.env.meta_info}' 
+        self.filename = f'{shot}_{cot}_{self.gpt_type}_{augment}_STEP_LIMIT_{self.step_limit}_{self.env.env.meta_info}.pkl'
+        self.filename_raw = f'{shot}_{cot}_{self.gpt_type}_{augment}_STEP_LIMIT_{self.step_limit}_{self.env.env.meta_info}'
         print(self.filename_raw)
 
-    def __call__(self, description, inventory, available_actions, action_obs_pairs):
-        self.builder.build(description, inventory, available_actions, action_obs_pairs, zero_shot = self.zero_shot, cot = self.cot, one_shot_easy = self.one_shot_easy, no_augment = self.no_augment)
+    def __call__(self, description, inventory, available_actions,
+                 action_obs_pairs):
+        self.builder.build(description,
+                           inventory,
+                           available_actions,
+                           action_obs_pairs,
+                           zero_shot=self.zero_shot,
+                           cot=self.cot,
+                           one_shot_easy=self.one_shot_easy,
+                           no_augment=self.no_augment)
         system_msg, user_msg = self.builder.sys_usr_msg()
-        dd, dic, the_command = quest_gpt_raw(system_msg, user_msg, gpt_type = self.gpt_type)
-        print('call: ' + the_command)
+        dd, dic, the_command = quest_gpt_raw(system_msg,
+                                             user_msg,
+                                             gpt_type=self.gpt_type)
         if self.env is not None:
             self.env.env.system_user_msgs.append(system_msg + user_msg)
             self.env.env.gpt_responses.append(dd)
-            self.env.env.readable_log += (system_msg + user_msg + '\n\n\n' + dic['response'] + '\n\n\n\n')
+            self.env.env.readable_log += (system_msg + user_msg + '\n\n\n' +
+                                          dic['response'] + '\n\n\n\n')
         return the_command
 
     def is_command_available(self, the_command, available_actions):
@@ -164,7 +212,8 @@ class GPT_Caller:
             if act.startswith('put '):
                 commands.append(act)
             if act.startswith('insert '):
-                commands.append(act.replace('insert', 'put').replace('into', 'in'))
+                commands.append(
+                    act.replace('insert', 'put').replace('into', 'in'))
         if the_command not in commands:
             print('XXXXXXXXXXXX')
             print(the_command)
@@ -173,26 +222,51 @@ class GPT_Caller:
         else:
             return True
 
-    def act_and_call(self, command = None): # if None, a new begining. Return the command got
+    def updated_description(self, description):
+        return description
+
+    def set_act_result(self, desc, inventory, actions, action_obs_pairs):
+        self.desc = desc
+        self.inventory = inventory
+        self.available_actions = actions
+        self.action_obs_pairs = action_obs_pairs
+
+    def recall_and_get_command(self):
+        the_command = self.__call__(self.desc, self.inventory,
+                                    self.available_actions,
+                                    self.action_obs_pairs)
+        # NOTE: Added 2024.8.11
+        the_command = re.sub('^\d\.\s*', '', the_command)
+        return the_command if self.is_command_available(
+            the_command, self.available_actions) else None
+
+    def act_and_call(
+            self,
+            command=None):  # if None, a new begining. Return the command got
         if self.step_counter <= self.step_limit:
             self.step_counter += 1
-            description, inventory, available_actions, action_obs_pairs = self.env.act(command, no_augment = self.no_augment) # 2024.8.9 修复bug？好像step这一步没有考虑augmentation的问题
+            description, inventory, available_actions, action_obs_pairs = self.env.act(
+                command, no_augment=self.no_augment
+            )  # 2024.8.9 修复bug？好像step这一步没有考虑augmentation的问题
+            description = self.updated_description(description)
+            # set to body
+            self.set_act_result(description, inventory, available_actions,
+                                action_obs_pairs)
             if self.env.env.end:
                 print('YOU WIN! NO API CALL NEED.')
                 self.save()
                 return None
             else:
                 self.env.env.score_by_step.append(self.env.env.last_reward)
-                the_command = self.__call__(description, inventory, available_actions, action_obs_pairs)
-                # NOTE: Added 2024.8.11
-                the_command = re.sub('^\d\.\s*', '', the_command)
-                return the_command if self.is_command_available(the_command, available_actions) else None
+                return self.recall_and_get_command()
         else:
-            print(f'NO MORE ACTION CAN TAKE, STEP_COUNTER NOW: {self.step_counter}')
+            print(
+                f'NO MORE ACTION CAN TAKE, STEP_COUNTER NOW: {self.step_counter}'
+            )
             self.save()
             return None
 
-    def act_until_error(self, command = None):
+    def act_until_error(self, command=None):
         next_command = self.act_and_call(command)
         while next_command is not None:
             next_command = self.act_and_call(next_command)
@@ -208,5 +282,7 @@ class GPT_Caller:
         # import pickle
         # with open(filename, 'wb') as handle:
         #     pickle.dump(dic, handle, protocol=pickle.HIGHEST_PROTOCOL)
-    def log(self, index = -4000):
+        self.save_hook()
+
+    def log(self, index=-4000):
         print(self.env.env.readable_log[index:])
