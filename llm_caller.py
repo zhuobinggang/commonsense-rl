@@ -122,12 +122,12 @@ def quest_gpt_raw(system_msg, user_msg, gpt_type):
     # To clipboard
     # NOTE: 自动提取command
     copied = False
-    the_command = ''
+    the_command = None
     for line in content.split('\n'):
         line = line.lower()
         if line.startswith('next action:'):
             text_to_paste = line.replace('next action:', '').strip()
-            text_to_paste = re.sub('^\d\.\s*', '', text_to_paste)
+            #text_to_paste = re.sub('^\d\.\s*', '', text_to_paste)
             the_command = text_to_paste
             pyperclip.copy(f"c.act_until_error('{text_to_paste}')")
             print(f'COMMAND GOT: {text_to_paste}')
@@ -225,40 +225,122 @@ class GPT_Caller:
     def updated_description(self, description):
         return description
 
-    def set_act_result(self, desc, inventory, actions, action_obs_pairs):
+    def set_act_result_to_body(self, desc, inventory, actions, action_obs_pairs):
         self.desc = desc
         self.inventory = inventory
         self.available_actions = actions
         self.action_obs_pairs = action_obs_pairs
 
     def recall_and_get_command(self):
-        the_command = self.__call__(self.desc, self.inventory,
+        return self.__call__(self.desc, self.inventory,
                                     self.available_actions,
                                     self.action_obs_pairs)
-        # NOTE: Added 2024.8.11
-        the_command = re.sub('^\d\.\s*', '', the_command)
-        return the_command if self.is_command_available(
-            the_command, self.available_actions) else None
+        
+    def command_remove_number_prefix(self, cmd):
+        # NOTE: Added 2024.8.11 去除 1. take xxx 类似的数字前缀
+        cmd = re.sub('^\d\.\s*', '', cmd)
+        return cmd
+    
+    def object_cut(self, obj, idx = -2):
+        obj = obj.strip()
+        ss = obj.split()
+        if len(ss) > 1:
+            obj = ' '.join(ss[idx:]) # 只保留两个
+        return obj
+        
+    def command_cut_object_name(self, cmd):
+        if cmd.startswith('put'):
+            obj = None
+            place = None
+            preposition = None
+            objs = re.findall('^put\s(.*?)\son\s(.*)', cmd)
+            if len(objs) > 0:
+                preposition = 'on'
+            else:
+                objs = re.findall('^put\s(.*?)\sin\s(.*)', cmd)
+                preposition = 'in'
+            obj, place = objs[0]
+            obj = self.object_cut(obj) # 削减obj
+            # 重新组装cmd
+            cmd = ' '.join(['put', obj, preposition, place])
+            return cmd
+        if cmd.startswith('take'):
+            objs = re.findall('^take\s(.*?)\sfrom\s(.*)', cmd)
+            if len(objs) > 0:
+                obj, place = objs[0]
+                obj = self.object_cut(obj) # 削减obj
+                cmd = ' '.join(['take',obj])
+                return cmd
+            obj = cmd.strip().replace('take ', '')
+            obj = self.object_cut(obj) # 削减obj
+            cmd = ' '.join(['take', obj])
+            return cmd
+        
+    def command_switch_preposition(self, cmd):
+        if cmd.startswith('put'):
+            if ' in ' in cmd:
+                return cmd.replace(' in ', ' on ')
+            elif ' on ' in cmd:
+                return cmd.replace(' on ', ' in ')
+            else:
+                print('Something Wrong about command_switch_preposition()!')
+                return cmd
+        else:
+            print('No need switch preposition.')
+            return cmd
+
+    def try_adjust_and_execute(self, command): # 2024.8.17 
+        command_backup = command
+        description, inventory, available_actions, action_obs_pairs = self.env.act(command, no_augment=self.no_augment)
+        if description is None and not self.env.env.end:
+            command = self.command_remove_number_prefix(command)
+            print('Trying command_remove_number_prefix')
+            description, inventory, available_actions, action_obs_pairs = self.env.act(command, no_augment=self.no_augment)
+        if description is None and not self.env.env.end:
+            command = self.command_cut_object_name(command)
+            print('Trying command_cut_object_name')
+            description, inventory, available_actions, action_obs_pairs = self.env.act(command, no_augment=self.no_augment)
+        if description is None and not self.env.env.end:
+            command = self.command_switch_preposition(command)
+            print('Trying command_switch_preposition')
+            description, inventory, available_actions, action_obs_pairs = self.env.act(command, no_augment=self.no_augment)
+        if description is None and not self.env.env.end:
+            print(f'TAKU: llm_caller try_ajust_and_execute failed, command_backup : {command_backup}, command_adjust : {command}')
+        if command_backup != command:
+            self.env.env.readable_log += f'\n\nCommand adjusted: {command_backup} -> {command}\n\n'
+        return description, inventory, available_actions, action_obs_pairs
 
     def act_and_call(
             self,
-            command=None):  # if None, a new begining. Return the command got
+            command=None):  # @RETURN: None means 2 path, first means the command non-executable, second means response from LLM irregular.
         if self.step_counter <= self.step_limit:
+            description, inventory, available_actions, action_obs_pairs = self.try_adjust_and_execute(command)
+            if description is None and not self.env.env.end:
+                # 给予一次重新请求的机会
+                print('Please Try Recalling.')
+                recommand = self.recall_and_get_command()
+                print(f'\n\nTrying recall LLM!!! {command} -> {recommand}\n\n')
+                self.env.env.readable_log += f'\n\nTrying recall LLM!!! {command} -> {recommand}\n\n'
+                description, inventory, available_actions, action_obs_pairs = self.try_adjust_and_execute(recommand)
+                if description is None and not self.env.env.end:
+                    print(f'Recall but Failed!')
+                    self.env.env.readable_log += f'\n\nRecall but Failed\n\n'
+                    return None
+                else:
+                    print(f'Recall success!')
+                    self.env.env.readable_log += f'\n\nRecall success!\n\n'
+            # 执行成功之后
             self.step_counter += 1
-            description, inventory, available_actions, action_obs_pairs = self.env.act(
-                command, no_augment=self.no_augment
-            )  # 2024.8.9 修复bug？好像step这一步没有考虑augmentation的问题
-            description = self.updated_description(description)
-            # set to body
-            self.set_act_result(description, inventory, available_actions,
-                                action_obs_pairs)
-            if self.env.env.end:
+            if self.env.env.end: # 如果赢了就不再需要调用LLM
                 print('YOU WIN! NO API CALL NEED.')
                 self.save()
                 return None
             else:
+                # 更新房间描述的钩子函数
+                description = self.updated_description(description)
+                self.set_act_result_to_body(description, inventory, available_actions, action_obs_pairs)
                 self.env.env.score_by_step.append(self.env.env.last_reward)
-                return self.recall_and_get_command()
+                return self.recall_and_get_command() # 得到的是提取成功的，如果提取不成功，需要手动操作
         else:
             print(
                 f'NO MORE ACTION CAN TAKE, STEP_COUNTER NOW: {self.step_counter}'
