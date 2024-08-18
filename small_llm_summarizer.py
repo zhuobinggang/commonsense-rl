@@ -49,7 +49,7 @@ class GPT_Caller_Simple_Desc(GPT_Caller):
     def __init__(self,
                  env,
                  zero_shot=True,
-                 gpt_type = 'gpt-3.5-turbo-0613',
+                 gpt_type = 'gpt-4o-2024-08-06',
                  cot=True,
                  one_shot_easy=False,
                  no_augment=False,
