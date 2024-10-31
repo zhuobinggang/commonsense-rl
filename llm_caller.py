@@ -58,6 +58,7 @@ class Builder1:  # 2024.8.9之前的
 
     def __init__(self):
         self.builder = None
+        self.name = 'normal_builder'
 
     def build(self,
               current_enviroment,
@@ -365,6 +366,9 @@ class GPT_Caller:
         # with open(filename, 'wb') as handle:
         #     pickle.dump(dic, handle, protocol=pickle.HIGHEST_PROTOCOL)
         self.save_hook()
+        
+    def save_hook(self):
+        pass
 
     def log(self, index=-4000):
         print(self.env.env.readable_log[index:])
