@@ -2,15 +2,33 @@
 #　创建llama_calller.py，包含一个完全覆盖GPT_Caller接口的Llama_caller类
 import global_variable as G
 import re
+from functools import lru_cache
 
-def example():
-    from transformers import TextStreamer
+@lru_cache(maxsize=None)
+def get_llama():
     from unsloth import FastLanguageModel
-    model_name = 'unsloth/Llama-3.2-1B-Instruct-bnb-4bit'
+    # model_name = 'unsloth/Llama-3.2-1B-Instruct-bnb-4bit'
+    model_name = 'unsloth/Llama-3.2-3B-Instruct-bnb-4bit'
     model, tokenizer = FastLanguageModel.from_pretrained(
         model_name = model_name
     )
     FastLanguageModel.for_inference(model) # 如果是推理而不是微调，必须开启
+    return model, tokenizer
+
+def generate(prompt):
+    from transformers import TextStreamer
+    model, tokenizer = get_llama()
+    inputs = tokenizer(
+        [prompt],
+        return_tensors="pt",
+    ).to("cuda")
+    text_streamer = TextStreamer(tokenizer)
+    token_ids = model.generate(**inputs, streamer=text_streamer, max_new_tokens=768)
+    text = tokenizer.decode(token_ids[0])
+    return text
+
+
+def example():
     prompt_style = """Below is an instruction that describes a task, paired with an input that provides further context. Write a response that appropriately completes the request.
 
     ### Instruction:
@@ -21,24 +39,18 @@ def example():
 
     ### Response:
     {}"""
-    inputs = tokenizer(
-        [
-            prompt_style.format(
-                "You are a professional machine learning engineer",  
-                "How would you deal with NaN validation loss?",  
-                "", 
-            )
-        ],
-        return_tensors="pt",
-    ).to("cuda")
-    text_streamer = TextStreamer(tokenizer)
-    _ = model.generate(**inputs, streamer=text_streamer, max_new_tokens=128)
+    prompt = prompt_style.format(
+        "You are a professional machine learning engineer",  
+        "How would you deal with NaN validation loss?",  
+        "", 
+    )
+    return generate(prompt)
 
 
 def quest_llama_raw(prompt):
     print(prompt)
-    # TODO: 待完成
-
+    print("XXXXXXXXXXXXXXXXXXXXX")
+    return generate(prompt)
 
 
 class Prompt_builder:
@@ -194,7 +206,9 @@ class Llama_caller:
                  action_obs_pairs):
         prompt = self.get_prompt(description, inventory, available_actions,
                  action_obs_pairs)
-        dd, dic, the_command = quest_llama_raw(prompt)
+        response = quest_llama_raw(prompt)
+        # TODO: 处理respsonse并自动提取command
+        return None 
         #if self.env is not None:
         #    self.env.env.system_user_msgs.append(system_msg + user_msg)
         #    self.env.env.gpt_responses.append(dd)
@@ -318,27 +332,28 @@ class Llama_caller:
             command=None):  # @RETURN: None means 2 path, first means the command non-executable, second means response from LLM irregular.
         if self.step_counter <= self.step_limit:
             description, inventory, available_actions, action_obs_pairs = self.try_adjust_and_execute(command)
-            if description is None and not self.env.env.end:
+            if description is None and not self.env.env.end: # 解析command失败，退出
                 # 给予一次重新请求的机会
                 print('Please Try Recalling.')
-                recommand = self.recall_and_get_command()
-                print(f'\n\nTrying recall LLM!!! {command} -> {recommand}\n\n')
-                self.env.env.readable_log += f'\n\nTrying recall LLM!!! {command} -> {recommand}\n\n'
-                description, inventory, available_actions, action_obs_pairs = self.try_adjust_and_execute(recommand)
-                if description is None and not self.env.env.end:
-                    print(f'Recall but Failed!')
-                    self.env.env.readable_log += f'\n\nRecall but Failed\n\n'
-                    return None
-                else:
-                    print(f'Recall success!')
-                    self.env.env.readable_log += f'\n\nRecall success!\n\n'
+                return None
+                # recommand = self.recall_and_get_command()
+                # print(f'\n\nTrying recall LLM!!! {command} -> {recommand}\n\n')
+                # self.env.env.readable_log += f'\n\nTrying recall LLM!!! {command} -> {recommand}\n\n'
+                # description, inventory, available_actions, action_obs_pairs = self.try_adjust_and_execute(recommand)
+                # if description is None and not self.env.env.end:
+                #     print(f'Recall but Failed!')
+                #     self.env.env.readable_log += f'\n\nRecall but Failed\n\n'
+                #     return None
+                # else:
+                #     print(f'Recall success!')
+                #     self.env.env.readable_log += f'\n\nRecall success!\n\n'
             # 执行成功之后
             self.step_counter += 1
             if self.env.env.end: # 如果赢了就不再需要调用LLM
                 print('YOU WIN! NO API CALL NEED.')
                 self.save()
                 return None
-            else:
+            else: # 能够正常解析
                 # 更新房间描述的钩子函数
                 description = self.updated_description(description)
                 self.set_act_result_to_body(description, inventory, available_actions, action_obs_pairs)
