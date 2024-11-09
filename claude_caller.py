@@ -64,6 +64,8 @@ def command_from_text(text):
             print(f'COMMAND GOT: {text_to_paste}')
             copied = True
     if not copied:
+        print('XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX command from text failed XXXXXXXXXXXXXX')
+        print(text)
         pyperclip.copy('')
         print(f'BE CAREFULL!')
     return the_command
@@ -252,9 +254,9 @@ class Claude_Caller:
         system_msg, user_msg = self.builder.sys_usr_msg()
         dd, dic, the_command = quest_claude(get_client(), system_msg,
                                              user_msg,
-                                             claude_type=self.gpt_type, need_print=need_print)
+                                             claude_type=self.gpt_type, need_print=need_print) # 获得the_command，可能为空
         if self.env is not None:
-            self.env.env.system_user_msgs.append(system_msg + user_msg)
+            self.env.env.system_user_msgs.append(system_msg + user_msg) # 2024.11.9: 不管command是否为空，都存储sys, user信息，这个可以用于再次请求才对。
             self.env.env.gpt_responses.append(dd)
             self.env.env.readable_log += (system_msg + user_msg + '\n\n\n' +
                                           dic['response'] + '\n\n\n\n')
