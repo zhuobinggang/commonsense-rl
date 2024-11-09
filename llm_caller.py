@@ -150,7 +150,8 @@ class GPT_Caller:
                  one_shot_easy=False,
                  no_augment=False,
                  step_limit=20,
-                 builder=None):
+                 builder=None,
+                 filename_prefix=''):
         self.zero_shot = zero_shot
         self.gpt_type = gpt_type
         self.env = env
@@ -158,6 +159,7 @@ class GPT_Caller:
         self.one_shot_easy = one_shot_easy
         self.no_augment = no_augment
         self.step_limit = step_limit
+        self.filename_prefix = filename_prefix
         self.file_name_generate()
         # print(f'ZERO SHOT: {zero_shot}')
         # print(f'COT: {cot}')
@@ -175,8 +177,9 @@ class GPT_Caller:
             shot += '_EASY' if self.one_shot_easy else '_NORMAL'
         cot = 'COT_ON' if self.cot else 'COT_OFF'
         augment = 'AUGMENT_OFF' if self.no_augment else 'AUGMENT_ON'
-        self.filename = f'{shot}_{cot}_{self.gpt_type}_{augment}_STEP_LIMIT_{self.step_limit}_{self.env.env.meta_info}.pkl'
-        self.filename_raw = f'{shot}_{cot}_{self.gpt_type}_{augment}_STEP_LIMIT_{self.step_limit}_{self.env.env.meta_info}'
+        filename_prefix = self.filename_prefix + '_' if self.filename_prefix else ''
+        self.filename = f'{filename_prefix}{shot}_{cot}_{self.gpt_type}_{augment}_STEP_LIMIT_{self.step_limit}_{self.env.env.meta_info}.pkl'
+        self.filename_raw = f'{filename_prefix}{shot}_{cot}_{self.gpt_type}_{augment}_STEP_LIMIT_{self.step_limit}_{self.env.env.meta_info}'
         print(self.filename_raw)
 
     def __call__(self, description, inventory, available_actions,

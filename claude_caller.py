@@ -68,7 +68,7 @@ def command_from_text(text):
         print(f'BE CAREFULL!')
     return the_command
 
-def quest_claude(client, system, user, claude_type = "claude-3-5-sonnet-20241022", max_tokens = 500):
+def quest_claude(client, system, user, claude_type = "claude-3-5-sonnet-20241022", max_tokens = 500, need_print = False):
     message = client.messages.create(
         model=claude_type,
         max_tokens=max_tokens,
@@ -87,6 +87,8 @@ def quest_claude(client, system, user, claude_type = "claude-3-5-sonnet-20241022
         ]
     )
     text = text_from_raw_response(message)
+    if need_print:
+        print(text)
     dic = {'response': text, 'usage': usage_from_raw_response(message)}
     the_command = command_from_text(text) # Might be None
     return message, dic, the_command
@@ -205,7 +207,8 @@ class Claude_Caller:
                  one_shot_easy=False,
                  no_augment=False,
                  step_limit=20,
-                 builder=None):
+                 builder=None,
+                 filename_prefix=''):
         self.zero_shot = zero_shot
         self.gpt_type = gpt_type
         self.env = env
@@ -213,6 +216,7 @@ class Claude_Caller:
         self.one_shot_easy = one_shot_easy
         self.no_augment = no_augment
         self.step_limit = step_limit
+        self.filename_prefix = filename_prefix
         self.file_name_generate()
         # print(f'ZERO SHOT: {zero_shot}')
         # print(f'COT: {cot}')
@@ -230,12 +234,13 @@ class Claude_Caller:
             shot += '_EASY' if self.one_shot_easy else '_NORMAL'
         cot = 'COT_ON' if self.cot else 'COT_OFF'
         augment = 'AUGMENT_OFF' if self.no_augment else 'AUGMENT_ON'
-        self.filename = f'{shot}_{cot}_{self.gpt_type}_{augment}_STEP_LIMIT_{self.step_limit}_{self.env.env.meta_info}.pkl'
-        self.filename_raw = f'{shot}_{cot}_{self.gpt_type}_{augment}_STEP_LIMIT_{self.step_limit}_{self.env.env.meta_info}'
+        filename_prefix = self.filename_prefix + '_' if self.filename_prefix else ''
+        self.filename = f'{filename_prefix}{shot}_{cot}_{self.gpt_type}_{augment}_STEP_LIMIT_{self.step_limit}_{self.env.env.meta_info}.pkl'
+        self.filename_raw = f'{filename_prefix}{shot}_{cot}_{self.gpt_type}_{augment}_STEP_LIMIT_{self.step_limit}_{self.env.env.meta_info}'
         print(self.filename_raw)
 
     def __call__(self, description, inventory, available_actions,
-                 action_obs_pairs):
+                 action_obs_pairs, need_print = False):
         self.builder.build(description,
                            inventory,
                            available_actions,
@@ -247,7 +252,7 @@ class Claude_Caller:
         system_msg, user_msg = self.builder.sys_usr_msg()
         dd, dic, the_command = quest_claude(get_client(), system_msg,
                                              user_msg,
-                                             claude_type=self.gpt_type)
+                                             claude_type=self.gpt_type, need_print=need_print)
         if self.env is not None:
             self.env.env.system_user_msgs.append(system_msg + user_msg)
             self.env.env.gpt_responses.append(dd)
@@ -287,10 +292,10 @@ class Claude_Caller:
         self.available_actions = actions
         self.action_obs_pairs = action_obs_pairs
 
-    def recall_and_get_command(self):
+    def recall_and_get_command(self, need_print= False):
         return self.__call__(self.desc, self.inventory,
                                     self.available_actions,
-                                    self.action_obs_pairs)
+                                    self.action_obs_pairs, need_print = need_print)
         
     def command_remove_number_prefix(self, cmd):
         # NOTE: Added 2024.8.11 去除 1. take xxx 类似的数字前缀
