@@ -4,11 +4,46 @@ import global_variable as G
 import re
 from functools import lru_cache
 
+
+def fake_message_simple():
+    system = """Task: You are a experienced text game player, your goal is put things in there proper locations and improve your score.
+Action history: No action was taken now.
+Inventory: You are carrying:  some milk
+Current enviroment: -= Backyard =-You've entered a backyard.You see a BBQ. The BBQ is recent. On the BBQ you make out a wooden spoon. You see a clothesline. The clothesline is typical. But the thing is empty. Hm. Oh well What's that over there? It looks like it's a patio chair. Now why would someone leave that there? On the patio chair you can see a wet white jumper. You see a patio table. The patio table is stylish. The patio table appears to be empty. Hey, want to see a workbench? Look over there, a workbench. On the workbench you see a clean pot. Something scurries by right in the corner of your eye. Probably nothing.There is an open sliding patio door leading west.
+"""
+    user = """Action you can take:
+* close sliding patio door
+* drop milk
+* examine BBQ
+* examine clean pot
+* examine clothesline
+* examine patio chair
+* examine patio table
+* examine wet white jumper
+* examine wooden spoon
+* examine workbench
+* go west
+* look
+* put milk on BBQ
+* put milk on clothesline
+* put milk on patio chair
+* put milk on patio table
+* put milk on workbench
+* take clean pot from workbench
+* take wet white jumper from patio chair
+* take wooden spoon from BBQ
+
+Question: To put things in there proper locations and improve your score, what should you do? Think step by step then choose 'one' action from above list.
+Consideration: <fill in>
+Next action: <fill in>"""
+    return system, user
+
 @lru_cache(maxsize=None)
 def get_llama():
     from unsloth import FastLanguageModel
     # model_name = 'unsloth/Llama-3.2-1B-Instruct-bnb-4bit'
-    model_name = 'unsloth/Llama-3.2-3B-Instruct-bnb-4bit'
+    # model_name = 'unsloth/Llama-3.2-3B-Instruct-bnb-4bit'
+    model_name = 'NousResearch/Hermes-3-Llama-3.1-8B'
     model, tokenizer = FastLanguageModel.from_pretrained(
         model_name = model_name
     )

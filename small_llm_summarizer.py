@@ -1,4 +1,4 @@
-from llm_caller import client, GPT_Caller
+from llm_caller import get_client, GPT_Caller
 
 
 class Prompt_builder:
@@ -29,6 +29,7 @@ class Prompt_builder:
 def quest_summarization(system_msg,
                         user_msg,
                         gpt_type='gpt-4o-mini-2024-07-18'):
+    client = get_client()
     completion = client.chat.completions.create(
         model=gpt_type,  # 
         messages=[{

@@ -132,7 +132,7 @@ class Env:
             if not no_augment:
                 if env.instant_reward != 0:
                     obs += self.RIGHT_POSITION_HINT
-                    print('FA: {obs}')
+                    print(f'FA: {obs}')
                 else:
                     if self.is_placing_item(command):
                         obs_lower = obs.lower()
@@ -142,7 +142,7 @@ class Env:
                             pass  # 什么也不做
                         else:
                             obs += self.WRONG_POSITION_HINT  # 放置成功，但是位置错误
-                            print('FA: {obs}')
+                            print(f'FA: {obs}')
             # 记录历史
             env.action_obs_pairs.append((command, obs))
         else:  # 重新开始的情况

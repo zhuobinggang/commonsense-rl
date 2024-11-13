@@ -40,8 +40,7 @@ Current enviroment: -= Backyard =-You've entered a backyard.You see a BBQ. The B
 
 Question: To put things in there proper locations and improve your score, what should you do? Think step by step then choose 'one' action from above list.
 Consideration: <fill in>
-Next action: <fill in>
-"""
+Next action: <fill in>"""
     return system, user
 
 
@@ -241,6 +240,12 @@ class Claude_Caller:
         self.filename_raw = f'{filename_prefix}{shot}_{cot}_{self.gpt_type}_{augment}_STEP_LIMIT_{self.step_limit}_{self.env.env.meta_info}'
         print(self.filename_raw)
 
+    def quest_my_llm(self, system_msg, user_msg, llm_type, need_print = False):
+        complete, dic, the_command = quest_claude(get_client(), system_msg,
+                                        user_msg,
+                                        claude_type=llm_type, need_print=need_print) # 获得the_command，可能为空
+        return complete, dic, the_command
+
     def __call__(self, description, inventory, available_actions,
                  action_obs_pairs, need_print = False):
         self.builder.build(description,
@@ -252,12 +257,15 @@ class Claude_Caller:
                            one_shot_easy=self.one_shot_easy,
                            no_augment=self.no_augment)
         system_msg, user_msg = self.builder.sys_usr_msg()
-        dd, dic, the_command = quest_claude(get_client(), system_msg,
+        complete, dic, the_command = self.quest_my_llm(system_msg,
                                              user_msg,
-                                             claude_type=self.gpt_type, need_print=need_print) # 获得the_command，可能为空
+                                             self.gpt_type, need_print=need_print) # 获得the_command，可能为空
+        if the_command is None:
+            print('__call__(): QUEST LLM GET NONE COMMAND, THE RESPONSE DIC IS BELOW, I WILL TRY IT AGAIN!')
+            print(dic)
         if self.env is not None:
             self.env.env.system_user_msgs.append(system_msg + user_msg) # 2024.11.9: 不管command是否为空，都存储sys, user信息，这个可以用于再次请求才对。
-            self.env.env.gpt_responses.append(dd)
+            self.env.env.gpt_responses.append(complete)
             self.env.env.readable_log += (system_msg + user_msg + '\n\n\n' +
                                           dic['response'] + '\n\n\n\n')
         return the_command
@@ -338,6 +346,7 @@ class Claude_Caller:
             obj = self.object_cut(obj) # 削减obj
             cmd = ' '.join(['take', obj])
             return cmd
+        return cmd # 2024.11.11 BUG
         
     def command_switch_preposition(self, cmd):
         if cmd.startswith('put'):
@@ -403,7 +412,13 @@ class Claude_Caller:
                 description = self.updated_description(description)
                 self.set_act_result_to_body(description, inventory, available_actions, action_obs_pairs)
                 self.env.env.score_by_step.append(self.env.env.last_reward)
-                return self.recall_and_get_command() # 得到的是提取成功的，如果提取不成功，需要手动操作
+                # NOTE: 2024.11.11 如果返回的文本中提取指令失败，给予一次重试机会
+                command_may_none = self.recall_and_get_command()
+                if command_may_none is None:
+                    print('XXXXXXX')
+                    print('act_and_call() request LLM and get command failed, try again (only once)!')
+                    command_may_none = self.recall_and_get_command()
+                return  command_may_none# 得到的是提取成功的，如果提取不成功，需要手动操作
         else:
             print(
                 f'NO MORE ACTION CAN TAKE, STEP_COUNTER NOW: {self.step_counter}'
