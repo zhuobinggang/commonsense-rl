@@ -1,5 +1,7 @@
 from llm_caller import get_client, GPT_Caller
 
+GPT4O = 'gpt-4o-2024-08-06'
+GPT4OMINI = 'gpt-4o-mini-2024-07-18'
 
 class Prompt_builder:
 
@@ -28,7 +30,7 @@ class Prompt_builder:
 
 def quest_summarization(system_msg,
                         user_msg,
-                        gpt_type='gpt-4o-mini-2024-07-18'):
+                        gpt_type=GPT4OMINI):
     client = get_client()
     completion = client.chat.completions.create(
         model=gpt_type,  # 
@@ -47,28 +49,10 @@ def quest_summarization(system_msg,
 
 class GPT_Caller_Simple_Desc(GPT_Caller):
 
-    def __init__(self,
-                 env,
-                 zero_shot=True,
-                 gpt_type = 'gpt-4o-2024-08-06',
-                 cot=True,
-                 one_shot_easy=False,
-                 no_augment=False,
-                 step_limit=20,
-                 builder=None):
-        super().__init__(env, zero_shot, gpt_type, cot, one_shot_easy,
-                         no_augment, step_limit, builder)
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
         self.summarize_prompt_builder = Prompt_builder()
         self.summarize_log = ''
-
-    def file_name_generate(self):
-        shot = 'ZERO_SHOT' if self.zero_shot else 'ONE_SHOT'
-        if not self.zero_shot:
-            shot += '_EASY' if self.one_shot_easy else '_NORMAL'
-        cot = 'COT_ON' if self.cot else 'COT_OFF'
-        augment = 'AUGMENT_OFF' if self.no_augment else 'AUGMENT_ON'
-        self.filename_raw = f'SimpleDesc_{shot}_{cot}_{self.gpt_type}_{augment}_STEP_LIMIT_{self.step_limit}_{self.env.env.meta_info}'
-        print(self.filename_raw)
 
     def updated_description(self, description):
         self.summarize_prompt_builder.desc = description

@@ -15,7 +15,7 @@ def text_from_raw_response(completion):
     return content
 
 
-def quest_gpt_raw(client, system_msg, user_msg, gpt_type, need_print = False):
+def quest_gpt_raw(client, system_msg, user_msg, gpt_type, verbose = True):
     completion = client.chat.completions.create(
         model=gpt_type,  # 
         messages=[{
@@ -31,7 +31,7 @@ def quest_gpt_raw(client, system_msg, user_msg, gpt_type, need_print = False):
     # To clipboard
     # NOTE: 自动提取command
     text = text_from_raw_response(completion)
-    if need_print:
+    if verbose:
         print(text)
     dic = {'response': text, 'usage': usage}
     the_command = command_from_text(text) # Might be None
@@ -43,9 +43,9 @@ class GPT_Caller(Claude_Caller):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
-    def quest_my_llm(self, system_msg, user_msg, llm_type, need_print = False):
+    def quest_my_llm(self, system_msg, user_msg, llm_type, verbose = False):
         complete, dic, the_command = quest_gpt_raw(get_client(), system_msg,
                                         user_msg,
-                                        llm_type, need_print=need_print) # 获得the_command，可能为空
+                                        llm_type, verbose=verbose) # 获得the_command，可能为空
         return complete, dic, the_command
 

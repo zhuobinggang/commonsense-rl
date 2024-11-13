@@ -22,3 +22,34 @@ caller.act_until_error(None)
 command = c.recall_and_get_command()
 caller.act_until_error(command)
 ```
+
+# 打印记录
+
+`c.log()`
+
+# 2024.11.13 对于论文总体结构的重新思考以及实验
+
+## 主要的目的
+
+使用LLM来解决TWC问题。在其上提高模型的性能。
+
+## Baseline Prompt
+
+使用的信息和不基于llm的先行研究基本一致。
+
+* action history
+* inventory
+* environment
+* action list
+
+在信息的简单罗列之上，我们的prompt还包含了两个额外的部分。
+
+1. 添加于开头的对于任务的描述，这个符合LLM的使用实践。
+2. 为了便于分析，我们要求模型输出思考过程。
+
+该prompt作为我们手法的baseline。
+
+## 我们的手法
+
+1. 对于环境描述 + 选项列表的精简化。
+2. 反馈增强，作为先行研究的成果被沿用。
