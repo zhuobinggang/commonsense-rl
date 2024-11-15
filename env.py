@@ -84,11 +84,17 @@ class Env:
 
     ######################### 初始化END ###################
 
+    def get_moves(self, info):
+        return info['moves'][0]
+    
+    def origin_env_step(self, cmd):
+        return self.env.step([cmd])
+
     def _step(self, cmd):
         # Add 2024.8.17 需要判断行动是否成功，如果不成功返回None
-        old_moves = self.env.info['moves'][0]
-        obs, reward, is_not_terminal, info = self.env.step([cmd])
-        new_moves = info['moves'][0]
+        old_moves = self.get_moves(self.env.info)
+        obs, reward, is_not_terminal, info = self.origin_env_step(cmd)
+        new_moves = self.get_moves(info)
         if old_moves == new_moves:  # Add 2024.8.17 需要判断行动是否成功，如果不成功返回None
             print(f'TAKU: env._step WARNING, {cmd} NOT EXECUTABLE!')
             self.err = {'obs': obs, 'info': info}
@@ -109,26 +115,44 @@ class Env:
     def append_command_obs_pair(self, command, obs):
         self.env.action_obs_pairs.append((command, obs))
 
+    def is_won(self, info):
+        return info['won'][0]
+    
+    def get_desc(self, info):
+        return info['description'][0].strip().replace('\n', '')
+    
+    def get_inventory(self, info):
+        return info['inventory'][0].strip().replace('\n', '')
+    
+    def get_available_actions(self, info):
+        return info['admissible_commands'][0]
+    
+    def get_score(self, info):
+        return info['score'][0]
+    
+    def get_obs(self, obs_raw):
+        return obs_raw[0].strip().replace('\n', '')
+
     def act(self, command=None, no_augment=None):
         #initiate_env(env)
         env = self.env
         no_augment = no_augment or self.no_augment
         if command:
             # Add 2024.8.17 需要判断行动是否成功，如果不成功则直接跳出
-            obs, info = self._step(command)
-            if obs is None:
+            obs_raw, info = self._step(command)
+            if obs_raw is None:
                 print(f'TAKU: env.act WARNING, {command} NOT EXECUTABLE!')
                 return None, None, None, None  # 在该情况下，唯一被设置的东西是env.err
             # CLEAN OBSERVATION
-            obs = obs[0].strip().replace('\n', '')
-            inventory = info['inventory'][0].strip().replace('\n', '')
-            description = info['description'][0].strip().replace('\n', '')
+            obs = self.get_obs(obs_raw)
+            inventory = self.get_inventory(info)
+            description = self.get_desc(info)
             if obs == description:  # 如果obs和description重复，应该被截断以保证输入简洁
                 obs = obs.split('.')[0] + '.'
             # Available actions
-            env.available_actions = info['admissible_commands'][0]
+            env.available_actions = self.get_available_actions(info)
             # 记录瞬时奖励
-            new_reward = info['score'][0]
+            new_reward = self.get_score(info)
             env.instant_reward = new_reward - env.last_reward
             env.last_reward = new_reward
             # 2024.1.21  反馈强化
@@ -152,13 +176,13 @@ class Env:
             print('RESTAR\n\n')
             _, info = env.reset()
             env.info = info  # Add 2024.8.17
-            description = info['description'][0].strip().replace('\n', '')
-            inventory = info['inventory'][0].strip().replace('\n', '')
-            env.available_actions = info['admissible_commands'][0]
+            description = self.get_desc(info)
+            inventory = self.get_inventory(info)
+            env.available_actions = self.get_available_actions(info)
             env.action_obs_pairs = []
             env.last_reward = 0
             env.instant_reward = 0
-        if info['won'][0]:
+        if self.is_won(info):
             env.end = True
             # 打引结束信息
             print(
