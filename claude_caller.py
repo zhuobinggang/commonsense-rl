@@ -378,6 +378,13 @@ class Claude_Caller:
             description, inventory, available_actions, action_obs_pairs = self.env.act(command, no_augment=self.no_augment)
         if description is None and not self.env.env.end:
             print(f'TAKU: llm_caller try_ajust_and_execute failed, command_backup : {command_backup}, command_adjust : {command}')
+            # NOTE: 2024.11.14 指令无法执行，应该记录到历史记录中
+            if command_backup.startswith('put milk in clean pot'):
+                obs = 'COMMAND NOT EXECUTABLE. The clean pot is not a container!'
+            else:
+                obs = 'COMMAND NOT EXECUTABLE. You should try other commands!'
+            print(f'指令无法执行，添加到历史记录: {command_backup} -> {obs}')
+            self.env.append_command_obs_pair(command_backup, obs)
         if command_backup != command:
             self.env.env.readable_log += f'\n\nCommand adjusted: {command_backup} -> {command}\n\n'
         return description, inventory, available_actions, action_obs_pairs
@@ -387,7 +394,7 @@ class Claude_Caller:
             command=None):  # @RETURN: None means 2 path, first means the command non-executable, second means response from LLM irregular.
         if self.step_counter <= self.step_limit:
             description, inventory, available_actions, action_obs_pairs = self.try_adjust_and_execute(command)
-            if description is None and not self.env.env.end:
+            if description is None and not self.env.env.end: # NOTE: 2024.11.14 指令无法执行，需要将这次失败放到历史记录中，但是不应该计算步数
                 # 给予一次重新请求的机会
                 print('Please Try Recalling.')
                 recommand = self.recall_and_get_command()

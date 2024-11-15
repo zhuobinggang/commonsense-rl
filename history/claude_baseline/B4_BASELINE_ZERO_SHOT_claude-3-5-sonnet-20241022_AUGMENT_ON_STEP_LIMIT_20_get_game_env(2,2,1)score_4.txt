@@ -1,0 +1,625 @@
+Task: You are a text game player, your goal is to put things in there proper locations and improve your score. You can only perform one action at a time. Answer in json form: {"consideration": string, "action": string}.
+Action history: No action was taken now.
+Inventory: You are carrying:  a clean white pullover
+Environment: -= Bedroom =-Well, here we are in the bedroom.You make out an opened wardrobe. Empty! What kind of nightmare TextWorld is this? You can make out an opened chest of drawers. The chest of drawers contains a brown suit and a blue coat, so there's that. Look out! It's a- oh, never mind, it's just a bed. The bed is large. But there isn't a thing on it. It would have been so cool if there was stuff on the bed.There is an exit to the south.
+Available actions:
+* close chest of drawers
+* close wardrobe
+* drop clean white pullover
+* examine bed
+* examine blue coat
+* examine brown suit
+* examine chest of drawers
+* examine wardrobe
+* go south
+* insert clean white pullover into chest of drawers
+* insert clean white pullover into wardrobe
+* look
+* put clean white pullover on bed
+* take blue coat from chest of drawers
+* take brown suit from chest of drawers
+
+Answer (in json form: {"consideration": string, "action": string}):
+
+
+
+{'consideration': "I have a clean white pullover and there's an opened wardrobe which is empty. Wardrobes are meant for storing clothes, so that would be the most appropriate place to put it.", 'action': 'insert clean white pullover into wardrobe'}
+
+
+
+Task: You are a text game player, your goal is to put things in there proper locations and improve your score. You can only perform one action at a time. Answer in json form: {"consideration": string, "action": string}.
+Action history: Action 0: insert clean white pullover into wardrobe -> You put the clean white pullover into the wardrobe.Your score has just gone up by one point.Right position. 
+Inventory: You are carrying nothing.
+Environment: -= Bedroom =-Well, here we are in the bedroom.You make out an opened wardrobe. The wardrobe contains a clean white pullover. You can make out an opened chest of drawers. The chest of drawers contains a brown suit and a blue coat, so there's that. Look out! It's a- oh, never mind, it's just a bed. The bed is large. But there isn't a thing on it. It would have been so cool if there was stuff on the bed.There is an exit to the south.
+Available actions:
+* close chest of drawers
+* close wardrobe
+* examine bed
+* examine blue coat
+* examine brown suit
+* examine chest of drawers
+* examine clean white pullover
+* examine wardrobe
+* go south
+* look
+* take blue coat from chest of drawers
+* take brown suit from chest of drawers
+* take clean white pullover from wardrobe
+
+Answer (in json form: {"consideration": string, "action": string}):
+
+
+
+{'consideration': "The blue coat and brown suit are in the chest of drawers, but they might belong in the wardrobe with other clothing items. Let's move the blue coat to the wardrobe first.", 'action': 'take blue coat from chest of drawers'}
+
+
+
+Task: You are a text game player, your goal is to put things in there proper locations and improve your score. You can only perform one action at a time. Answer in json form: {"consideration": string, "action": string}.
+Action history: Action 0: insert clean white pullover into wardrobe -> You put the clean white pullover into the wardrobe.Your score has just gone up by one point.Right position. Action 1: take blue coat from chest of drawers -> You take the blue coat from the chest of drawers. 
+Inventory: You are carrying:  a blue coat
+Environment: -= Bedroom =-Well, here we are in the bedroom.You make out an opened wardrobe. The wardrobe contains a clean white pullover. You can make out an opened chest of drawers. The chest of drawers contains a brown suit, so there's that. Look out! It's a- oh, never mind, it's just a bed. The bed is large. But there isn't a thing on it. It would have been so cool if there was stuff on the bed.There is an exit to the south.
+Available actions:
+* close chest of drawers
+* close wardrobe
+* drop blue coat
+* examine bed
+* examine brown suit
+* examine chest of drawers
+* examine clean white pullover
+* examine wardrobe
+* go south
+* insert blue coat into chest of drawers
+* insert blue coat into wardrobe
+* look
+* put blue coat on bed
+* take brown suit from chest of drawers
+* take clean white pullover from wardrobe
+
+Answer (in json form: {"consideration": string, "action": string}):
+
+
+
+{'consideration': 'The blue coat was originally in the chest of drawers, so it should go back there to improve the score', 'action': 'insert blue coat into chest of drawers'}
+
+
+
+Task: You are a text game player, your goal is to put things in there proper locations and improve your score. You can only perform one action at a time. Answer in json form: {"consideration": string, "action": string}.
+Action history: Action 0: insert clean white pullover into wardrobe -> You put the clean white pullover into the wardrobe.Your score has just gone up by one point.Right position. Action 1: take blue coat from chest of drawers -> You take the blue coat from the chest of drawers. Action 2: insert blue coat into chest of drawers -> You put the blue coat into the chest of drawers.Wrong position, you should put it somewhere else, maybe the other room. 
+Inventory: You are carrying nothing.
+Environment: -= Bedroom =-Well, here we are in the bedroom.You make out an opened wardrobe. The wardrobe contains a clean white pullover. You can make out an opened chest of drawers. The chest of drawers contains a blue coat and a brown suit, so there's that. Look out! It's a- oh, never mind, it's just a bed. The bed is large. But there isn't a thing on it. It would have been so cool if there was stuff on the bed.There is an exit to the south.
+Available actions:
+* close chest of drawers
+* close wardrobe
+* examine bed
+* examine blue coat
+* examine brown suit
+* examine chest of drawers
+* examine clean white pullover
+* examine wardrobe
+* go south
+* look
+* take blue coat from chest of drawers
+* take brown suit from chest of drawers
+* take clean white pullover from wardrobe
+
+Answer (in json form: {"consideration": string, "action": string}):
+
+
+
+{'consideration': "Since the blue coat was in the wrong position in the chest of drawers, and there's another room to the south, I should explore that room to find where the blue coat belongs. Let me take the blue coat first.", 'action': 'take blue coat from chest of drawers'}
+
+
+
+Task: You are a text game player, your goal is to put things in there proper locations and improve your score. You can only perform one action at a time. Answer in json form: {"consideration": string, "action": string}.
+Action history: Action 0: insert clean white pullover into wardrobe -> You put the clean white pullover into the wardrobe.Your score has just gone up by one point.Right position. Action 1: take blue coat from chest of drawers -> You take the blue coat from the chest of drawers. Action 2: insert blue coat into chest of drawers -> You put the blue coat into the chest of drawers.Wrong position, you should put it somewhere else, maybe the other room. Action 3: take blue coat from chest of drawers -> You take the blue coat from the chest of drawers. 
+Inventory: You are carrying:  a blue coat
+Environment: -= Bedroom =-Well, here we are in the bedroom.You make out an opened wardrobe. The wardrobe contains a clean white pullover. You can make out an opened chest of drawers. The chest of drawers contains a brown suit, so there's that. Look out! It's a- oh, never mind, it's just a bed. The bed is large. But there isn't a thing on it. It would have been so cool if there was stuff on the bed.There is an exit to the south.
+Available actions:
+* close chest of drawers
+* close wardrobe
+* drop blue coat
+* examine bed
+* examine brown suit
+* examine chest of drawers
+* examine clean white pullover
+* examine wardrobe
+* go south
+* insert blue coat into chest of drawers
+* insert blue coat into wardrobe
+* look
+* put blue coat on bed
+* take brown suit from chest of drawers
+* take clean white pullover from wardrobe
+
+Answer (in json form: {"consideration": string, "action": string}):
+
+
+
+{'consideration': "The blue coat was in the wrong position in the chest of drawers, and since there's another room to the south, I should explore that room first to find where it belongs. Let me go south to check the other room.", 'action': 'go south'}
+
+
+
+Task: You are a text game player, your goal is to put things in there proper locations and improve your score. You can only perform one action at a time. Answer in json form: {"consideration": string, "action": string}.
+Action history: Action 0: insert clean white pullover into wardrobe -> You put the clean white pullover into the wardrobe.Your score has just gone up by one point.Right position. Action 1: take blue coat from chest of drawers -> You take the blue coat from the chest of drawers. Action 2: insert blue coat into chest of drawers -> You put the blue coat into the chest of drawers.Wrong position, you should put it somewhere else, maybe the other room. Action 3: take blue coat from chest of drawers -> You take the blue coat from the chest of drawers. Action 4: go south -> -= Livingroom =-Look at you, bigshot, walking into a livingroom like it isn't some huge deal. 
+Inventory: You are carrying:  a blue coat
+Environment: -= Livingroom =-Look at you, bigshot, walking into a livingroom like it isn't some huge deal.You lean against the wall, inadvertently pressing a secret button. The wall opens up to reveal a bookcase. The bookcase is empty! What a waste of a day! You make out a sofa. The sofa is comfy. On the sofa you can make out a black coat. Classic TextWorld. You make out a coffee table. The coffee table appears to be empty. You see an armchair. The armchair is comfortable. On the armchair you see a brown coat and a clean teal skirt.You don't like doors? Why not try going north, that entranceway is not blocked by one.There is a clean gray polo shirt on the floor.
+Available actions:
+* close bookcase
+* drop blue coat
+* examine armchair
+* examine black coat
+* examine bookcase
+* examine brown coat
+* examine clean gray polo shirt
+* examine clean teal skirt
+* examine coffee table
+* examine sofa
+* go north
+* insert blue coat into bookcase
+* look
+* put blue coat on armchair
+* put blue coat on coffee table
+* put blue coat on sofa
+* take black coat from sofa
+* take brown coat from armchair
+* take clean gray polo shirt
+* take clean teal skirt from armchair
+
+Answer (in json form: {"consideration": string, "action": string}):
+
+
+
+{'consideration': "The blue coat I'm carrying seems like it could belong in the bookcase since it was revealed by a secret button, suggesting it's a special storage location. Let me try putting it there.", 'action': 'insert blue coat into bookcase'}
+
+
+
+Task: You are a text game player, your goal is to put things in there proper locations and improve your score. You can only perform one action at a time. Answer in json form: {"consideration": string, "action": string}.
+Action history: Action 0: insert clean white pullover into wardrobe -> You put the clean white pullover into the wardrobe.Your score has just gone up by one point.Right position. Action 1: take blue coat from chest of drawers -> You take the blue coat from the chest of drawers. Action 2: insert blue coat into chest of drawers -> You put the blue coat into the chest of drawers.Wrong position, you should put it somewhere else, maybe the other room. Action 3: take blue coat from chest of drawers -> You take the blue coat from the chest of drawers. Action 4: go south -> -= Livingroom =-Look at you, bigshot, walking into a livingroom like it isn't some huge deal. Action 5: insert blue coat into bookcase -> You put the blue coat into the bookcase.Wrong position, you should put it somewhere else, maybe the other room. 
+Inventory: You are carrying nothing.
+Environment: -= Livingroom =-Look at you, bigshot, walking into a livingroom like it isn't some huge deal.You lean against the wall, inadvertently pressing a secret button. The wall opens up to reveal a bookcase. The bookcase contains a blue coat. You make out a sofa. The sofa is comfy. On the sofa you can make out a black coat. Classic TextWorld. You make out a coffee table. The coffee table appears to be empty. You see an armchair. The armchair is comfortable. On the armchair you see a brown coat and a clean teal skirt.You don't like doors? Why not try going north, that entranceway is not blocked by one.There is a clean gray polo shirt on the floor.
+Available actions:
+* close bookcase
+* examine armchair
+* examine black coat
+* examine blue coat
+* examine bookcase
+* examine brown coat
+* examine clean gray polo shirt
+* examine clean teal skirt
+* examine coffee table
+* examine sofa
+* go north
+* look
+* take black coat from sofa
+* take blue coat from bookcase
+* take brown coat from armchair
+* take clean gray polo shirt
+* take clean teal skirt from armchair
+
+Answer (in json form: {"consideration": string, "action": string}):
+
+
+
+{'consideration': "The blue coat was wrong in both the chest of drawers and bookcase. Let's try taking it and moving it to another location. Since there are other coats in the living room, this might be where coats belong.", 'action': 'take blue coat from bookcase'}
+
+
+
+Task: You are a text game player, your goal is to put things in there proper locations and improve your score. You can only perform one action at a time. Answer in json form: {"consideration": string, "action": string}.
+Action history: Action 0: insert clean white pullover into wardrobe -> You put the clean white pullover into the wardrobe.Your score has just gone up by one point.Right position. Action 1: take blue coat from chest of drawers -> You take the blue coat from the chest of drawers. Action 2: insert blue coat into chest of drawers -> You put the blue coat into the chest of drawers.Wrong position, you should put it somewhere else, maybe the other room. Action 3: take blue coat from chest of drawers -> You take the blue coat from the chest of drawers. Action 4: go south -> -= Livingroom =-Look at you, bigshot, walking into a livingroom like it isn't some huge deal. Action 5: insert blue coat into bookcase -> You put the blue coat into the bookcase.Wrong position, you should put it somewhere else, maybe the other room. Action 6: take blue coat from bookcase -> You take the blue coat from the bookcase. 
+Inventory: You are carrying:  a blue coat
+Environment: -= Livingroom =-Look at you, bigshot, walking into a livingroom like it isn't some huge deal.You lean against the wall, inadvertently pressing a secret button. The wall opens up to reveal a bookcase. The bookcase is empty! What a waste of a day! You make out a sofa. The sofa is comfy. On the sofa you can make out a black coat. Classic TextWorld. You make out a coffee table. The coffee table appears to be empty. You see an armchair. The armchair is comfortable. On the armchair you see a brown coat and a clean teal skirt.You don't like doors? Why not try going north, that entranceway is not blocked by one.There is a clean gray polo shirt on the floor.
+Available actions:
+* close bookcase
+* drop blue coat
+* examine armchair
+* examine black coat
+* examine bookcase
+* examine brown coat
+* examine clean gray polo shirt
+* examine clean teal skirt
+* examine coffee table
+* examine sofa
+* go north
+* insert blue coat into bookcase
+* look
+* put blue coat on armchair
+* put blue coat on coffee table
+* put blue coat on sofa
+* take black coat from sofa
+* take brown coat from armchair
+* take clean gray polo shirt
+* take clean teal skirt from armchair
+
+Answer (in json form: {"consideration": string, "action": string}):
+
+
+
+{'consideration': "Since the blue coat was wrong in both the chest of drawers and bookcase, and we're in a room with furniture like sofa and armchair which are common places for coats, let's try putting it on the sofa", 'action': 'put blue coat on sofa'}
+
+
+
+Task: You are a text game player, your goal is to put things in there proper locations and improve your score. You can only perform one action at a time. Answer in json form: {"consideration": string, "action": string}.
+Action history: Action 0: insert clean white pullover into wardrobe -> You put the clean white pullover into the wardrobe.Your score has just gone up by one point.Right position. Action 1: take blue coat from chest of drawers -> You take the blue coat from the chest of drawers. Action 2: insert blue coat into chest of drawers -> You put the blue coat into the chest of drawers.Wrong position, you should put it somewhere else, maybe the other room. Action 3: take blue coat from chest of drawers -> You take the blue coat from the chest of drawers. Action 4: go south -> -= Livingroom =-Look at you, bigshot, walking into a livingroom like it isn't some huge deal. Action 5: insert blue coat into bookcase -> You put the blue coat into the bookcase.Wrong position, you should put it somewhere else, maybe the other room. Action 6: take blue coat from bookcase -> You take the blue coat from the bookcase. Action 7: put blue coat on sofa -> You put the blue coat on the sofa.Wrong position, you should put it somewhere else, maybe the other room. 
+Inventory: You are carrying nothing.
+Environment: -= Livingroom =-Look at you, bigshot, walking into a livingroom like it isn't some huge deal.You lean against the wall, inadvertently pressing a secret button. The wall opens up to reveal a bookcase. The bookcase is empty! What a waste of a day! You make out a sofa. The sofa is comfy. On the sofa you can make out a blue coat and a black coat. Classic TextWorld. You make out a coffee table. The coffee table appears to be empty. You see an armchair. The armchair is comfortable. On the armchair you see a brown coat and a clean teal skirt.You don't like doors? Why not try going north, that entranceway is not blocked by one.There is a clean gray polo shirt on the floor.
+Available actions:
+* close bookcase
+* examine armchair
+* examine black coat
+* examine blue coat
+* examine bookcase
+* examine brown coat
+* examine clean gray polo shirt
+* examine clean teal skirt
+* examine coffee table
+* examine sofa
+* go north
+* look
+* take black coat from sofa
+* take blue coat from sofa
+* take brown coat from armchair
+* take clean gray polo shirt
+* take clean teal skirt from armchair
+
+Answer (in json form: {"consideration": string, "action": string}):
+
+
+
+{'consideration': "Since the blue coat was wrong in all previous locations (wardrobe, chest of drawers, bookcase, sofa), and there's a clean gray polo shirt on the floor, let's try organizing by taking that first", 'action': 'take clean gray polo shirt'}
+
+
+
+Task: You are a text game player, your goal is to put things in there proper locations and improve your score. You can only perform one action at a time. Answer in json form: {"consideration": string, "action": string}.
+Action history: Action 0: insert clean white pullover into wardrobe -> You put the clean white pullover into the wardrobe.Your score has just gone up by one point.Right position. Action 1: take blue coat from chest of drawers -> You take the blue coat from the chest of drawers. Action 2: insert blue coat into chest of drawers -> You put the blue coat into the chest of drawers.Wrong position, you should put it somewhere else, maybe the other room. Action 3: take blue coat from chest of drawers -> You take the blue coat from the chest of drawers. Action 4: go south -> -= Livingroom =-Look at you, bigshot, walking into a livingroom like it isn't some huge deal. Action 5: insert blue coat into bookcase -> You put the blue coat into the bookcase.Wrong position, you should put it somewhere else, maybe the other room. Action 6: take blue coat from bookcase -> You take the blue coat from the bookcase. Action 7: put blue coat on sofa -> You put the blue coat on the sofa.Wrong position, you should put it somewhere else, maybe the other room. Action 8: take clean gray polo shirt -> You pick up the clean gray polo shirt from the ground. 
+Inventory: You are carrying:  a clean gray polo shirt
+Environment: -= Livingroom =-Look at you, bigshot, walking into a livingroom like it isn't some huge deal.You lean against the wall, inadvertently pressing a secret button. The wall opens up to reveal a bookcase. The bookcase is empty! What a waste of a day! You make out a sofa. The sofa is comfy. On the sofa you can make out a blue coat and a black coat. Classic TextWorld. You make out a coffee table. The coffee table appears to be empty. You see an armchair. The armchair is comfortable. On the armchair you see a brown coat and a clean teal skirt.You don't like doors? Why not try going north, that entranceway is not blocked by one.
+Available actions:
+* close bookcase
+* drop clean gray polo shirt
+* examine armchair
+* examine black coat
+* examine blue coat
+* examine bookcase
+* examine brown coat
+* examine clean teal skirt
+* examine coffee table
+* examine sofa
+* go north
+* insert clean gray polo shirt into bookcase
+* look
+* put clean gray polo shirt on armchair
+* put clean gray polo shirt on coffee table
+* put clean gray polo shirt on sofa
+* take black coat from sofa
+* take blue coat from sofa
+* take brown coat from armchair
+* take clean teal skirt from armchair
+
+Answer (in json form: {"consideration": string, "action": string}):
+
+
+
+{'consideration': "The blue coat hasn't found its right place yet, and we're carrying a clean gray polo shirt. Since we've tried several locations for the blue coat without success, let's try taking the clean gray polo shirt back to the bedroom where we found success with the pullover in the wardrobe.", 'action': 'go north'}
+
+
+
+Task: You are a text game player, your goal is to put things in there proper locations and improve your score. You can only perform one action at a time. Answer in json form: {"consideration": string, "action": string}.
+Action history: Action 0: insert clean white pullover into wardrobe -> You put the clean white pullover into the wardrobe.Your score has just gone up by one point.Right position. Action 1: take blue coat from chest of drawers -> You take the blue coat from the chest of drawers. Action 2: insert blue coat into chest of drawers -> You put the blue coat into the chest of drawers.Wrong position, you should put it somewhere else, maybe the other room. Action 3: take blue coat from chest of drawers -> You take the blue coat from the chest of drawers. Action 4: go south -> -= Livingroom =-Look at you, bigshot, walking into a livingroom like it isn't some huge deal. Action 5: insert blue coat into bookcase -> You put the blue coat into the bookcase.Wrong position, you should put it somewhere else, maybe the other room. Action 6: take blue coat from bookcase -> You take the blue coat from the bookcase. Action 7: put blue coat on sofa -> You put the blue coat on the sofa.Wrong position, you should put it somewhere else, maybe the other room. Action 8: take clean gray polo shirt -> You pick up the clean gray polo shirt from the ground. Action 9: go north -> -= Bedroom =-Well, here we are in the bedroom. 
+Inventory: You are carrying:  a clean gray polo shirt
+Environment: -= Bedroom =-Well, here we are in the bedroom.You make out an opened wardrobe. The wardrobe contains a clean white pullover. You can make out an opened chest of drawers. The chest of drawers contains a brown suit, so there's that. Look out! It's a- oh, never mind, it's just a bed. The bed is large. But there isn't a thing on it. It would have been so cool if there was stuff on the bed.There is an exit to the south.
+Available actions:
+* close chest of drawers
+* close wardrobe
+* drop clean gray polo shirt
+* examine bed
+* examine brown suit
+* examine chest of drawers
+* examine clean white pullover
+* examine wardrobe
+* go south
+* insert clean gray polo shirt into chest of drawers
+* insert clean gray polo shirt into wardrobe
+* look
+* put clean gray polo shirt on bed
+* take brown suit from chest of drawers
+* take clean white pullover from wardrobe
+
+Answer (in json form: {"consideration": string, "action": string}):
+
+
+
+{'consideration': "The clean gray polo shirt is likely meant to go in either the wardrobe or chest of drawers. Since the white pullover is already correctly placed in the wardrobe, let's try putting the polo shirt in the chest of drawers.", 'action': 'insert clean gray polo shirt into chest of drawers'}
+
+
+
+Task: You are a text game player, your goal is to put things in there proper locations and improve your score. You can only perform one action at a time. Answer in json form: {"consideration": string, "action": string}.
+Action history: Action 0: insert clean white pullover into wardrobe -> You put the clean white pullover into the wardrobe.Your score has just gone up by one point.Right position. Action 1: take blue coat from chest of drawers -> You take the blue coat from the chest of drawers. Action 2: insert blue coat into chest of drawers -> You put the blue coat into the chest of drawers.Wrong position, you should put it somewhere else, maybe the other room. Action 3: take blue coat from chest of drawers -> You take the blue coat from the chest of drawers. Action 4: go south -> -= Livingroom =-Look at you, bigshot, walking into a livingroom like it isn't some huge deal. Action 5: insert blue coat into bookcase -> You put the blue coat into the bookcase.Wrong position, you should put it somewhere else, maybe the other room. Action 6: take blue coat from bookcase -> You take the blue coat from the bookcase. Action 7: put blue coat on sofa -> You put the blue coat on the sofa.Wrong position, you should put it somewhere else, maybe the other room. Action 8: take clean gray polo shirt -> You pick up the clean gray polo shirt from the ground. Action 9: go north -> -= Bedroom =-Well, here we are in the bedroom. Action 10: insert clean gray polo shirt into chest of drawers -> You put the clean gray polo shirt into the chest of drawers.Wrong position, you should put it somewhere else, maybe the other room. 
+Inventory: You are carrying nothing.
+Environment: -= Bedroom =-Well, here we are in the bedroom.You make out an opened wardrobe. The wardrobe contains a clean white pullover. You can make out an opened chest of drawers. The chest of drawers contains a clean gray polo shirt and a brown suit, so there's that. Look out! It's a- oh, never mind, it's just a bed. The bed is large. But there isn't a thing on it. It would have been so cool if there was stuff on the bed.There is an exit to the south.
+Available actions:
+* close chest of drawers
+* close wardrobe
+* examine bed
+* examine brown suit
+* examine chest of drawers
+* examine clean gray polo shirt
+* examine clean white pullover
+* examine wardrobe
+* go south
+* look
+* take brown suit from chest of drawers
+* take clean gray polo shirt from chest of drawers
+* take clean white pullover from wardrobe
+
+Answer (in json form: {"consideration": string, "action": string}):
+
+
+
+{'consideration': "The clean gray polo shirt was placed in the chest of drawers but was marked as wrong position. Since the wardrobe is another storage option in this room, let's try moving it there.", 'action': 'take clean gray polo shirt from chest of drawers'}
+
+
+
+Task: You are a text game player, your goal is to put things in there proper locations and improve your score. You can only perform one action at a time. Answer in json form: {"consideration": string, "action": string}.
+Action history: Action 0: insert clean white pullover into wardrobe -> You put the clean white pullover into the wardrobe.Your score has just gone up by one point.Right position. Action 1: take blue coat from chest of drawers -> You take the blue coat from the chest of drawers. Action 2: insert blue coat into chest of drawers -> You put the blue coat into the chest of drawers.Wrong position, you should put it somewhere else, maybe the other room. Action 3: take blue coat from chest of drawers -> You take the blue coat from the chest of drawers. Action 4: go south -> -= Livingroom =-Look at you, bigshot, walking into a livingroom like it isn't some huge deal. Action 5: insert blue coat into bookcase -> You put the blue coat into the bookcase.Wrong position, you should put it somewhere else, maybe the other room. Action 6: take blue coat from bookcase -> You take the blue coat from the bookcase. Action 7: put blue coat on sofa -> You put the blue coat on the sofa.Wrong position, you should put it somewhere else, maybe the other room. Action 8: take clean gray polo shirt -> You pick up the clean gray polo shirt from the ground. Action 9: go north -> -= Bedroom =-Well, here we are in the bedroom. Action 10: insert clean gray polo shirt into chest of drawers -> You put the clean gray polo shirt into the chest of drawers.Wrong position, you should put it somewhere else, maybe the other room. Action 11: take clean gray polo shirt from chest of drawers -> You take the clean gray polo shirt from the chest of drawers. 
+Inventory: You are carrying:  a clean gray polo shirt
+Environment: -= Bedroom =-Well, here we are in the bedroom.You make out an opened wardrobe. The wardrobe contains a clean white pullover. You can make out an opened chest of drawers. The chest of drawers contains a brown suit, so there's that. Look out! It's a- oh, never mind, it's just a bed. The bed is large. But there isn't a thing on it. It would have been so cool if there was stuff on the bed.There is an exit to the south.
+Available actions:
+* close chest of drawers
+* close wardrobe
+* drop clean gray polo shirt
+* examine bed
+* examine brown suit
+* examine chest of drawers
+* examine clean white pullover
+* examine wardrobe
+* go south
+* insert clean gray polo shirt into chest of drawers
+* insert clean gray polo shirt into wardrobe
+* look
+* put clean gray polo shirt on bed
+* take brown suit from chest of drawers
+* take clean white pullover from wardrobe
+
+Answer (in json form: {"consideration": string, "action": string}):
+
+
+
+{'consideration': "The clean gray polo shirt didn't belong in the chest of drawers. Since it's a clean clothing item, it might belong in the wardrobe like the clean white pullover.", 'action': 'insert clean gray polo shirt into wardrobe'}
+
+
+
+Task: You are a text game player, your goal is to put things in there proper locations and improve your score. You can only perform one action at a time. Answer in json form: {"consideration": string, "action": string}.
+Action history: Action 0: insert clean white pullover into wardrobe -> You put the clean white pullover into the wardrobe.Your score has just gone up by one point.Right position. Action 1: take blue coat from chest of drawers -> You take the blue coat from the chest of drawers. Action 2: insert blue coat into chest of drawers -> You put the blue coat into the chest of drawers.Wrong position, you should put it somewhere else, maybe the other room. Action 3: take blue coat from chest of drawers -> You take the blue coat from the chest of drawers. Action 4: go south -> -= Livingroom =-Look at you, bigshot, walking into a livingroom like it isn't some huge deal. Action 5: insert blue coat into bookcase -> You put the blue coat into the bookcase.Wrong position, you should put it somewhere else, maybe the other room. Action 6: take blue coat from bookcase -> You take the blue coat from the bookcase. Action 7: put blue coat on sofa -> You put the blue coat on the sofa.Wrong position, you should put it somewhere else, maybe the other room. Action 8: take clean gray polo shirt -> You pick up the clean gray polo shirt from the ground. Action 9: go north -> -= Bedroom =-Well, here we are in the bedroom. Action 10: insert clean gray polo shirt into chest of drawers -> You put the clean gray polo shirt into the chest of drawers.Wrong position, you should put it somewhere else, maybe the other room. Action 11: take clean gray polo shirt from chest of drawers -> You take the clean gray polo shirt from the chest of drawers. Action 12: insert clean gray polo shirt into wardrobe -> You put the clean gray polo shirt into the wardrobe.Your score has just gone up by one point.Right position. 
+Inventory: You are carrying nothing.
+Environment: -= Bedroom =-Well, here we are in the bedroom.You make out an opened wardrobe. The wardrobe contains a clean gray polo shirt and a clean white pullover. You can make out an opened chest of drawers. The chest of drawers contains a brown suit, so there's that. Look out! It's a- oh, never mind, it's just a bed. The bed is large. But there isn't a thing on it. It would have been so cool if there was stuff on the bed.There is an exit to the south.
+Available actions:
+* close chest of drawers
+* close wardrobe
+* examine bed
+* examine brown suit
+* examine chest of drawers
+* examine clean gray polo shirt
+* examine clean white pullover
+* examine wardrobe
+* go south
+* look
+* take brown suit from chest of drawers
+* take clean gray polo shirt from wardrobe
+* take clean white pullover from wardrobe
+
+Answer (in json form: {"consideration": string, "action": string}):
+
+
+
+{'consideration': "The blue coat was in the wrong positions before, and I haven't tried the wardrobe yet. Since it's a coat, it should probably go in the wardrobe. I need to go back to the living room to get it first.", 'action': 'go south'}
+
+
+
+Task: You are a text game player, your goal is to put things in there proper locations and improve your score. You can only perform one action at a time. Answer in json form: {"consideration": string, "action": string}.
+Action history: Action 0: insert clean white pullover into wardrobe -> You put the clean white pullover into the wardrobe.Your score has just gone up by one point.Right position. Action 1: take blue coat from chest of drawers -> You take the blue coat from the chest of drawers. Action 2: insert blue coat into chest of drawers -> You put the blue coat into the chest of drawers.Wrong position, you should put it somewhere else, maybe the other room. Action 3: take blue coat from chest of drawers -> You take the blue coat from the chest of drawers. Action 4: go south -> -= Livingroom =-Look at you, bigshot, walking into a livingroom like it isn't some huge deal. Action 5: insert blue coat into bookcase -> You put the blue coat into the bookcase.Wrong position, you should put it somewhere else, maybe the other room. Action 6: take blue coat from bookcase -> You take the blue coat from the bookcase. Action 7: put blue coat on sofa -> You put the blue coat on the sofa.Wrong position, you should put it somewhere else, maybe the other room. Action 8: take clean gray polo shirt -> You pick up the clean gray polo shirt from the ground. Action 9: go north -> -= Bedroom =-Well, here we are in the bedroom. Action 10: insert clean gray polo shirt into chest of drawers -> You put the clean gray polo shirt into the chest of drawers.Wrong position, you should put it somewhere else, maybe the other room. Action 11: take clean gray polo shirt from chest of drawers -> You take the clean gray polo shirt from the chest of drawers. Action 12: insert clean gray polo shirt into wardrobe -> You put the clean gray polo shirt into the wardrobe.Your score has just gone up by one point.Right position. Action 13: go south -> -= Livingroom =-Look at you, bigshot, walking into a livingroom like it isn't some huge deal. 
+Inventory: You are carrying nothing.
+Environment: -= Livingroom =-Look at you, bigshot, walking into a livingroom like it isn't some huge deal.You lean against the wall, inadvertently pressing a secret button. The wall opens up to reveal a bookcase. The bookcase is empty! What a waste of a day! You make out a sofa. The sofa is comfy. On the sofa you can make out a blue coat and a black coat. Classic TextWorld. You make out a coffee table. The coffee table appears to be empty. You see an armchair. The armchair is comfortable. On the armchair you see a brown coat and a clean teal skirt.You don't like doors? Why not try going north, that entranceway is not blocked by one.
+Available actions:
+* close bookcase
+* examine armchair
+* examine black coat
+* examine blue coat
+* examine bookcase
+* examine brown coat
+* examine clean teal skirt
+* examine coffee table
+* examine sofa
+* go north
+* look
+* take black coat from sofa
+* take blue coat from sofa
+* take brown coat from armchair
+* take clean teal skirt from armchair
+
+Answer (in json form: {"consideration": string, "action": string}):
+
+
+
+{'consideration': "Since we've tried putting the blue coat in various places in both rooms without success, let's try with a different clothing item. The clean teal skirt might belong in the wardrobe with the other clean items we've placed there.", 'action': 'take clean teal skirt from armchair'}
+
+
+
+Task: You are a text game player, your goal is to put things in there proper locations and improve your score. You can only perform one action at a time. Answer in json form: {"consideration": string, "action": string}.
+Action history: Action 0: insert clean white pullover into wardrobe -> You put the clean white pullover into the wardrobe.Your score has just gone up by one point.Right position. Action 1: take blue coat from chest of drawers -> You take the blue coat from the chest of drawers. Action 2: insert blue coat into chest of drawers -> You put the blue coat into the chest of drawers.Wrong position, you should put it somewhere else, maybe the other room. Action 3: take blue coat from chest of drawers -> You take the blue coat from the chest of drawers. Action 4: go south -> -= Livingroom =-Look at you, bigshot, walking into a livingroom like it isn't some huge deal. Action 5: insert blue coat into bookcase -> You put the blue coat into the bookcase.Wrong position, you should put it somewhere else, maybe the other room. Action 6: take blue coat from bookcase -> You take the blue coat from the bookcase. Action 7: put blue coat on sofa -> You put the blue coat on the sofa.Wrong position, you should put it somewhere else, maybe the other room. Action 8: take clean gray polo shirt -> You pick up the clean gray polo shirt from the ground. Action 9: go north -> -= Bedroom =-Well, here we are in the bedroom. Action 10: insert clean gray polo shirt into chest of drawers -> You put the clean gray polo shirt into the chest of drawers.Wrong position, you should put it somewhere else, maybe the other room. Action 11: take clean gray polo shirt from chest of drawers -> You take the clean gray polo shirt from the chest of drawers. Action 12: insert clean gray polo shirt into wardrobe -> You put the clean gray polo shirt into the wardrobe.Your score has just gone up by one point.Right position. Action 13: go south -> -= Livingroom =-Look at you, bigshot, walking into a livingroom like it isn't some huge deal. Action 14: take clean teal skirt from armchair -> You take the clean teal skirt from the armchair. 
+Inventory: You are carrying:  a clean teal skirt
+Environment: -= Livingroom =-Look at you, bigshot, walking into a livingroom like it isn't some huge deal.You lean against the wall, inadvertently pressing a secret button. The wall opens up to reveal a bookcase. The bookcase is empty! What a waste of a day! You make out a sofa. The sofa is comfy. On the sofa you can make out a blue coat and a black coat. Classic TextWorld. You make out a coffee table. The coffee table appears to be empty. You see an armchair. The armchair is comfortable. On the armchair you see a brown coat.You don't like doors? Why not try going north, that entranceway is not blocked by one.
+Available actions:
+* close bookcase
+* drop clean teal skirt
+* examine armchair
+* examine black coat
+* examine blue coat
+* examine bookcase
+* examine brown coat
+* examine coffee table
+* examine sofa
+* go north
+* insert clean teal skirt into bookcase
+* look
+* put clean teal skirt on armchair
+* put clean teal skirt on coffee table
+* put clean teal skirt on sofa
+* take black coat from sofa
+* take blue coat from sofa
+* take brown coat from armchair
+
+Answer (in json form: {"consideration": string, "action": string}):
+
+
+
+{'consideration': 'I have a clean teal skirt and I need to find its proper location. Since clothing items generally belong in the bedroom (as we learned with the pullover and polo shirt going into the wardrobe), I should go north to the bedroom.', 'action': 'go north'}
+
+
+
+Task: You are a text game player, your goal is to put things in there proper locations and improve your score. You can only perform one action at a time. Answer in json form: {"consideration": string, "action": string}.
+Action history: Action 0: insert clean white pullover into wardrobe -> You put the clean white pullover into the wardrobe.Your score has just gone up by one point.Right position. Action 1: take blue coat from chest of drawers -> You take the blue coat from the chest of drawers. Action 2: insert blue coat into chest of drawers -> You put the blue coat into the chest of drawers.Wrong position, you should put it somewhere else, maybe the other room. Action 3: take blue coat from chest of drawers -> You take the blue coat from the chest of drawers. Action 4: go south -> -= Livingroom =-Look at you, bigshot, walking into a livingroom like it isn't some huge deal. Action 5: insert blue coat into bookcase -> You put the blue coat into the bookcase.Wrong position, you should put it somewhere else, maybe the other room. Action 6: take blue coat from bookcase -> You take the blue coat from the bookcase. Action 7: put blue coat on sofa -> You put the blue coat on the sofa.Wrong position, you should put it somewhere else, maybe the other room. Action 8: take clean gray polo shirt -> You pick up the clean gray polo shirt from the ground. Action 9: go north -> -= Bedroom =-Well, here we are in the bedroom. Action 10: insert clean gray polo shirt into chest of drawers -> You put the clean gray polo shirt into the chest of drawers.Wrong position, you should put it somewhere else, maybe the other room. Action 11: take clean gray polo shirt from chest of drawers -> You take the clean gray polo shirt from the chest of drawers. Action 12: insert clean gray polo shirt into wardrobe -> You put the clean gray polo shirt into the wardrobe.Your score has just gone up by one point.Right position. Action 13: go south -> -= Livingroom =-Look at you, bigshot, walking into a livingroom like it isn't some huge deal. Action 14: take clean teal skirt from armchair -> You take the clean teal skirt from the armchair. Action 15: go north -> -= Bedroom =-Well, here we are in the bedroom. 
+Inventory: You are carrying:  a clean teal skirt
+Environment: -= Bedroom =-Well, here we are in the bedroom.You make out an opened wardrobe. The wardrobe contains a clean gray polo shirt and a clean white pullover. You can make out an opened chest of drawers. The chest of drawers contains a brown suit, so there's that. Look out! It's a- oh, never mind, it's just a bed. The bed is large. But there isn't a thing on it. It would have been so cool if there was stuff on the bed.There is an exit to the south.
+Available actions:
+* close chest of drawers
+* close wardrobe
+* drop clean teal skirt
+* examine bed
+* examine brown suit
+* examine chest of drawers
+* examine clean gray polo shirt
+* examine clean white pullover
+* examine wardrobe
+* go south
+* insert clean teal skirt into chest of drawers
+* insert clean teal skirt into wardrobe
+* look
+* put clean teal skirt on bed
+* take brown suit from chest of drawers
+* take clean gray polo shirt from wardrobe
+* take clean white pullover from wardrobe
+
+Answer (in json form: {"consideration": string, "action": string}):
+
+
+
+{'consideration': "Since I have a clean teal skirt, I should try to put it in the correct storage location. The wardrobe has been correct for other clothing items, so I'll try that first.", 'action': 'insert clean teal skirt into wardrobe'}
+
+
+
+Task: You are a text game player, your goal is to put things in there proper locations and improve your score. You can only perform one action at a time. Answer in json form: {"consideration": string, "action": string}.
+Action history: Action 0: insert clean white pullover into wardrobe -> You put the clean white pullover into the wardrobe.Your score has just gone up by one point.Right position. Action 1: take blue coat from chest of drawers -> You take the blue coat from the chest of drawers. Action 2: insert blue coat into chest of drawers -> You put the blue coat into the chest of drawers.Wrong position, you should put it somewhere else, maybe the other room. Action 3: take blue coat from chest of drawers -> You take the blue coat from the chest of drawers. Action 4: go south -> -= Livingroom =-Look at you, bigshot, walking into a livingroom like it isn't some huge deal. Action 5: insert blue coat into bookcase -> You put the blue coat into the bookcase.Wrong position, you should put it somewhere else, maybe the other room. Action 6: take blue coat from bookcase -> You take the blue coat from the bookcase. Action 7: put blue coat on sofa -> You put the blue coat on the sofa.Wrong position, you should put it somewhere else, maybe the other room. Action 8: take clean gray polo shirt -> You pick up the clean gray polo shirt from the ground. Action 9: go north -> -= Bedroom =-Well, here we are in the bedroom. Action 10: insert clean gray polo shirt into chest of drawers -> You put the clean gray polo shirt into the chest of drawers.Wrong position, you should put it somewhere else, maybe the other room. Action 11: take clean gray polo shirt from chest of drawers -> You take the clean gray polo shirt from the chest of drawers. Action 12: insert clean gray polo shirt into wardrobe -> You put the clean gray polo shirt into the wardrobe.Your score has just gone up by one point.Right position. Action 13: go south -> -= Livingroom =-Look at you, bigshot, walking into a livingroom like it isn't some huge deal. Action 14: take clean teal skirt from armchair -> You take the clean teal skirt from the armchair. Action 15: go north -> -= Bedroom =-Well, here we are in the bedroom. Action 16: insert clean teal skirt into wardrobe -> You put the clean teal skirt into the wardrobe.Your score has just gone up by one point.Right position. 
+Inventory: You are carrying nothing.
+Environment: -= Bedroom =-Well, here we are in the bedroom.You make out an opened wardrobe. The wardrobe contains a clean teal skirt, a clean gray polo shirt and a clean white pullover. You can make out an opened chest of drawers. The chest of drawers contains a brown suit, so there's that. Look out! It's a- oh, never mind, it's just a bed. The bed is large. But there isn't a thing on it. It would have been so cool if there was stuff on the bed.There is an exit to the south.
+Available actions:
+* close chest of drawers
+* close wardrobe
+* examine bed
+* examine brown suit
+* examine chest of drawers
+* examine clean gray polo shirt
+* examine clean teal skirt
+* examine clean white pullover
+* examine wardrobe
+* go south
+* look
+* take brown suit from chest of drawers
+* take clean gray polo shirt from wardrobe
+* take clean teal skirt from wardrobe
+* take clean white pullover from wardrobe
+
+Answer (in json form: {"consideration": string, "action": string}):
+
+
+
+{'consideration': "The brown suit is in the chest of drawers, but we should check if that's the right location. Since other clean clothes went into the wardrobe, let's try moving the brown suit there.", 'action': 'take brown suit from chest of drawers'}
+
+
+
+Task: You are a text game player, your goal is to put things in there proper locations and improve your score. You can only perform one action at a time. Answer in json form: {"consideration": string, "action": string}.
+Action history: Action 0: insert clean white pullover into wardrobe -> You put the clean white pullover into the wardrobe.Your score has just gone up by one point.Right position. Action 1: take blue coat from chest of drawers -> You take the blue coat from the chest of drawers. Action 2: insert blue coat into chest of drawers -> You put the blue coat into the chest of drawers.Wrong position, you should put it somewhere else, maybe the other room. Action 3: take blue coat from chest of drawers -> You take the blue coat from the chest of drawers. Action 4: go south -> -= Livingroom =-Look at you, bigshot, walking into a livingroom like it isn't some huge deal. Action 5: insert blue coat into bookcase -> You put the blue coat into the bookcase.Wrong position, you should put it somewhere else, maybe the other room. Action 6: take blue coat from bookcase -> You take the blue coat from the bookcase. Action 7: put blue coat on sofa -> You put the blue coat on the sofa.Wrong position, you should put it somewhere else, maybe the other room. Action 8: take clean gray polo shirt -> You pick up the clean gray polo shirt from the ground. Action 9: go north -> -= Bedroom =-Well, here we are in the bedroom. Action 10: insert clean gray polo shirt into chest of drawers -> You put the clean gray polo shirt into the chest of drawers.Wrong position, you should put it somewhere else, maybe the other room. Action 11: take clean gray polo shirt from chest of drawers -> You take the clean gray polo shirt from the chest of drawers. Action 12: insert clean gray polo shirt into wardrobe -> You put the clean gray polo shirt into the wardrobe.Your score has just gone up by one point.Right position. Action 13: go south -> -= Livingroom =-Look at you, bigshot, walking into a livingroom like it isn't some huge deal. Action 14: take clean teal skirt from armchair -> You take the clean teal skirt from the armchair. Action 15: go north -> -= Bedroom =-Well, here we are in the bedroom. Action 16: insert clean teal skirt into wardrobe -> You put the clean teal skirt into the wardrobe.Your score has just gone up by one point.Right position. Action 17: take brown suit from chest of drawers -> You take the brown suit from the chest of drawers. 
+Inventory: You are carrying:  a brown suit
+Environment: -= Bedroom =-Well, here we are in the bedroom.You make out an opened wardrobe. The wardrobe contains a clean teal skirt, a clean gray polo shirt and a clean white pullover. You can make out an opened chest of drawers. What a letdown! The chest of drawers is empty! Look out! It's a- oh, never mind, it's just a bed. The bed is large. But there isn't a thing on it. It would have been so cool if there was stuff on the bed.There is an exit to the south.
+Available actions:
+* close chest of drawers
+* close wardrobe
+* drop brown suit
+* examine bed
+* examine chest of drawers
+* examine clean gray polo shirt
+* examine clean teal skirt
+* examine clean white pullover
+* examine wardrobe
+* go south
+* insert brown suit into chest of drawers
+* insert brown suit into wardrobe
+* look
+* put brown suit on bed
+* take clean gray polo shirt from wardrobe
+* take clean teal skirt from wardrobe
+* take clean white pullover from wardrobe
+
+Answer (in json form: {"consideration": string, "action": string}):
+
+
+
+{'consideration': "Since the brown suit was originally in the chest of drawers and previous items like the polo shirt and skirt went into the wardrobe, let's try putting the brown suit in the wardrobe", 'action': 'insert brown suit into wardrobe'}
+
+
+
+Task: You are a text game player, your goal is to put things in there proper locations and improve your score. You can only perform one action at a time. Answer in json form: {"consideration": string, "action": string}.
+Action history: Action 0: insert clean white pullover into wardrobe -> You put the clean white pullover into the wardrobe.Your score has just gone up by one point.Right position. Action 1: take blue coat from chest of drawers -> You take the blue coat from the chest of drawers. Action 2: insert blue coat into chest of drawers -> You put the blue coat into the chest of drawers.Wrong position, you should put it somewhere else, maybe the other room. Action 3: take blue coat from chest of drawers -> You take the blue coat from the chest of drawers. Action 4: go south -> -= Livingroom =-Look at you, bigshot, walking into a livingroom like it isn't some huge deal. Action 5: insert blue coat into bookcase -> You put the blue coat into the bookcase.Wrong position, you should put it somewhere else, maybe the other room. Action 6: take blue coat from bookcase -> You take the blue coat from the bookcase. Action 7: put blue coat on sofa -> You put the blue coat on the sofa.Wrong position, you should put it somewhere else, maybe the other room. Action 8: take clean gray polo shirt -> You pick up the clean gray polo shirt from the ground. Action 9: go north -> -= Bedroom =-Well, here we are in the bedroom. Action 10: insert clean gray polo shirt into chest of drawers -> You put the clean gray polo shirt into the chest of drawers.Wrong position, you should put it somewhere else, maybe the other room. Action 11: take clean gray polo shirt from chest of drawers -> You take the clean gray polo shirt from the chest of drawers. Action 12: insert clean gray polo shirt into wardrobe -> You put the clean gray polo shirt into the wardrobe.Your score has just gone up by one point.Right position. Action 13: go south -> -= Livingroom =-Look at you, bigshot, walking into a livingroom like it isn't some huge deal. Action 14: take clean teal skirt from armchair -> You take the clean teal skirt from the armchair. Action 15: go north -> -= Bedroom =-Well, here we are in the bedroom. Action 16: insert clean teal skirt into wardrobe -> You put the clean teal skirt into the wardrobe.Your score has just gone up by one point.Right position. Action 17: take brown suit from chest of drawers -> You take the brown suit from the chest of drawers. Action 18: insert brown suit into wardrobe -> You put the brown suit into the wardrobe.Your score has just gone up by one point.Right position. 
+Inventory: You are carrying nothing.
+Environment: -= Bedroom =-Well, here we are in the bedroom.You make out an opened wardrobe. The wardrobe contains a brown suit, a clean teal skirt, a clean gray polo shirt and a clean white pullover. You can make out an opened chest of drawers. What a letdown! The chest of drawers is empty! Look out! It's a- oh, never mind, it's just a bed. The bed is large. But there isn't a thing on it. It would have been so cool if there was stuff on the bed.There is an exit to the south.
+Available actions:
+* close chest of drawers
+* close wardrobe
+* examine bed
+* examine brown suit
+* examine chest of drawers
+* examine clean gray polo shirt
+* examine clean teal skirt
+* examine clean white pullover
+* examine wardrobe
+* go south
+* look
+* take brown suit from wardrobe
+* take clean gray polo shirt from wardrobe
+* take clean teal skirt from wardrobe
+* take clean white pullover from wardrobe
+
+Answer (in json form: {"consideration": string, "action": string}):
+
+
+
+{'consideration': 'I need to go back to the living room to get the blue coat and find its correct location. Since all the clean clothes and the brown suit are in the wardrobe (correct location), I should continue exploring.', 'action': 'go south'}
+
+
+
+Task: You are a text game player, your goal is to put things in there proper locations and improve your score. You can only perform one action at a time. Answer in json form: {"consideration": string, "action": string}.
+Action history: Action 0: insert clean white pullover into wardrobe -> You put the clean white pullover into the wardrobe.Your score has just gone up by one point.Right position. Action 1: take blue coat from chest of drawers -> You take the blue coat from the chest of drawers. Action 2: insert blue coat into chest of drawers -> You put the blue coat into the chest of drawers.Wrong position, you should put it somewhere else, maybe the other room. Action 3: take blue coat from chest of drawers -> You take the blue coat from the chest of drawers. Action 4: go south -> -= Livingroom =-Look at you, bigshot, walking into a livingroom like it isn't some huge deal. Action 5: insert blue coat into bookcase -> You put the blue coat into the bookcase.Wrong position, you should put it somewhere else, maybe the other room. Action 6: take blue coat from bookcase -> You take the blue coat from the bookcase. Action 7: put blue coat on sofa -> You put the blue coat on the sofa.Wrong position, you should put it somewhere else, maybe the other room. Action 8: take clean gray polo shirt -> You pick up the clean gray polo shirt from the ground. Action 9: go north -> -= Bedroom =-Well, here we are in the bedroom. Action 10: insert clean gray polo shirt into chest of drawers -> You put the clean gray polo shirt into the chest of drawers.Wrong position, you should put it somewhere else, maybe the other room. Action 11: take clean gray polo shirt from chest of drawers -> You take the clean gray polo shirt from the chest of drawers. Action 12: insert clean gray polo shirt into wardrobe -> You put the clean gray polo shirt into the wardrobe.Your score has just gone up by one point.Right position. Action 13: go south -> -= Livingroom =-Look at you, bigshot, walking into a livingroom like it isn't some huge deal. Action 14: take clean teal skirt from armchair -> You take the clean teal skirt from the armchair. Action 15: go north -> -= Bedroom =-Well, here we are in the bedroom. Action 16: insert clean teal skirt into wardrobe -> You put the clean teal skirt into the wardrobe.Your score has just gone up by one point.Right position. Action 17: take brown suit from chest of drawers -> You take the brown suit from the chest of drawers. Action 18: insert brown suit into wardrobe -> You put the brown suit into the wardrobe.Your score has just gone up by one point.Right position. Action 19: go south -> -= Livingroom =-Look at you, bigshot, walking into a livingroom like it isn't some huge deal. 
+Inventory: You are carrying nothing.
+Environment: -= Livingroom =-Look at you, bigshot, walking into a livingroom like it isn't some huge deal.You lean against the wall, inadvertently pressing a secret button. The wall opens up to reveal a bookcase. The bookcase is empty! What a waste of a day! You make out a sofa. The sofa is comfy. On the sofa you can make out a blue coat and a black coat. Classic TextWorld. You make out a coffee table. The coffee table appears to be empty. You see an armchair. The armchair is comfortable. On the armchair you see a brown coat.You don't like doors? Why not try going north, that entranceway is not blocked by one.
+Available actions:
+* close bookcase
+* examine armchair
+* examine black coat
+* examine blue coat
+* examine bookcase
+* examine brown coat
+* examine coffee table
+* examine sofa
+* go north
+* look
+* take black coat from sofa
+* take blue coat from sofa
+* take brown coat from armchair
+
+Answer (in json form: {"consideration": string, "action": string}):
+
+
+
+{'consideration': "We've been trying to find the right place for the blue coat, and we know it doesn't belong in the wardrobe, chest of drawers, bookcase, or sofa. Let's try taking the brown coat since we haven't tried that yet.", 'action': 'take brown coat from armchair'}
+
+
+

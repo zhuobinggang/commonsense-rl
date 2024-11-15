@@ -1,0 +1,419 @@
+Task: You are a text game player, your goal is to put things in there proper locations and improve your score. You can only perform one action at a time. Answer in json form: {"consideration": string, "action": string}.
+Action history: No action was taken now.
+Inventory: You are carrying:  some milk
+Environment: Backyard[BBQ[wooden spoon], clothesline, patio chair[wet white jumper], patio table, workbench[clean pot]]
+Available actions:
+1. take [object]
+2. put [object in inventory] on [supporter]
+3. put [object in inventory] in [container]
+4. go west
+Answer (in json form: {"consideration": string, "action": string}):
+
+
+
+{'consideration': "The milk should be stored in a proper container or in the kitchen. Since there's a clean pot on the workbench, I can put the milk in that.", 'action': 'put milk in clean pot'}
+
+
+
+
+
+Command adjusted: put milk in clean pot -> put milk on clean pot
+
+Task: You are a text game player, your goal is to put things in there proper locations and improve your score. You can only perform one action at a time. Answer in json form: {"consideration": string, "action": string}.
+Action history: Action 0: put milk in clean pot -> COMMAND NOT EXECUTABLE. The clean pot is not a container! 
+Inventory: You are carrying:  some milk
+Environment: Backyard[BBQ[wooden spoon], clothesline, patio chair[wet white jumper], patio table, workbench[clean pot]]
+Available actions:
+1. take [object]
+2. put [object in inventory] on [supporter]
+3. put [object in inventory] in [container]
+4. go west
+Answer (in json form: {"consideration": string, "action": string}):
+
+
+
+{'consideration': 'Since the clean pot is not a container, and I need to organize items, I should try putting the milk on a suitable surface. The patio table seems like a reasonable place to put the milk.', 'action': 'put milk on patio table'}
+
+
+
+
+
+Trying recall LLM!!! put milk in clean pot -> put milk on patio table
+
+
+
+Recall success!
+
+Task: You are a text game player, your goal is to put things in there proper locations and improve your score. You can only perform one action at a time. Answer in json form: {"consideration": string, "action": string}.
+Action history: Action 0: put milk in clean pot -> COMMAND NOT EXECUTABLE. The clean pot is not a container! Action 1: put milk on patio table -> You put the milk on the patio table.Wrong position, you should put it somewhere else, maybe the other room. 
+Inventory: You are carrying nothing.
+Environment: Backyard[BBQ[wooden spoon], clothesline, patio chair[wet white jumper], patio table[milk], workbench[clean pot], sliding patio door]
+Available actions:
+1. take [object]
+2. put [object in inventory] on [supporter]
+3. put [object in inventory] in [container]
+4. go west
+Answer (in json form: {"consideration": string, "action": string}):
+
+
+
+{'consideration': 'The milk should be stored in a cold place, likely inside the house. I need to take the milk and go inside through the sliding patio door.', 'action': 'take milk'}
+
+
+
+Task: You are a text game player, your goal is to put things in there proper locations and improve your score. You can only perform one action at a time. Answer in json form: {"consideration": string, "action": string}.
+Action history: Action 0: put milk in clean pot -> COMMAND NOT EXECUTABLE. The clean pot is not a container! Action 1: put milk on patio table -> You put the milk on the patio table.Wrong position, you should put it somewhere else, maybe the other room. Action 2: take milk -> You take the milk from the patio table. 
+Inventory: You are carrying:  some milk
+Environment: Backyard[BBQ[wooden spoon], clothesline, patio chair[wet white jumper], patio table, workbench[clean pot]]
+Available actions:
+1. take [object]
+2. put [object in inventory] on [supporter]
+3. put [object in inventory] in [container]
+4. go west
+Answer (in json form: {"consideration": string, "action": string}):
+
+
+
+{'consideration': "Since the milk is perishable and shouldn't be left outside, I should try going west to find a more suitable location, possibly a kitchen or indoor area.", 'action': 'go west'}
+
+
+
+Task: You are a text game player, your goal is to put things in there proper locations and improve your score. You can only perform one action at a time. Answer in json form: {"consideration": string, "action": string}.
+Action history: Action 0: put milk in clean pot -> COMMAND NOT EXECUTABLE. The clean pot is not a container! Action 1: put milk on patio table -> You put the milk on the patio table.Wrong position, you should put it somewhere else, maybe the other room. Action 2: take milk -> You take the milk from the patio table. Action 3: go west -> -= Kitchen =-You find yourself in a kitchen. 
+Inventory: You are carrying:  some milk
+Environment: Kitchen[fridge, kitchen cupboard, cutlery drawer, dishwasher, trash can, oven, dining table[dirty pot], ladderback chair, counter[dirty cake slice], stove, dining chair[wet azure skirt]]
+Available actions:
+1. take [object]
+2. put [object in inventory] on [supporter]
+3. put [object in inventory] in [container]
+4. go east
+Answer (in json form: {"consideration": string, "action": string}):
+
+
+
+{'consideration': 'Since I have milk in my inventory and milk should be stored in a fridge to keep it fresh, I should put it in the fridge.', 'action': 'put milk in fridge'}
+
+
+
+Task: You are a text game player, your goal is to put things in there proper locations and improve your score. You can only perform one action at a time. Answer in json form: {"consideration": string, "action": string}.
+Action history: Action 0: put milk in clean pot -> COMMAND NOT EXECUTABLE. The clean pot is not a container! Action 1: put milk on patio table -> You put the milk on the patio table.Wrong position, you should put it somewhere else, maybe the other room. Action 2: take milk -> You take the milk from the patio table. Action 3: go west -> -= Kitchen =-You find yourself in a kitchen. Action 4: put milk in fridge -> You put the milk into the fridge.Your score has just gone up by one point.Right position. 
+Inventory: You are carrying nothing.
+Environment: Kitchen[fridge[milk], kitchen cupboard[], cutlery drawer[], dishwasher[], trash can[], oven[], dining table[dirty pot], ladderback chair[], counter[dirty cake slice], stove[], dining chair[wet azure skirt]]
+Available actions:
+1. take [object]
+2. put [object in inventory] on [supporter]
+3. put [object in inventory] in [container]
+4. go east
+Answer (in json form: {"consideration": string, "action": string}):
+
+
+
+{'consideration': 'The dirty cake slice is on the counter and should probably be thrown away in the trash can', 'action': 'take dirty cake slice'}
+
+
+
+Task: You are a text game player, your goal is to put things in there proper locations and improve your score. You can only perform one action at a time. Answer in json form: {"consideration": string, "action": string}.
+Action history: Action 0: put milk in clean pot -> COMMAND NOT EXECUTABLE. The clean pot is not a container! Action 1: put milk on patio table -> You put the milk on the patio table.Wrong position, you should put it somewhere else, maybe the other room. Action 2: take milk -> You take the milk from the patio table. Action 3: go west -> -= Kitchen =-You find yourself in a kitchen. Action 4: put milk in fridge -> You put the milk into the fridge.Your score has just gone up by one point.Right position. Action 5: take dirty cake slice -> You take the dirty cake slice from the counter. 
+Inventory: You are carrying:  a dirty cake slice
+Environment: Kitchen[fridge[milk], cupboard[], cutlery drawer[], dishwasher[], trash can[], oven[], dining table[dirty pot], ladderback chair[], counter[], stove[], dining chair[wet azure skirt]]
+Available actions:
+1. take [object]
+2. put [object in inventory] on [supporter]
+3. put [object in inventory] in [container]
+4. go east
+Answer (in json form: {"consideration": string, "action": string}):
+
+
+
+{'consideration': "The dirty cake slice should be thrown away in the trash can since it's dirty", 'action': 'put dirty cake slice in trash can'}
+
+
+
+Task: You are a text game player, your goal is to put things in there proper locations and improve your score. You can only perform one action at a time. Answer in json form: {"consideration": string, "action": string}.
+Action history: Action 0: put milk in clean pot -> COMMAND NOT EXECUTABLE. The clean pot is not a container! Action 1: put milk on patio table -> You put the milk on the patio table.Wrong position, you should put it somewhere else, maybe the other room. Action 2: take milk -> You take the milk from the patio table. Action 3: go west -> -= Kitchen =-You find yourself in a kitchen. Action 4: put milk in fridge -> You put the milk into the fridge.Your score has just gone up by one point.Right position. Action 5: take dirty cake slice -> You take the dirty cake slice from the counter. Action 6: put dirty cake slice in trash can -> You put the dirty cake slice into the trash can.Wrong position, you should put it somewhere else, maybe the other room. 
+Inventory: You are carrying nothing.
+Environment: Kitchen[fridge[milk], cupboard[], cutlery drawer[], dishwasher[], trash can[dirty cake slice], oven[], dining table[dirty pot], ladderback chair[], counter[], stove[], dining chair[wet azure skirt]]
+Available actions:
+1. take [object]
+2. put [object in inventory] on [supporter]
+3. put [object in inventory] in [container]
+4. go east
+Answer (in json form: {"consideration": string, "action": string}):
+
+
+
+{'consideration': "The dirty cake slice is in the trash can but that was wrong. Since it's dirty, it probably needs to be cleaned in the dishwasher first.", 'action': 'take dirty cake slice'}
+
+
+
+Task: You are a text game player, your goal is to put things in there proper locations and improve your score. You can only perform one action at a time. Answer in json form: {"consideration": string, "action": string}.
+Action history: Action 0: put milk in clean pot -> COMMAND NOT EXECUTABLE. The clean pot is not a container! Action 1: put milk on patio table -> You put the milk on the patio table.Wrong position, you should put it somewhere else, maybe the other room. Action 2: take milk -> You take the milk from the patio table. Action 3: go west -> -= Kitchen =-You find yourself in a kitchen. Action 4: put milk in fridge -> You put the milk into the fridge.Your score has just gone up by one point.Right position. Action 5: take dirty cake slice -> You take the dirty cake slice from the counter. Action 6: put dirty cake slice in trash can -> You put the dirty cake slice into the trash can.Wrong position, you should put it somewhere else, maybe the other room. Action 7: take dirty cake slice -> You take the dirty cake slice from the trash can. 
+Inventory: You are carrying:  a dirty cake slice
+Environment: Kitchen[fridge[milk], cupboard[], cutlery drawer[], dishwasher[], trash can[], oven[], dining table[dirty pot], ladderback chair[], counter[], stove[], dining chair[wet azure skirt]]
+Available actions:
+1. take [object]
+2. put [object in inventory] on [supporter]
+3. put [object in inventory] in [container]
+4. go east
+Answer (in json form: {"consideration": string, "action": string}):
+
+
+
+{'consideration': "Since the dirty cake slice needs to be disposed of properly, and the trash can in the kitchen wasn't the right place, I should try going back to the patio to find another disposal option.", 'action': 'go east'}
+
+
+
+Task: You are a text game player, your goal is to put things in there proper locations and improve your score. You can only perform one action at a time. Answer in json form: {"consideration": string, "action": string}.
+Action history: Action 0: put milk in clean pot -> COMMAND NOT EXECUTABLE. The clean pot is not a container! Action 1: put milk on patio table -> You put the milk on the patio table.Wrong position, you should put it somewhere else, maybe the other room. Action 2: take milk -> You take the milk from the patio table. Action 3: go west -> -= Kitchen =-You find yourself in a kitchen. Action 4: put milk in fridge -> You put the milk into the fridge.Your score has just gone up by one point.Right position. Action 5: take dirty cake slice -> You take the dirty cake slice from the counter. Action 6: put dirty cake slice in trash can -> You put the dirty cake slice into the trash can.Wrong position, you should put it somewhere else, maybe the other room. Action 7: take dirty cake slice -> You take the dirty cake slice from the trash can. Action 8: go east -> -= Backyard =-You've entered a backyard. 
+Inventory: You are carrying:  a dirty cake slice
+Environment: Backyard[BBQ[wooden spoon], clothesline, patio chair[wet white jumper], patio table, workbench[clean pot]]
+Available actions:
+1. take [object]
+2. put [object in inventory] on [supporter]
+3. put [object in inventory] in [container]
+4. go west
+Answer (in json form: {"consideration": string, "action": string}):
+
+
+
+{'consideration': "The dirty cake slice needs to be disposed of properly. Since putting it in the trash can in the kitchen wasn't correct, and we're in the backyard, maybe it should go in the BBQ since that's a place where food-related items might belong.", 'action': 'put dirty cake slice in BBQ'}
+
+
+
+
+
+Command adjusted: put dirty cake slice in BBQ -> put cake slice on BBQ
+
+Task: You are a text game player, your goal is to put things in there proper locations and improve your score. You can only perform one action at a time. Answer in json form: {"consideration": string, "action": string}.
+Action history: Action 0: put milk in clean pot -> COMMAND NOT EXECUTABLE. The clean pot is not a container! Action 1: put milk on patio table -> You put the milk on the patio table.Wrong position, you should put it somewhere else, maybe the other room. Action 2: take milk -> You take the milk from the patio table. Action 3: go west -> -= Kitchen =-You find yourself in a kitchen. Action 4: put milk in fridge -> You put the milk into the fridge.Your score has just gone up by one point.Right position. Action 5: take dirty cake slice -> You take the dirty cake slice from the counter. Action 6: put dirty cake slice in trash can -> You put the dirty cake slice into the trash can.Wrong position, you should put it somewhere else, maybe the other room. Action 7: take dirty cake slice -> You take the dirty cake slice from the trash can. Action 8: go east -> -= Backyard =-You've entered a backyard. Action 9: put cake slice on BBQ -> You put the dirty cake slice on the BBQ.Wrong position, you should put it somewhere else, maybe the other room. 
+Inventory: You are carrying nothing.
+Environment: Backyard[BBQ[dirty cake slice, wooden spoon], clothesline, patio chair[wet white jumper], patio table, workbench[clean pot]]
+Available actions:
+1. take [object]
+2. put [object in inventory] on [supporter]
+3. put [object in inventory] in [container]
+4. go west
+Answer (in json form: {"consideration": string, "action": string}):
+
+
+
+{'consideration': "The dirty cake slice is still not in the right place. Since it's dirty, it should probably go in a trash can which was in the kitchen. Let's first take it from the BBQ.", 'action': 'take dirty cake slice'}
+
+
+
+Task: You are a text game player, your goal is to put things in there proper locations and improve your score. You can only perform one action at a time. Answer in json form: {"consideration": string, "action": string}.
+Action history: Action 0: put milk in clean pot -> COMMAND NOT EXECUTABLE. The clean pot is not a container! Action 1: put milk on patio table -> You put the milk on the patio table.Wrong position, you should put it somewhere else, maybe the other room. Action 2: take milk -> You take the milk from the patio table. Action 3: go west -> -= Kitchen =-You find yourself in a kitchen. Action 4: put milk in fridge -> You put the milk into the fridge.Your score has just gone up by one point.Right position. Action 5: take dirty cake slice -> You take the dirty cake slice from the counter. Action 6: put dirty cake slice in trash can -> You put the dirty cake slice into the trash can.Wrong position, you should put it somewhere else, maybe the other room. Action 7: take dirty cake slice -> You take the dirty cake slice from the trash can. Action 8: go east -> -= Backyard =-You've entered a backyard. Action 9: put cake slice on BBQ -> You put the dirty cake slice on the BBQ.Wrong position, you should put it somewhere else, maybe the other room. Action 10: take dirty cake slice -> You take the dirty cake slice from the BBQ. 
+Inventory: You are carrying:  a dirty cake slice
+Environment: Backyard[BBQ[wooden spoon], clothesline, patio chair[wet white jumper], patio table, workbench[clean pot], sliding patio door]
+Available actions:
+1. take [object]
+2. put [object in inventory] on [supporter]
+3. put [object in inventory] in [container]
+4. go west
+Answer (in json form: {"consideration": string, "action": string}):
+
+
+
+{'consideration': 'The dirty cake slice seems like trash and should go in a trash can. I noticed there was a trash can in the kitchen earlier, so I should go back there.', 'action': 'go west'}
+
+
+
+Task: You are a text game player, your goal is to put things in there proper locations and improve your score. You can only perform one action at a time. Answer in json form: {"consideration": string, "action": string}.
+Action history: Action 0: put milk in clean pot -> COMMAND NOT EXECUTABLE. The clean pot is not a container! Action 1: put milk on patio table -> You put the milk on the patio table.Wrong position, you should put it somewhere else, maybe the other room. Action 2: take milk -> You take the milk from the patio table. Action 3: go west -> -= Kitchen =-You find yourself in a kitchen. Action 4: put milk in fridge -> You put the milk into the fridge.Your score has just gone up by one point.Right position. Action 5: take dirty cake slice -> You take the dirty cake slice from the counter. Action 6: put dirty cake slice in trash can -> You put the dirty cake slice into the trash can.Wrong position, you should put it somewhere else, maybe the other room. Action 7: take dirty cake slice -> You take the dirty cake slice from the trash can. Action 8: go east -> -= Backyard =-You've entered a backyard. Action 9: put cake slice on BBQ -> You put the dirty cake slice on the BBQ.Wrong position, you should put it somewhere else, maybe the other room. Action 10: take dirty cake slice -> You take the dirty cake slice from the BBQ. Action 11: go west -> -= Kitchen =-You find yourself in a kitchen. 
+Inventory: You are carrying:  a dirty cake slice
+Environment: Kitchen[fridge[milk], cupboard[], cutlery drawer[], dishwasher[], trash can[], oven[], dining table[dirty pot], ladderback chair[], counter[], stove[], dining chair[wet azure skirt]]
+Available actions:
+1. take [object]
+2. put [object in inventory] on [supporter]
+3. put [object in inventory] in [container]
+4. go east
+Answer (in json form: {"consideration": string, "action": string}):
+
+
+
+{'consideration': "Since the dirty cake slice needs to be disposed of and it's dirty, it should go in the dishwasher to be cleaned", 'action': 'put dirty cake slice in dishwasher'}
+
+
+
+Task: You are a text game player, your goal is to put things in there proper locations and improve your score. You can only perform one action at a time. Answer in json form: {"consideration": string, "action": string}.
+Action history: Action 0: put milk in clean pot -> COMMAND NOT EXECUTABLE. The clean pot is not a container! Action 1: put milk on patio table -> You put the milk on the patio table.Wrong position, you should put it somewhere else, maybe the other room. Action 2: take milk -> You take the milk from the patio table. Action 3: go west -> -= Kitchen =-You find yourself in a kitchen. Action 4: put milk in fridge -> You put the milk into the fridge.Your score has just gone up by one point.Right position. Action 5: take dirty cake slice -> You take the dirty cake slice from the counter. Action 6: put dirty cake slice in trash can -> You put the dirty cake slice into the trash can.Wrong position, you should put it somewhere else, maybe the other room. Action 7: take dirty cake slice -> You take the dirty cake slice from the trash can. Action 8: go east -> -= Backyard =-You've entered a backyard. Action 9: put cake slice on BBQ -> You put the dirty cake slice on the BBQ.Wrong position, you should put it somewhere else, maybe the other room. Action 10: take dirty cake slice -> You take the dirty cake slice from the BBQ. Action 11: go west -> -= Kitchen =-You find yourself in a kitchen. Action 12: put dirty cake slice in dishwasher -> You put the dirty cake slice into the dishwasher.Your score has just gone up by one point.Right position. 
+Inventory: You are carrying nothing.
+Environment: Kitchen[fridge[milk], cupboard[], cutlery drawer[], dishwasher[dirty cake slice], trash can[], oven[], dining table[dirty pot], ladderback chair[], counter[], stove[], dining chair[wet azure skirt]]
+Available actions:
+1. take [object]
+2. put [object in inventory] on [supporter]
+3. put [object in inventory] in [container]
+4. go east
+Answer (in json form: {"consideration": string, "action": string}):
+
+
+
+{'consideration': 'I see a wet azure skirt on the dining chair that might need to be cleaned. Since the dishwasher worked for the dirty cake slice, it might be the right place for cleaning the wet skirt too.', 'action': 'take wet azure skirt'}
+
+
+
+Task: You are a text game player, your goal is to put things in there proper locations and improve your score. You can only perform one action at a time. Answer in json form: {"consideration": string, "action": string}.
+Action history: Action 0: put milk in clean pot -> COMMAND NOT EXECUTABLE. The clean pot is not a container! Action 1: put milk on patio table -> You put the milk on the patio table.Wrong position, you should put it somewhere else, maybe the other room. Action 2: take milk -> You take the milk from the patio table. Action 3: go west -> -= Kitchen =-You find yourself in a kitchen. Action 4: put milk in fridge -> You put the milk into the fridge.Your score has just gone up by one point.Right position. Action 5: take dirty cake slice -> You take the dirty cake slice from the counter. Action 6: put dirty cake slice in trash can -> You put the dirty cake slice into the trash can.Wrong position, you should put it somewhere else, maybe the other room. Action 7: take dirty cake slice -> You take the dirty cake slice from the trash can. Action 8: go east -> -= Backyard =-You've entered a backyard. Action 9: put cake slice on BBQ -> You put the dirty cake slice on the BBQ.Wrong position, you should put it somewhere else, maybe the other room. Action 10: take dirty cake slice -> You take the dirty cake slice from the BBQ. Action 11: go west -> -= Kitchen =-You find yourself in a kitchen. Action 12: put dirty cake slice in dishwasher -> You put the dirty cake slice into the dishwasher.Your score has just gone up by one point.Right position. Action 13: take wet azure skirt -> You take the wet azure skirt from the dining chair. 
+Inventory: You are carrying:  a wet azure skirt
+Environment: Kitchen[fridge[milk], cupboard[], cutlery drawer[], dishwasher[dirty cake slice], trash can[], oven[], dining table[dirty pot], ladderback chair[], counter[], stove[], dining chair[]]
+Available actions:
+1. take [object]
+2. put [object in inventory] on [supporter]
+3. put [object in inventory] in [container]
+4. go east
+Answer (in json form: {"consideration": string, "action": string}):
+
+
+
+{'consideration': "The wet azure skirt is dirty and needs to be cleaned. The dishwasher is for dishes, so it should go somewhere else. Since it's wet, it probably needs to be dried.", 'action': 'put wet azure skirt in dryer'}
+
+
+
+
+
+Command adjusted: put wet azure skirt in dryer -> put azure skirt on dryer
+
+Task: You are a text game player, your goal is to put things in there proper locations and improve your score. You can only perform one action at a time. Answer in json form: {"consideration": string, "action": string}.
+Action history: Action 0: put milk in clean pot -> COMMAND NOT EXECUTABLE. The clean pot is not a container! Action 1: put milk on patio table -> You put the milk on the patio table.Wrong position, you should put it somewhere else, maybe the other room. Action 2: take milk -> You take the milk from the patio table. Action 3: go west -> -= Kitchen =-You find yourself in a kitchen. Action 4: put milk in fridge -> You put the milk into the fridge.Your score has just gone up by one point.Right position. Action 5: take dirty cake slice -> You take the dirty cake slice from the counter. Action 6: put dirty cake slice in trash can -> You put the dirty cake slice into the trash can.Wrong position, you should put it somewhere else, maybe the other room. Action 7: take dirty cake slice -> You take the dirty cake slice from the trash can. Action 8: go east -> -= Backyard =-You've entered a backyard. Action 9: put cake slice on BBQ -> You put the dirty cake slice on the BBQ.Wrong position, you should put it somewhere else, maybe the other room. Action 10: take dirty cake slice -> You take the dirty cake slice from the BBQ. Action 11: go west -> -= Kitchen =-You find yourself in a kitchen. Action 12: put dirty cake slice in dishwasher -> You put the dirty cake slice into the dishwasher.Your score has just gone up by one point.Right position. Action 13: take wet azure skirt -> You take the wet azure skirt from the dining chair. Action 14: put wet azure skirt in dryer -> COMMAND NOT EXECUTABLE. You should try other commands! 
+Inventory: You are carrying:  a wet azure skirt
+Environment: Kitchen[fridge[milk], cupboard[], cutlery drawer[], dishwasher[dirty cake slice], trash can[], oven[], dining table[dirty pot], ladderback chair[], counter[], stove[], dining chair[]]
+Available actions:
+1. take [object]
+2. put [object in inventory] on [supporter]
+3. put [object in inventory] in [container]
+4. go east
+Answer (in json form: {"consideration": string, "action": string}):
+
+
+
+{'consideration': "The wet azure skirt needs to be dried, and since there's no dryer, I should try the backyard where there might be a clothesline or similar drying apparatus.", 'action': 'go east'}
+
+
+
+
+
+Trying recall LLM!!! put wet azure skirt in dryer -> go east
+
+
+
+Recall success!
+
+Task: You are a text game player, your goal is to put things in there proper locations and improve your score. You can only perform one action at a time. Answer in json form: {"consideration": string, "action": string}.
+Action history: Action 0: put milk in clean pot -> COMMAND NOT EXECUTABLE. The clean pot is not a container! Action 1: put milk on patio table -> You put the milk on the patio table.Wrong position, you should put it somewhere else, maybe the other room. Action 2: take milk -> You take the milk from the patio table. Action 3: go west -> -= Kitchen =-You find yourself in a kitchen. Action 4: put milk in fridge -> You put the milk into the fridge.Your score has just gone up by one point.Right position. Action 5: take dirty cake slice -> You take the dirty cake slice from the counter. Action 6: put dirty cake slice in trash can -> You put the dirty cake slice into the trash can.Wrong position, you should put it somewhere else, maybe the other room. Action 7: take dirty cake slice -> You take the dirty cake slice from the trash can. Action 8: go east -> -= Backyard =-You've entered a backyard. Action 9: put cake slice on BBQ -> You put the dirty cake slice on the BBQ.Wrong position, you should put it somewhere else, maybe the other room. Action 10: take dirty cake slice -> You take the dirty cake slice from the BBQ. Action 11: go west -> -= Kitchen =-You find yourself in a kitchen. Action 12: put dirty cake slice in dishwasher -> You put the dirty cake slice into the dishwasher.Your score has just gone up by one point.Right position. Action 13: take wet azure skirt -> You take the wet azure skirt from the dining chair. Action 14: put wet azure skirt in dryer -> COMMAND NOT EXECUTABLE. You should try other commands! Action 15: go east -> -= Backyard =-You've entered a backyard. 
+Inventory: You are carrying:  a wet azure skirt
+Environment: Backyard[BBQ[wooden spoon], clothesline, patio chair[wet white jumper], patio table, workbench[clean pot]]
+Available actions:
+1. take [object]
+2. put [object in inventory] on [supporter]
+3. put [object in inventory] in [container]
+4. go west
+Answer (in json form: {"consideration": string, "action": string}):
+
+
+
+{'consideration': "The wet azure skirt should be dried, and since there's a clothesline in the backyard, that would be the logical place to put it", 'action': 'put wet azure skirt on clothesline'}
+
+
+
+Task: You are a text game player, your goal is to put things in there proper locations and improve your score. You can only perform one action at a time. Answer in json form: {"consideration": string, "action": string}.
+Action history: Action 0: put milk in clean pot -> COMMAND NOT EXECUTABLE. The clean pot is not a container! Action 1: put milk on patio table -> You put the milk on the patio table.Wrong position, you should put it somewhere else, maybe the other room. Action 2: take milk -> You take the milk from the patio table. Action 3: go west -> -= Kitchen =-You find yourself in a kitchen. Action 4: put milk in fridge -> You put the milk into the fridge.Your score has just gone up by one point.Right position. Action 5: take dirty cake slice -> You take the dirty cake slice from the counter. Action 6: put dirty cake slice in trash can -> You put the dirty cake slice into the trash can.Wrong position, you should put it somewhere else, maybe the other room. Action 7: take dirty cake slice -> You take the dirty cake slice from the trash can. Action 8: go east -> -= Backyard =-You've entered a backyard. Action 9: put cake slice on BBQ -> You put the dirty cake slice on the BBQ.Wrong position, you should put it somewhere else, maybe the other room. Action 10: take dirty cake slice -> You take the dirty cake slice from the BBQ. Action 11: go west -> -= Kitchen =-You find yourself in a kitchen. Action 12: put dirty cake slice in dishwasher -> You put the dirty cake slice into the dishwasher.Your score has just gone up by one point.Right position. Action 13: take wet azure skirt -> You take the wet azure skirt from the dining chair. Action 14: put wet azure skirt in dryer -> COMMAND NOT EXECUTABLE. You should try other commands! Action 15: go east -> -= Backyard =-You've entered a backyard. Action 16: put wet azure skirt on clothesline -> You put the wet azure skirt on the clothesline.Your score has just gone up by one point.Right position. 
+Inventory: You are carrying nothing.
+Environment: Backyard[BBQ[wooden spoon], clothesline[wet azure skirt], patio chair[wet white jumper], patio table, workbench[clean pot]]
+Available actions:
+1. take [object]
+2. put [object in inventory] on [supporter]
+3. put [object in inventory] in [container]
+4. go west
+Answer (in json form: {"consideration": string, "action": string}):
+
+
+
+{'consideration': 'I see a wet white jumper on the patio chair. Since we successfully put the wet azure skirt on the clothesline, the wet white jumper probably also belongs on the clothesline for drying.', 'action': 'take wet white jumper'}
+
+
+
+Task: You are a text game player, your goal is to put things in there proper locations and improve your score. You can only perform one action at a time. Answer in json form: {"consideration": string, "action": string}.
+Action history: Action 0: put milk in clean pot -> COMMAND NOT EXECUTABLE. The clean pot is not a container! Action 1: put milk on patio table -> You put the milk on the patio table.Wrong position, you should put it somewhere else, maybe the other room. Action 2: take milk -> You take the milk from the patio table. Action 3: go west -> -= Kitchen =-You find yourself in a kitchen. Action 4: put milk in fridge -> You put the milk into the fridge.Your score has just gone up by one point.Right position. Action 5: take dirty cake slice -> You take the dirty cake slice from the counter. Action 6: put dirty cake slice in trash can -> You put the dirty cake slice into the trash can.Wrong position, you should put it somewhere else, maybe the other room. Action 7: take dirty cake slice -> You take the dirty cake slice from the trash can. Action 8: go east -> -= Backyard =-You've entered a backyard. Action 9: put cake slice on BBQ -> You put the dirty cake slice on the BBQ.Wrong position, you should put it somewhere else, maybe the other room. Action 10: take dirty cake slice -> You take the dirty cake slice from the BBQ. Action 11: go west -> -= Kitchen =-You find yourself in a kitchen. Action 12: put dirty cake slice in dishwasher -> You put the dirty cake slice into the dishwasher.Your score has just gone up by one point.Right position. Action 13: take wet azure skirt -> You take the wet azure skirt from the dining chair. Action 14: put wet azure skirt in dryer -> COMMAND NOT EXECUTABLE. You should try other commands! Action 15: go east -> -= Backyard =-You've entered a backyard. Action 16: put wet azure skirt on clothesline -> You put the wet azure skirt on the clothesline.Your score has just gone up by one point.Right position. Action 17: take wet white jumper -> You take the wet white jumper from the patio chair. 
+Inventory: You are carrying:  a wet white jumper
+Environment: Backyard[BBQ[wooden spoon], clothesline[wet azure skirt], patio chair, patio table, workbench[clean pot]]
+Available actions:
+1. take [object]
+2. put [object in inventory] on [supporter]
+3. put [object in inventory] in [container]
+4. go west
+Answer (in json form: {"consideration": string, "action": string}):
+
+
+
+{'consideration': 'Since I have a wet white jumper and previously succeeded in putting the wet azure skirt on the clothesline, I should try putting the wet white jumper on the clothesline too for drying', 'action': 'put wet white jumper on clothesline'}
+
+
+
+Task: You are a text game player, your goal is to put things in there proper locations and improve your score. You can only perform one action at a time. Answer in json form: {"consideration": string, "action": string}.
+Action history: Action 0: put milk in clean pot -> COMMAND NOT EXECUTABLE. The clean pot is not a container! Action 1: put milk on patio table -> You put the milk on the patio table.Wrong position, you should put it somewhere else, maybe the other room. Action 2: take milk -> You take the milk from the patio table. Action 3: go west -> -= Kitchen =-You find yourself in a kitchen. Action 4: put milk in fridge -> You put the milk into the fridge.Your score has just gone up by one point.Right position. Action 5: take dirty cake slice -> You take the dirty cake slice from the counter. Action 6: put dirty cake slice in trash can -> You put the dirty cake slice into the trash can.Wrong position, you should put it somewhere else, maybe the other room. Action 7: take dirty cake slice -> You take the dirty cake slice from the trash can. Action 8: go east -> -= Backyard =-You've entered a backyard. Action 9: put cake slice on BBQ -> You put the dirty cake slice on the BBQ.Wrong position, you should put it somewhere else, maybe the other room. Action 10: take dirty cake slice -> You take the dirty cake slice from the BBQ. Action 11: go west -> -= Kitchen =-You find yourself in a kitchen. Action 12: put dirty cake slice in dishwasher -> You put the dirty cake slice into the dishwasher.Your score has just gone up by one point.Right position. Action 13: take wet azure skirt -> You take the wet azure skirt from the dining chair. Action 14: put wet azure skirt in dryer -> COMMAND NOT EXECUTABLE. You should try other commands! Action 15: go east -> -= Backyard =-You've entered a backyard. Action 16: put wet azure skirt on clothesline -> You put the wet azure skirt on the clothesline.Your score has just gone up by one point.Right position. Action 17: take wet white jumper -> You take the wet white jumper from the patio chair. Action 18: put wet white jumper on clothesline -> You put the wet white jumper on the clothesline.Your score has just gone up by one point.Right position. 
+Inventory: You are carrying nothing.
+Environment: Backyard[BBQ[wooden spoon], clothesline[wet white jumper, wet azure skirt], patio chair, patio table, workbench[clean pot]]
+Available actions:
+1. take [object]
+2. put [object in inventory] on [supporter]
+3. put [object in inventory] in [container]
+4. go west
+Answer (in json form: {"consideration": string, "action": string}):
+
+
+
+{'consideration': 'I see a wooden spoon on the BBQ. Since kitchen items typically belong in the kitchen, I should take it and move it to the kitchen.', 'action': 'take wooden spoon'}
+
+
+
+Task: You are a text game player, your goal is to put things in there proper locations and improve your score. You can only perform one action at a time. Answer in json form: {"consideration": string, "action": string}.
+Action history: Action 0: put milk in clean pot -> COMMAND NOT EXECUTABLE. The clean pot is not a container! Action 1: put milk on patio table -> You put the milk on the patio table.Wrong position, you should put it somewhere else, maybe the other room. Action 2: take milk -> You take the milk from the patio table. Action 3: go west -> -= Kitchen =-You find yourself in a kitchen. Action 4: put milk in fridge -> You put the milk into the fridge.Your score has just gone up by one point.Right position. Action 5: take dirty cake slice -> You take the dirty cake slice from the counter. Action 6: put dirty cake slice in trash can -> You put the dirty cake slice into the trash can.Wrong position, you should put it somewhere else, maybe the other room. Action 7: take dirty cake slice -> You take the dirty cake slice from the trash can. Action 8: go east -> -= Backyard =-You've entered a backyard. Action 9: put cake slice on BBQ -> You put the dirty cake slice on the BBQ.Wrong position, you should put it somewhere else, maybe the other room. Action 10: take dirty cake slice -> You take the dirty cake slice from the BBQ. Action 11: go west -> -= Kitchen =-You find yourself in a kitchen. Action 12: put dirty cake slice in dishwasher -> You put the dirty cake slice into the dishwasher.Your score has just gone up by one point.Right position. Action 13: take wet azure skirt -> You take the wet azure skirt from the dining chair. Action 14: put wet azure skirt in dryer -> COMMAND NOT EXECUTABLE. You should try other commands! Action 15: go east -> -= Backyard =-You've entered a backyard. Action 16: put wet azure skirt on clothesline -> You put the wet azure skirt on the clothesline.Your score has just gone up by one point.Right position. Action 17: take wet white jumper -> You take the wet white jumper from the patio chair. Action 18: put wet white jumper on clothesline -> You put the wet white jumper on the clothesline.Your score has just gone up by one point.Right position. Action 19: take wooden spoon -> You take the wooden spoon from the BBQ. 
+Inventory: You are carrying:  a wooden spoon
+Environment: Backyard[BBQ, clothesline[wet white jumper, wet azure skirt], patio chair, patio table, workbench[clean pot]]
+Available actions:
+1. take [object]
+2. put [object in inventory] on [supporter]
+3. put [object in inventory] in [container]
+4. go west
+Answer (in json form: {"consideration": string, "action": string}):
+
+
+
+{'consideration': 'The wooden spoon is a kitchen utensil, so it should be placed in the kitchen. I should go west to the kitchen first.', 'action': 'go west'}
+
+
+
+Task: You are a text game player, your goal is to put things in there proper locations and improve your score. You can only perform one action at a time. Answer in json form: {"consideration": string, "action": string}.
+Action history: Action 0: put milk in clean pot -> COMMAND NOT EXECUTABLE. The clean pot is not a container! Action 1: put milk on patio table -> You put the milk on the patio table.Wrong position, you should put it somewhere else, maybe the other room. Action 2: take milk -> You take the milk from the patio table. Action 3: go west -> -= Kitchen =-You find yourself in a kitchen. Action 4: put milk in fridge -> You put the milk into the fridge.Your score has just gone up by one point.Right position. Action 5: take dirty cake slice -> You take the dirty cake slice from the counter. Action 6: put dirty cake slice in trash can -> You put the dirty cake slice into the trash can.Wrong position, you should put it somewhere else, maybe the other room. Action 7: take dirty cake slice -> You take the dirty cake slice from the trash can. Action 8: go east -> -= Backyard =-You've entered a backyard. Action 9: put cake slice on BBQ -> You put the dirty cake slice on the BBQ.Wrong position, you should put it somewhere else, maybe the other room. Action 10: take dirty cake slice -> You take the dirty cake slice from the BBQ. Action 11: go west -> -= Kitchen =-You find yourself in a kitchen. Action 12: put dirty cake slice in dishwasher -> You put the dirty cake slice into the dishwasher.Your score has just gone up by one point.Right position. Action 13: take wet azure skirt -> You take the wet azure skirt from the dining chair. Action 14: put wet azure skirt in dryer -> COMMAND NOT EXECUTABLE. You should try other commands! Action 15: go east -> -= Backyard =-You've entered a backyard. Action 16: put wet azure skirt on clothesline -> You put the wet azure skirt on the clothesline.Your score has just gone up by one point.Right position. Action 17: take wet white jumper -> You take the wet white jumper from the patio chair. Action 18: put wet white jumper on clothesline -> You put the wet white jumper on the clothesline.Your score has just gone up by one point.Right position. Action 19: take wooden spoon -> You take the wooden spoon from the BBQ. Action 20: go west -> -= Kitchen =-You find yourself in a kitchen. 
+Inventory: You are carrying:  a wooden spoon
+Environment: Kitchen[fridge[milk], cupboard[], cutlery drawer[], dishwasher[dirty cake slice], trash can[], oven[], dining table[dirty pot], ladderback chair[], counter[], stove[], dining chair[]]
+Available actions:
+1. take [object]
+2. put [object in inventory] on [supporter]
+3. put [object in inventory] in [container]
+4. go east
+Answer (in json form: {"consideration": string, "action": string}):
+
+
+
+{'consideration': 'The wooden spoon is a kitchen utensil and should be stored in the cutlery drawer', 'action': 'put wooden spoon in cutlery drawer'}
+
+
+
+Task: You are a text game player, your goal is to put things in there proper locations and improve your score. You can only perform one action at a time. Answer in json form: {"consideration": string, "action": string}.
+Action history: Action 0: put milk in clean pot -> COMMAND NOT EXECUTABLE. The clean pot is not a container! Action 1: put milk on patio table -> You put the milk on the patio table.Wrong position, you should put it somewhere else, maybe the other room. Action 2: take milk -> You take the milk from the patio table. Action 3: go west -> -= Kitchen =-You find yourself in a kitchen. Action 4: put milk in fridge -> You put the milk into the fridge.Your score has just gone up by one point.Right position. Action 5: take dirty cake slice -> You take the dirty cake slice from the counter. Action 6: put dirty cake slice in trash can -> You put the dirty cake slice into the trash can.Wrong position, you should put it somewhere else, maybe the other room. Action 7: take dirty cake slice -> You take the dirty cake slice from the trash can. Action 8: go east -> -= Backyard =-You've entered a backyard. Action 9: put cake slice on BBQ -> You put the dirty cake slice on the BBQ.Wrong position, you should put it somewhere else, maybe the other room. Action 10: take dirty cake slice -> You take the dirty cake slice from the BBQ. Action 11: go west -> -= Kitchen =-You find yourself in a kitchen. Action 12: put dirty cake slice in dishwasher -> You put the dirty cake slice into the dishwasher.Your score has just gone up by one point.Right position. Action 13: take wet azure skirt -> You take the wet azure skirt from the dining chair. Action 14: put wet azure skirt in dryer -> COMMAND NOT EXECUTABLE. You should try other commands! Action 15: go east -> -= Backyard =-You've entered a backyard. Action 16: put wet azure skirt on clothesline -> You put the wet azure skirt on the clothesline.Your score has just gone up by one point.Right position. Action 17: take wet white jumper -> You take the wet white jumper from the patio chair. Action 18: put wet white jumper on clothesline -> You put the wet white jumper on the clothesline.Your score has just gone up by one point.Right position. Action 19: take wooden spoon -> You take the wooden spoon from the BBQ. Action 20: go west -> -= Kitchen =-You find yourself in a kitchen. Action 21: put wooden spoon in cutlery drawer -> You put the wooden spoon into the cutlery drawer.Your score has just gone up by one point.Right position. 
+Inventory: You are carrying nothing.
+Environment: Kitchen[fridge[milk], cupboard[], cutlery drawer[wooden spoon], dishwasher[dirty cake slice], trash can[], oven[], dining table[dirty pot], ladderback chair[], counter[], stove[], dining chair[]]
+Available actions:
+1. take [object]
+2. put [object in inventory] on [supporter]
+3. put [object in inventory] in [container]
+4. go east
+Answer (in json form: {"consideration": string, "action": string}):
+
+
+
+{'consideration': 'The dirty pot is on the dining table and should probably be cleaned in the dishwasher like the dirty cake slice', 'action': 'take dirty pot'}
+
+
+

@@ -1,0 +1,357 @@
+Task: You are a text game player, your goal is to put things in there proper locations and improve your score. You can only perform one action at a time. Answer in json form: {"consideration": string, "action": string}.
+Action history: No action was taken now.
+Inventory: You are carrying:  a clean plaid polo shirt
+Environment: Bedroom[wardrobe, chest of drawers, bed, desk chair, nightstand, dark carpet, desk, dressing table]
+Available actions:
+1. take [object]
+2. put [object in inventory] on [supporter]
+3. put [object in inventory] in [container]
+4. go east
+Answer (in json form: {"consideration": string, "action": string}):
+
+
+
+{'consideration': 'The clean plaid polo shirt belongs in either the wardrobe or chest of drawers, which are both storage furniture for clothes. The wardrobe is typically used for hanging clothes, which is more appropriate for a shirt.', 'action': 'put clean plaid polo shirt in wardrobe'}
+
+
+
+Task: You are a text game player, your goal is to put things in there proper locations and improve your score. You can only perform one action at a time. Answer in json form: {"consideration": string, "action": string}.
+Action history: Action 0: put clean plaid polo shirt in wardrobe -> You put the clean plaid polo shirt into the wardrobe.Your score has just gone up by one point.Right position. 
+Inventory: You are carrying nothing.
+Environment: Bedroom[wardrobe[plaid polo shirt], chest of drawers[], bed[], desk chair[], nightstand[], carpet[], desk[], dressing table[]]
+Available actions:
+1. take [object]
+2. put [object in inventory] on [supporter]
+3. put [object in inventory] in [container]
+4. go east
+Answer (in json form: {"consideration": string, "action": string}):
+
+
+
+{'consideration': 'Since I have nothing in my inventory and the only item visible is the plaid polo shirt which is already correctly placed in the wardrobe, I should look for more items in other locations.', 'action': 'go east'}
+
+
+
+Task: You are a text game player, your goal is to put things in there proper locations and improve your score. You can only perform one action at a time. Answer in json form: {"consideration": string, "action": string}.
+Action history: Action 0: put clean plaid polo shirt in wardrobe -> You put the clean plaid polo shirt into the wardrobe.Your score has just gone up by one point.Right position. Action 1: go east -> -= Livingroom =-You are in a livingroom. 
+Inventory: You are carrying nothing.
+Environment: Livingroom[sofa[checkered jumper], armchair[gray coat], side table[], TV stand[], end table[brown suit], coffee table[dictionary], carpet[grey], wastepaper basket[], bookcase[]]
+Available actions:
+1. take [object]
+2. put [object in inventory] on [supporter]
+3. put [object in inventory] in [container]
+4. go west
+Answer (in json form: {"consideration": string, "action": string}):
+
+
+
+{'consideration': 'I see a checkered jumper on the sofa that should probably go in the wardrobe in the other room. I should take it first.', 'action': 'take checkered jumper'}
+
+
+
+Task: You are a text game player, your goal is to put things in there proper locations and improve your score. You can only perform one action at a time. Answer in json form: {"consideration": string, "action": string}.
+Action history: Action 0: put clean plaid polo shirt in wardrobe -> You put the clean plaid polo shirt into the wardrobe.Your score has just gone up by one point.Right position. Action 1: go east -> -= Livingroom =-You are in a livingroom. Action 2: take checkered jumper -> You take the clean checkered jumper from the sofa. 
+Inventory: You are carrying:  a clean checkered jumper
+Environment: Livingroom[sofa, armchair[gray coat], side table, TV stand, end table[brown suit], coffee table[dictionary], carpet[empty], wastepaper basket[empty], wall[clean white polo shirt]]
+Available actions:
+1. take [object]
+2. put [object in inventory] on [supporter]
+3. put [object in inventory] in [container]
+4. go west
+Answer (in json form: {"consideration": string, "action": string}):
+
+
+
+{'consideration': "Since I have a clean checkered jumper and there's a wardrobe in the bedroom (west), I should go back there to store it properly", 'action': 'go west'}
+
+
+
+Task: You are a text game player, your goal is to put things in there proper locations and improve your score. You can only perform one action at a time. Answer in json form: {"consideration": string, "action": string}.
+Action history: Action 0: put clean plaid polo shirt in wardrobe -> You put the clean plaid polo shirt into the wardrobe.Your score has just gone up by one point.Right position. Action 1: go east -> -= Livingroom =-You are in a livingroom. Action 2: take checkered jumper -> You take the clean checkered jumper from the sofa. Action 3: go west -> -= Bedroom =-You find yourself in a bedroom. 
+Inventory: You are carrying:  a clean checkered jumper
+Environment: Bedroom[wardrobe[plaid polo shirt], chest of drawers[], bed[], desk chair[], nightstand[], carpet[], desk[], dressing table[]]
+Available actions:
+1. take [object]
+2. put [object in inventory] on [supporter]
+3. put [object in inventory] in [container]
+4. go east
+Answer (in json form: {"consideration": string, "action": string}):
+
+
+
+{'consideration': 'Since I have a clean checkered jumper and the wardrobe is the proper storage place for clothes, I should put it there to improve my score', 'action': 'put clean checkered jumper in wardrobe'}
+
+
+
+Task: You are a text game player, your goal is to put things in there proper locations and improve your score. You can only perform one action at a time. Answer in json form: {"consideration": string, "action": string}.
+Action history: Action 0: put clean plaid polo shirt in wardrobe -> You put the clean plaid polo shirt into the wardrobe.Your score has just gone up by one point.Right position. Action 1: go east -> -= Livingroom =-You are in a livingroom. Action 2: take checkered jumper -> You take the clean checkered jumper from the sofa. Action 3: go west -> -= Bedroom =-You find yourself in a bedroom. Action 4: put clean checkered jumper in wardrobe -> You put the clean checkered jumper into the wardrobe.Your score has just gone up by one point.Right position. 
+Inventory: You are carrying nothing.
+Environment: Bedroom[wardrobe[checkered jumper, plaid polo shirt], chest of drawers[], bed[], desk chair[], nightstand[], carpet[], desk[], dressing table[]]
+Available actions:
+1. take [object]
+2. put [object in inventory] on [supporter]
+3. put [object in inventory] in [container]
+4. go east
+Answer (in json form: {"consideration": string, "action": string}):
+
+
+
+{'consideration': "I've already placed two clean clothes in the wardrobe. Let me check the livingroom for more items to organize.", 'action': 'go east'}
+
+
+
+Task: You are a text game player, your goal is to put things in there proper locations and improve your score. You can only perform one action at a time. Answer in json form: {"consideration": string, "action": string}.
+Action history: Action 0: put clean plaid polo shirt in wardrobe -> You put the clean plaid polo shirt into the wardrobe.Your score has just gone up by one point.Right position. Action 1: go east -> -= Livingroom =-You are in a livingroom. Action 2: take checkered jumper -> You take the clean checkered jumper from the sofa. Action 3: go west -> -= Bedroom =-You find yourself in a bedroom. Action 4: put clean checkered jumper in wardrobe -> You put the clean checkered jumper into the wardrobe.Your score has just gone up by one point.Right position. Action 5: go east -> -= Livingroom =-You are in a livingroom. 
+Inventory: You are carrying nothing.
+Environment: Livingroom[sofa, armchair[gray coat], side table, TV stand, end table[brown suit], coffee table[dictionary], wastepaper basket, bookcase, carpet[grey], entranceway[clean white polo shirt]]
+Available actions:
+1. take [object]
+2. put [object in inventory] on [supporter]
+3. put [object in inventory] in [container]
+4. go west
+Answer (in json form: {"consideration": string, "action": string}):
+
+
+
+{'consideration': "I see a clean white polo shirt in the entranceway. Since I've been putting clothes in the wardrobe and getting points, I should take this shirt and bring it to the wardrobe in the bedroom.", 'action': 'take clean white polo shirt'}
+
+
+
+Task: You are a text game player, your goal is to put things in there proper locations and improve your score. You can only perform one action at a time. Answer in json form: {"consideration": string, "action": string}.
+Action history: Action 0: put clean plaid polo shirt in wardrobe -> You put the clean plaid polo shirt into the wardrobe.Your score has just gone up by one point.Right position. Action 1: go east -> -= Livingroom =-You are in a livingroom. Action 2: take checkered jumper -> You take the clean checkered jumper from the sofa. Action 3: go west -> -= Bedroom =-You find yourself in a bedroom. Action 4: put clean checkered jumper in wardrobe -> You put the clean checkered jumper into the wardrobe.Your score has just gone up by one point.Right position. Action 5: go east -> -= Livingroom =-You are in a livingroom. Action 6: take clean white polo shirt -> You pick up the clean white polo shirt from the ground. 
+Inventory: You are carrying:  a clean white polo shirt
+Environment: Livingroom[sofa, armchair[gray coat], side table, TV stand, end table[brown suit], coffee table[dictionary], wastepaper basket, bookcase, grey carpet]
+Available actions:
+1. take [object]
+2. put [object in inventory] on [supporter]
+3. put [object in inventory] in [container]
+4. go west
+Answer (in json form: {"consideration": string, "action": string}):
+
+
+
+{'consideration': 'I have a clean white polo shirt in my inventory, and based on previous successful actions, clothing items should go in the wardrobe which is in the bedroom. I should go west to the bedroom first.', 'action': 'go west'}
+
+
+
+Task: You are a text game player, your goal is to put things in there proper locations and improve your score. You can only perform one action at a time. Answer in json form: {"consideration": string, "action": string}.
+Action history: Action 0: put clean plaid polo shirt in wardrobe -> You put the clean plaid polo shirt into the wardrobe.Your score has just gone up by one point.Right position. Action 1: go east -> -= Livingroom =-You are in a livingroom. Action 2: take checkered jumper -> You take the clean checkered jumper from the sofa. Action 3: go west -> -= Bedroom =-You find yourself in a bedroom. Action 4: put clean checkered jumper in wardrobe -> You put the clean checkered jumper into the wardrobe.Your score has just gone up by one point.Right position. Action 5: go east -> -= Livingroom =-You are in a livingroom. Action 6: take clean white polo shirt -> You pick up the clean white polo shirt from the ground. Action 7: go west -> -= Bedroom =-You find yourself in a bedroom. 
+Inventory: You are carrying:  a clean white polo shirt
+Environment: Bedroom[wardrobe[checkered jumper, plaid polo shirt], chest of drawers[], bed[], desk chair[], nightstand[], carpet[], desk[], dressing table[]]
+Available actions:
+1. take [object]
+2. put [object in inventory] on [supporter]
+3. put [object in inventory] in [container]
+4. go east
+Answer (in json form: {"consideration": string, "action": string}):
+
+
+
+{'consideration': "I should put the clean white polo shirt in the wardrobe since that's where other clean clothes are being stored, and it has increased my score before", 'action': 'put clean white polo shirt in wardrobe'}
+
+
+
+Task: You are a text game player, your goal is to put things in there proper locations and improve your score. You can only perform one action at a time. Answer in json form: {"consideration": string, "action": string}.
+Action history: Action 0: put clean plaid polo shirt in wardrobe -> You put the clean plaid polo shirt into the wardrobe.Your score has just gone up by one point.Right position. Action 1: go east -> -= Livingroom =-You are in a livingroom. Action 2: take checkered jumper -> You take the clean checkered jumper from the sofa. Action 3: go west -> -= Bedroom =-You find yourself in a bedroom. Action 4: put clean checkered jumper in wardrobe -> You put the clean checkered jumper into the wardrobe.Your score has just gone up by one point.Right position. Action 5: go east -> -= Livingroom =-You are in a livingroom. Action 6: take clean white polo shirt -> You pick up the clean white polo shirt from the ground. Action 7: go west -> -= Bedroom =-You find yourself in a bedroom. Action 8: put clean white polo shirt in wardrobe -> You put the clean white polo shirt into the wardrobe.Your score has just gone up by one point.Right position. 
+Inventory: You are carrying nothing.
+Environment: Bedroom[wardrobe[clean white polo shirt, clean checkered jumper, clean plaid polo shirt], chest of drawers[], bed[], desk chair[], nightstand[], carpet[], desk[], dressing table[]]
+Available actions:
+1. take [object]
+2. put [object in inventory] on [supporter]
+3. put [object in inventory] in [container]
+4. go east
+Answer (in json form: {"consideration": string, "action": string}):
+
+
+
+{'consideration': "I've already placed three clean clothing items in the wardrobe correctly. Let me check the living room for any more items to organize.", 'action': 'go east'}
+
+
+
+Task: You are a text game player, your goal is to put things in there proper locations and improve your score. You can only perform one action at a time. Answer in json form: {"consideration": string, "action": string}.
+Action history: Action 0: put clean plaid polo shirt in wardrobe -> You put the clean plaid polo shirt into the wardrobe.Your score has just gone up by one point.Right position. Action 1: go east -> -= Livingroom =-You are in a livingroom. Action 2: take checkered jumper -> You take the clean checkered jumper from the sofa. Action 3: go west -> -= Bedroom =-You find yourself in a bedroom. Action 4: put clean checkered jumper in wardrobe -> You put the clean checkered jumper into the wardrobe.Your score has just gone up by one point.Right position. Action 5: go east -> -= Livingroom =-You are in a livingroom. Action 6: take clean white polo shirt -> You pick up the clean white polo shirt from the ground. Action 7: go west -> -= Bedroom =-You find yourself in a bedroom. Action 8: put clean white polo shirt in wardrobe -> You put the clean white polo shirt into the wardrobe.Your score has just gone up by one point.Right position. Action 9: go east -> -= Livingroom =-You are in a livingroom. 
+Inventory: You are carrying nothing.
+Environment: Livingroom[sofa, armchair[gray coat], side table, TV stand, end table[brown suit], coffee table[dictionary], wastepaper basket, bookcase, grey carpet]
+Available actions:
+1. take [object]
+2. put [object in inventory] on [supporter]
+3. put [object in inventory] in [container]
+4. go west
+Answer (in json form: {"consideration": string, "action": string}):
+
+
+
+{'consideration': 'I see a gray coat on the armchair and a brown suit on the end table. Since clothes should be stored properly, I should take one of them and bring it to the wardrobe in the bedroom.', 'action': 'take gray coat'}
+
+
+
+Task: You are a text game player, your goal is to put things in there proper locations and improve your score. You can only perform one action at a time. Answer in json form: {"consideration": string, "action": string}.
+Action history: Action 0: put clean plaid polo shirt in wardrobe -> You put the clean plaid polo shirt into the wardrobe.Your score has just gone up by one point.Right position. Action 1: go east -> -= Livingroom =-You are in a livingroom. Action 2: take checkered jumper -> You take the clean checkered jumper from the sofa. Action 3: go west -> -= Bedroom =-You find yourself in a bedroom. Action 4: put clean checkered jumper in wardrobe -> You put the clean checkered jumper into the wardrobe.Your score has just gone up by one point.Right position. Action 5: go east -> -= Livingroom =-You are in a livingroom. Action 6: take clean white polo shirt -> You pick up the clean white polo shirt from the ground. Action 7: go west -> -= Bedroom =-You find yourself in a bedroom. Action 8: put clean white polo shirt in wardrobe -> You put the clean white polo shirt into the wardrobe.Your score has just gone up by one point.Right position. Action 9: go east -> -= Livingroom =-You are in a livingroom. Action 10: take gray coat -> You take the gray coat from the armchair. 
+Inventory: You are carrying:  a gray coat
+Environment: Livingroom[sofa, armchair, side table, TV stand, end table[brown suit], coffee table[dictionary], bookcase[wastepaper basket]]
+Available actions:
+1. take [object]
+2. put [object in inventory] on [supporter]
+3. put [object in inventory] in [container]
+4. go west
+Answer (in json form: {"consideration": string, "action": string}):
+
+
+
+{'consideration': 'I have a gray coat in my inventory and I see a brown suit on the end table. Since coats and suits are formal wear, they likely belong together. I should go back to the bedroom where the wardrobe is to store the gray coat.', 'action': 'go west'}
+
+
+
+Task: You are a text game player, your goal is to put things in there proper locations and improve your score. You can only perform one action at a time. Answer in json form: {"consideration": string, "action": string}.
+Action history: Action 0: put clean plaid polo shirt in wardrobe -> You put the clean plaid polo shirt into the wardrobe.Your score has just gone up by one point.Right position. Action 1: go east -> -= Livingroom =-You are in a livingroom. Action 2: take checkered jumper -> You take the clean checkered jumper from the sofa. Action 3: go west -> -= Bedroom =-You find yourself in a bedroom. Action 4: put clean checkered jumper in wardrobe -> You put the clean checkered jumper into the wardrobe.Your score has just gone up by one point.Right position. Action 5: go east -> -= Livingroom =-You are in a livingroom. Action 6: take clean white polo shirt -> You pick up the clean white polo shirt from the ground. Action 7: go west -> -= Bedroom =-You find yourself in a bedroom. Action 8: put clean white polo shirt in wardrobe -> You put the clean white polo shirt into the wardrobe.Your score has just gone up by one point.Right position. Action 9: go east -> -= Livingroom =-You are in a livingroom. Action 10: take gray coat -> You take the gray coat from the armchair. Action 11: go west -> -= Bedroom =-You find yourself in a bedroom. 
+Inventory: You are carrying:  a gray coat
+Environment: Bedroom[wardrobe[clean white polo shirt, clean checkered jumper, clean plaid polo shirt], chest of drawers[], bed[], desk chair[], nightstand[], carpet[], desk[], dressing table[]]
+Available actions:
+1. take [object]
+2. put [object in inventory] on [supporter]
+3. put [object in inventory] in [container]
+4. go east
+Answer (in json form: {"consideration": string, "action": string}):
+
+
+
+{'consideration': 'I have a gray coat in my inventory and the wardrobe seems to be where clean clothes belong since putting other clothes there increased the score. I should try putting the gray coat in the wardrobe.', 'action': 'put gray coat in wardrobe'}
+
+
+
+Task: You are a text game player, your goal is to put things in there proper locations and improve your score. You can only perform one action at a time. Answer in json form: {"consideration": string, "action": string}.
+Action history: Action 0: put clean plaid polo shirt in wardrobe -> You put the clean plaid polo shirt into the wardrobe.Your score has just gone up by one point.Right position. Action 1: go east -> -= Livingroom =-You are in a livingroom. Action 2: take checkered jumper -> You take the clean checkered jumper from the sofa. Action 3: go west -> -= Bedroom =-You find yourself in a bedroom. Action 4: put clean checkered jumper in wardrobe -> You put the clean checkered jumper into the wardrobe.Your score has just gone up by one point.Right position. Action 5: go east -> -= Livingroom =-You are in a livingroom. Action 6: take clean white polo shirt -> You pick up the clean white polo shirt from the ground. Action 7: go west -> -= Bedroom =-You find yourself in a bedroom. Action 8: put clean white polo shirt in wardrobe -> You put the clean white polo shirt into the wardrobe.Your score has just gone up by one point.Right position. Action 9: go east -> -= Livingroom =-You are in a livingroom. Action 10: take gray coat -> You take the gray coat from the armchair. Action 11: go west -> -= Bedroom =-You find yourself in a bedroom. Action 12: put gray coat in wardrobe -> You put the gray coat into the wardrobe.Your score has just gone up by one point.Right position. 
+Inventory: You are carrying nothing.
+Environment: Bedroom[wardrobe[gray coat, white polo shirt, checkered jumper, plaid polo shirt], chest of drawers[], bed[], desk chair[], nightstand[], carpet[], desk[], dressing table[]]
+Available actions:
+1. take [object]
+2. put [object in inventory] on [supporter]
+3. put [object in inventory] in [container]
+4. go east
+Answer (in json form: {"consideration": string, "action": string}):
+
+
+
+{'consideration': "I've successfully placed several clothing items in the wardrobe. Let me check the living room for any remaining items to organize.", 'action': 'go east'}
+
+
+
+Task: You are a text game player, your goal is to put things in there proper locations and improve your score. You can only perform one action at a time. Answer in json form: {"consideration": string, "action": string}.
+Action history: Action 0: put clean plaid polo shirt in wardrobe -> You put the clean plaid polo shirt into the wardrobe.Your score has just gone up by one point.Right position. Action 1: go east -> -= Livingroom =-You are in a livingroom. Action 2: take checkered jumper -> You take the clean checkered jumper from the sofa. Action 3: go west -> -= Bedroom =-You find yourself in a bedroom. Action 4: put clean checkered jumper in wardrobe -> You put the clean checkered jumper into the wardrobe.Your score has just gone up by one point.Right position. Action 5: go east -> -= Livingroom =-You are in a livingroom. Action 6: take clean white polo shirt -> You pick up the clean white polo shirt from the ground. Action 7: go west -> -= Bedroom =-You find yourself in a bedroom. Action 8: put clean white polo shirt in wardrobe -> You put the clean white polo shirt into the wardrobe.Your score has just gone up by one point.Right position. Action 9: go east -> -= Livingroom =-You are in a livingroom. Action 10: take gray coat -> You take the gray coat from the armchair. Action 11: go west -> -= Bedroom =-You find yourself in a bedroom. Action 12: put gray coat in wardrobe -> You put the gray coat into the wardrobe.Your score has just gone up by one point.Right position. Action 13: go east -> -= Livingroom =-You are in a livingroom. 
+Inventory: You are carrying nothing.
+Environment: Livingroom[sofa, armchair, side table, TV stand, end table[brown suit], coffee table[dictionary], bookcase, wastepaper basket]
+Available actions:
+1. take [object]
+2. put [object in inventory] on [supporter]
+3. put [object in inventory] in [container]
+4. go west
+Answer (in json form: {"consideration": string, "action": string}):
+
+
+
+{'consideration': 'I see a brown suit on the end table that should probably go in the wardrobe with the other clothing items. I should take it and bring it to the bedroom.', 'action': 'take brown suit'}
+
+
+
+Task: You are a text game player, your goal is to put things in there proper locations and improve your score. You can only perform one action at a time. Answer in json form: {"consideration": string, "action": string}.
+Action history: Action 0: put clean plaid polo shirt in wardrobe -> You put the clean plaid polo shirt into the wardrobe.Your score has just gone up by one point.Right position. Action 1: go east -> -= Livingroom =-You are in a livingroom. Action 2: take checkered jumper -> You take the clean checkered jumper from the sofa. Action 3: go west -> -= Bedroom =-You find yourself in a bedroom. Action 4: put clean checkered jumper in wardrobe -> You put the clean checkered jumper into the wardrobe.Your score has just gone up by one point.Right position. Action 5: go east -> -= Livingroom =-You are in a livingroom. Action 6: take clean white polo shirt -> You pick up the clean white polo shirt from the ground. Action 7: go west -> -= Bedroom =-You find yourself in a bedroom. Action 8: put clean white polo shirt in wardrobe -> You put the clean white polo shirt into the wardrobe.Your score has just gone up by one point.Right position. Action 9: go east -> -= Livingroom =-You are in a livingroom. Action 10: take gray coat -> You take the gray coat from the armchair. Action 11: go west -> -= Bedroom =-You find yourself in a bedroom. Action 12: put gray coat in wardrobe -> You put the gray coat into the wardrobe.Your score has just gone up by one point.Right position. Action 13: go east -> -= Livingroom =-You are in a livingroom. Action 14: take brown suit -> You take the brown suit from the end table. 
+Inventory: You are carrying:  a brown suit
+Environment: Livingroom[sofa, armchair, side table, end table, coffee table[dictionary], TV stand, bookcase, wastepaper basket]
+Available actions:
+1. take [object]
+2. put [object in inventory] on [supporter]
+3. put [object in inventory] in [container]
+4. go west
+Answer (in json form: {"consideration": string, "action": string}):
+
+
+
+{'consideration': "I have a brown suit in my inventory and I should put it in the wardrobe in the bedroom since that's where other clothing items went and increased the score", 'action': 'go west'}
+
+
+
+Task: You are a text game player, your goal is to put things in there proper locations and improve your score. You can only perform one action at a time. Answer in json form: {"consideration": string, "action": string}.
+Action history: Action 0: put clean plaid polo shirt in wardrobe -> You put the clean plaid polo shirt into the wardrobe.Your score has just gone up by one point.Right position. Action 1: go east -> -= Livingroom =-You are in a livingroom. Action 2: take checkered jumper -> You take the clean checkered jumper from the sofa. Action 3: go west -> -= Bedroom =-You find yourself in a bedroom. Action 4: put clean checkered jumper in wardrobe -> You put the clean checkered jumper into the wardrobe.Your score has just gone up by one point.Right position. Action 5: go east -> -= Livingroom =-You are in a livingroom. Action 6: take clean white polo shirt -> You pick up the clean white polo shirt from the ground. Action 7: go west -> -= Bedroom =-You find yourself in a bedroom. Action 8: put clean white polo shirt in wardrobe -> You put the clean white polo shirt into the wardrobe.Your score has just gone up by one point.Right position. Action 9: go east -> -= Livingroom =-You are in a livingroom. Action 10: take gray coat -> You take the gray coat from the armchair. Action 11: go west -> -= Bedroom =-You find yourself in a bedroom. Action 12: put gray coat in wardrobe -> You put the gray coat into the wardrobe.Your score has just gone up by one point.Right position. Action 13: go east -> -= Livingroom =-You are in a livingroom. Action 14: take brown suit -> You take the brown suit from the end table. Action 15: go west -> -= Bedroom =-You find yourself in a bedroom. 
+Inventory: You are carrying:  a brown suit
+Environment: Bedroom[wardrobe[gray coat, white polo shirt, checkered jumper, plaid polo shirt], chest of drawers[], bed[], desk chair[], nightstand[], carpet[], desk[], dressing table[]]
+Available actions:
+1. take [object]
+2. put [object in inventory] on [supporter]
+3. put [object in inventory] in [container]
+4. go east
+Answer (in json form: {"consideration": string, "action": string}):
+
+
+
+{'consideration': 'I have a brown suit in my inventory and the wardrobe seems to be the proper place for clothing items. Previous clothing items placed in the wardrobe have increased the score.', 'action': 'put brown suit in wardrobe'}
+
+
+
+Task: You are a text game player, your goal is to put things in there proper locations and improve your score. You can only perform one action at a time. Answer in json form: {"consideration": string, "action": string}.
+Action history: Action 0: put clean plaid polo shirt in wardrobe -> You put the clean plaid polo shirt into the wardrobe.Your score has just gone up by one point.Right position. Action 1: go east -> -= Livingroom =-You are in a livingroom. Action 2: take checkered jumper -> You take the clean checkered jumper from the sofa. Action 3: go west -> -= Bedroom =-You find yourself in a bedroom. Action 4: put clean checkered jumper in wardrobe -> You put the clean checkered jumper into the wardrobe.Your score has just gone up by one point.Right position. Action 5: go east -> -= Livingroom =-You are in a livingroom. Action 6: take clean white polo shirt -> You pick up the clean white polo shirt from the ground. Action 7: go west -> -= Bedroom =-You find yourself in a bedroom. Action 8: put clean white polo shirt in wardrobe -> You put the clean white polo shirt into the wardrobe.Your score has just gone up by one point.Right position. Action 9: go east -> -= Livingroom =-You are in a livingroom. Action 10: take gray coat -> You take the gray coat from the armchair. Action 11: go west -> -= Bedroom =-You find yourself in a bedroom. Action 12: put gray coat in wardrobe -> You put the gray coat into the wardrobe.Your score has just gone up by one point.Right position. Action 13: go east -> -= Livingroom =-You are in a livingroom. Action 14: take brown suit -> You take the brown suit from the end table. Action 15: go west -> -= Bedroom =-You find yourself in a bedroom. Action 16: put brown suit in wardrobe -> You put the brown suit into the wardrobe.Your score has just gone up by one point.Right position. 
+Inventory: You are carrying nothing.
+Environment: Bedroom[wardrobe[brown suit, gray coat, white polo shirt, checkered jumper, plaid polo shirt], chest of drawers[], bed[], desk chair[], nightstand[], carpet[], desk[], dressing table[]]
+Available actions:
+1. take [object]
+2. put [object in inventory] on [supporter]
+3. put [object in inventory] in [container]
+4. go east
+Answer (in json form: {"consideration": string, "action": string}):
+
+
+
+{'consideration': "I've successfully placed several clothing items in the wardrobe. Let me check the living room for any remaining items to organize.", 'action': 'go east'}
+
+
+
+Task: You are a text game player, your goal is to put things in there proper locations and improve your score. You can only perform one action at a time. Answer in json form: {"consideration": string, "action": string}.
+Action history: Action 0: put clean plaid polo shirt in wardrobe -> You put the clean plaid polo shirt into the wardrobe.Your score has just gone up by one point.Right position. Action 1: go east -> -= Livingroom =-You are in a livingroom. Action 2: take checkered jumper -> You take the clean checkered jumper from the sofa. Action 3: go west -> -= Bedroom =-You find yourself in a bedroom. Action 4: put clean checkered jumper in wardrobe -> You put the clean checkered jumper into the wardrobe.Your score has just gone up by one point.Right position. Action 5: go east -> -= Livingroom =-You are in a livingroom. Action 6: take clean white polo shirt -> You pick up the clean white polo shirt from the ground. Action 7: go west -> -= Bedroom =-You find yourself in a bedroom. Action 8: put clean white polo shirt in wardrobe -> You put the clean white polo shirt into the wardrobe.Your score has just gone up by one point.Right position. Action 9: go east -> -= Livingroom =-You are in a livingroom. Action 10: take gray coat -> You take the gray coat from the armchair. Action 11: go west -> -= Bedroom =-You find yourself in a bedroom. Action 12: put gray coat in wardrobe -> You put the gray coat into the wardrobe.Your score has just gone up by one point.Right position. Action 13: go east -> -= Livingroom =-You are in a livingroom. Action 14: take brown suit -> You take the brown suit from the end table. Action 15: go west -> -= Bedroom =-You find yourself in a bedroom. Action 16: put brown suit in wardrobe -> You put the brown suit into the wardrobe.Your score has just gone up by one point.Right position. Action 17: go east -> -= Livingroom =-You are in a livingroom. 
+Inventory: You are carrying nothing.
+Environment: Livingroom[sofa, armchair, side table, end table, coffee table[dictionary], TV stand, bookcase, wastepaper basket]
+Available actions:
+1. take [object]
+2. put [object in inventory] on [supporter]
+3. put [object in inventory] in [container]
+4. go west
+Answer (in json form: {"consideration": string, "action": string}):
+
+
+
+{'consideration': "I should check if there are any more clothing items in the livingroom that need to be moved to the wardrobe in the bedroom. I see a dictionary on the coffee table, but that's not a clothing item.", 'action': 'go west'}
+
+
+
+Task: You are a text game player, your goal is to put things in there proper locations and improve your score. You can only perform one action at a time. Answer in json form: {"consideration": string, "action": string}.
+Action history: Action 0: put clean plaid polo shirt in wardrobe -> You put the clean plaid polo shirt into the wardrobe.Your score has just gone up by one point.Right position. Action 1: go east -> -= Livingroom =-You are in a livingroom. Action 2: take checkered jumper -> You take the clean checkered jumper from the sofa. Action 3: go west -> -= Bedroom =-You find yourself in a bedroom. Action 4: put clean checkered jumper in wardrobe -> You put the clean checkered jumper into the wardrobe.Your score has just gone up by one point.Right position. Action 5: go east -> -= Livingroom =-You are in a livingroom. Action 6: take clean white polo shirt -> You pick up the clean white polo shirt from the ground. Action 7: go west -> -= Bedroom =-You find yourself in a bedroom. Action 8: put clean white polo shirt in wardrobe -> You put the clean white polo shirt into the wardrobe.Your score has just gone up by one point.Right position. Action 9: go east -> -= Livingroom =-You are in a livingroom. Action 10: take gray coat -> You take the gray coat from the armchair. Action 11: go west -> -= Bedroom =-You find yourself in a bedroom. Action 12: put gray coat in wardrobe -> You put the gray coat into the wardrobe.Your score has just gone up by one point.Right position. Action 13: go east -> -= Livingroom =-You are in a livingroom. Action 14: take brown suit -> You take the brown suit from the end table. Action 15: go west -> -= Bedroom =-You find yourself in a bedroom. Action 16: put brown suit in wardrobe -> You put the brown suit into the wardrobe.Your score has just gone up by one point.Right position. Action 17: go east -> -= Livingroom =-You are in a livingroom. Action 18: go west -> -= Bedroom =-You find yourself in a bedroom. 
+Inventory: You are carrying nothing.
+Environment: Bedroom[wardrobe[brown suit, gray coat, white polo shirt, checkered jumper, plaid polo shirt], chest of drawers[], bed[], desk chair[], nightstand[], carpet[], desk[], dressing table[]]
+Available actions:
+1. take [object]
+2. put [object in inventory] on [supporter]
+3. put [object in inventory] in [container]
+4. go east
+Answer (in json form: {"consideration": string, "action": string}):
+
+
+
+{'consideration': 'I have already placed all visible clothing items in the wardrobe correctly. I should check the livingroom for any remaining items.', 'action': 'go east'}
+
+
+
+Task: You are a text game player, your goal is to put things in there proper locations and improve your score. You can only perform one action at a time. Answer in json form: {"consideration": string, "action": string}.
+Action history: Action 0: put clean plaid polo shirt in wardrobe -> You put the clean plaid polo shirt into the wardrobe.Your score has just gone up by one point.Right position. Action 1: go east -> -= Livingroom =-You are in a livingroom. Action 2: take checkered jumper -> You take the clean checkered jumper from the sofa. Action 3: go west -> -= Bedroom =-You find yourself in a bedroom. Action 4: put clean checkered jumper in wardrobe -> You put the clean checkered jumper into the wardrobe.Your score has just gone up by one point.Right position. Action 5: go east -> -= Livingroom =-You are in a livingroom. Action 6: take clean white polo shirt -> You pick up the clean white polo shirt from the ground. Action 7: go west -> -= Bedroom =-You find yourself in a bedroom. Action 8: put clean white polo shirt in wardrobe -> You put the clean white polo shirt into the wardrobe.Your score has just gone up by one point.Right position. Action 9: go east -> -= Livingroom =-You are in a livingroom. Action 10: take gray coat -> You take the gray coat from the armchair. Action 11: go west -> -= Bedroom =-You find yourself in a bedroom. Action 12: put gray coat in wardrobe -> You put the gray coat into the wardrobe.Your score has just gone up by one point.Right position. Action 13: go east -> -= Livingroom =-You are in a livingroom. Action 14: take brown suit -> You take the brown suit from the end table. Action 15: go west -> -= Bedroom =-You find yourself in a bedroom. Action 16: put brown suit in wardrobe -> You put the brown suit into the wardrobe.Your score has just gone up by one point.Right position. Action 17: go east -> -= Livingroom =-You are in a livingroom. Action 18: go west -> -= Bedroom =-You find yourself in a bedroom. Action 19: go east -> -= Livingroom =-You are in a livingroom. 
+Inventory: You are carrying nothing.
+Environment: Livingroom[sofa, armchair, side table, end table, coffee table[dictionary], TV stand, bookcase, wastepaper basket]
+Available actions:
+1. take [object]
+2. put [object in inventory] on [supporter]
+3. put [object in inventory] in [container]
+4. go west
+Answer (in json form: {"consideration": string, "action": string}):
+
+
+
+{'consideration': 'I should check if there are any more items to collect in the livingroom. Looking at the environment, I see a dictionary on the coffee table that might need to be organized.', 'action': 'take dictionary'}
+
+
+

@@ -105,6 +105,9 @@ class Env:
     def is_placing_item(self, command):
         command = command.lower()
         return command.split()[0] in ['put', 'insert']
+    
+    def append_command_obs_pair(self, command, obs):
+        self.env.action_obs_pairs.append((command, obs))
 
     def act(self, command=None, no_augment=None):
         #initiate_env(env)
@@ -144,7 +147,7 @@ class Env:
                             obs += self.WRONG_POSITION_HINT  # 放置成功，但是位置错误
                             print(f'FA: {obs}')
             # 记录历史
-            env.action_obs_pairs.append((command, obs))
+            self.append_command_obs_pair(command, obs);
         else:  # 重新开始的情况
             print('RESTAR\n\n')
             _, info = env.reset()
