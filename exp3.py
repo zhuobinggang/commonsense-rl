@@ -53,7 +53,16 @@ def test_mini_simplified(hard_test_index = 0, filename_prefix = ''):
     caller.act_until_error(None)
     return caller
 
+# TODO
+def test_mini_simple_desc_only(hard_test_index = 0, filename_prefix = ''):
+    from llm_simplify import GPT4OMINI
+    from llm_simplify_baseline import GPT_caller_simple_desc_only
+    env = Env(2, hard_test_index, 1, no_augment = False)
+    caller = GPT_caller_simple_desc_only(env, gpt_type = GPT4OMINI, step_limit = 20, filename_prefix=filename_prefix)
+    caller.act_until_error(None)
+    return caller
+
 def run_batch(start = 0, end = 5):
     for i in range(start, end):
         for game_index in range(5):
-            test_mini_simplified(game_index, f'B{i}')
+            test_mini_simple_desc_only(game_index, f'B{i}')
