@@ -1,0 +1,737 @@
+Task: You are a text game player, your goal is to put things in there proper locations and improve your score. You can only perform one action at a time. Answer in json form: {"consideration": string, "action": string}.
+Action history: No action was taken now.
+Inventory: You are carrying:  some milk
+Another room: unknown
+Environment: Backyard[BBQ[wooden spoon], clothesline, patio chair[wet white jumper], patio table, workbench[clean pot]]
+Available actions:
+* close sliding patio door
+* drop milk
+* examine BBQ
+* examine clean pot
+* examine clothesline
+* examine patio chair
+* examine patio table
+* examine wet white jumper
+* examine wooden spoon
+* examine workbench
+* go west
+* look
+* put milk on BBQ
+* put milk on clothesline
+* put milk on patio chair
+* put milk on patio table
+* put milk on workbench
+* take clean pot from workbench
+* take wet white jumper from patio chair
+* take wooden spoon from BBQ
+
+Answer (in json form: {"consideration": string, "action": string}):
+
+
+
+{'consideration': 'I have some milk that I can place somewhere to potentially improve my score. The BBQ might be a good place to put it as it could be used for cooking later.', 'action': 'put milk on BBQ'}
+
+
+
+Task: You are a text game player, your goal is to put things in there proper locations and improve your score. You can only perform one action at a time. Answer in json form: {"consideration": string, "action": string}.
+Action history: Action 0: put milk on BBQ -> You put the milk on the BBQ.Wrong position, you should put it somewhere else, maybe the other room. 
+Inventory: You are carrying nothing.
+Another room: unknown
+Environment: Backyard[BBQ[milk, wooden spoon], clothesline, patio chair[wet white jumper], patio table, workbench[clean pot], sliding patio door]
+Available actions:
+* close sliding patio door
+* examine BBQ
+* examine clean pot
+* examine clothesline
+* examine milk
+* examine patio chair
+* examine patio table
+* examine wet white jumper
+* examine wooden spoon
+* examine workbench
+* go west
+* look
+* take clean pot from workbench
+* take milk from BBQ
+* take wet white jumper from patio chair
+* take wooden spoon from BBQ
+
+Answer (in json form: {"consideration": string, "action": string}):
+
+
+
+{'consideration': 'I need to examine the milk to understand its properties and determine the best location for it.', 'action': 'examine milk'}
+
+
+
+Task: You are a text game player, your goal is to put things in there proper locations and improve your score. You can only perform one action at a time. Answer in json form: {"consideration": string, "action": string}.
+Action history: Action 0: put milk on BBQ -> You put the milk on the BBQ.Wrong position, you should put it somewhere else, maybe the other room. Action 1: examine milk -> The milk looks tempting. 
+Inventory: You are carrying nothing.
+Another room: unknown
+Environment: Backyard[BBQ[milk, wooden spoon], clothesline[], patio chair[wet white jumper], patio table[], workbench[clean pot], sliding patio door[]]
+Available actions:
+* close sliding patio door
+* examine BBQ
+* examine clean pot
+* examine clothesline
+* examine milk
+* examine patio chair
+* examine patio table
+* examine wet white jumper
+* examine wooden spoon
+* examine workbench
+* go west
+* look
+* take clean pot from workbench
+* take milk from BBQ
+* take wet white jumper from patio chair
+* take wooden spoon from BBQ
+
+Answer (in json form: {"consideration": string, "action": string}):
+
+
+
+{'consideration': 'The milk is currently on the BBQ, which is not the right place for it. I should take the milk from the BBQ and find a more suitable location for it, possibly in the other room if I can access it.', 'action': 'take milk from BBQ'}
+
+
+
+Task: You are a text game player, your goal is to put things in there proper locations and improve your score. You can only perform one action at a time. Answer in json form: {"consideration": string, "action": string}.
+Action history: Action 0: put milk on BBQ -> You put the milk on the BBQ.Wrong position, you should put it somewhere else, maybe the other room. Action 1: examine milk -> The milk looks tempting. Action 2: take milk from BBQ -> You take the milk from the BBQ. 
+Inventory: You are carrying:  some milk
+Another room: unknown
+Environment: Backyard[BBQ[wooden spoon], clothesline, patio chair[wet white jumper], patio table, workbench[clean pot]]
+Available actions:
+* close sliding patio door
+* drop milk
+* examine BBQ
+* examine clean pot
+* examine clothesline
+* examine patio chair
+* examine patio table
+* examine wet white jumper
+* examine wooden spoon
+* examine workbench
+* go west
+* look
+* put milk on BBQ
+* put milk on clothesline
+* put milk on patio chair
+* put milk on patio table
+* put milk on workbench
+* take clean pot from workbench
+* take wet white jumper from patio chair
+* take wooden spoon from BBQ
+
+Answer (in json form: {"consideration": string, "action": string}):
+
+
+
+{'consideration': 'The milk should be placed in a more suitable location rather than the BBQ. The patio table seems like a reasonable option to keep it safe and accessible.', 'action': 'put milk on patio table'}
+
+
+
+Task: You are a text game player, your goal is to put things in there proper locations and improve your score. You can only perform one action at a time. Answer in json form: {"consideration": string, "action": string}.
+Action history: Action 0: put milk on BBQ -> You put the milk on the BBQ.Wrong position, you should put it somewhere else, maybe the other room. Action 1: examine milk -> The milk looks tempting. Action 2: take milk from BBQ -> You take the milk from the BBQ. Action 3: put milk on patio table -> You put the milk on the patio table.Wrong position, you should put it somewhere else, maybe the other room. 
+Inventory: You are carrying nothing.
+Another room: unknown
+Environment: Backyard[BBQ[wooden spoon], clothesline, patio chair[wet white jumper], patio table[milk], workbench[clean pot], sliding patio door]
+Available actions:
+* close sliding patio door
+* examine BBQ
+* examine clean pot
+* examine clothesline
+* examine milk
+* examine patio chair
+* examine patio table
+* examine wet white jumper
+* examine wooden spoon
+* examine workbench
+* go west
+* look
+* take clean pot from workbench
+* take milk from patio table
+* take wet white jumper from patio chair
+* take wooden spoon from BBQ
+
+Answer (in json form: {"consideration": string, "action": string}):
+
+
+
+{'consideration': "The milk is still in the wrong position on the patio table. I need to take it and find a more suitable location for it, possibly in the other room. However, I don't know what is in the other room yet. I should examine the clean pot first to see if it can be useful for storing the milk or if it provides any clues about the other room.", 'action': 'examine clean pot'}
+
+
+
+Task: You are a text game player, your goal is to put things in there proper locations and improve your score. You can only perform one action at a time. Answer in json form: {"consideration": string, "action": string}.
+Action history: Action 0: put milk on BBQ -> You put the milk on the BBQ.Wrong position, you should put it somewhere else, maybe the other room. Action 1: examine milk -> The milk looks tempting. Action 2: take milk from BBQ -> You take the milk from the BBQ. Action 3: put milk on patio table -> You put the milk on the patio table.Wrong position, you should put it somewhere else, maybe the other room. Action 4: examine clean pot -> The clean pot appears well matched to everything else here 
+Inventory: You are carrying nothing.
+Another room: unknown
+Environment: Backyard[BBQ[wooden spoon], clothesline, patio chair[wet white jumper], patio table[milk], workbench[clean pot], sliding patio door]
+Available actions:
+* close sliding patio door
+* examine BBQ
+* examine clean pot
+* examine clothesline
+* examine milk
+* examine patio chair
+* examine patio table
+* examine wet white jumper
+* examine wooden spoon
+* examine workbench
+* go west
+* look
+* take clean pot from workbench
+* take milk from patio table
+* take wet white jumper from patio chair
+* take wooden spoon from BBQ
+
+Answer (in json form: {"consideration": string, "action": string}):
+
+
+
+{'consideration': 'The milk is still in the wrong position on the patio table. I should take it and find a more suitable location for it, possibly in the other room if I can access it.', 'action': 'take milk from patio table'}
+
+
+
+Task: You are a text game player, your goal is to put things in there proper locations and improve your score. You can only perform one action at a time. Answer in json form: {"consideration": string, "action": string}.
+Action history: Action 0: put milk on BBQ -> You put the milk on the BBQ.Wrong position, you should put it somewhere else, maybe the other room. Action 1: examine milk -> The milk looks tempting. Action 2: take milk from BBQ -> You take the milk from the BBQ. Action 3: put milk on patio table -> You put the milk on the patio table.Wrong position, you should put it somewhere else, maybe the other room. Action 4: examine clean pot -> The clean pot appears well matched to everything else here Action 5: take milk from patio table -> You take the milk from the patio table. 
+Inventory: You are carrying:  some milk
+Another room: unknown
+Environment: Backyard[BBQ[wooden spoon], clothesline, patio chair[wet white jumper], patio table, workbench[clean pot]]
+Available actions:
+* close sliding patio door
+* drop milk
+* examine BBQ
+* examine clean pot
+* examine clothesline
+* examine patio chair
+* examine patio table
+* examine wet white jumper
+* examine wooden spoon
+* examine workbench
+* go west
+* look
+* put milk on BBQ
+* put milk on clothesline
+* put milk on patio chair
+* put milk on patio table
+* put milk on workbench
+* take clean pot from workbench
+* take wet white jumper from patio chair
+* take wooden spoon from BBQ
+
+Answer (in json form: {"consideration": string, "action": string}):
+
+
+
+{'consideration': "The milk needs to be placed in a proper location, possibly in another room. Since I don't know what's in the other room, I should explore more before deciding where to put the milk. I will examine the BBQ to see if there are any clues about the other room.", 'action': 'examine BBQ'}
+
+
+
+Task: You are a text game player, your goal is to put things in there proper locations and improve your score. You can only perform one action at a time. Answer in json form: {"consideration": string, "action": string}.
+Action history: Action 0: put milk on BBQ -> You put the milk on the BBQ.Wrong position, you should put it somewhere else, maybe the other room. Action 1: examine milk -> The milk looks tempting. Action 2: take milk from BBQ -> You take the milk from the BBQ. Action 3: put milk on patio table -> You put the milk on the patio table.Wrong position, you should put it somewhere else, maybe the other room. Action 4: examine clean pot -> The clean pot appears well matched to everything else here Action 5: take milk from patio table -> You take the milk from the patio table. Action 6: examine BBQ -> The BBQ is durable.On the BBQ is a wooden spoon. 
+Inventory: You are carrying:  some milk
+Another room: unknown
+Environment: Backyard[BBQ[wooden spoon], clothesline, patio chair[wet white jumper], patio table, workbench[clean pot], sliding patio door]
+Available actions:
+* close sliding patio door
+* drop milk
+* examine BBQ
+* examine clean pot
+* examine clothesline
+* examine patio chair
+* examine patio table
+* examine wet white jumper
+* examine wooden spoon
+* examine workbench
+* go west
+* look
+* put milk on BBQ
+* put milk on clothesline
+* put milk on patio chair
+* put milk on patio table
+* put milk on workbench
+* take clean pot from workbench
+* take wet white jumper from patio chair
+* take wooden spoon from BBQ
+
+Answer (in json form: {"consideration": string, "action": string}):
+
+
+
+{'consideration': 'The milk should be placed in a more suitable location, possibly the workbench where the clean pot is located, as it seems to be a more appropriate area for food items.', 'action': 'put milk on workbench'}
+
+
+
+Task: You are a text game player, your goal is to put things in there proper locations and improve your score. You can only perform one action at a time. Answer in json form: {"consideration": string, "action": string}.
+Action history: Action 0: put milk on BBQ -> You put the milk on the BBQ.Wrong position, you should put it somewhere else, maybe the other room. Action 1: examine milk -> The milk looks tempting. Action 2: take milk from BBQ -> You take the milk from the BBQ. Action 3: put milk on patio table -> You put the milk on the patio table.Wrong position, you should put it somewhere else, maybe the other room. Action 4: examine clean pot -> The clean pot appears well matched to everything else here Action 5: take milk from patio table -> You take the milk from the patio table. Action 6: examine BBQ -> The BBQ is durable.On the BBQ is a wooden spoon. Action 7: put milk on workbench -> You put the milk on the workbench.Wrong position, you should put it somewhere else, maybe the other room. 
+Inventory: You are carrying nothing.
+Another room: unknown
+Environment: Backyard[BBQ[wooden spoon], clothesline, patio chair[wet white jumper], patio table, workbench[milk, clean pot]]
+Available actions:
+* close sliding patio door
+* examine BBQ
+* examine clean pot
+* examine clothesline
+* examine milk
+* examine patio chair
+* examine patio table
+* examine wet white jumper
+* examine wooden spoon
+* examine workbench
+* go west
+* look
+* take clean pot from workbench
+* take milk from workbench
+* take wet white jumper from patio chair
+* take wooden spoon from BBQ
+
+Answer (in json form: {"consideration": string, "action": string}):
+
+
+
+{'consideration': "The milk has been placed incorrectly multiple times. I need to find a suitable location for it, possibly in another room. However, I currently don't know what is in the other room. I should examine the environment further to gather more information before deciding on my next action.", 'action': 'examine workbench'}
+
+
+
+Task: You are a text game player, your goal is to put things in there proper locations and improve your score. You can only perform one action at a time. Answer in json form: {"consideration": string, "action": string}.
+Action history: Action 0: put milk on BBQ -> You put the milk on the BBQ.Wrong position, you should put it somewhere else, maybe the other room. Action 1: examine milk -> The milk looks tempting. Action 2: take milk from BBQ -> You take the milk from the BBQ. Action 3: put milk on patio table -> You put the milk on the patio table.Wrong position, you should put it somewhere else, maybe the other room. Action 4: examine clean pot -> The clean pot appears well matched to everything else here Action 5: take milk from patio table -> You take the milk from the patio table. Action 6: examine BBQ -> The BBQ is durable.On the BBQ is a wooden spoon. Action 7: put milk on workbench -> You put the milk on the workbench.Wrong position, you should put it somewhere else, maybe the other room. Action 8: examine workbench -> The workbench is durable.On the workbench are some milk and a clean pot. 
+Inventory: You are carrying nothing.
+Another room: unknown
+Environment: Backyard[BBQ[wooden spoon], clothesline, patio chair[wet white jumper], patio table, workbench[milk, clean pot]]
+Available actions:
+* close sliding patio door
+* examine BBQ
+* examine clean pot
+* examine clothesline
+* examine milk
+* examine patio chair
+* examine patio table
+* examine wet white jumper
+* examine wooden spoon
+* examine workbench
+* go west
+* look
+* take clean pot from workbench
+* take milk from workbench
+* take wet white jumper from patio chair
+* take wooden spoon from BBQ
+
+Answer (in json form: {"consideration": string, "action": string}):
+
+
+
+{'consideration': 'The milk has been placed incorrectly multiple times. I need to find a suitable location for it, possibly in another room. However, I currently have the milk on the workbench. I should take the milk from the workbench and explore other options for storage.', 'action': 'take milk from workbench'}
+
+
+
+Task: You are a text game player, your goal is to put things in there proper locations and improve your score. You can only perform one action at a time. Answer in json form: {"consideration": string, "action": string}.
+Action history: Action 0: put milk on BBQ -> You put the milk on the BBQ.Wrong position, you should put it somewhere else, maybe the other room. Action 1: examine milk -> The milk looks tempting. Action 2: take milk from BBQ -> You take the milk from the BBQ. Action 3: put milk on patio table -> You put the milk on the patio table.Wrong position, you should put it somewhere else, maybe the other room. Action 4: examine clean pot -> The clean pot appears well matched to everything else here Action 5: take milk from patio table -> You take the milk from the patio table. Action 6: examine BBQ -> The BBQ is durable.On the BBQ is a wooden spoon. Action 7: put milk on workbench -> You put the milk on the workbench.Wrong position, you should put it somewhere else, maybe the other room. Action 8: examine workbench -> The workbench is durable.On the workbench are some milk and a clean pot. Action 9: take milk from workbench -> You take the milk from the workbench. 
+Inventory: You are carrying:  some milk
+Another room: unknown
+Environment: Backyard[BBQ[wooden spoon], clothesline, patio chair[wet white jumper], patio table, workbench[clean pot]]
+Available actions:
+* close sliding patio door
+* drop milk
+* examine BBQ
+* examine clean pot
+* examine clothesline
+* examine patio chair
+* examine patio table
+* examine wet white jumper
+* examine wooden spoon
+* examine workbench
+* go west
+* look
+* put milk on BBQ
+* put milk on clothesline
+* put milk on patio chair
+* put milk on patio table
+* put milk on workbench
+* take clean pot from workbench
+* take wet white jumper from patio chair
+* take wooden spoon from BBQ
+
+Answer (in json form: {"consideration": string, "action": string}):
+
+
+
+{'consideration': "The milk should be placed in a more appropriate location, possibly in another room. However, I don't know where that is. I will examine the clothesline to see if it provides any clues or context for the other room.", 'action': 'examine clothesline'}
+
+
+
+Task: You are a text game player, your goal is to put things in there proper locations and improve your score. You can only perform one action at a time. Answer in json form: {"consideration": string, "action": string}.
+Action history: Action 0: put milk on BBQ -> You put the milk on the BBQ.Wrong position, you should put it somewhere else, maybe the other room. Action 1: examine milk -> The milk looks tempting. Action 2: take milk from BBQ -> You take the milk from the BBQ. Action 3: put milk on patio table -> You put the milk on the patio table.Wrong position, you should put it somewhere else, maybe the other room. Action 4: examine clean pot -> The clean pot appears well matched to everything else here Action 5: take milk from patio table -> You take the milk from the patio table. Action 6: examine BBQ -> The BBQ is durable.On the BBQ is a wooden spoon. Action 7: put milk on workbench -> You put the milk on the workbench.Wrong position, you should put it somewhere else, maybe the other room. Action 8: examine workbench -> The workbench is durable.On the workbench are some milk and a clean pot. Action 9: take milk from workbench -> You take the milk from the workbench. Action 10: examine clothesline -> The clothesline is wobbly. 
+Inventory: You are carrying:  some milk
+Another room: unknown
+Environment: Backyard[BBQ[wooden spoon], clothesline, patio chair[wet white jumper], patio table, workbench[clean pot]]
+Available actions:
+* close sliding patio door
+* drop milk
+* examine BBQ
+* examine clean pot
+* examine clothesline
+* examine patio chair
+* examine patio table
+* examine wet white jumper
+* examine wooden spoon
+* examine workbench
+* go west
+* look
+* put milk on BBQ
+* put milk on clothesline
+* put milk on patio chair
+* put milk on patio table
+* put milk on workbench
+* take clean pot from workbench
+* take wet white jumper from patio chair
+* take wooden spoon from BBQ
+
+Answer (in json form: {"consideration": string, "action": string}):
+
+
+
+{'consideration': "I need to find a proper location for the milk, as it has been placed incorrectly multiple times. The other room might be a better option, but I don't know how to access it yet. I should explore my surroundings further to gather more information.", 'action': 'look'}
+
+
+
+Task: You are a text game player, your goal is to put things in there proper locations and improve your score. You can only perform one action at a time. Answer in json form: {"consideration": string, "action": string}.
+Action history: Action 0: put milk on BBQ -> You put the milk on the BBQ.Wrong position, you should put it somewhere else, maybe the other room. Action 1: examine milk -> The milk looks tempting. Action 2: take milk from BBQ -> You take the milk from the BBQ. Action 3: put milk on patio table -> You put the milk on the patio table.Wrong position, you should put it somewhere else, maybe the other room. Action 4: examine clean pot -> The clean pot appears well matched to everything else here Action 5: take milk from patio table -> You take the milk from the patio table. Action 6: examine BBQ -> The BBQ is durable.On the BBQ is a wooden spoon. Action 7: put milk on workbench -> You put the milk on the workbench.Wrong position, you should put it somewhere else, maybe the other room. Action 8: examine workbench -> The workbench is durable.On the workbench are some milk and a clean pot. Action 9: take milk from workbench -> You take the milk from the workbench. Action 10: examine clothesline -> The clothesline is wobbly. Action 11: look -> -= Backyard =-You've entered a backyard. 
+Inventory: You are carrying:  some milk
+Another room: unknown
+Environment: Backyard[BBQ[wooden spoon], clothesline, patio chair[wet white jumper], patio table, workbench[clean pot]]
+Available actions:
+* close sliding patio door
+* drop milk
+* examine BBQ
+* examine clean pot
+* examine clothesline
+* examine patio chair
+* examine patio table
+* examine wet white jumper
+* examine wooden spoon
+* examine workbench
+* go west
+* look
+* put milk on BBQ
+* put milk on clothesline
+* put milk on patio chair
+* put milk on patio table
+* put milk on workbench
+* take clean pot from workbench
+* take wet white jumper from patio chair
+* take wooden spoon from BBQ
+
+Answer (in json form: {"consideration": string, "action": string}):
+
+
+
+{'consideration': "The milk should be placed in a more suitable location, possibly in another room, but I don't have access to that room yet. I will drop the milk to clear my inventory and explore further.", 'action': 'drop milk'}
+
+
+
+Task: You are a text game player, your goal is to put things in there proper locations and improve your score. You can only perform one action at a time. Answer in json form: {"consideration": string, "action": string}.
+Action history: Action 0: put milk on BBQ -> You put the milk on the BBQ.Wrong position, you should put it somewhere else, maybe the other room. Action 1: examine milk -> The milk looks tempting. Action 2: take milk from BBQ -> You take the milk from the BBQ. Action 3: put milk on patio table -> You put the milk on the patio table.Wrong position, you should put it somewhere else, maybe the other room. Action 4: examine clean pot -> The clean pot appears well matched to everything else here Action 5: take milk from patio table -> You take the milk from the patio table. Action 6: examine BBQ -> The BBQ is durable.On the BBQ is a wooden spoon. Action 7: put milk on workbench -> You put the milk on the workbench.Wrong position, you should put it somewhere else, maybe the other room. Action 8: examine workbench -> The workbench is durable.On the workbench are some milk and a clean pot. Action 9: take milk from workbench -> You take the milk from the workbench. Action 10: examine clothesline -> The clothesline is wobbly. Action 11: look -> -= Backyard =-You've entered a backyard. Action 12: drop milk -> You drop the milk on the ground. 
+Inventory: You are carrying nothing.
+Another room: unknown
+Environment: Backyard[BBQ[wooden spoon], clothesline, patio chair[wet white jumper], patio table, workbench[clean pot], sliding patio door, milk]
+Available actions:
+* close sliding patio door
+* examine BBQ
+* examine clean pot
+* examine clothesline
+* examine milk
+* examine patio chair
+* examine patio table
+* examine wet white jumper
+* examine wooden spoon
+* examine workbench
+* go west
+* look
+* take clean pot from workbench
+* take milk
+* take wet white jumper from patio chair
+* take wooden spoon from BBQ
+
+Answer (in json form: {"consideration": string, "action": string}):
+
+
+
+{'consideration': 'The milk is currently on the ground and needs to be placed in a proper location. I should take the milk and find a suitable place for it, possibly in another room if I can access it.', 'action': 'take milk'}
+
+
+
+Task: You are a text game player, your goal is to put things in there proper locations and improve your score. You can only perform one action at a time. Answer in json form: {"consideration": string, "action": string}.
+Action history: Action 0: put milk on BBQ -> You put the milk on the BBQ.Wrong position, you should put it somewhere else, maybe the other room. Action 1: examine milk -> The milk looks tempting. Action 2: take milk from BBQ -> You take the milk from the BBQ. Action 3: put milk on patio table -> You put the milk on the patio table.Wrong position, you should put it somewhere else, maybe the other room. Action 4: examine clean pot -> The clean pot appears well matched to everything else here Action 5: take milk from patio table -> You take the milk from the patio table. Action 6: examine BBQ -> The BBQ is durable.On the BBQ is a wooden spoon. Action 7: put milk on workbench -> You put the milk on the workbench.Wrong position, you should put it somewhere else, maybe the other room. Action 8: examine workbench -> The workbench is durable.On the workbench are some milk and a clean pot. Action 9: take milk from workbench -> You take the milk from the workbench. Action 10: examine clothesline -> The clothesline is wobbly. Action 11: look -> -= Backyard =-You've entered a backyard. Action 12: drop milk -> You drop the milk on the ground. Action 13: take milk -> You pick up the milk from the ground. 
+Inventory: You are carrying:  some milk
+Another room: unknown
+Environment: Backyard[BBQ[wooden spoon], clothesline, patio chair[wet white jumper], patio table, workbench[clean pot], sliding patio door]
+Available actions:
+* close sliding patio door
+* drop milk
+* examine BBQ
+* examine clean pot
+* examine clothesline
+* examine patio chair
+* examine patio table
+* examine wet white jumper
+* examine wooden spoon
+* examine workbench
+* go west
+* look
+* put milk on BBQ
+* put milk on clothesline
+* put milk on patio chair
+* put milk on patio table
+* put milk on workbench
+* take clean pot from workbench
+* take wet white jumper from patio chair
+* take wooden spoon from BBQ
+
+Answer (in json form: {"consideration": string, "action": string}):
+
+
+
+{'consideration': "The milk has been placed in incorrect locations multiple times. I should find a more suitable place for it, possibly in another room, but I don't know where that is. I will try to examine the patio chair to see if it offers any clues or a better location for the milk.", 'action': 'examine patio chair'}
+
+
+
+Task: You are a text game player, your goal is to put things in there proper locations and improve your score. You can only perform one action at a time. Answer in json form: {"consideration": string, "action": string}.
+Action history: Action 0: put milk on BBQ -> You put the milk on the BBQ.Wrong position, you should put it somewhere else, maybe the other room. Action 1: examine milk -> The milk looks tempting. Action 2: take milk from BBQ -> You take the milk from the BBQ. Action 3: put milk on patio table -> You put the milk on the patio table.Wrong position, you should put it somewhere else, maybe the other room. Action 4: examine clean pot -> The clean pot appears well matched to everything else here Action 5: take milk from patio table -> You take the milk from the patio table. Action 6: examine BBQ -> The BBQ is durable.On the BBQ is a wooden spoon. Action 7: put milk on workbench -> You put the milk on the workbench.Wrong position, you should put it somewhere else, maybe the other room. Action 8: examine workbench -> The workbench is durable.On the workbench are some milk and a clean pot. Action 9: take milk from workbench -> You take the milk from the workbench. Action 10: examine clothesline -> The clothesline is wobbly. Action 11: look -> -= Backyard =-You've entered a backyard. Action 12: drop milk -> You drop the milk on the ground. Action 13: take milk -> You pick up the milk from the ground. Action 14: examine patio chair -> The patio chair is stable.On the patio chair is a wet white jumper. 
+Inventory: You are carrying:  some milk
+Another room: unknown
+Environment: Backyard[BBQ[wooden spoon], clothesline, patio chair[wet white jumper], patio table, workbench[clean pot]]
+Available actions:
+* close sliding patio door
+* drop milk
+* examine BBQ
+* examine clean pot
+* examine clothesline
+* examine patio chair
+* examine patio table
+* examine wet white jumper
+* examine wooden spoon
+* examine workbench
+* go west
+* look
+* put milk on BBQ
+* put milk on clothesline
+* put milk on patio chair
+* put milk on patio table
+* put milk on workbench
+* take clean pot from workbench
+* take wet white jumper from patio chair
+* take wooden spoon from BBQ
+
+Answer (in json form: {"consideration": string, "action": string}):
+
+
+
+{'consideration': "The milk has been placed in incorrect locations multiple times. I should find a more suitable place for the milk, possibly in another room, but I don't know where that is. I will try to put the milk on the clothesline, as it might be a temporary holding spot.", 'action': 'put milk on clothesline'}
+
+
+
+Task: You are a text game player, your goal is to put things in there proper locations and improve your score. You can only perform one action at a time. Answer in json form: {"consideration": string, "action": string}.
+Action history: Action 0: put milk on BBQ -> You put the milk on the BBQ.Wrong position, you should put it somewhere else, maybe the other room. Action 1: examine milk -> The milk looks tempting. Action 2: take milk from BBQ -> You take the milk from the BBQ. Action 3: put milk on patio table -> You put the milk on the patio table.Wrong position, you should put it somewhere else, maybe the other room. Action 4: examine clean pot -> The clean pot appears well matched to everything else here Action 5: take milk from patio table -> You take the milk from the patio table. Action 6: examine BBQ -> The BBQ is durable.On the BBQ is a wooden spoon. Action 7: put milk on workbench -> You put the milk on the workbench.Wrong position, you should put it somewhere else, maybe the other room. Action 8: examine workbench -> The workbench is durable.On the workbench are some milk and a clean pot. Action 9: take milk from workbench -> You take the milk from the workbench. Action 10: examine clothesline -> The clothesline is wobbly. Action 11: look -> -= Backyard =-You've entered a backyard. Action 12: drop milk -> You drop the milk on the ground. Action 13: take milk -> You pick up the milk from the ground. Action 14: examine patio chair -> The patio chair is stable.On the patio chair is a wet white jumper. Action 15: put milk on clothesline -> You put the milk on the clothesline.Wrong position, you should put it somewhere else, maybe the other room. 
+Inventory: You are carrying nothing.
+Another room: unknown
+Environment: Backyard[BBQ[wooden spoon], clothesline[milk], patio chair[wet white jumper], patio table, workbench[clean pot]]
+Available actions:
+* close sliding patio door
+* examine BBQ
+* examine clean pot
+* examine clothesline
+* examine milk
+* examine patio chair
+* examine patio table
+* examine wet white jumper
+* examine wooden spoon
+* examine workbench
+* go west
+* look
+* take clean pot from workbench
+* take milk from clothesline
+* take wet white jumper from patio chair
+* take wooden spoon from BBQ
+
+Answer (in json form: {"consideration": string, "action": string}):
+
+
+
+{'consideration': 'The milk is currently on the clothesline, which is not a suitable location. I need to take the milk from the clothesline and find a better place for it, possibly in the other room.', 'action': 'take milk from clothesline'}
+
+
+
+Task: You are a text game player, your goal is to put things in there proper locations and improve your score. You can only perform one action at a time. Answer in json form: {"consideration": string, "action": string}.
+Action history: Action 0: put milk on BBQ -> You put the milk on the BBQ.Wrong position, you should put it somewhere else, maybe the other room. Action 1: examine milk -> The milk looks tempting. Action 2: take milk from BBQ -> You take the milk from the BBQ. Action 3: put milk on patio table -> You put the milk on the patio table.Wrong position, you should put it somewhere else, maybe the other room. Action 4: examine clean pot -> The clean pot appears well matched to everything else here Action 5: take milk from patio table -> You take the milk from the patio table. Action 6: examine BBQ -> The BBQ is durable.On the BBQ is a wooden spoon. Action 7: put milk on workbench -> You put the milk on the workbench.Wrong position, you should put it somewhere else, maybe the other room. Action 8: examine workbench -> The workbench is durable.On the workbench are some milk and a clean pot. Action 9: take milk from workbench -> You take the milk from the workbench. Action 10: examine clothesline -> The clothesline is wobbly. Action 11: look -> -= Backyard =-You've entered a backyard. Action 12: drop milk -> You drop the milk on the ground. Action 13: take milk -> You pick up the milk from the ground. Action 14: examine patio chair -> The patio chair is stable.On the patio chair is a wet white jumper. Action 15: put milk on clothesline -> You put the milk on the clothesline.Wrong position, you should put it somewhere else, maybe the other room. Action 16: take milk from clothesline -> You take the milk from the clothesline. 
+Inventory: You are carrying:  some milk
+Another room: unknown
+Environment: Backyard[BBQ[wooden spoon], clothesline, patio chair[wet white jumper], patio table, workbench[clean pot]]
+Available actions:
+* close sliding patio door
+* drop milk
+* examine BBQ
+* examine clean pot
+* examine clothesline
+* examine patio chair
+* examine patio table
+* examine wet white jumper
+* examine wooden spoon
+* examine workbench
+* go west
+* look
+* put milk on BBQ
+* put milk on clothesline
+* put milk on patio chair
+* put milk on patio table
+* put milk on workbench
+* take clean pot from workbench
+* take wet white jumper from patio chair
+* take wooden spoon from BBQ
+
+Answer (in json form: {"consideration": string, "action": string}):
+
+
+
+{'consideration': 'The milk is currently in my inventory and needs to be placed in a proper location. Since previous attempts to place it in the backyard have been incorrect, I should explore the option of going west to see if there is a more suitable location for the milk.', 'action': 'go west'}
+
+
+
+Task: You are a text game player, your goal is to put things in there proper locations and improve your score. You can only perform one action at a time. Answer in json form: {"consideration": string, "action": string}.
+Action history: Action 0: put milk on BBQ -> You put the milk on the BBQ.Wrong position, you should put it somewhere else, maybe the other room. Action 1: examine milk -> The milk looks tempting. Action 2: take milk from BBQ -> You take the milk from the BBQ. Action 3: put milk on patio table -> You put the milk on the patio table.Wrong position, you should put it somewhere else, maybe the other room. Action 4: examine clean pot -> The clean pot appears well matched to everything else here Action 5: take milk from patio table -> You take the milk from the patio table. Action 6: examine BBQ -> The BBQ is durable.On the BBQ is a wooden spoon. Action 7: put milk on workbench -> You put the milk on the workbench.Wrong position, you should put it somewhere else, maybe the other room. Action 8: examine workbench -> The workbench is durable.On the workbench are some milk and a clean pot. Action 9: take milk from workbench -> You take the milk from the workbench. Action 10: examine clothesline -> The clothesline is wobbly. Action 11: look -> -= Backyard =-You've entered a backyard. Action 12: drop milk -> You drop the milk on the ground. Action 13: take milk -> You pick up the milk from the ground. Action 14: examine patio chair -> The patio chair is stable.On the patio chair is a wet white jumper. Action 15: put milk on clothesline -> You put the milk on the clothesline.Wrong position, you should put it somewhere else, maybe the other room. Action 16: take milk from clothesline -> You take the milk from the clothesline. Action 17: go west -> -= Kitchen =-You find yourself in a kitchen. 
+Inventory: You are carrying:  some milk
+Another room: Backyard[BBQ[wooden spoon], clothesline, patio chair[wet white jumper], patio table, workbench[clean pot]]
+Environment: Kitchen[fridge, kitchen cupboard, cutlery drawer, dishwasher, trash can, oven, dining table[dirty pot], ladderback chair, counter[dirty cake slice], stove, dining chair[wet azure skirt], sliding patio door]
+Available actions:
+* close cutlery drawer
+* close dishwasher
+* close fridge
+* close kitchen cupboard
+* close oven
+* close sliding patio door
+* close trash can
+* drop milk
+* examine counter
+* examine cutlery drawer
+* examine dining chair
+* examine dining table
+* examine dirty cake slice
+* examine dirty pot
+* examine dishwasher
+* examine fridge
+* examine kitchen cupboard
+* examine ladderback chair
+* examine oven
+* examine stove
+* examine trash can
+* examine wet azure skirt
+* go east
+* insert milk into cutlery drawer
+* insert milk into dishwasher
+* insert milk into fridge
+* insert milk into kitchen cupboard
+* insert milk into oven
+* insert milk into trash can
+* look
+* put milk on counter
+* put milk on dining chair
+* put milk on dining table
+* put milk on ladderback chair
+* put milk on stove
+* take dirty cake slice from counter
+* take dirty pot from dining table
+* take wet azure skirt from dining chair
+
+Answer (in json form: {"consideration": string, "action": string}):
+
+
+
+{'consideration': 'The milk should be stored in a cool place, so the fridge is the best option for it.', 'action': 'insert milk into fridge'}
+
+
+
+Task: You are a text game player, your goal is to put things in there proper locations and improve your score. You can only perform one action at a time. Answer in json form: {"consideration": string, "action": string}.
+Action history: Action 0: put milk on BBQ -> You put the milk on the BBQ.Wrong position, you should put it somewhere else, maybe the other room. Action 1: examine milk -> The milk looks tempting. Action 2: take milk from BBQ -> You take the milk from the BBQ. Action 3: put milk on patio table -> You put the milk on the patio table.Wrong position, you should put it somewhere else, maybe the other room. Action 4: examine clean pot -> The clean pot appears well matched to everything else here Action 5: take milk from patio table -> You take the milk from the patio table. Action 6: examine BBQ -> The BBQ is durable.On the BBQ is a wooden spoon. Action 7: put milk on workbench -> You put the milk on the workbench.Wrong position, you should put it somewhere else, maybe the other room. Action 8: examine workbench -> The workbench is durable.On the workbench are some milk and a clean pot. Action 9: take milk from workbench -> You take the milk from the workbench. Action 10: examine clothesline -> The clothesline is wobbly. Action 11: look -> -= Backyard =-You've entered a backyard. Action 12: drop milk -> You drop the milk on the ground. Action 13: take milk -> You pick up the milk from the ground. Action 14: examine patio chair -> The patio chair is stable.On the patio chair is a wet white jumper. Action 15: put milk on clothesline -> You put the milk on the clothesline.Wrong position, you should put it somewhere else, maybe the other room. Action 16: take milk from clothesline -> You take the milk from the clothesline. Action 17: go west -> -= Kitchen =-You find yourself in a kitchen. Action 18: insert milk into fridge -> You put the milk into the fridge.Your score has just gone up by one point.Right position. 
+Inventory: You are carrying nothing.
+Another room: Backyard[BBQ[wooden spoon], clothesline, patio chair[wet white jumper], patio table, workbench[clean pot]]
+Environment: Kitchen[fridge[milk], cupboard[], cutlery drawer[], dishwasher[], trash can[], oven[], dining table[dirty pot], ladderback chair[], counter[dirty cake slice], stove[], dining chair[wet azure skirt]]
+Available actions:
+* close cutlery drawer
+* close dishwasher
+* close fridge
+* close kitchen cupboard
+* close oven
+* close sliding patio door
+* close trash can
+* examine counter
+* examine cutlery drawer
+* examine dining chair
+* examine dining table
+* examine dirty cake slice
+* examine dirty pot
+* examine dishwasher
+* examine fridge
+* examine kitchen cupboard
+* examine ladderback chair
+* examine milk
+* examine oven
+* examine stove
+* examine trash can
+* examine wet azure skirt
+* go east
+* look
+* take dirty cake slice from counter
+* take dirty pot from dining table
+* take milk from fridge
+* take wet azure skirt from dining chair
+
+Answer (in json form: {"consideration": string, "action": string}):
+
+
+
+{'consideration': 'I should examine the fridge to see if there are any other items or details that might be useful.', 'action': 'examine fridge'}
+
+
+
+Task: You are a text game player, your goal is to put things in there proper locations and improve your score. You can only perform one action at a time. Answer in json form: {"consideration": string, "action": string}.
+Action history: Action 0: put milk on BBQ -> You put the milk on the BBQ.Wrong position, you should put it somewhere else, maybe the other room. Action 1: examine milk -> The milk looks tempting. Action 2: take milk from BBQ -> You take the milk from the BBQ. Action 3: put milk on patio table -> You put the milk on the patio table.Wrong position, you should put it somewhere else, maybe the other room. Action 4: examine clean pot -> The clean pot appears well matched to everything else here Action 5: take milk from patio table -> You take the milk from the patio table. Action 6: examine BBQ -> The BBQ is durable.On the BBQ is a wooden spoon. Action 7: put milk on workbench -> You put the milk on the workbench.Wrong position, you should put it somewhere else, maybe the other room. Action 8: examine workbench -> The workbench is durable.On the workbench are some milk and a clean pot. Action 9: take milk from workbench -> You take the milk from the workbench. Action 10: examine clothesline -> The clothesline is wobbly. Action 11: look -> -= Backyard =-You've entered a backyard. Action 12: drop milk -> You drop the milk on the ground. Action 13: take milk -> You pick up the milk from the ground. Action 14: examine patio chair -> The patio chair is stable.On the patio chair is a wet white jumper. Action 15: put milk on clothesline -> You put the milk on the clothesline.Wrong position, you should put it somewhere else, maybe the other room. Action 16: take milk from clothesline -> You take the milk from the clothesline. Action 17: go west -> -= Kitchen =-You find yourself in a kitchen. Action 18: insert milk into fridge -> You put the milk into the fridge.Your score has just gone up by one point.Right position. Action 19: examine fridge -> The fridge looks solid. You can see inside it.In the fridge is some milk. 
+Inventory: You are carrying nothing.
+Another room: Backyard[BBQ[wooden spoon], clothesline, patio chair[wet white jumper], patio table, workbench[clean pot]]
+Environment: Kitchen[fridge[milk], cupboard[], cutlery drawer[], dishwasher[], trash can[], oven[], dining table[dirty pot], ladderback chair[], counter[dirty cake slice], stove[], dining chair[wet azure skirt]]
+Available actions:
+* close cutlery drawer
+* close dishwasher
+* close fridge
+* close kitchen cupboard
+* close oven
+* close sliding patio door
+* close trash can
+* examine counter
+* examine cutlery drawer
+* examine dining chair
+* examine dining table
+* examine dirty cake slice
+* examine dirty pot
+* examine dishwasher
+* examine fridge
+* examine kitchen cupboard
+* examine ladderback chair
+* examine milk
+* examine oven
+* examine stove
+* examine trash can
+* examine wet azure skirt
+* go east
+* look
+* take dirty cake slice from counter
+* take dirty pot from dining table
+* take milk from fridge
+* take wet azure skirt from dining chair
+
+Answer (in json form: {"consideration": string, "action": string}):
+
+
+
+{'consideration': 'I should examine the counter to see if there are any items I can interact with or move to improve my score.', 'action': 'examine counter'}
+
+
+

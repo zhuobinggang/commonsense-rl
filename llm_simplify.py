@@ -94,7 +94,8 @@ class Builder_old_style:  # 2024.8.9之前的
               current_enviroment,
               inventory,
               available_actions,
-              action_obs_pairs=[]):
+              action_obs_pairs=[],
+              another_room_info = ''):
         builder = Prompt_builder()
         builder.inventory = inventory
         builder.current_enviroment = current_enviroment
@@ -109,6 +110,8 @@ class Builder_old_style:  # 2024.8.9之前的
         else:
             action_history = 'No action was taken now.'
         builder.action_history = action_history
+        # another room info
+        builder.another_room_info = another_room_info
         self.builder = builder
         self.builder.build()
 
@@ -229,12 +232,16 @@ class GPT_Caller_Simplify(Claude_Caller):
         self.filename = self.filename_raw + '.pkl'
         print(self.filename_raw)
 
+    def description_updated_callback(self, old_desc, new_desc):
+        pass
+
     def updated_description(self, description):
         self.summarize_prompt_builder.desc = description
         self.summarize_prompt_builder.build()
         sys_msg, usr_msg = self.summarize_prompt_builder.sys_usr_msg()
         new_desc = quest_summarization(sys_msg, usr_msg)
         self.summarize_log += f'{self.summarize_prompt_builder.prompt}\n\n{new_desc}\n\n'
+        self.description_updated_callback(description, new_desc)
         return new_desc
         
     def save_hook(self):

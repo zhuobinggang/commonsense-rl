@@ -228,6 +228,8 @@ class Claude_Caller:
         self.step_counter = 0
         # Add 2024.8.9
         self.builder = builder or Builder1()
+        # 2024.11.16 用于存储行动之前的状态信息，desc之类的，用于展示相邻房间的信息
+        self.info_backup = {}
 
     def file_name_generate(self):
         shot = 'ZERO_SHOT' if self.zero_shot else 'ONE_SHOT'
@@ -329,7 +331,16 @@ class Claude_Caller:
                 preposition = 'on'
             else:
                 objs = re.findall('^put\s(.*?)\sin\s(.*)', cmd)
-                preposition = 'in'
+                if len(objs) > 0:
+                    preposition = 'in'
+                else:
+                    objs = re.findall('^put\s(.*?)\sinto\s(.*)', cmd)
+                    if len(objs) > 0:
+                        preposition = 'in'
+                    else:
+                        print('SOME THING WRONG! PUT WITHOUT PREPOSITION!')
+                        return cmd # 提取失败的情况
+            # 成功提取的情况
             obj, place = objs[0]
             obj = self.object_cut(obj) # 削减obj
             # 重新组装cmd
@@ -346,6 +357,7 @@ class Claude_Caller:
             obj = self.object_cut(obj) # 削减obj
             cmd = ' '.join(['take', obj])
             return cmd
+        print('CMD NOT START WITH [put, take]!')
         return cmd # 2024.11.11 BUG
         
     def command_switch_preposition(self, cmd):
@@ -388,11 +400,15 @@ class Claude_Caller:
         if command_backup != command:
             self.env.env.readable_log += f'\n\nCommand adjusted: {command_backup} -> {command}\n\n'
         return description, inventory, available_actions, action_obs_pairs
+    
+    def env_act_succeed_callback(self):
+        pass
 
     def act_and_call(
             self,
             command=None):  # @RETURN: None means 2 path, first means the command non-executable, second means response from LLM irregular.
         if self.step_counter <= self.step_limit:
+            self.current_command = command
             description, inventory, available_actions, action_obs_pairs = self.try_adjust_and_execute(command)
             if description is None and not self.env.env.end: # NOTE: 2024.11.14 指令无法执行，需要将这次失败放到历史记录中，但是不应该计算步数
                 # 给予一次重新请求的机会
@@ -410,14 +426,17 @@ class Claude_Caller:
                     self.env.env.readable_log += f'\n\nRecall success!\n\n'
             # 执行成功之后
             self.step_counter += 1
+            self.env_act_succeed_callback()
             if self.env.env.end: # 如果赢了就不再需要调用LLM
                 print('YOU WIN! NO API CALL NEED.')
                 self.save()
                 return None
             else:
                 # 更新房间描述的钩子函数
+                self.desc_before_update = description
                 description = self.updated_description(description)
-                self.set_act_result_to_body(description, inventory, available_actions, action_obs_pairs)
+                self.desc_after_update = description
+                self.set_act_result_to_body(self.desc_after_update, inventory, available_actions, action_obs_pairs)
                 self.env.env.score_by_step.append(self.env.env.last_reward)
                 # NOTE: 2024.11.11 如果返回的文本中提取指令失败，给予一次重试机会
                 command_may_none = self.recall_and_get_command()
