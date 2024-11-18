@@ -1,0 +1,908 @@
+Task: You are a text game player, your goal is to put things in there proper locations and improve your score. You can only perform one action at a time. Answer in json form: {"consideration": string, "action": string}.
+Action history: No action was taken now.
+Inventory: You are carrying:  some milk
+Environment: Backyard[BBQ[wooden spoon], clothesline, patio chair[wet white jumper], patio table, workbench[clean pot], sliding patio door]
+Available actions:
+* close sliding patio door
+* drop milk
+* examine BBQ
+* examine clean pot
+* examine clothesline
+* examine patio chair
+* examine patio table
+* examine wet white jumper
+* examine wooden spoon
+* examine workbench
+* go west
+* look
+* put milk on BBQ
+* put milk on clothesline
+* put milk on patio chair
+* put milk on patio table
+* put milk on workbench
+* take clean pot from workbench
+* take wet white jumper from patio chair
+* take wooden spoon from BBQ
+
+Answer (in json form: {"consideration": string, "action": string}):
+
+
+
+{'consideration': 'The milk should be placed in a location where it makes sense, like on the patio table, which is a common place to put items temporarily.', 'action': 'put milk on patio table'}
+
+
+
+Task: You are a text game player, your goal is to put things in there proper locations and improve your score. You can only perform one action at a time. Answer in json form: {"consideration": string, "action": string}.
+Action history: Action 0: put milk on patio table -> You put the milk on the patio table.Wrong position, you should put it somewhere else, maybe the other room. 
+Inventory: You are carrying nothing.
+Environment: Backyard[BBQ[wooden spoon], clothesline, patio chair[wet white jumper], patio table[milk], workbench[clean pot], sliding patio door]
+Available actions:
+* close sliding patio door
+* examine BBQ
+* examine clean pot
+* examine clothesline
+* examine milk
+* examine patio chair
+* examine patio table
+* examine wet white jumper
+* examine wooden spoon
+* examine workbench
+* go west
+* look
+* take clean pot from workbench
+* take milk from patio table
+* take wet white jumper from patio chair
+* take wooden spoon from BBQ
+
+Answer (in json form: {"consideration": string, "action": string}):
+
+
+
+{'consideration': 'The milk is in the wrong position on the patio table. I should take it and find a more appropriate place for it.', 'action': 'take milk from patio table'}
+
+
+
+Task: You are a text game player, your goal is to put things in there proper locations and improve your score. You can only perform one action at a time. Answer in json form: {"consideration": string, "action": string}.
+Action history: Action 0: put milk on patio table -> You put the milk on the patio table.Wrong position, you should put it somewhere else, maybe the other room. Action 1: take milk from patio table -> You take the milk from the patio table. 
+Inventory: You are carrying:  some milk
+Environment: Backyard[BBQ[wooden spoon], clothesline, patio chair[wet white jumper], patio table, workbench[clean pot]]
+Available actions:
+* close sliding patio door
+* drop milk
+* examine BBQ
+* examine clean pot
+* examine clothesline
+* examine patio chair
+* examine patio table
+* examine wet white jumper
+* examine wooden spoon
+* examine workbench
+* go west
+* look
+* put milk on BBQ
+* put milk on clothesline
+* put milk on patio chair
+* put milk on patio table
+* put milk on workbench
+* take clean pot from workbench
+* take wet white jumper from patio chair
+* take wooden spoon from BBQ
+
+Answer (in json form: {"consideration": string, "action": string}):
+
+
+
+{'consideration': 'The milk should be placed in a more appropriate location. The workbench might be a suitable place since it already has a clean pot, which suggests it might be used for kitchen-related items.', 'action': 'put milk on workbench'}
+
+
+
+Task: You are a text game player, your goal is to put things in there proper locations and improve your score. You can only perform one action at a time. Answer in json form: {"consideration": string, "action": string}.
+Action history: Action 0: put milk on patio table -> You put the milk on the patio table.Wrong position, you should put it somewhere else, maybe the other room. Action 1: take milk from patio table -> You take the milk from the patio table. Action 2: put milk on workbench -> You put the milk on the workbench.Wrong position, you should put it somewhere else, maybe the other room. 
+Inventory: You are carrying nothing.
+Environment: Backyard[BBQ[wooden spoon], clothesline, patio chair[wet white jumper], patio table, workbench[milk, clean pot], sliding patio door]
+Available actions:
+* close sliding patio door
+* examine BBQ
+* examine clean pot
+* examine clothesline
+* examine milk
+* examine patio chair
+* examine patio table
+* examine wet white jumper
+* examine wooden spoon
+* examine workbench
+* go west
+* look
+* take clean pot from workbench
+* take milk from workbench
+* take wet white jumper from patio chair
+* take wooden spoon from BBQ
+
+Answer (in json form: {"consideration": string, "action": string}):
+
+
+
+{'consideration': 'The milk should be placed in a different room, possibly inside the house. I should go inside to find a more suitable location for the milk.', 'action': 'go west'}
+
+
+
+Task: You are a text game player, your goal is to put things in there proper locations and improve your score. You can only perform one action at a time. Answer in json form: {"consideration": string, "action": string}.
+Action history: Action 0: put milk on patio table -> You put the milk on the patio table.Wrong position, you should put it somewhere else, maybe the other room. Action 1: take milk from patio table -> You take the milk from the patio table. Action 2: put milk on workbench -> You put the milk on the workbench.Wrong position, you should put it somewhere else, maybe the other room. Action 3: go west -> -= Kitchen =-You find yourself in a kitchen. 
+Inventory: You are carrying nothing.
+Environment: Kitchen[fridge, kitchen cupboard, cutlery drawer, dishwasher, trash can, oven, dining table[dirty pot], ladderback chair, counter[dirty cake slice], stove, dining chair[wet azure skirt], sliding patio door]
+Available actions:
+* close cutlery drawer
+* close dishwasher
+* close fridge
+* close kitchen cupboard
+* close oven
+* close sliding patio door
+* close trash can
+* examine counter
+* examine cutlery drawer
+* examine dining chair
+* examine dining table
+* examine dirty cake slice
+* examine dirty pot
+* examine dishwasher
+* examine fridge
+* examine kitchen cupboard
+* examine ladderback chair
+* examine oven
+* examine stove
+* examine trash can
+* examine wet azure skirt
+* go east
+* look
+* take dirty cake slice from counter
+* take dirty pot from dining table
+* take wet azure skirt from dining chair
+
+Answer (in json form: {"consideration": string, "action": string}):
+
+
+
+{'consideration': 'I need to find a suitable place to put the milk. The fridge in the kitchen is a logical place for milk storage.', 'action': 'examine fridge'}
+
+
+
+Task: You are a text game player, your goal is to put things in there proper locations and improve your score. You can only perform one action at a time. Answer in json form: {"consideration": string, "action": string}.
+Action history: Action 0: put milk on patio table -> You put the milk on the patio table.Wrong position, you should put it somewhere else, maybe the other room. Action 1: take milk from patio table -> You take the milk from the patio table. Action 2: put milk on workbench -> You put the milk on the workbench.Wrong position, you should put it somewhere else, maybe the other room. Action 3: go west -> -= Kitchen =-You find yourself in a kitchen. Action 4: examine fridge -> The fridge looks solid. You can see inside it. 
+Inventory: You are carrying nothing.
+Environment: Kitchen[fridge, kitchen cupboard, cutlery drawer, dishwasher, trash can, oven, dining table[dirty pot], ladderback chair, counter[dirty cake slice], stove, dining chair[wet azure skirt]]
+Available actions:
+* close cutlery drawer
+* close dishwasher
+* close fridge
+* close kitchen cupboard
+* close oven
+* close sliding patio door
+* close trash can
+* examine counter
+* examine cutlery drawer
+* examine dining chair
+* examine dining table
+* examine dirty cake slice
+* examine dirty pot
+* examine dishwasher
+* examine fridge
+* examine kitchen cupboard
+* examine ladderback chair
+* examine oven
+* examine stove
+* examine trash can
+* examine wet azure skirt
+* go east
+* look
+* take dirty cake slice from counter
+* take dirty pot from dining table
+* take wet azure skirt from dining chair
+
+Answer (in json form: {"consideration": string, "action": string}):
+
+
+
+{'consideration': 'The milk should be placed in the fridge to keep it fresh.', 'action': 'open fridge'}
+
+
+
+Task: You are a text game player, your goal is to put things in there proper locations and improve your score. You can only perform one action at a time. Answer in json form: {"consideration": string, "action": string}.
+Action history: Action 0: put milk on patio table -> You put the milk on the patio table.Wrong position, you should put it somewhere else, maybe the other room. Action 1: take milk from patio table -> You take the milk from the patio table. Action 2: put milk on workbench -> You put the milk on the workbench.Wrong position, you should put it somewhere else, maybe the other room. Action 3: go west -> -= Kitchen =-You find yourself in a kitchen. Action 4: examine fridge -> The fridge looks solid. You can see inside it. Action 5: open fridge -> COMMAND NOT EXECUTABLE. You should try other commands! 
+Inventory: You are carrying nothing.
+Environment: Kitchen[fridge, kitchen cupboard, cutlery drawer, dishwasher, trash can, oven, dining table[dirty pot], ladderback chair, counter[dirty cake slice], stove, dining chair[wet azure skirt]]
+Available actions:
+* close cutlery drawer
+* close dishwasher
+* close fridge
+* close kitchen cupboard
+* close oven
+* close sliding patio door
+* close trash can
+* examine counter
+* examine cutlery drawer
+* examine dining chair
+* examine dining table
+* examine dirty cake slice
+* examine dirty pot
+* examine dishwasher
+* examine fridge
+* examine kitchen cupboard
+* examine ladderback chair
+* examine oven
+* examine stove
+* examine trash can
+* examine wet azure skirt
+* go east
+* look
+* take dirty cake slice from counter
+* take dirty pot from dining table
+* take wet azure skirt from dining chair
+
+Answer (in json form: {"consideration": string, "action": string}):
+
+
+
+{'consideration': 'I need to find a suitable place to put the milk. The fridge is a logical place for milk, but I need to open it first. Since the command to open the fridge was not executable, I should try examining it again to see if there are any clues or alternative actions.', 'action': 'examine fridge'}
+
+
+
+
+
+Trying recall LLM!!! open fridge -> examine fridge
+
+
+
+Recall success!
+
+Task: You are a text game player, your goal is to put things in there proper locations and improve your score. You can only perform one action at a time. Answer in json form: {"consideration": string, "action": string}.
+Action history: Action 0: put milk on patio table -> You put the milk on the patio table.Wrong position, you should put it somewhere else, maybe the other room. Action 1: take milk from patio table -> You take the milk from the patio table. Action 2: put milk on workbench -> You put the milk on the workbench.Wrong position, you should put it somewhere else, maybe the other room. Action 3: go west -> -= Kitchen =-You find yourself in a kitchen. Action 4: examine fridge -> The fridge looks solid. You can see inside it. Action 5: open fridge -> COMMAND NOT EXECUTABLE. You should try other commands! Action 6: examine fridge -> The fridge looks solid. You can see inside it. 
+Inventory: You are carrying nothing.
+Environment: Kitchen[fridge, kitchen cupboard, cutlery drawer, dishwasher, trash can, oven, dining table[dirty pot], ladderback chair, counter[dirty cake slice], stove, dining chair[wet azure skirt], sliding patio door]
+Available actions:
+* close cutlery drawer
+* close dishwasher
+* close fridge
+* close kitchen cupboard
+* close oven
+* close sliding patio door
+* close trash can
+* examine counter
+* examine cutlery drawer
+* examine dining chair
+* examine dining table
+* examine dirty cake slice
+* examine dirty pot
+* examine dishwasher
+* examine fridge
+* examine kitchen cupboard
+* examine ladderback chair
+* examine oven
+* examine stove
+* examine trash can
+* examine wet azure skirt
+* go east
+* look
+* take dirty cake slice from counter
+* take dirty pot from dining table
+* take wet azure skirt from dining chair
+
+Answer (in json form: {"consideration": string, "action": string}):
+
+
+
+{'consideration': "Since I have the milk and I'm in the kitchen, I should try to put the milk in the fridge, which is a logical place for it.", 'action': 'put milk in fridge'}
+
+
+
+
+
+Command adjusted: put milk in fridge -> put milk on fridge
+
+Task: You are a text game player, your goal is to put things in there proper locations and improve your score. You can only perform one action at a time. Answer in json form: {"consideration": string, "action": string}.
+Action history: Action 0: put milk on patio table -> You put the milk on the patio table.Wrong position, you should put it somewhere else, maybe the other room. Action 1: take milk from patio table -> You take the milk from the patio table. Action 2: put milk on workbench -> You put the milk on the workbench.Wrong position, you should put it somewhere else, maybe the other room. Action 3: go west -> -= Kitchen =-You find yourself in a kitchen. Action 4: examine fridge -> The fridge looks solid. You can see inside it. Action 5: open fridge -> COMMAND NOT EXECUTABLE. You should try other commands! Action 6: examine fridge -> The fridge looks solid. You can see inside it. Action 7: put milk in fridge -> COMMAND NOT EXECUTABLE. You should try other commands! 
+Inventory: You are carrying nothing.
+Environment: Kitchen[fridge, kitchen cupboard, cutlery drawer, dishwasher, trash can, oven, dining table[dirty pot], ladderback chair, counter[dirty cake slice], stove, dining chair[wet azure skirt], sliding patio door]
+Available actions:
+* close cutlery drawer
+* close dishwasher
+* close fridge
+* close kitchen cupboard
+* close oven
+* close sliding patio door
+* close trash can
+* examine counter
+* examine cutlery drawer
+* examine dining chair
+* examine dining table
+* examine dirty cake slice
+* examine dirty pot
+* examine dishwasher
+* examine fridge
+* examine kitchen cupboard
+* examine ladderback chair
+* examine oven
+* examine stove
+* examine trash can
+* examine wet azure skirt
+* go east
+* look
+* take dirty cake slice from counter
+* take dirty pot from dining table
+* take wet azure skirt from dining chair
+
+Answer (in json form: {"consideration": string, "action": string}):
+
+
+
+{'consideration': "I need to find a way to open the fridge to put the milk inside. Since I can't open it directly, I should examine the fridge again to see if I missed any details.", 'action': 'examine fridge'}
+
+
+
+
+
+Trying recall LLM!!! put milk in fridge -> examine fridge
+
+
+
+Recall success!
+
+Task: You are a text game player, your goal is to put things in there proper locations and improve your score. You can only perform one action at a time. Answer in json form: {"consideration": string, "action": string}.
+Action history: Action 0: put milk on patio table -> You put the milk on the patio table.Wrong position, you should put it somewhere else, maybe the other room. Action 1: take milk from patio table -> You take the milk from the patio table. Action 2: put milk on workbench -> You put the milk on the workbench.Wrong position, you should put it somewhere else, maybe the other room. Action 3: go west -> -= Kitchen =-You find yourself in a kitchen. Action 4: examine fridge -> The fridge looks solid. You can see inside it. Action 5: open fridge -> COMMAND NOT EXECUTABLE. You should try other commands! Action 6: examine fridge -> The fridge looks solid. You can see inside it. Action 7: put milk in fridge -> COMMAND NOT EXECUTABLE. You should try other commands! Action 8: examine fridge -> The fridge looks solid. You can see inside it. 
+Inventory: You are carrying nothing.
+Environment: Kitchen[fridge, kitchen cupboard, cutlery drawer, dishwasher, trash can, oven, dining table[dirty pot], ladderback chair, counter[dirty cake slice], stove, dining chair[wet azure skirt]]
+Available actions:
+* close cutlery drawer
+* close dishwasher
+* close fridge
+* close kitchen cupboard
+* close oven
+* close sliding patio door
+* close trash can
+* examine counter
+* examine cutlery drawer
+* examine dining chair
+* examine dining table
+* examine dirty cake slice
+* examine dirty pot
+* examine dishwasher
+* examine fridge
+* examine kitchen cupboard
+* examine ladderback chair
+* examine oven
+* examine stove
+* examine trash can
+* examine wet azure skirt
+* go east
+* look
+* take dirty cake slice from counter
+* take dirty pot from dining table
+* take wet azure skirt from dining chair
+
+Answer (in json form: {"consideration": string, "action": string}):
+
+
+
+{'consideration': "I need to find a way to open the fridge to put the milk inside, but since I don't have the milk in my inventory, I should first look around to see if I can find it or any other useful items.", 'action': 'look'}
+
+
+
+Task: You are a text game player, your goal is to put things in there proper locations and improve your score. You can only perform one action at a time. Answer in json form: {"consideration": string, "action": string}.
+Action history: Action 0: put milk on patio table -> You put the milk on the patio table.Wrong position, you should put it somewhere else, maybe the other room. Action 1: take milk from patio table -> You take the milk from the patio table. Action 2: put milk on workbench -> You put the milk on the workbench.Wrong position, you should put it somewhere else, maybe the other room. Action 3: go west -> -= Kitchen =-You find yourself in a kitchen. Action 4: examine fridge -> The fridge looks solid. You can see inside it. Action 5: open fridge -> COMMAND NOT EXECUTABLE. You should try other commands! Action 6: examine fridge -> The fridge looks solid. You can see inside it. Action 7: put milk in fridge -> COMMAND NOT EXECUTABLE. You should try other commands! Action 8: examine fridge -> The fridge looks solid. You can see inside it. Action 9: look -> -= Kitchen =-You find yourself in a kitchen. 
+Inventory: You are carrying nothing.
+Environment: Kitchen[fridge, kitchen cupboard, cutlery drawer, dishwasher, trash can, oven, dining table[dirty pot], ladderback chair, counter[dirty cake slice], stove, dining chair[wet azure skirt], sliding patio door]
+Available actions:
+* close cutlery drawer
+* close dishwasher
+* close fridge
+* close kitchen cupboard
+* close oven
+* close sliding patio door
+* close trash can
+* examine counter
+* examine cutlery drawer
+* examine dining chair
+* examine dining table
+* examine dirty cake slice
+* examine dirty pot
+* examine dishwasher
+* examine fridge
+* examine kitchen cupboard
+* examine ladderback chair
+* examine oven
+* examine stove
+* examine trash can
+* examine wet azure skirt
+* go east
+* look
+* take dirty cake slice from counter
+* take dirty pot from dining table
+* take wet azure skirt from dining chair
+
+Answer (in json form: {"consideration": string, "action": string}):
+
+
+
+{'consideration': "I need to find a way to open the fridge to put the milk inside, but since I can't open it directly, I should try examining other objects to find a clue or tool that might help.", 'action': 'examine kitchen cupboard'}
+
+
+
+Task: You are a text game player, your goal is to put things in there proper locations and improve your score. You can only perform one action at a time. Answer in json form: {"consideration": string, "action": string}.
+Action history: Action 0: put milk on patio table -> You put the milk on the patio table.Wrong position, you should put it somewhere else, maybe the other room. Action 1: take milk from patio table -> You take the milk from the patio table. Action 2: put milk on workbench -> You put the milk on the workbench.Wrong position, you should put it somewhere else, maybe the other room. Action 3: go west -> -= Kitchen =-You find yourself in a kitchen. Action 4: examine fridge -> The fridge looks solid. You can see inside it. Action 5: open fridge -> COMMAND NOT EXECUTABLE. You should try other commands! Action 6: examine fridge -> The fridge looks solid. You can see inside it. Action 7: put milk in fridge -> COMMAND NOT EXECUTABLE. You should try other commands! Action 8: examine fridge -> The fridge looks solid. You can see inside it. Action 9: look -> -= Kitchen =-You find yourself in a kitchen. Action 10: examine kitchen cupboard -> The kitchen cupboard looks commanding. You can see inside it. 
+Inventory: You are carrying nothing.
+Environment: Kitchen[fridge, kitchen cupboard, cutlery drawer, dishwasher, trash can, oven, dining table[dirty pot], ladderback chair, counter[dirty cake slice], stove, dining chair[wet azure skirt], sliding patio door]
+Available actions:
+* close cutlery drawer
+* close dishwasher
+* close fridge
+* close kitchen cupboard
+* close oven
+* close sliding patio door
+* close trash can
+* examine counter
+* examine cutlery drawer
+* examine dining chair
+* examine dining table
+* examine dirty cake slice
+* examine dirty pot
+* examine dishwasher
+* examine fridge
+* examine kitchen cupboard
+* examine ladderback chair
+* examine oven
+* examine stove
+* examine trash can
+* examine wet azure skirt
+* go east
+* look
+* take dirty cake slice from counter
+* take dirty pot from dining table
+* take wet azure skirt from dining chair
+
+Answer (in json form: {"consideration": string, "action": string}):
+
+
+
+{'consideration': 'I need to find a suitable place to put the milk. Since the fridge is not accessible, I should explore other options in the kitchen. The kitchen cupboard might be a good place to store the milk.', 'action': 'examine kitchen cupboard'}
+
+
+
+Task: You are a text game player, your goal is to put things in there proper locations and improve your score. You can only perform one action at a time. Answer in json form: {"consideration": string, "action": string}.
+Action history: Action 0: put milk on patio table -> You put the milk on the patio table.Wrong position, you should put it somewhere else, maybe the other room. Action 1: take milk from patio table -> You take the milk from the patio table. Action 2: put milk on workbench -> You put the milk on the workbench.Wrong position, you should put it somewhere else, maybe the other room. Action 3: go west -> -= Kitchen =-You find yourself in a kitchen. Action 4: examine fridge -> The fridge looks solid. You can see inside it. Action 5: open fridge -> COMMAND NOT EXECUTABLE. You should try other commands! Action 6: examine fridge -> The fridge looks solid. You can see inside it. Action 7: put milk in fridge -> COMMAND NOT EXECUTABLE. You should try other commands! Action 8: examine fridge -> The fridge looks solid. You can see inside it. Action 9: look -> -= Kitchen =-You find yourself in a kitchen. Action 10: examine kitchen cupboard -> The kitchen cupboard looks commanding. You can see inside it. Action 11: examine kitchen cupboard -> The kitchen cupboard looks commanding. You can see inside it. 
+Inventory: You are carrying nothing.
+Environment: Kitchen[fridge, kitchen cupboard, cutlery drawer, dishwasher, trash can, oven, dining table[dirty pot], ladderback chair, counter[dirty cake slice], stove, dining chair[wet azure skirt]]
+Available actions:
+* close cutlery drawer
+* close dishwasher
+* close fridge
+* close kitchen cupboard
+* close oven
+* close sliding patio door
+* close trash can
+* examine counter
+* examine cutlery drawer
+* examine dining chair
+* examine dining table
+* examine dirty cake slice
+* examine dirty pot
+* examine dishwasher
+* examine fridge
+* examine kitchen cupboard
+* examine ladderback chair
+* examine oven
+* examine stove
+* examine trash can
+* examine wet azure skirt
+* go east
+* look
+* take dirty cake slice from counter
+* take dirty pot from dining table
+* take wet azure skirt from dining chair
+
+Answer (in json form: {"consideration": string, "action": string}):
+
+
+
+{'consideration': 'I need to find a suitable place to put the milk. Since the fridge is not accessible, I should explore other options in the kitchen.', 'action': 'examine counter'}
+
+
+
+Task: You are a text game player, your goal is to put things in there proper locations and improve your score. You can only perform one action at a time. Answer in json form: {"consideration": string, "action": string}.
+Action history: Action 0: put milk on patio table -> You put the milk on the patio table.Wrong position, you should put it somewhere else, maybe the other room. Action 1: take milk from patio table -> You take the milk from the patio table. Action 2: put milk on workbench -> You put the milk on the workbench.Wrong position, you should put it somewhere else, maybe the other room. Action 3: go west -> -= Kitchen =-You find yourself in a kitchen. Action 4: examine fridge -> The fridge looks solid. You can see inside it. Action 5: open fridge -> COMMAND NOT EXECUTABLE. You should try other commands! Action 6: examine fridge -> The fridge looks solid. You can see inside it. Action 7: put milk in fridge -> COMMAND NOT EXECUTABLE. You should try other commands! Action 8: examine fridge -> The fridge looks solid. You can see inside it. Action 9: look -> -= Kitchen =-You find yourself in a kitchen. Action 10: examine kitchen cupboard -> The kitchen cupboard looks commanding. You can see inside it. Action 11: examine kitchen cupboard -> The kitchen cupboard looks commanding. You can see inside it. Action 12: examine counter -> The counter is unstable.On the counter is a dirty cake slice. 
+Inventory: You are carrying nothing.
+Environment: Kitchen[fridge, kitchen cupboard, cutlery drawer, dishwasher, trash can, oven, dining table[dirty pot], ladderback chair, counter[dirty cake slice], stove, dining chair[wet azure skirt]]
+Available actions:
+* close cutlery drawer
+* close dishwasher
+* close fridge
+* close kitchen cupboard
+* close oven
+* close sliding patio door
+* close trash can
+* examine counter
+* examine cutlery drawer
+* examine dining chair
+* examine dining table
+* examine dirty cake slice
+* examine dirty pot
+* examine dishwasher
+* examine fridge
+* examine kitchen cupboard
+* examine ladderback chair
+* examine oven
+* examine stove
+* examine trash can
+* examine wet azure skirt
+* go east
+* look
+* take dirty cake slice from counter
+* take dirty pot from dining table
+* take wet azure skirt from dining chair
+
+Answer (in json form: {"consideration": string, "action": string}):
+
+
+
+{'consideration': 'I need to find a suitable place to put the milk. The fridge seems like the most appropriate place, but I need to figure out how to interact with it properly.', 'action': 'examine fridge'}
+
+
+
+Task: You are a text game player, your goal is to put things in there proper locations and improve your score. You can only perform one action at a time. Answer in json form: {"consideration": string, "action": string}.
+Action history: Action 0: put milk on patio table -> You put the milk on the patio table.Wrong position, you should put it somewhere else, maybe the other room. Action 1: take milk from patio table -> You take the milk from the patio table. Action 2: put milk on workbench -> You put the milk on the workbench.Wrong position, you should put it somewhere else, maybe the other room. Action 3: go west -> -= Kitchen =-You find yourself in a kitchen. Action 4: examine fridge -> The fridge looks solid. You can see inside it. Action 5: open fridge -> COMMAND NOT EXECUTABLE. You should try other commands! Action 6: examine fridge -> The fridge looks solid. You can see inside it. Action 7: put milk in fridge -> COMMAND NOT EXECUTABLE. You should try other commands! Action 8: examine fridge -> The fridge looks solid. You can see inside it. Action 9: look -> -= Kitchen =-You find yourself in a kitchen. Action 10: examine kitchen cupboard -> The kitchen cupboard looks commanding. You can see inside it. Action 11: examine kitchen cupboard -> The kitchen cupboard looks commanding. You can see inside it. Action 12: examine counter -> The counter is unstable.On the counter is a dirty cake slice. Action 13: examine fridge -> The fridge looks solid. You can see inside it. 
+Inventory: You are carrying nothing.
+Environment: Kitchen[fridge, kitchen cupboard, cutlery drawer, dishwasher, trash can, oven, dining table[dirty pot], ladderback chair, counter[dirty cake slice], stove, dining chair[wet azure skirt]]
+Available actions:
+* close cutlery drawer
+* close dishwasher
+* close fridge
+* close kitchen cupboard
+* close oven
+* close sliding patio door
+* close trash can
+* examine counter
+* examine cutlery drawer
+* examine dining chair
+* examine dining table
+* examine dirty cake slice
+* examine dirty pot
+* examine dishwasher
+* examine fridge
+* examine kitchen cupboard
+* examine ladderback chair
+* examine oven
+* examine stove
+* examine trash can
+* examine wet azure skirt
+* go east
+* look
+* take dirty cake slice from counter
+* take dirty pot from dining table
+* take wet azure skirt from dining chair
+
+Answer (in json form: {"consideration": string, "action": string}):
+
+
+
+{'consideration': 'I need to find a suitable place to put the milk. The fridge seems like the right place, but I need to figure out how to open it first.', 'action': 'examine fridge'}
+
+
+
+Task: You are a text game player, your goal is to put things in there proper locations and improve your score. You can only perform one action at a time. Answer in json form: {"consideration": string, "action": string}.
+Action history: Action 0: put milk on patio table -> You put the milk on the patio table.Wrong position, you should put it somewhere else, maybe the other room. Action 1: take milk from patio table -> You take the milk from the patio table. Action 2: put milk on workbench -> You put the milk on the workbench.Wrong position, you should put it somewhere else, maybe the other room. Action 3: go west -> -= Kitchen =-You find yourself in a kitchen. Action 4: examine fridge -> The fridge looks solid. You can see inside it. Action 5: open fridge -> COMMAND NOT EXECUTABLE. You should try other commands! Action 6: examine fridge -> The fridge looks solid. You can see inside it. Action 7: put milk in fridge -> COMMAND NOT EXECUTABLE. You should try other commands! Action 8: examine fridge -> The fridge looks solid. You can see inside it. Action 9: look -> -= Kitchen =-You find yourself in a kitchen. Action 10: examine kitchen cupboard -> The kitchen cupboard looks commanding. You can see inside it. Action 11: examine kitchen cupboard -> The kitchen cupboard looks commanding. You can see inside it. Action 12: examine counter -> The counter is unstable.On the counter is a dirty cake slice. Action 13: examine fridge -> The fridge looks solid. You can see inside it. Action 14: examine fridge -> The fridge looks solid. You can see inside it. 
+Inventory: You are carrying nothing.
+Environment: Kitchen[fridge, kitchen cupboard, cutlery drawer, dishwasher, trash can, oven, dining table[dirty pot], ladderback chair, counter[dirty cake slice], stove, dining chair[wet azure skirt]]
+Available actions:
+* close cutlery drawer
+* close dishwasher
+* close fridge
+* close kitchen cupboard
+* close oven
+* close sliding patio door
+* close trash can
+* examine counter
+* examine cutlery drawer
+* examine dining chair
+* examine dining table
+* examine dirty cake slice
+* examine dirty pot
+* examine dishwasher
+* examine fridge
+* examine kitchen cupboard
+* examine ladderback chair
+* examine oven
+* examine stove
+* examine trash can
+* examine wet azure skirt
+* go east
+* look
+* take dirty cake slice from counter
+* take dirty pot from dining table
+* take wet azure skirt from dining chair
+
+Answer (in json form: {"consideration": string, "action": string}):
+
+
+
+{'consideration': 'I need to find a suitable place to put the milk. Since the fridge is not accessible, I should explore other options in the kitchen.', 'action': 'examine kitchen cupboard'}
+
+
+
+Task: You are a text game player, your goal is to put things in there proper locations and improve your score. You can only perform one action at a time. Answer in json form: {"consideration": string, "action": string}.
+Action history: Action 0: put milk on patio table -> You put the milk on the patio table.Wrong position, you should put it somewhere else, maybe the other room. Action 1: take milk from patio table -> You take the milk from the patio table. Action 2: put milk on workbench -> You put the milk on the workbench.Wrong position, you should put it somewhere else, maybe the other room. Action 3: go west -> -= Kitchen =-You find yourself in a kitchen. Action 4: examine fridge -> The fridge looks solid. You can see inside it. Action 5: open fridge -> COMMAND NOT EXECUTABLE. You should try other commands! Action 6: examine fridge -> The fridge looks solid. You can see inside it. Action 7: put milk in fridge -> COMMAND NOT EXECUTABLE. You should try other commands! Action 8: examine fridge -> The fridge looks solid. You can see inside it. Action 9: look -> -= Kitchen =-You find yourself in a kitchen. Action 10: examine kitchen cupboard -> The kitchen cupboard looks commanding. You can see inside it. Action 11: examine kitchen cupboard -> The kitchen cupboard looks commanding. You can see inside it. Action 12: examine counter -> The counter is unstable.On the counter is a dirty cake slice. Action 13: examine fridge -> The fridge looks solid. You can see inside it. Action 14: examine fridge -> The fridge looks solid. You can see inside it. Action 15: examine kitchen cupboard -> The kitchen cupboard looks commanding. You can see inside it. 
+Inventory: You are carrying nothing.
+Environment: Kitchen[fridge, kitchen cupboard, cutlery drawer, dishwasher, trash can, oven, dining table[dirty pot], ladderback chair, counter[dirty cake slice], stove, dining chair[wet azure skirt], sliding patio door]
+Available actions:
+* close cutlery drawer
+* close dishwasher
+* close fridge
+* close kitchen cupboard
+* close oven
+* close sliding patio door
+* close trash can
+* examine counter
+* examine cutlery drawer
+* examine dining chair
+* examine dining table
+* examine dirty cake slice
+* examine dirty pot
+* examine dishwasher
+* examine fridge
+* examine kitchen cupboard
+* examine ladderback chair
+* examine oven
+* examine stove
+* examine trash can
+* examine wet azure skirt
+* go east
+* look
+* take dirty cake slice from counter
+* take dirty pot from dining table
+* take wet azure skirt from dining chair
+
+Answer (in json form: {"consideration": string, "action": string}):
+
+
+
+{'consideration': 'I need to find a place to put the milk. The fridge seems like the right place, but I need to figure out how to interact with it properly.', 'action': 'examine fridge'}
+
+
+
+Task: You are a text game player, your goal is to put things in there proper locations and improve your score. You can only perform one action at a time. Answer in json form: {"consideration": string, "action": string}.
+Action history: Action 0: put milk on patio table -> You put the milk on the patio table.Wrong position, you should put it somewhere else, maybe the other room. Action 1: take milk from patio table -> You take the milk from the patio table. Action 2: put milk on workbench -> You put the milk on the workbench.Wrong position, you should put it somewhere else, maybe the other room. Action 3: go west -> -= Kitchen =-You find yourself in a kitchen. Action 4: examine fridge -> The fridge looks solid. You can see inside it. Action 5: open fridge -> COMMAND NOT EXECUTABLE. You should try other commands! Action 6: examine fridge -> The fridge looks solid. You can see inside it. Action 7: put milk in fridge -> COMMAND NOT EXECUTABLE. You should try other commands! Action 8: examine fridge -> The fridge looks solid. You can see inside it. Action 9: look -> -= Kitchen =-You find yourself in a kitchen. Action 10: examine kitchen cupboard -> The kitchen cupboard looks commanding. You can see inside it. Action 11: examine kitchen cupboard -> The kitchen cupboard looks commanding. You can see inside it. Action 12: examine counter -> The counter is unstable.On the counter is a dirty cake slice. Action 13: examine fridge -> The fridge looks solid. You can see inside it. Action 14: examine fridge -> The fridge looks solid. You can see inside it. Action 15: examine kitchen cupboard -> The kitchen cupboard looks commanding. You can see inside it. Action 16: examine fridge -> The fridge looks solid. You can see inside it. 
+Inventory: You are carrying nothing.
+Environment: Kitchen[fridge, kitchen cupboard, cutlery drawer, dishwasher, trash can, oven, dining table[dirty pot], ladderback chair, counter[dirty cake slice], stove, dining chair[wet azure skirt], sliding patio door]
+Available actions:
+* close cutlery drawer
+* close dishwasher
+* close fridge
+* close kitchen cupboard
+* close oven
+* close sliding patio door
+* close trash can
+* examine counter
+* examine cutlery drawer
+* examine dining chair
+* examine dining table
+* examine dirty cake slice
+* examine dirty pot
+* examine dishwasher
+* examine fridge
+* examine kitchen cupboard
+* examine ladderback chair
+* examine oven
+* examine stove
+* examine trash can
+* examine wet azure skirt
+* go east
+* look
+* take dirty cake slice from counter
+* take dirty pot from dining table
+* take wet azure skirt from dining chair
+
+Answer (in json form: {"consideration": string, "action": string}):
+
+
+
+{'consideration': 'I need to find a suitable place to put the milk. The fridge seems like the right place, but I need to figure out how to interact with it properly.', 'action': 'examine fridge'}
+
+
+
+Task: You are a text game player, your goal is to put things in there proper locations and improve your score. You can only perform one action at a time. Answer in json form: {"consideration": string, "action": string}.
+Action history: Action 0: put milk on patio table -> You put the milk on the patio table.Wrong position, you should put it somewhere else, maybe the other room. Action 1: take milk from patio table -> You take the milk from the patio table. Action 2: put milk on workbench -> You put the milk on the workbench.Wrong position, you should put it somewhere else, maybe the other room. Action 3: go west -> -= Kitchen =-You find yourself in a kitchen. Action 4: examine fridge -> The fridge looks solid. You can see inside it. Action 5: open fridge -> COMMAND NOT EXECUTABLE. You should try other commands! Action 6: examine fridge -> The fridge looks solid. You can see inside it. Action 7: put milk in fridge -> COMMAND NOT EXECUTABLE. You should try other commands! Action 8: examine fridge -> The fridge looks solid. You can see inside it. Action 9: look -> -= Kitchen =-You find yourself in a kitchen. Action 10: examine kitchen cupboard -> The kitchen cupboard looks commanding. You can see inside it. Action 11: examine kitchen cupboard -> The kitchen cupboard looks commanding. You can see inside it. Action 12: examine counter -> The counter is unstable.On the counter is a dirty cake slice. Action 13: examine fridge -> The fridge looks solid. You can see inside it. Action 14: examine fridge -> The fridge looks solid. You can see inside it. Action 15: examine kitchen cupboard -> The kitchen cupboard looks commanding. You can see inside it. Action 16: examine fridge -> The fridge looks solid. You can see inside it. Action 17: examine fridge -> The fridge looks solid. You can see inside it. 
+Inventory: You are carrying nothing.
+Environment: Kitchen[fridge, kitchen cupboard, cutlery drawer, dishwasher, trash can, oven, dining table[dirty pot], ladderback chair, counter[dirty cake slice], stove, dining chair[wet azure skirt], sliding patio door]
+Available actions:
+* close cutlery drawer
+* close dishwasher
+* close fridge
+* close kitchen cupboard
+* close oven
+* close sliding patio door
+* close trash can
+* examine counter
+* examine cutlery drawer
+* examine dining chair
+* examine dining table
+* examine dirty cake slice
+* examine dirty pot
+* examine dishwasher
+* examine fridge
+* examine kitchen cupboard
+* examine ladderback chair
+* examine oven
+* examine stove
+* examine trash can
+* examine wet azure skirt
+* go east
+* look
+* take dirty cake slice from counter
+* take dirty pot from dining table
+* take wet azure skirt from dining chair
+
+Answer (in json form: {"consideration": string, "action": string}):
+
+
+
+{'consideration': 'I need to find a suitable place to put the milk. The fridge seems like the right place, but I need to figure out how to interact with it properly.', 'action': 'examine fridge'}
+
+
+
+Task: You are a text game player, your goal is to put things in there proper locations and improve your score. You can only perform one action at a time. Answer in json form: {"consideration": string, "action": string}.
+Action history: Action 0: put milk on patio table -> You put the milk on the patio table.Wrong position, you should put it somewhere else, maybe the other room. Action 1: take milk from patio table -> You take the milk from the patio table. Action 2: put milk on workbench -> You put the milk on the workbench.Wrong position, you should put it somewhere else, maybe the other room. Action 3: go west -> -= Kitchen =-You find yourself in a kitchen. Action 4: examine fridge -> The fridge looks solid. You can see inside it. Action 5: open fridge -> COMMAND NOT EXECUTABLE. You should try other commands! Action 6: examine fridge -> The fridge looks solid. You can see inside it. Action 7: put milk in fridge -> COMMAND NOT EXECUTABLE. You should try other commands! Action 8: examine fridge -> The fridge looks solid. You can see inside it. Action 9: look -> -= Kitchen =-You find yourself in a kitchen. Action 10: examine kitchen cupboard -> The kitchen cupboard looks commanding. You can see inside it. Action 11: examine kitchen cupboard -> The kitchen cupboard looks commanding. You can see inside it. Action 12: examine counter -> The counter is unstable.On the counter is a dirty cake slice. Action 13: examine fridge -> The fridge looks solid. You can see inside it. Action 14: examine fridge -> The fridge looks solid. You can see inside it. Action 15: examine kitchen cupboard -> The kitchen cupboard looks commanding. You can see inside it. Action 16: examine fridge -> The fridge looks solid. You can see inside it. Action 17: examine fridge -> The fridge looks solid. You can see inside it. Action 18: examine fridge -> The fridge looks solid. You can see inside it. 
+Inventory: You are carrying nothing.
+Environment: Kitchen[fridge, kitchen cupboard, cutlery drawer, dishwasher, trash can, oven, dining table[dirty pot], ladderback chair, counter[dirty cake slice], stove, dining chair[wet azure skirt], sliding patio door]
+Available actions:
+* close cutlery drawer
+* close dishwasher
+* close fridge
+* close kitchen cupboard
+* close oven
+* close sliding patio door
+* close trash can
+* examine counter
+* examine cutlery drawer
+* examine dining chair
+* examine dining table
+* examine dirty cake slice
+* examine dirty pot
+* examine dishwasher
+* examine fridge
+* examine kitchen cupboard
+* examine ladderback chair
+* examine oven
+* examine stove
+* examine trash can
+* examine wet azure skirt
+* go east
+* look
+* take dirty cake slice from counter
+* take dirty pot from dining table
+* take wet azure skirt from dining chair
+
+Answer (in json form: {"consideration": string, "action": string}):
+
+
+
+{'consideration': 'I need to find a way to put the milk in the fridge, but the command to open the fridge is not executable. I should try examining other objects to find a clue or another way to open the fridge.', 'action': 'examine kitchen cupboard'}
+
+
+
+Task: You are a text game player, your goal is to put things in there proper locations and improve your score. You can only perform one action at a time. Answer in json form: {"consideration": string, "action": string}.
+Action history: Action 0: put milk on patio table -> You put the milk on the patio table.Wrong position, you should put it somewhere else, maybe the other room. Action 1: take milk from patio table -> You take the milk from the patio table. Action 2: put milk on workbench -> You put the milk on the workbench.Wrong position, you should put it somewhere else, maybe the other room. Action 3: go west -> -= Kitchen =-You find yourself in a kitchen. Action 4: examine fridge -> The fridge looks solid. You can see inside it. Action 5: open fridge -> COMMAND NOT EXECUTABLE. You should try other commands! Action 6: examine fridge -> The fridge looks solid. You can see inside it. Action 7: put milk in fridge -> COMMAND NOT EXECUTABLE. You should try other commands! Action 8: examine fridge -> The fridge looks solid. You can see inside it. Action 9: look -> -= Kitchen =-You find yourself in a kitchen. Action 10: examine kitchen cupboard -> The kitchen cupboard looks commanding. You can see inside it. Action 11: examine kitchen cupboard -> The kitchen cupboard looks commanding. You can see inside it. Action 12: examine counter -> The counter is unstable.On the counter is a dirty cake slice. Action 13: examine fridge -> The fridge looks solid. You can see inside it. Action 14: examine fridge -> The fridge looks solid. You can see inside it. Action 15: examine kitchen cupboard -> The kitchen cupboard looks commanding. You can see inside it. Action 16: examine fridge -> The fridge looks solid. You can see inside it. Action 17: examine fridge -> The fridge looks solid. You can see inside it. Action 18: examine fridge -> The fridge looks solid. You can see inside it. Action 19: examine kitchen cupboard -> The kitchen cupboard looks commanding. You can see inside it. 
+Inventory: You are carrying nothing.
+Environment: Kitchen[fridge, kitchen cupboard, cutlery drawer, dishwasher, trash can, oven, dining table[dirty pot], ladderback chair, counter[dirty cake slice], stove, dining chair[wet azure skirt], sliding patio door]
+Available actions:
+* close cutlery drawer
+* close dishwasher
+* close fridge
+* close kitchen cupboard
+* close oven
+* close sliding patio door
+* close trash can
+* examine counter
+* examine cutlery drawer
+* examine dining chair
+* examine dining table
+* examine dirty cake slice
+* examine dirty pot
+* examine dishwasher
+* examine fridge
+* examine kitchen cupboard
+* examine ladderback chair
+* examine oven
+* examine stove
+* examine trash can
+* examine wet azure skirt
+* go east
+* look
+* take dirty cake slice from counter
+* take dirty pot from dining table
+* take wet azure skirt from dining chair
+
+Answer (in json form: {"consideration": string, "action": string}):
+
+
+
+{'consideration': 'I need to find a place to put the milk. The fridge seems like the right place, but I need to figure out how to interact with it properly.', 'action': 'examine fridge'}
+
+
+
+Task: You are a text game player, your goal is to put things in there proper locations and improve your score. You can only perform one action at a time. Answer in json form: {"consideration": string, "action": string}.
+Action history: Action 0: put milk on patio table -> You put the milk on the patio table.Wrong position, you should put it somewhere else, maybe the other room. Action 1: take milk from patio table -> You take the milk from the patio table. Action 2: put milk on workbench -> You put the milk on the workbench.Wrong position, you should put it somewhere else, maybe the other room. Action 3: go west -> -= Kitchen =-You find yourself in a kitchen. Action 4: examine fridge -> The fridge looks solid. You can see inside it. Action 5: open fridge -> COMMAND NOT EXECUTABLE. You should try other commands! Action 6: examine fridge -> The fridge looks solid. You can see inside it. Action 7: put milk in fridge -> COMMAND NOT EXECUTABLE. You should try other commands! Action 8: examine fridge -> The fridge looks solid. You can see inside it. Action 9: look -> -= Kitchen =-You find yourself in a kitchen. Action 10: examine kitchen cupboard -> The kitchen cupboard looks commanding. You can see inside it. Action 11: examine kitchen cupboard -> The kitchen cupboard looks commanding. You can see inside it. Action 12: examine counter -> The counter is unstable.On the counter is a dirty cake slice. Action 13: examine fridge -> The fridge looks solid. You can see inside it. Action 14: examine fridge -> The fridge looks solid. You can see inside it. Action 15: examine kitchen cupboard -> The kitchen cupboard looks commanding. You can see inside it. Action 16: examine fridge -> The fridge looks solid. You can see inside it. Action 17: examine fridge -> The fridge looks solid. You can see inside it. Action 18: examine fridge -> The fridge looks solid. You can see inside it. Action 19: examine kitchen cupboard -> The kitchen cupboard looks commanding. You can see inside it. Action 20: examine fridge -> The fridge looks solid. You can see inside it. 
+Inventory: You are carrying nothing.
+Environment: Kitchen[fridge, kitchen cupboard, cutlery drawer, dishwasher, trash can, oven, dining table[dirty pot], ladderback chair, counter[dirty cake slice], stove, dining chair[wet azure skirt], sliding patio door]
+Available actions:
+* close cutlery drawer
+* close dishwasher
+* close fridge
+* close kitchen cupboard
+* close oven
+* close sliding patio door
+* close trash can
+* examine counter
+* examine cutlery drawer
+* examine dining chair
+* examine dining table
+* examine dirty cake slice
+* examine dirty pot
+* examine dishwasher
+* examine fridge
+* examine kitchen cupboard
+* examine ladderback chair
+* examine oven
+* examine stove
+* examine trash can
+* examine wet azure skirt
+* go east
+* look
+* take dirty cake slice from counter
+* take dirty pot from dining table
+* take wet azure skirt from dining chair
+
+Answer (in json form: {"consideration": string, "action": string}):
+
+
+
+{'consideration': 'I need to find a suitable place to put the milk. The fridge seems like the right place, but I need to figure out how to interact with it properly.', 'action': 'examine fridge'}
+
+
+
+Task: You are a text game player, your goal is to put things in there proper locations and improve your score. You can only perform one action at a time. Answer in json form: {"consideration": string, "action": string}.
+Action history: Action 0: put milk on patio table -> You put the milk on the patio table.Wrong position, you should put it somewhere else, maybe the other room. Action 1: take milk from patio table -> You take the milk from the patio table. Action 2: put milk on workbench -> You put the milk on the workbench.Wrong position, you should put it somewhere else, maybe the other room. Action 3: go west -> -= Kitchen =-You find yourself in a kitchen. Action 4: examine fridge -> The fridge looks solid. You can see inside it. Action 5: open fridge -> COMMAND NOT EXECUTABLE. You should try other commands! Action 6: examine fridge -> The fridge looks solid. You can see inside it. Action 7: put milk in fridge -> COMMAND NOT EXECUTABLE. You should try other commands! Action 8: examine fridge -> The fridge looks solid. You can see inside it. Action 9: look -> -= Kitchen =-You find yourself in a kitchen. Action 10: examine kitchen cupboard -> The kitchen cupboard looks commanding. You can see inside it. Action 11: examine kitchen cupboard -> The kitchen cupboard looks commanding. You can see inside it. Action 12: examine counter -> The counter is unstable.On the counter is a dirty cake slice. Action 13: examine fridge -> The fridge looks solid. You can see inside it. Action 14: examine fridge -> The fridge looks solid. You can see inside it. Action 15: examine kitchen cupboard -> The kitchen cupboard looks commanding. You can see inside it. Action 16: examine fridge -> The fridge looks solid. You can see inside it. Action 17: examine fridge -> The fridge looks solid. You can see inside it. Action 18: examine fridge -> The fridge looks solid. You can see inside it. Action 19: examine kitchen cupboard -> The kitchen cupboard looks commanding. You can see inside it. Action 20: examine fridge -> The fridge looks solid. You can see inside it. Action 21: examine fridge -> The fridge looks solid. You can see inside it. 
+Inventory: You are carrying nothing.
+Environment: Kitchen[fridge, kitchen cupboard, cutlery drawer, dishwasher, trash can, oven, dining table[dirty pot], ladderback chair, counter[dirty cake slice], stove, dining chair[wet azure skirt], sliding patio door]
+Available actions:
+* close cutlery drawer
+* close dishwasher
+* close fridge
+* close kitchen cupboard
+* close oven
+* close sliding patio door
+* close trash can
+* examine counter
+* examine cutlery drawer
+* examine dining chair
+* examine dining table
+* examine dirty cake slice
+* examine dirty pot
+* examine dishwasher
+* examine fridge
+* examine kitchen cupboard
+* examine ladderback chair
+* examine oven
+* examine stove
+* examine trash can
+* examine wet azure skirt
+* go east
+* look
+* take dirty cake slice from counter
+* take dirty pot from dining table
+* take wet azure skirt from dining chair
+
+Answer (in json form: {"consideration": string, "action": string}):
+
+
+
+{'consideration': 'I need to find a place to put the milk, and the fridge seems like the most logical place. However, I need to figure out how to interact with it properly.', 'action': 'examine fridge'}
+
+
+

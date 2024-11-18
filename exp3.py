@@ -53,7 +53,6 @@ def test_mini_simplified(hard_test_index = 0, filename_prefix = ''):
     caller.act_until_error(None)
     return caller
 
-# TODO
 def test_mini_simple_desc_only(hard_test_index = 0, filename_prefix = ''):
     from llm_simplify import GPT4OMINI
     from llm_simplify_baseline import GPT_caller_simple_desc_only

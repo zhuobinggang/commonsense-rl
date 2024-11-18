@@ -53,3 +53,17 @@ caller.act_until_error(command)
 
 1. 对于环境描述 + 选项列表的精简化。
 2. 反馈增强，作为先行研究的成果被沿用。
+
+## 实验记录以及代码寻路
+
+实验结果在`TWC新论文构思中文.doc`。
+
+* gpt4o base -> `exp3.test_gpt4o_baseline`
+* gpt4o desc + actions simplify -> `exp3.test_gpt4o_simplified`
+* gpt4o desc simplify -> `exp5.test_gpt4o_desc_only_simplify`
+* claude base -> `exp3.test_claude_baseline`
+* claude desc + actions simplify -> `exp3.test_claude_simplified`
+
+# 2024.11.18 对于desc only simple的反思
+
+因为gpt系列的模型对于desc only都会降低性能，必须反思其原因。大概原因在于过于简单化的描述导致一些判断所需的信息欠缺，比如说容器开启与否。为了保留足够的信息需要考虑更加详细一点的房间信息。
