@@ -219,10 +219,16 @@ class GPT_Caller_Simplify(Claude_Caller):
         self.file_name_generate()
         self.step_counter = 0
         # Add 2024.8.9
-        self.builder = builder or Builder_Simple_Option()
         self.no_augment = False
-        self.summarize_prompt_builder = Summarization_Prompt_builder()
+        self.init_prompt_builder(builder)
+        self.init_summarize_prompt_builder()
         self.summarize_log = ''
+
+    def init_prompt_builder(self, builder):
+        self.builder = builder or Builder_Simple_Option()
+
+    def init_summarize_prompt_builder(self):
+        self.summarize_prompt_builder = Summarization_Prompt_builder()
 
     def file_name_generate(self):
         shot = 'ZERO_SHOT'

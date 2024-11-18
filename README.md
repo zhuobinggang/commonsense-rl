@@ -63,6 +63,7 @@ caller.act_until_error(command)
 * gpt4o desc simplify -> `exp5.test_gpt4o_desc_only_simplify`
 * claude base -> `exp3.test_claude_baseline`
 * claude desc + actions simplify -> `exp3.test_claude_simplified`
+* 4omini desc simple smooth -> `exp6.test_4omini_desc_only_simplify_smooth`
 
 # 2024.11.18 对于desc only simple的反思
 
