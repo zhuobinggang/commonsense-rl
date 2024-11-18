@@ -263,12 +263,15 @@ class GPT_Caller_Simplify(Claude_Caller):
                                         llm_type, verbose=verbose) # 获得the_command，可能为空
         return complete, dic, the_command
     
+    def build_prompt(self, desc, inventory, available_actions, act_obs_pairs):
+        self.builder.build(desc,
+                    inventory,
+                    available_actions,
+                    act_obs_pairs)
+    
     def __call__(self, description, inventory, available_actions,
                  action_obs_pairs, need_print = False):
-        self.builder.build(description,
-                           inventory,
-                           available_actions,
-                           action_obs_pairs)
+        self.build_prompt(description, inventory, available_actions, action_obs_pairs)
         system_msg, user_msg = self.builder.sys_usr_msg()
         complete, dic, the_command = self.quest_my_llm(system_msg,
                                              user_msg,

@@ -16,26 +16,12 @@ class GPT_caller_desc_simple_another_room(GPT_caller_simple_desc_only):
             else: # 如果已经设置过another room info，不需要重置为unknown
                 pass
 
-    def __call__(self, description, inventory, available_actions,
-                 action_obs_pairs, need_print = False):
-        self.builder.build(description,
+    def build_prompt(self, desc, inventory, available_actions, act_obs_pairs):
+        self.builder.build(desc,
                            inventory,
                            available_actions,
-                           action_obs_pairs,
+                           act_obs_pairs,
                            another_room_info=self.another_room_info)
-        system_msg, user_msg = self.builder.sys_usr_msg()
-        complete, dic, the_command = self.quest_my_llm(system_msg,
-                                             user_msg,
-                                             self.gpt_type) # 获得the_command，可能为空
-        if the_command is None:
-            print('__call__(): QUEST LLM GET NONE COMMAND, THE RESPONSE DIC IS BELOW, I WILL TRY IT AGAIN!')
-            print(dic)
-        if self.env is not None:
-            self.env.env.system_user_msgs.append(system_msg + user_msg) # 2024.11.9: 不管command是否为空，都存储sys, user信息，这个可以用于再次请求才对。
-            self.env.env.gpt_responses.append(complete)
-            self.env.env.readable_log += (system_msg + user_msg + '\n\n\n' +
-                                          str(dic['response']) + '\n\n\n\n')
-        return the_command
     
     def file_name_generate(self):
         shot = 'ZERO_SHOT'
