@@ -3,6 +3,8 @@ import global_variable as G
 import pyperclip
 import re
 
+CLAUDE_TYPE = 'claude-3-5-sonnet-20241022'
+
 @lru_cache(maxsize=None)
 def get_client():
     import anthropic
@@ -203,7 +205,7 @@ class Claude_Caller:
     def __init__(self,
                  env,
                  zero_shot=True,
-                 gpt_type='claude-3-5-sonnet-20241022',
+                 gpt_type=CLAUDE_TYPE,
                  cot=True,
                  one_shot_easy=False,
                  no_augment=False,

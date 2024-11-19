@@ -1,0 +1,919 @@
+Task: You are a text game player, your goal is to put things in there proper locations and improve your score. You can only perform one action at a time. Answer in json form: {"consideration": string, "action": string}.
+Action history: No action was taken now.
+Inventory: You are carrying:  some milk
+Another room: unknown
+Environment: -= Backyard =- You've entered a backyard. There's a recent BBQ with a wooden spoon on it. A typical clothesline stands empty. A patio chair holds a wet white jumper, and a stylish patio table is empty. You notice a clean pot on a nearby workbench. An open sliding patio door leads west.
+Available actions:
+* close sliding patio door
+* drop milk
+* examine BBQ
+* examine clean pot
+* examine clothesline
+* examine patio chair
+* examine patio table
+* examine wet white jumper
+* examine wooden spoon
+* examine workbench
+* go west
+* look
+* put milk on BBQ
+* put milk on clothesline
+* put milk on patio chair
+* put milk on patio table
+* put milk on workbench
+* take clean pot from workbench
+* take wet white jumper from patio chair
+* take wooden spoon from BBQ
+
+Answer (in json form: {"consideration": string, "action": string}):
+
+
+
+{'consideration': 'The milk should be placed in a location where it makes sense, such as a table or workbench. The patio table is stylish and empty, making it a suitable place for the milk.', 'action': 'put milk on patio table'}
+
+
+
+Task: You are a text game player, your goal is to put things in there proper locations and improve your score. You can only perform one action at a time. Answer in json form: {"consideration": string, "action": string}.
+Action history: Action 0: put milk on patio table -> You put the milk on the patio table.Wrong position, you should put it somewhere else, maybe the other room. 
+Inventory: You are carrying nothing.
+Another room: unknown
+Environment: -= Backyard =- You've entered a backyard. There's a recent BBQ with a wooden spoon on it. A typical clothesline stands empty. A patio chair holds a wet white jumper. Nearby, a stylish patio table has some milk on it. You also notice a workbench with a clean pot. Something scurries by, but it’s probably nothing. An open sliding patio door leads west.
+Available actions:
+* close sliding patio door
+* examine BBQ
+* examine clean pot
+* examine clothesline
+* examine milk
+* examine patio chair
+* examine patio table
+* examine wet white jumper
+* examine wooden spoon
+* examine workbench
+* go west
+* look
+* take clean pot from workbench
+* take milk from patio table
+* take wet white jumper from patio chair
+* take wooden spoon from BBQ
+
+Answer (in json form: {"consideration": string, "action": string}):
+
+
+
+{'consideration': 'The milk is in the wrong position, and I need to find a better place for it. I should explore the other room to find a suitable location.', 'action': 'go west'}
+
+
+
+Task: You are a text game player, your goal is to put things in there proper locations and improve your score. You can only perform one action at a time. Answer in json form: {"consideration": string, "action": string}.
+Action history: Action 0: put milk on patio table -> You put the milk on the patio table.Wrong position, you should put it somewhere else, maybe the other room. Action 1: go west -> -= Kitchen =-You find yourself in a kitchen. 
+Inventory: You are carrying nothing.
+Another room: -= Backyard =- You've entered a backyard. There's a recent BBQ with a wooden spoon on it. A typical clothesline stands empty. A patio chair holds a wet white jumper. Nearby, a stylish patio table has some milk on it. You also notice a workbench with a clean pot. Something scurries by, but it’s probably nothing. An open sliding patio door leads west.
+Environment: -= Kitchen =- You are in a well-lit kitchen. The fridge, cupboard, cutlery drawer, dishwasher, oven, and stove are all empty. There's a dirty pot on a large dining table and a dirty cake slice on the counter. A dining chair holds a wet azure skirt. An open sliding patio door leads east.
+Available actions:
+* close cutlery drawer
+* close dishwasher
+* close fridge
+* close kitchen cupboard
+* close oven
+* close sliding patio door
+* close trash can
+* examine counter
+* examine cutlery drawer
+* examine dining chair
+* examine dining table
+* examine dirty cake slice
+* examine dirty pot
+* examine dishwasher
+* examine fridge
+* examine kitchen cupboard
+* examine ladderback chair
+* examine oven
+* examine stove
+* examine trash can
+* examine wet azure skirt
+* go east
+* look
+* take dirty cake slice from counter
+* take dirty pot from dining table
+* take wet azure skirt from dining chair
+
+Answer (in json form: {"consideration": string, "action": string}):
+
+
+
+{'consideration': 'The kitchen has a dirty pot on the dining table, which might be useful to clean and use later. Taking it could be a good step towards organizing the kitchen.', 'action': 'take dirty pot from dining table'}
+
+
+
+Task: You are a text game player, your goal is to put things in there proper locations and improve your score. You can only perform one action at a time. Answer in json form: {"consideration": string, "action": string}.
+Action history: Action 0: put milk on patio table -> You put the milk on the patio table.Wrong position, you should put it somewhere else, maybe the other room. Action 1: go west -> -= Kitchen =-You find yourself in a kitchen. Action 2: take dirty pot from dining table -> You take the dirty pot from the dining table. 
+Inventory: You are carrying:  a dirty pot
+Another room: -= Backyard =- You've entered a backyard. There's a recent BBQ with a wooden spoon on it. A typical clothesline stands empty. A patio chair holds a wet white jumper. Nearby, a stylish patio table has some milk on it. You also notice a workbench with a clean pot. Something scurries by, but it’s probably nothing. An open sliding patio door leads west.
+Environment: -= Kitchen =- You are in a well-lit kitchen. The fridge, cupboard, cutlery drawer, dishwasher, oven, and stove are all empty. There's a massive dining table and a ladderback chair, but nothing is on them. On the counter, you see a dirty cake slice. A wet azure skirt is draped over a dining chair. An open sliding patio door leads east.
+Available actions:
+* close cutlery drawer
+* close dishwasher
+* close fridge
+* close kitchen cupboard
+* close oven
+* close sliding patio door
+* close trash can
+* drop dirty pot
+* examine counter
+* examine cutlery drawer
+* examine dining chair
+* examine dining table
+* examine dirty cake slice
+* examine dishwasher
+* examine fridge
+* examine kitchen cupboard
+* examine ladderback chair
+* examine oven
+* examine stove
+* examine trash can
+* examine wet azure skirt
+* go east
+* insert dirty pot into cutlery drawer
+* insert dirty pot into dishwasher
+* insert dirty pot into fridge
+* insert dirty pot into kitchen cupboard
+* insert dirty pot into oven
+* insert dirty pot into trash can
+* look
+* put dirty pot on counter
+* put dirty pot on dining chair
+* put dirty pot on dining table
+* put dirty pot on ladderback chair
+* put dirty pot on stove
+* take dirty cake slice from counter
+* take wet azure skirt from dining chair
+
+Answer (in json form: {"consideration": string, "action": string}):
+
+
+
+{'consideration': 'The dirty pot should be cleaned, and the dishwasher is the most appropriate place for it.', 'action': 'insert dirty pot into dishwasher'}
+
+
+
+Task: You are a text game player, your goal is to put things in there proper locations and improve your score. You can only perform one action at a time. Answer in json form: {"consideration": string, "action": string}.
+Action history: Action 0: put milk on patio table -> You put the milk on the patio table.Wrong position, you should put it somewhere else, maybe the other room. Action 1: go west -> -= Kitchen =-You find yourself in a kitchen. Action 2: take dirty pot from dining table -> You take the dirty pot from the dining table. Action 3: insert dirty pot into dishwasher -> You put the dirty pot into the dishwasher.Your score has just gone up by one point.Right position. 
+Inventory: You are carrying nothing.
+Another room: -= Backyard =- You've entered a backyard. There's a recent BBQ with a wooden spoon on it. A typical clothesline stands empty. A patio chair holds a wet white jumper. Nearby, a stylish patio table has some milk on it. You also notice a workbench with a clean pot. Something scurries by, but it’s probably nothing. An open sliding patio door leads west.
+Environment: -= Kitchen =- You are in a well-lit kitchen. The fridge is empty, and so is the kitchen cupboard. Behind you is a cutlery drawer, also empty. By the wall, there's a dishwasher with a dirty pot inside. Nearby, an open trash can is empty as well. The oven is empty too. A large dining table sits in the room, but it's bare. A ladderback chair and a dining chair with a wet azure skirt are present. There's a conventional stove with nothing on it. An open sliding patio door leads east.
+Available actions:
+* close cutlery drawer
+* close dishwasher
+* close fridge
+* close kitchen cupboard
+* close oven
+* close sliding patio door
+* close trash can
+* examine counter
+* examine cutlery drawer
+* examine dining chair
+* examine dining table
+* examine dirty cake slice
+* examine dirty pot
+* examine dishwasher
+* examine fridge
+* examine kitchen cupboard
+* examine ladderback chair
+* examine oven
+* examine stove
+* examine trash can
+* examine wet azure skirt
+* go east
+* look
+* take dirty cake slice from counter
+* take dirty pot from dishwasher
+* take wet azure skirt from dining chair
+
+Answer (in json form: {"consideration": string, "action": string}):
+
+
+
+{'consideration': 'I should explore the backyard to find the proper location for the milk and possibly other items.', 'action': 'go east'}
+
+
+
+Task: You are a text game player, your goal is to put things in there proper locations and improve your score. You can only perform one action at a time. Answer in json form: {"consideration": string, "action": string}.
+Action history: Action 0: put milk on patio table -> You put the milk on the patio table.Wrong position, you should put it somewhere else, maybe the other room. Action 1: go west -> -= Kitchen =-You find yourself in a kitchen. Action 2: take dirty pot from dining table -> You take the dirty pot from the dining table. Action 3: insert dirty pot into dishwasher -> You put the dirty pot into the dishwasher.Your score has just gone up by one point.Right position. Action 4: go east -> -= Backyard =-You've entered a backyard. 
+Inventory: You are carrying nothing.
+Another room: -= Kitchen =- You are in a well-lit kitchen. The fridge is empty, and so is the kitchen cupboard. Behind you is a cutlery drawer, also empty. By the wall, there's a dishwasher with a dirty pot inside. Nearby, an open trash can is empty as well. The oven is empty too. A large dining table sits in the room, but it's bare. A ladderback chair and a dining chair with a wet azure skirt are present. There's a conventional stove with nothing on it. An open sliding patio door leads east.
+Environment: -= Backyard =- You've entered a backyard. There's a recent BBQ with a wooden spoon on it. A typical clothesline stands empty. A patio chair holds a wet white jumper. Nearby, a stylish patio table has some milk on it. You also notice a workbench with a clean pot. Something scurries by, but it’s probably nothing. An open sliding patio door leads west.
+Available actions:
+* close sliding patio door
+* examine BBQ
+* examine clean pot
+* examine clothesline
+* examine milk
+* examine patio chair
+* examine patio table
+* examine wet white jumper
+* examine wooden spoon
+* examine workbench
+* go west
+* look
+* take clean pot from workbench
+* take milk from patio table
+* take wet white jumper from patio chair
+* take wooden spoon from BBQ
+
+Answer (in json form: {"consideration": string, "action": string}):
+
+
+
+{'consideration': 'The clean pot on the workbench might belong in the kitchen, possibly in the dishwasher or on the stove. Moving it could increase my score.', 'action': 'take clean pot from workbench'}
+
+
+
+Task: You are a text game player, your goal is to put things in there proper locations and improve your score. You can only perform one action at a time. Answer in json form: {"consideration": string, "action": string}.
+Action history: Action 0: put milk on patio table -> You put the milk on the patio table.Wrong position, you should put it somewhere else, maybe the other room. Action 1: go west -> -= Kitchen =-You find yourself in a kitchen. Action 2: take dirty pot from dining table -> You take the dirty pot from the dining table. Action 3: insert dirty pot into dishwasher -> You put the dirty pot into the dishwasher.Your score has just gone up by one point.Right position. Action 4: go east -> -= Backyard =-You've entered a backyard. Action 5: take clean pot from workbench -> You take the clean pot from the workbench. 
+Inventory: You are carrying:  a clean pot
+Another room: -= Kitchen =- You are in a well-lit kitchen. The fridge is empty, and so is the kitchen cupboard. Behind you is a cutlery drawer, also empty. By the wall, there's a dishwasher with a dirty pot inside. Nearby, an open trash can is empty as well. The oven is empty too. A large dining table sits in the room, but it's bare. A ladderback chair and a dining chair with a wet azure skirt are present. There's a conventional stove with nothing on it. An open sliding patio door leads east.
+Environment: -= Backyard =- You've entered a backyard. There's a recent BBQ with a wooden spoon on it. A typical clothesline stands empty. A patio chair holds a wet white jumper. Nearby, a stylish patio table has some milk on it. There's also a workbench, but it's empty. An open sliding patio door leads west.
+Available actions:
+* close sliding patio door
+* drop clean pot
+* examine BBQ
+* examine clothesline
+* examine milk
+* examine patio chair
+* examine patio table
+* examine wet white jumper
+* examine wooden spoon
+* examine workbench
+* go west
+* look
+* put clean pot on BBQ
+* put clean pot on clothesline
+* put clean pot on patio chair
+* put clean pot on patio table
+* put clean pot on workbench
+* take milk from patio table
+* take wet white jumper from patio chair
+* take wooden spoon from BBQ
+
+Answer (in json form: {"consideration": string, "action": string}):
+
+
+
+{'consideration': "The clean pot should be placed in a location where it makes sense, possibly in the kitchen. However, since I'm currently in the backyard, I should focus on actions that can improve my score here. The wooden spoon on the BBQ might be out of place and could be useful elsewhere.", 'action': 'take wooden spoon from BBQ'}
+
+
+
+Task: You are a text game player, your goal is to put things in there proper locations and improve your score. You can only perform one action at a time. Answer in json form: {"consideration": string, "action": string}.
+Action history: Action 0: put milk on patio table -> You put the milk on the patio table.Wrong position, you should put it somewhere else, maybe the other room. Action 1: go west -> -= Kitchen =-You find yourself in a kitchen. Action 2: take dirty pot from dining table -> You take the dirty pot from the dining table. Action 3: insert dirty pot into dishwasher -> You put the dirty pot into the dishwasher.Your score has just gone up by one point.Right position. Action 4: go east -> -= Backyard =-You've entered a backyard. Action 5: take clean pot from workbench -> You take the clean pot from the workbench. Action 6: take wooden spoon from BBQ -> You take the wooden spoon from the BBQ. 
+Inventory: You are carrying:  a wooden spoon  a clean pot
+Another room: -= Kitchen =- You are in a well-lit kitchen. The fridge is empty, and so is the kitchen cupboard. Behind you is a cutlery drawer, also empty. By the wall, there's a dishwasher with a dirty pot inside. Nearby, an open trash can is empty as well. The oven is empty too. A large dining table sits in the room, but it's bare. A ladderback chair and a dining chair with a wet azure skirt are present. There's a conventional stove with nothing on it. An open sliding patio door leads east.
+Environment: -= Backyard =- You've entered a backyard. There's a recent BBQ, but it's empty. A typical clothesline is also empty. You notice a patio chair with a wet white jumper on it. Nearby, there's a stylish patio table with some milk on it. A workbench sits nearby, but it's empty. An open sliding patio door leads west.
+Available actions:
+* close sliding patio door
+* drop clean pot
+* drop wooden spoon
+* examine BBQ
+* examine clothesline
+* examine milk
+* examine patio chair
+* examine patio table
+* examine wet white jumper
+* examine workbench
+* go west
+* look
+* put clean pot on BBQ
+* put clean pot on clothesline
+* put clean pot on patio chair
+* put clean pot on patio table
+* put clean pot on workbench
+* put wooden spoon on BBQ
+* put wooden spoon on clothesline
+* put wooden spoon on patio chair
+* put wooden spoon on patio table
+* put wooden spoon on workbench
+* take milk from patio table
+* take wet white jumper from patio chair
+
+Answer (in json form: {"consideration": string, "action": string}):
+
+
+
+{'consideration': 'The clean pot should be placed in a location where it makes sense, such as the kitchen. Since the kitchen is west, I should go there to find a suitable spot for the clean pot.', 'action': 'go west'}
+
+
+
+Task: You are a text game player, your goal is to put things in there proper locations and improve your score. You can only perform one action at a time. Answer in json form: {"consideration": string, "action": string}.
+Action history: Action 0: put milk on patio table -> You put the milk on the patio table.Wrong position, you should put it somewhere else, maybe the other room. Action 1: go west -> -= Kitchen =-You find yourself in a kitchen. Action 2: take dirty pot from dining table -> You take the dirty pot from the dining table. Action 3: insert dirty pot into dishwasher -> You put the dirty pot into the dishwasher.Your score has just gone up by one point.Right position. Action 4: go east -> -= Backyard =-You've entered a backyard. Action 5: take clean pot from workbench -> You take the clean pot from the workbench. Action 6: take wooden spoon from BBQ -> You take the wooden spoon from the BBQ. Action 7: go west -> -= Kitchen =-You find yourself in a kitchen. 
+Inventory: You are carrying:  a wooden spoon  a clean pot
+Another room: -= Backyard =- You've entered a backyard. There's a recent BBQ, but it's empty. A typical clothesline is also empty. You notice a patio chair with a wet white jumper on it. Nearby, there's a stylish patio table with some milk on it. A workbench sits nearby, but it's empty. An open sliding patio door leads west.
+Environment: -= Kitchen =- You are in a well-lit kitchen. The fridge is empty, and so is the cupboard. There's a cutlery drawer, but it's also empty. By the wall, there's a dishwasher with a dirty pot inside. The nearby trash can is empty too. The oven is empty, and the large dining table has nothing on it. A ladderback chair sits nearby, also empty. On the counter, there's a dirty cake slice. The conventional stove has nothing on it. A dining chair holds a wet azure skirt. An open sliding patio door leads east.
+Available actions:
+* close cutlery drawer
+* close dishwasher
+* close fridge
+* close kitchen cupboard
+* close oven
+* close sliding patio door
+* close trash can
+* drop clean pot
+* drop wooden spoon
+* examine counter
+* examine cutlery drawer
+* examine dining chair
+* examine dining table
+* examine dirty cake slice
+* examine dirty pot
+* examine dishwasher
+* examine fridge
+* examine kitchen cupboard
+* examine ladderback chair
+* examine oven
+* examine stove
+* examine trash can
+* examine wet azure skirt
+* go east
+* insert clean pot into cutlery drawer
+* insert clean pot into dishwasher
+* insert clean pot into fridge
+* insert clean pot into kitchen cupboard
+* insert clean pot into oven
+* insert clean pot into trash can
+* insert wooden spoon into cutlery drawer
+* insert wooden spoon into dishwasher
+* insert wooden spoon into fridge
+* insert wooden spoon into kitchen cupboard
+* insert wooden spoon into oven
+* insert wooden spoon into trash can
+* look
+* put clean pot on counter
+* put clean pot on dining chair
+* put clean pot on dining table
+* put clean pot on ladderback chair
+* put clean pot on stove
+* put wooden spoon on counter
+* put wooden spoon on dining chair
+* put wooden spoon on dining table
+* put wooden spoon on ladderback chair
+* put wooden spoon on stove
+* take dirty cake slice from counter
+* take dirty pot from dishwasher
+* take wet azure skirt from dining chair
+
+Answer (in json form: {"consideration": string, "action": string}):
+
+
+
+{'consideration': 'The clean pot should be stored in a place where clean kitchenware is typically kept. The kitchen cupboard is a suitable location for storing clean pots.', 'action': 'insert clean pot into kitchen cupboard'}
+
+
+
+Task: You are a text game player, your goal is to put things in there proper locations and improve your score. You can only perform one action at a time. Answer in json form: {"consideration": string, "action": string}.
+Action history: Action 0: put milk on patio table -> You put the milk on the patio table.Wrong position, you should put it somewhere else, maybe the other room. Action 1: go west -> -= Kitchen =-You find yourself in a kitchen. Action 2: take dirty pot from dining table -> You take the dirty pot from the dining table. Action 3: insert dirty pot into dishwasher -> You put the dirty pot into the dishwasher.Your score has just gone up by one point.Right position. Action 4: go east -> -= Backyard =-You've entered a backyard. Action 5: take clean pot from workbench -> You take the clean pot from the workbench. Action 6: take wooden spoon from BBQ -> You take the wooden spoon from the BBQ. Action 7: go west -> -= Kitchen =-You find yourself in a kitchen. Action 8: insert clean pot into kitchen cupboard -> You put the clean pot into the kitchen cupboard.Your score has just gone up by one point.Right position. 
+Inventory: You are carrying:  a wooden spoon
+Another room: -= Backyard =- You've entered a backyard. There's a recent BBQ, but it's empty. A typical clothesline is also empty. You notice a patio chair with a wet white jumper on it. Nearby, there's a stylish patio table with some milk on it. A workbench sits nearby, but it's empty. An open sliding patio door leads west.
+Environment: -= Kitchen =- You are in a well-lit kitchen. There's an empty fridge, a clean pot in the cupboard, and a cutlery drawer that is also empty. A dishwasher by the wall contains a dirty pot. Nearby, an open trash can is empty as well. The oven is empty too. A large dining table has nothing on it, and a ladderback chair is unoccupied. On the counter, you see a dirty cake slice. The conventional stove is empty, and a dining chair holds a wet azure skirt. An open sliding patio door leads east.
+Available actions:
+* close cutlery drawer
+* close dishwasher
+* close fridge
+* close kitchen cupboard
+* close oven
+* close sliding patio door
+* close trash can
+* drop wooden spoon
+* examine clean pot
+* examine counter
+* examine cutlery drawer
+* examine dining chair
+* examine dining table
+* examine dirty cake slice
+* examine dirty pot
+* examine dishwasher
+* examine fridge
+* examine kitchen cupboard
+* examine ladderback chair
+* examine oven
+* examine stove
+* examine trash can
+* examine wet azure skirt
+* go east
+* insert wooden spoon into cutlery drawer
+* insert wooden spoon into dishwasher
+* insert wooden spoon into fridge
+* insert wooden spoon into kitchen cupboard
+* insert wooden spoon into oven
+* insert wooden spoon into trash can
+* look
+* put wooden spoon on counter
+* put wooden spoon on dining chair
+* put wooden spoon on dining table
+* put wooden spoon on ladderback chair
+* put wooden spoon on stove
+* take clean pot from kitchen cupboard
+* take dirty cake slice from counter
+* take dirty pot from dishwasher
+* take wet azure skirt from dining chair
+
+Answer (in json form: {"consideration": string, "action": string}):
+
+
+
+{'consideration': 'The wooden spoon should be placed in the cutlery drawer, as it is the most appropriate location for it.', 'action': 'insert wooden spoon into cutlery drawer'}
+
+
+
+Task: You are a text game player, your goal is to put things in there proper locations and improve your score. You can only perform one action at a time. Answer in json form: {"consideration": string, "action": string}.
+Action history: Action 0: put milk on patio table -> You put the milk on the patio table.Wrong position, you should put it somewhere else, maybe the other room. Action 1: go west -> -= Kitchen =-You find yourself in a kitchen. Action 2: take dirty pot from dining table -> You take the dirty pot from the dining table. Action 3: insert dirty pot into dishwasher -> You put the dirty pot into the dishwasher.Your score has just gone up by one point.Right position. Action 4: go east -> -= Backyard =-You've entered a backyard. Action 5: take clean pot from workbench -> You take the clean pot from the workbench. Action 6: take wooden spoon from BBQ -> You take the wooden spoon from the BBQ. Action 7: go west -> -= Kitchen =-You find yourself in a kitchen. Action 8: insert clean pot into kitchen cupboard -> You put the clean pot into the kitchen cupboard.Your score has just gone up by one point.Right position. Action 9: insert wooden spoon into cutlery drawer -> You put the wooden spoon into the cutlery drawer.Your score has just gone up by one point.Right position. 
+Inventory: You are carrying nothing.
+Another room: -= Backyard =- You've entered a backyard. There's a recent BBQ, but it's empty. A typical clothesline is also empty. You notice a patio chair with a wet white jumper on it. Nearby, there's a stylish patio table with some milk on it. A workbench sits nearby, but it's empty. An open sliding patio door leads west.
+Environment: You are in a well-lit kitchen. There's an empty fridge, a cupboard with a clean pot, and a cutlery drawer with a wooden spoon. A dishwasher by the wall contains a dirty pot. Nearby, an empty trash can and an empty oven add to the disappointment. A massive dining table and a ladderback chair sit unused. On the counter, there's a dirty cake slice, and a conventional stove is also empty. A dining chair holds a wet azure skirt. An open sliding patio door leads east.
+Available actions:
+* close cutlery drawer
+* close dishwasher
+* close fridge
+* close kitchen cupboard
+* close oven
+* close sliding patio door
+* close trash can
+* examine clean pot
+* examine counter
+* examine cutlery drawer
+* examine dining chair
+* examine dining table
+* examine dirty cake slice
+* examine dirty pot
+* examine dishwasher
+* examine fridge
+* examine kitchen cupboard
+* examine ladderback chair
+* examine oven
+* examine stove
+* examine trash can
+* examine wet azure skirt
+* examine wooden spoon
+* go east
+* look
+* take clean pot from kitchen cupboard
+* take dirty cake slice from counter
+* take dirty pot from dishwasher
+* take wet azure skirt from dining chair
+* take wooden spoon from cutlery drawer
+
+Answer (in json form: {"consideration": string, "action": string}):
+
+
+
+{'consideration': 'The wet azure skirt on the dining chair might need to be moved to the backyard to dry on the clothesline.', 'action': 'take wet azure skirt from dining chair'}
+
+
+
+Task: You are a text game player, your goal is to put things in there proper locations and improve your score. You can only perform one action at a time. Answer in json form: {"consideration": string, "action": string}.
+Action history: Action 0: put milk on patio table -> You put the milk on the patio table.Wrong position, you should put it somewhere else, maybe the other room. Action 1: go west -> -= Kitchen =-You find yourself in a kitchen. Action 2: take dirty pot from dining table -> You take the dirty pot from the dining table. Action 3: insert dirty pot into dishwasher -> You put the dirty pot into the dishwasher.Your score has just gone up by one point.Right position. Action 4: go east -> -= Backyard =-You've entered a backyard. Action 5: take clean pot from workbench -> You take the clean pot from the workbench. Action 6: take wooden spoon from BBQ -> You take the wooden spoon from the BBQ. Action 7: go west -> -= Kitchen =-You find yourself in a kitchen. Action 8: insert clean pot into kitchen cupboard -> You put the clean pot into the kitchen cupboard.Your score has just gone up by one point.Right position. Action 9: insert wooden spoon into cutlery drawer -> You put the wooden spoon into the cutlery drawer.Your score has just gone up by one point.Right position. Action 10: take wet azure skirt from dining chair -> You take the wet azure skirt from the dining chair. 
+Inventory: You are carrying:  a wet azure skirt
+Another room: -= Backyard =- You've entered a backyard. There's a recent BBQ, but it's empty. A typical clothesline is also empty. You notice a patio chair with a wet white jumper on it. Nearby, there's a stylish patio table with some milk on it. A workbench sits nearby, but it's empty. An open sliding patio door leads west.
+Environment: You are in a well-lit kitchen. There's an empty fridge, a cupboard with a clean pot, and a cutlery drawer with a wooden spoon. A dishwasher holds a dirty pot, and an empty trash can sits nearby. The oven is also empty. A large dining table and a ladderback chair are present, but neither has anything on them. The counter has a dirty cake slice, and there's a conventional stove with nothing on it. An open sliding patio door leads east.
+Available actions:
+* close cutlery drawer
+* close dishwasher
+* close fridge
+* close kitchen cupboard
+* close oven
+* close sliding patio door
+* close trash can
+* drop wet azure skirt
+* examine clean pot
+* examine counter
+* examine cutlery drawer
+* examine dining chair
+* examine dining table
+* examine dirty cake slice
+* examine dirty pot
+* examine dishwasher
+* examine fridge
+* examine kitchen cupboard
+* examine ladderback chair
+* examine oven
+* examine stove
+* examine trash can
+* examine wooden spoon
+* go east
+* insert wet azure skirt into cutlery drawer
+* insert wet azure skirt into dishwasher
+* insert wet azure skirt into fridge
+* insert wet azure skirt into kitchen cupboard
+* insert wet azure skirt into oven
+* insert wet azure skirt into trash can
+* look
+* put wet azure skirt on counter
+* put wet azure skirt on dining chair
+* put wet azure skirt on dining table
+* put wet azure skirt on ladderback chair
+* put wet azure skirt on stove
+* take clean pot from kitchen cupboard
+* take dirty cake slice from counter
+* take dirty pot from dishwasher
+* take wooden spoon from cutlery drawer
+
+Answer (in json form: {"consideration": string, "action": string}):
+
+
+
+{'consideration': 'The wet azure skirt should be placed on the clothesline in the backyard to dry, as it is currently wet.', 'action': 'go east'}
+
+
+
+Task: You are a text game player, your goal is to put things in there proper locations and improve your score. You can only perform one action at a time. Answer in json form: {"consideration": string, "action": string}.
+Action history: Action 0: put milk on patio table -> You put the milk on the patio table.Wrong position, you should put it somewhere else, maybe the other room. Action 1: go west -> -= Kitchen =-You find yourself in a kitchen. Action 2: take dirty pot from dining table -> You take the dirty pot from the dining table. Action 3: insert dirty pot into dishwasher -> You put the dirty pot into the dishwasher.Your score has just gone up by one point.Right position. Action 4: go east -> -= Backyard =-You've entered a backyard. Action 5: take clean pot from workbench -> You take the clean pot from the workbench. Action 6: take wooden spoon from BBQ -> You take the wooden spoon from the BBQ. Action 7: go west -> -= Kitchen =-You find yourself in a kitchen. Action 8: insert clean pot into kitchen cupboard -> You put the clean pot into the kitchen cupboard.Your score has just gone up by one point.Right position. Action 9: insert wooden spoon into cutlery drawer -> You put the wooden spoon into the cutlery drawer.Your score has just gone up by one point.Right position. Action 10: take wet azure skirt from dining chair -> You take the wet azure skirt from the dining chair. Action 11: go east -> -= Backyard =-You've entered a backyard. 
+Inventory: You are carrying:  a wet azure skirt
+Another room: You are in a well-lit kitchen. There's an empty fridge, a cupboard with a clean pot, and a cutlery drawer with a wooden spoon. A dishwasher holds a dirty pot, and an empty trash can sits nearby. The oven is also empty. A large dining table and a ladderback chair are present, but neither has anything on them. The counter has a dirty cake slice, and there's a conventional stove with nothing on it. An open sliding patio door leads east.
+Environment: -= Backyard =- You've entered a backyard. There's a recent BBQ, but it's empty. A typical clothesline is also empty. You notice a patio chair with a wet white jumper on it, and a stylish patio table with some milk. There's a workbench nearby, but it's empty too. An open sliding patio door leads west.
+Available actions:
+* close sliding patio door
+* drop wet azure skirt
+* examine BBQ
+* examine clothesline
+* examine milk
+* examine patio chair
+* examine patio table
+* examine wet white jumper
+* examine workbench
+* go west
+* look
+* put wet azure skirt on BBQ
+* put wet azure skirt on clothesline
+* put wet azure skirt on patio chair
+* put wet azure skirt on patio table
+* put wet azure skirt on workbench
+* take milk from patio table
+* take wet white jumper from patio chair
+
+Answer (in json form: {"consideration": string, "action": string}):
+
+
+
+{'consideration': 'The wet azure skirt should be placed on the clothesline to dry, which is the most logical location for wet clothing.', 'action': 'put wet azure skirt on clothesline'}
+
+
+
+Task: You are a text game player, your goal is to put things in there proper locations and improve your score. You can only perform one action at a time. Answer in json form: {"consideration": string, "action": string}.
+Action history: Action 0: put milk on patio table -> You put the milk on the patio table.Wrong position, you should put it somewhere else, maybe the other room. Action 1: go west -> -= Kitchen =-You find yourself in a kitchen. Action 2: take dirty pot from dining table -> You take the dirty pot from the dining table. Action 3: insert dirty pot into dishwasher -> You put the dirty pot into the dishwasher.Your score has just gone up by one point.Right position. Action 4: go east -> -= Backyard =-You've entered a backyard. Action 5: take clean pot from workbench -> You take the clean pot from the workbench. Action 6: take wooden spoon from BBQ -> You take the wooden spoon from the BBQ. Action 7: go west -> -= Kitchen =-You find yourself in a kitchen. Action 8: insert clean pot into kitchen cupboard -> You put the clean pot into the kitchen cupboard.Your score has just gone up by one point.Right position. Action 9: insert wooden spoon into cutlery drawer -> You put the wooden spoon into the cutlery drawer.Your score has just gone up by one point.Right position. Action 10: take wet azure skirt from dining chair -> You take the wet azure skirt from the dining chair. Action 11: go east -> -= Backyard =-You've entered a backyard. Action 12: put wet azure skirt on clothesline -> You put the wet azure skirt on the clothesline.Your score has just gone up by one point.Right position. 
+Inventory: You are carrying nothing.
+Another room: You are in a well-lit kitchen. There's an empty fridge, a cupboard with a clean pot, and a cutlery drawer with a wooden spoon. A dishwasher holds a dirty pot, and an empty trash can sits nearby. The oven is also empty. A large dining table and a ladderback chair are present, but neither has anything on them. The counter has a dirty cake slice, and there's a conventional stove with nothing on it. An open sliding patio door leads east.
+Environment: -= Backyard =- You've entered a backyard. There's a recent BBQ, but it's empty. A typical clothesline holds a wet azure skirt. Nearby, a patio chair has a wet white jumper on it. A stylish patio table has some milk on it. There's also a workbench, but it's empty. An open sliding patio door leads west.
+Available actions:
+* close sliding patio door
+* examine BBQ
+* examine clothesline
+* examine milk
+* examine patio chair
+* examine patio table
+* examine wet azure skirt
+* examine wet white jumper
+* examine workbench
+* go west
+* look
+* take milk from patio table
+* take wet azure skirt from clothesline
+* take wet white jumper from patio chair
+
+Answer (in json form: {"consideration": string, "action": string}):
+
+
+
+{'consideration': 'The milk is currently on the patio table, which is not the correct position. I should take the milk and find a more appropriate place for it.', 'action': 'take milk from patio table'}
+
+
+
+Task: You are a text game player, your goal is to put things in there proper locations and improve your score. You can only perform one action at a time. Answer in json form: {"consideration": string, "action": string}.
+Action history: Action 0: put milk on patio table -> You put the milk on the patio table.Wrong position, you should put it somewhere else, maybe the other room. Action 1: go west -> -= Kitchen =-You find yourself in a kitchen. Action 2: take dirty pot from dining table -> You take the dirty pot from the dining table. Action 3: insert dirty pot into dishwasher -> You put the dirty pot into the dishwasher.Your score has just gone up by one point.Right position. Action 4: go east -> -= Backyard =-You've entered a backyard. Action 5: take clean pot from workbench -> You take the clean pot from the workbench. Action 6: take wooden spoon from BBQ -> You take the wooden spoon from the BBQ. Action 7: go west -> -= Kitchen =-You find yourself in a kitchen. Action 8: insert clean pot into kitchen cupboard -> You put the clean pot into the kitchen cupboard.Your score has just gone up by one point.Right position. Action 9: insert wooden spoon into cutlery drawer -> You put the wooden spoon into the cutlery drawer.Your score has just gone up by one point.Right position. Action 10: take wet azure skirt from dining chair -> You take the wet azure skirt from the dining chair. Action 11: go east -> -= Backyard =-You've entered a backyard. Action 12: put wet azure skirt on clothesline -> You put the wet azure skirt on the clothesline.Your score has just gone up by one point.Right position. Action 13: take milk from patio table -> You take the milk from the patio table. 
+Inventory: You are carrying:  some milk
+Another room: You are in a well-lit kitchen. There's an empty fridge, a cupboard with a clean pot, and a cutlery drawer with a wooden spoon. A dishwasher holds a dirty pot, and an empty trash can sits nearby. The oven is also empty. A large dining table and a ladderback chair are present, but neither has anything on them. The counter has a dirty cake slice, and there's a conventional stove with nothing on it. An open sliding patio door leads east.
+Environment: -= Backyard =- You've entered a backyard. There's a recent BBQ, but it's empty. A typical clothesline holds a wet azure skirt. Nearby, a patio chair has a wet white jumper on it. A stylish patio table stands empty. There's also a workbench with nothing on it. An open sliding patio door leads west.
+Available actions:
+* close sliding patio door
+* drop milk
+* examine BBQ
+* examine clothesline
+* examine patio chair
+* examine patio table
+* examine wet azure skirt
+* examine wet white jumper
+* examine workbench
+* go west
+* look
+* put milk on BBQ
+* put milk on clothesline
+* put milk on patio chair
+* put milk on patio table
+* put milk on workbench
+* take wet azure skirt from clothesline
+* take wet white jumper from patio chair
+
+Answer (in json form: {"consideration": string, "action": string}):
+
+
+
+{'consideration': 'The milk should be placed in the fridge in the kitchen, as it is the most appropriate location for it.', 'action': 'go west'}
+
+
+
+Task: You are a text game player, your goal is to put things in there proper locations and improve your score. You can only perform one action at a time. Answer in json form: {"consideration": string, "action": string}.
+Action history: Action 0: put milk on patio table -> You put the milk on the patio table.Wrong position, you should put it somewhere else, maybe the other room. Action 1: go west -> -= Kitchen =-You find yourself in a kitchen. Action 2: take dirty pot from dining table -> You take the dirty pot from the dining table. Action 3: insert dirty pot into dishwasher -> You put the dirty pot into the dishwasher.Your score has just gone up by one point.Right position. Action 4: go east -> -= Backyard =-You've entered a backyard. Action 5: take clean pot from workbench -> You take the clean pot from the workbench. Action 6: take wooden spoon from BBQ -> You take the wooden spoon from the BBQ. Action 7: go west -> -= Kitchen =-You find yourself in a kitchen. Action 8: insert clean pot into kitchen cupboard -> You put the clean pot into the kitchen cupboard.Your score has just gone up by one point.Right position. Action 9: insert wooden spoon into cutlery drawer -> You put the wooden spoon into the cutlery drawer.Your score has just gone up by one point.Right position. Action 10: take wet azure skirt from dining chair -> You take the wet azure skirt from the dining chair. Action 11: go east -> -= Backyard =-You've entered a backyard. Action 12: put wet azure skirt on clothesline -> You put the wet azure skirt on the clothesline.Your score has just gone up by one point.Right position. Action 13: take milk from patio table -> You take the milk from the patio table. Action 14: go west -> -= Kitchen =-You find yourself in a kitchen. 
+Inventory: You are carrying:  some milk
+Another room: -= Backyard =- You've entered a backyard. There's a recent BBQ, but it's empty. A typical clothesline holds a wet azure skirt. Nearby, a patio chair has a wet white jumper on it. A stylish patio table stands empty. There's also a workbench with nothing on it. An open sliding patio door leads west.
+Environment: You are in a well-lit kitchen. There's an empty fridge, a cupboard with a clean pot, and a cutlery drawer with a wooden spoon. A dishwasher holds a dirty pot, and the trash can is empty. The oven is also empty. A large dining table and a ladderback chair sit nearby, both without anything on them. The counter has a dirty cake slice, and there's a conventional stove with nothing on it. An open sliding patio door leads east.
+Available actions:
+* close cutlery drawer
+* close dishwasher
+* close fridge
+* close kitchen cupboard
+* close oven
+* close sliding patio door
+* close trash can
+* drop milk
+* examine clean pot
+* examine counter
+* examine cutlery drawer
+* examine dining chair
+* examine dining table
+* examine dirty cake slice
+* examine dirty pot
+* examine dishwasher
+* examine fridge
+* examine kitchen cupboard
+* examine ladderback chair
+* examine oven
+* examine stove
+* examine trash can
+* examine wooden spoon
+* go east
+* insert milk into cutlery drawer
+* insert milk into dishwasher
+* insert milk into fridge
+* insert milk into kitchen cupboard
+* insert milk into oven
+* insert milk into trash can
+* look
+* put milk on counter
+* put milk on dining chair
+* put milk on dining table
+* put milk on ladderback chair
+* put milk on stove
+* take clean pot from kitchen cupboard
+* take dirty cake slice from counter
+* take dirty pot from dishwasher
+* take wooden spoon from cutlery drawer
+
+Answer (in json form: {"consideration": string, "action": string}):
+
+
+
+{'consideration': 'The milk should be stored in a cool place to keep it fresh. The fridge is the most appropriate location for milk.', 'action': 'insert milk into fridge'}
+
+
+
+Task: You are a text game player, your goal is to put things in there proper locations and improve your score. You can only perform one action at a time. Answer in json form: {"consideration": string, "action": string}.
+Action history: Action 0: put milk on patio table -> You put the milk on the patio table.Wrong position, you should put it somewhere else, maybe the other room. Action 1: go west -> -= Kitchen =-You find yourself in a kitchen. Action 2: take dirty pot from dining table -> You take the dirty pot from the dining table. Action 3: insert dirty pot into dishwasher -> You put the dirty pot into the dishwasher.Your score has just gone up by one point.Right position. Action 4: go east -> -= Backyard =-You've entered a backyard. Action 5: take clean pot from workbench -> You take the clean pot from the workbench. Action 6: take wooden spoon from BBQ -> You take the wooden spoon from the BBQ. Action 7: go west -> -= Kitchen =-You find yourself in a kitchen. Action 8: insert clean pot into kitchen cupboard -> You put the clean pot into the kitchen cupboard.Your score has just gone up by one point.Right position. Action 9: insert wooden spoon into cutlery drawer -> You put the wooden spoon into the cutlery drawer.Your score has just gone up by one point.Right position. Action 10: take wet azure skirt from dining chair -> You take the wet azure skirt from the dining chair. Action 11: go east -> -= Backyard =-You've entered a backyard. Action 12: put wet azure skirt on clothesline -> You put the wet azure skirt on the clothesline.Your score has just gone up by one point.Right position. Action 13: take milk from patio table -> You take the milk from the patio table. Action 14: go west -> -= Kitchen =-You find yourself in a kitchen. Action 15: insert milk into fridge -> You put the milk into the fridge.Your score has just gone up by one point.Right position. 
+Inventory: You are carrying nothing.
+Another room: -= Backyard =- You've entered a backyard. There's a recent BBQ, but it's empty. A typical clothesline holds a wet azure skirt. Nearby, a patio chair has a wet white jumper on it. A stylish patio table stands empty. There's also a workbench with nothing on it. An open sliding patio door leads west.
+Environment: -= Kitchen =- You are in a well-lit kitchen. There's a fridge with milk inside, a cupboard with a clean pot, and a cutlery drawer containing a wooden spoon. A dishwasher holds a dirty pot, and an empty trash can sits nearby. The oven is also empty. A large dining table and a ladderback chair are present, but both are bare. On the counter, there's a dirty cake slice, and a conventional stove is empty as well. An open sliding patio door leads east.
+Available actions:
+* close cutlery drawer
+* close dishwasher
+* close fridge
+* close kitchen cupboard
+* close oven
+* close sliding patio door
+* close trash can
+* examine clean pot
+* examine counter
+* examine cutlery drawer
+* examine dining chair
+* examine dining table
+* examine dirty cake slice
+* examine dirty pot
+* examine dishwasher
+* examine fridge
+* examine kitchen cupboard
+* examine ladderback chair
+* examine milk
+* examine oven
+* examine stove
+* examine trash can
+* examine wooden spoon
+* go east
+* look
+* take clean pot from kitchen cupboard
+* take dirty cake slice from counter
+* take dirty pot from dishwasher
+* take milk from fridge
+* take wooden spoon from cutlery drawer
+
+Answer (in json form: {"consideration": string, "action": string}):
+
+
+
+{'consideration': 'The dirty cake slice on the counter should be placed in the trash can to improve the score.', 'action': 'take dirty cake slice from counter'}
+
+
+
+Task: You are a text game player, your goal is to put things in there proper locations and improve your score. You can only perform one action at a time. Answer in json form: {"consideration": string, "action": string}.
+Action history: Action 0: put milk on patio table -> You put the milk on the patio table.Wrong position, you should put it somewhere else, maybe the other room. Action 1: go west -> -= Kitchen =-You find yourself in a kitchen. Action 2: take dirty pot from dining table -> You take the dirty pot from the dining table. Action 3: insert dirty pot into dishwasher -> You put the dirty pot into the dishwasher.Your score has just gone up by one point.Right position. Action 4: go east -> -= Backyard =-You've entered a backyard. Action 5: take clean pot from workbench -> You take the clean pot from the workbench. Action 6: take wooden spoon from BBQ -> You take the wooden spoon from the BBQ. Action 7: go west -> -= Kitchen =-You find yourself in a kitchen. Action 8: insert clean pot into kitchen cupboard -> You put the clean pot into the kitchen cupboard.Your score has just gone up by one point.Right position. Action 9: insert wooden spoon into cutlery drawer -> You put the wooden spoon into the cutlery drawer.Your score has just gone up by one point.Right position. Action 10: take wet azure skirt from dining chair -> You take the wet azure skirt from the dining chair. Action 11: go east -> -= Backyard =-You've entered a backyard. Action 12: put wet azure skirt on clothesline -> You put the wet azure skirt on the clothesline.Your score has just gone up by one point.Right position. Action 13: take milk from patio table -> You take the milk from the patio table. Action 14: go west -> -= Kitchen =-You find yourself in a kitchen. Action 15: insert milk into fridge -> You put the milk into the fridge.Your score has just gone up by one point.Right position. Action 16: take dirty cake slice from counter -> You take the dirty cake slice from the counter. 
+Inventory: You are carrying:  a dirty cake slice
+Another room: -= Backyard =- You've entered a backyard. There's a recent BBQ, but it's empty. A typical clothesline holds a wet azure skirt. Nearby, a patio chair has a wet white jumper on it. A stylish patio table stands empty. There's also a workbench with nothing on it. An open sliding patio door leads west.
+Environment: -= Kitchen =- You are in a well-lit kitchen. There's a fridge with some milk inside. A kitchen cupboard holds a clean pot. Behind you is a cutlery drawer containing a wooden spoon. By the wall, there's a dishwasher with a dirty pot inside. An empty trash can sits nearby. The oven is also empty. A large dining table has nothing on it, and a ladderback chair is unoccupied. The counter and conventional stove are both empty as well. There's a dining chair in the room. An open sliding patio door leads east.
+Available actions:
+* close cutlery drawer
+* close dishwasher
+* close fridge
+* close kitchen cupboard
+* close oven
+* close sliding patio door
+* close trash can
+* drop dirty cake slice
+* examine clean pot
+* examine counter
+* examine cutlery drawer
+* examine dining chair
+* examine dining table
+* examine dirty pot
+* examine dishwasher
+* examine fridge
+* examine kitchen cupboard
+* examine ladderback chair
+* examine milk
+* examine oven
+* examine stove
+* examine trash can
+* examine wooden spoon
+* go east
+* insert dirty cake slice into cutlery drawer
+* insert dirty cake slice into dishwasher
+* insert dirty cake slice into fridge
+* insert dirty cake slice into kitchen cupboard
+* insert dirty cake slice into oven
+* insert dirty cake slice into trash can
+* look
+* put dirty cake slice on counter
+* put dirty cake slice on dining chair
+* put dirty cake slice on dining table
+* put dirty cake slice on ladderback chair
+* put dirty cake slice on stove
+* take clean pot from kitchen cupboard
+* take dirty pot from dishwasher
+* take milk from fridge
+* take wooden spoon from cutlery drawer
+
+Answer (in json form: {"consideration": string, "action": string}):
+
+
+
+{'consideration': 'The dirty cake slice should be disposed of properly to improve my score.', 'action': 'insert dirty cake slice into trash can'}
+
+
+
+Task: You are a text game player, your goal is to put things in there proper locations and improve your score. You can only perform one action at a time. Answer in json form: {"consideration": string, "action": string}.
+Action history: Action 0: put milk on patio table -> You put the milk on the patio table.Wrong position, you should put it somewhere else, maybe the other room. Action 1: go west -> -= Kitchen =-You find yourself in a kitchen. Action 2: take dirty pot from dining table -> You take the dirty pot from the dining table. Action 3: insert dirty pot into dishwasher -> You put the dirty pot into the dishwasher.Your score has just gone up by one point.Right position. Action 4: go east -> -= Backyard =-You've entered a backyard. Action 5: take clean pot from workbench -> You take the clean pot from the workbench. Action 6: take wooden spoon from BBQ -> You take the wooden spoon from the BBQ. Action 7: go west -> -= Kitchen =-You find yourself in a kitchen. Action 8: insert clean pot into kitchen cupboard -> You put the clean pot into the kitchen cupboard.Your score has just gone up by one point.Right position. Action 9: insert wooden spoon into cutlery drawer -> You put the wooden spoon into the cutlery drawer.Your score has just gone up by one point.Right position. Action 10: take wet azure skirt from dining chair -> You take the wet azure skirt from the dining chair. Action 11: go east -> -= Backyard =-You've entered a backyard. Action 12: put wet azure skirt on clothesline -> You put the wet azure skirt on the clothesline.Your score has just gone up by one point.Right position. Action 13: take milk from patio table -> You take the milk from the patio table. Action 14: go west -> -= Kitchen =-You find yourself in a kitchen. Action 15: insert milk into fridge -> You put the milk into the fridge.Your score has just gone up by one point.Right position. Action 16: take dirty cake slice from counter -> You take the dirty cake slice from the counter. Action 17: insert dirty cake slice into trash can -> You put the dirty cake slice into the trash can.Wrong position, you should put it somewhere else, maybe the other room. 
+Inventory: You are carrying nothing.
+Another room: -= Backyard =- You've entered a backyard. There's a recent BBQ, but it's empty. A typical clothesline holds a wet azure skirt. Nearby, a patio chair has a wet white jumper on it. A stylish patio table stands empty. There's also a workbench with nothing on it. An open sliding patio door leads west.
+Environment: -= Kitchen =- You are in a well-lit kitchen. There's a fridge with milk inside, a cupboard with a clean pot, and a cutlery drawer containing a wooden spoon. A dishwasher by the wall holds a dirty pot. Nearby, an open trash can has a dirty cake slice. The oven is empty, and the large dining table has nothing on it. A ladderback chair and a dining chair are also empty. The counter and conventional stove are both bare. An open sliding patio door leads east.
+Available actions:
+* close cutlery drawer
+* close dishwasher
+* close fridge
+* close kitchen cupboard
+* close oven
+* close sliding patio door
+* close trash can
+* examine clean pot
+* examine counter
+* examine cutlery drawer
+* examine dining chair
+* examine dining table
+* examine dirty cake slice
+* examine dirty pot
+* examine dishwasher
+* examine fridge
+* examine kitchen cupboard
+* examine ladderback chair
+* examine milk
+* examine oven
+* examine stove
+* examine trash can
+* examine wooden spoon
+* go east
+* look
+* take clean pot from kitchen cupboard
+* take dirty cake slice from trash can
+* take dirty pot from dishwasher
+* take milk from fridge
+* take wooden spoon from cutlery drawer
+
+Answer (in json form: {"consideration": string, "action": string}):
+
+
+
+{'consideration': "The dirty cake slice is in the trash can, but it was mentioned that it's in the wrong position. It might need to be washed or disposed of elsewhere. I should examine it to gather more information.", 'action': 'examine dirty cake slice'}
+
+
+
+Task: You are a text game player, your goal is to put things in there proper locations and improve your score. You can only perform one action at a time. Answer in json form: {"consideration": string, "action": string}.
+Action history: Action 0: put milk on patio table -> You put the milk on the patio table.Wrong position, you should put it somewhere else, maybe the other room. Action 1: go west -> -= Kitchen =-You find yourself in a kitchen. Action 2: take dirty pot from dining table -> You take the dirty pot from the dining table. Action 3: insert dirty pot into dishwasher -> You put the dirty pot into the dishwasher.Your score has just gone up by one point.Right position. Action 4: go east -> -= Backyard =-You've entered a backyard. Action 5: take clean pot from workbench -> You take the clean pot from the workbench. Action 6: take wooden spoon from BBQ -> You take the wooden spoon from the BBQ. Action 7: go west -> -= Kitchen =-You find yourself in a kitchen. Action 8: insert clean pot into kitchen cupboard -> You put the clean pot into the kitchen cupboard.Your score has just gone up by one point.Right position. Action 9: insert wooden spoon into cutlery drawer -> You put the wooden spoon into the cutlery drawer.Your score has just gone up by one point.Right position. Action 10: take wet azure skirt from dining chair -> You take the wet azure skirt from the dining chair. Action 11: go east -> -= Backyard =-You've entered a backyard. Action 12: put wet azure skirt on clothesline -> You put the wet azure skirt on the clothesline.Your score has just gone up by one point.Right position. Action 13: take milk from patio table -> You take the milk from the patio table. Action 14: go west -> -= Kitchen =-You find yourself in a kitchen. Action 15: insert milk into fridge -> You put the milk into the fridge.Your score has just gone up by one point.Right position. Action 16: take dirty cake slice from counter -> You take the dirty cake slice from the counter. Action 17: insert dirty cake slice into trash can -> You put the dirty cake slice into the trash can.Wrong position, you should put it somewhere else, maybe the other room. Action 18: examine dirty cake slice -> The dirty cake slice is modern. 
+Inventory: You are carrying nothing.
+Another room: -= Backyard =- You've entered a backyard. There's a recent BBQ, but it's empty. A typical clothesline holds a wet azure skirt. Nearby, a patio chair has a wet white jumper on it. A stylish patio table stands empty. There's also a workbench with nothing on it. An open sliding patio door leads west.
+Environment: -= Kitchen =- You are in a well-lit kitchen. There's a fridge with milk inside, a cupboard with a clean pot, and a cutlery drawer containing a wooden spoon. A dishwasher holds a dirty pot, and there's an open trash can with a dirty cake slice. The oven is empty, and the large dining table has nothing on it. A ladderback chair and a dining chair are also empty. The counter and stove are both bare. An open sliding patio door leads east.
+Available actions:
+* close cutlery drawer
+* close dishwasher
+* close fridge
+* close kitchen cupboard
+* close oven
+* close sliding patio door
+* close trash can
+* examine clean pot
+* examine counter
+* examine cutlery drawer
+* examine dining chair
+* examine dining table
+* examine dirty cake slice
+* examine dirty pot
+* examine dishwasher
+* examine fridge
+* examine kitchen cupboard
+* examine ladderback chair
+* examine milk
+* examine oven
+* examine stove
+* examine trash can
+* examine wooden spoon
+* go east
+* look
+* take clean pot from kitchen cupboard
+* take dirty cake slice from trash can
+* take dirty pot from dishwasher
+* take milk from fridge
+* take wooden spoon from cutlery drawer
+
+Answer (in json form: {"consideration": string, "action": string}):
+
+
+
+{'consideration': 'The dirty cake slice is in the trash can, which is not the right position. I should find a better place for it, possibly in another room.', 'action': 'take dirty cake slice from trash can'}
+
+
+
+Task: You are a text game player, your goal is to put things in there proper locations and improve your score. You can only perform one action at a time. Answer in json form: {"consideration": string, "action": string}.
+Action history: Action 0: put milk on patio table -> You put the milk on the patio table.Wrong position, you should put it somewhere else, maybe the other room. Action 1: go west -> -= Kitchen =-You find yourself in a kitchen. Action 2: take dirty pot from dining table -> You take the dirty pot from the dining table. Action 3: insert dirty pot into dishwasher -> You put the dirty pot into the dishwasher.Your score has just gone up by one point.Right position. Action 4: go east -> -= Backyard =-You've entered a backyard. Action 5: take clean pot from workbench -> You take the clean pot from the workbench. Action 6: take wooden spoon from BBQ -> You take the wooden spoon from the BBQ. Action 7: go west -> -= Kitchen =-You find yourself in a kitchen. Action 8: insert clean pot into kitchen cupboard -> You put the clean pot into the kitchen cupboard.Your score has just gone up by one point.Right position. Action 9: insert wooden spoon into cutlery drawer -> You put the wooden spoon into the cutlery drawer.Your score has just gone up by one point.Right position. Action 10: take wet azure skirt from dining chair -> You take the wet azure skirt from the dining chair. Action 11: go east -> -= Backyard =-You've entered a backyard. Action 12: put wet azure skirt on clothesline -> You put the wet azure skirt on the clothesline.Your score has just gone up by one point.Right position. Action 13: take milk from patio table -> You take the milk from the patio table. Action 14: go west -> -= Kitchen =-You find yourself in a kitchen. Action 15: insert milk into fridge -> You put the milk into the fridge.Your score has just gone up by one point.Right position. Action 16: take dirty cake slice from counter -> You take the dirty cake slice from the counter. Action 17: insert dirty cake slice into trash can -> You put the dirty cake slice into the trash can.Wrong position, you should put it somewhere else, maybe the other room. Action 18: examine dirty cake slice -> The dirty cake slice is modern. Action 19: take dirty cake slice from trash can -> You take the dirty cake slice from the trash can. 
+Inventory: You are carrying:  a dirty cake slice
+Another room: -= Backyard =- You've entered a backyard. There's a recent BBQ, but it's empty. A typical clothesline holds a wet azure skirt. Nearby, a patio chair has a wet white jumper on it. A stylish patio table stands empty. There's also a workbench with nothing on it. An open sliding patio door leads west.
+Environment: You are in a well-lit kitchen. There's a fridge with some milk inside, a cupboard with a clean pot, and a cutlery drawer containing a wooden spoon. A dishwasher holds a dirty pot, and there's an empty trash can nearby. The oven is also empty, as is the massive dining table and the counter. A conventional stove has nothing on it, and a dining chair sits unused. An open sliding patio door leads east.
+Available actions:
+* close cutlery drawer
+* close dishwasher
+* close fridge
+* close kitchen cupboard
+* close oven
+* close sliding patio door
+* close trash can
+* drop dirty cake slice
+* examine clean pot
+* examine counter
+* examine cutlery drawer
+* examine dining chair
+* examine dining table
+* examine dirty pot
+* examine dishwasher
+* examine fridge
+* examine kitchen cupboard
+* examine ladderback chair
+* examine milk
+* examine oven
+* examine stove
+* examine trash can
+* examine wooden spoon
+* go east
+* insert dirty cake slice into cutlery drawer
+* insert dirty cake slice into dishwasher
+* insert dirty cake slice into fridge
+* insert dirty cake slice into kitchen cupboard
+* insert dirty cake slice into oven
+* insert dirty cake slice into trash can
+* look
+* put dirty cake slice on counter
+* put dirty cake slice on dining chair
+* put dirty cake slice on dining table
+* put dirty cake slice on ladderback chair
+* put dirty cake slice on stove
+* take clean pot from kitchen cupboard
+* take dirty pot from dishwasher
+* take milk from fridge
+* take wooden spoon from cutlery drawer
+
+Answer (in json form: {"consideration": string, "action": string}):
+
+
+
+{'consideration': 'The dirty cake slice should be placed in a location where it can be cleaned or disposed of properly. The dishwasher is a suitable place for cleaning dirty items.', 'action': 'insert dirty cake slice into dishwasher'}
+
+
+

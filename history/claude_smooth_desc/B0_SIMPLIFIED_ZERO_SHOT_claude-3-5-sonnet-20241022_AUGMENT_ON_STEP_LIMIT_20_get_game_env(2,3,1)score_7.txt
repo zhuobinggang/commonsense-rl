@@ -1,0 +1,567 @@
+Task: You are a text game player, your goal is to put things in there proper locations and improve your score. You can only perform one action at a time. Answer in json form: {"consideration": string, "action": string}.
+Action history: No action was taken now.
+Inventory: You are carrying nothing.
+Environment: -= Laundry Room =- You enter a typical laundry room. There's an empty washing machine and an empty laundry basket. A clothes dryer is present, and you notice a wet blue jumper on a work table. The ceiling is low, but you can still see a suspended shelf with wet plaid socks and a dirty striped polo shirt. A bench sits nearby, but it's empty. On the floor, you find a dirty brown pullover, wet white panties, a dirty magenta skirt, and another dirty striped pullover.
+Available actions:
+* close clothes drier
+* close laundry basket
+* close washing machine
+* examine bench
+* examine clothes drier
+* examine dirty brown pullover
+* examine dirty magenta skirt
+* examine dirty striped polo shirt
+* examine dirty striped pullover
+* examine laundry basket
+* examine suspended shelf
+* examine washing machine
+* examine wet blue jumper
+* examine wet plaid socks
+* examine wet white panties
+* examine work table
+* look
+* take dirty brown pullover
+* take dirty magenta skirt
+* take dirty striped polo shirt from suspended shelf
+* take dirty striped pullover
+* take wet blue jumper from work table
+* take wet plaid socks from suspended shelf
+* take wet white panties
+
+Answer (in json form: {"consideration": string, "action": string}):
+
+
+
+{'consideration': "Since there are both dirty and wet clothes scattered around, I should start by collecting the dirty clothes first to put them in the washing machine. The dirty brown pullover is on the floor, so I'll start with that.", 'action': 'take dirty brown pullover'}
+
+
+
+Task: You are a text game player, your goal is to put things in there proper locations and improve your score. You can only perform one action at a time. Answer in json form: {"consideration": string, "action": string}.
+Action history: Action 0: take dirty brown pullover -> You pick up the dirty brown pullover from the ground. 
+Inventory: You are carrying:  a dirty brown pullover
+Environment: -= Laundry Room =- You enter a typical laundry room. There's an empty washing machine and an empty laundry basket. A clothes dryer sits nearby. In the corner, something scurries by, but it’s probably nothing. On a work table, you find a wet blue jumper. You bump your head on the ceiling but continue to look around. A suspended shelf holds a pair of wet plaid socks and a dirty striped polo shirt. There's a bench, but it's empty. On the floor, you see a pair of wet white panties, a dirty magenta skirt, and a dirty striped pullover.
+Available actions:
+* close clothes drier
+* close laundry basket
+* close washing machine
+* drop dirty brown pullover
+* examine bench
+* examine clothes drier
+* examine dirty magenta skirt
+* examine dirty striped polo shirt
+* examine dirty striped pullover
+* examine laundry basket
+* examine suspended shelf
+* examine washing machine
+* examine wet blue jumper
+* examine wet plaid socks
+* examine wet white panties
+* examine work table
+* insert dirty brown pullover into clothes drier
+* insert dirty brown pullover into laundry basket
+* insert dirty brown pullover into washing machine
+* look
+* put dirty brown pullover on bench
+* put dirty brown pullover on suspended shelf
+* put dirty brown pullover on work table
+* take dirty magenta skirt
+* take dirty striped polo shirt from suspended shelf
+* take dirty striped pullover
+* take wet blue jumper from work table
+* take wet plaid socks from suspended shelf
+* take wet white panties
+
+Answer (in json form: {"consideration": string, "action": string}):
+
+
+
+{'consideration': 'Since I have a dirty brown pullover, it should go in the washing machine to be cleaned', 'action': 'insert dirty brown pullover into washing machine'}
+
+
+
+Task: You are a text game player, your goal is to put things in there proper locations and improve your score. You can only perform one action at a time. Answer in json form: {"consideration": string, "action": string}.
+Action history: Action 0: take dirty brown pullover -> You pick up the dirty brown pullover from the ground. Action 1: insert dirty brown pullover into washing machine -> You put the dirty brown pullover into the washing machine.Your score has just gone up by one point.Right position. 
+Inventory: You are carrying nothing.
+Environment: -= Laundry Room =- You enter a typical laundry room. There's a washing machine with a dirty brown pullover inside. An empty laundry basket sits nearby. A clothes dryer is also present. You notice a work table with a wet blue jumper on it. The ceiling is low, but you can still see everything around. A suspended shelf holds a pair of wet plaid socks and a dirty striped polo shirt. There's a bench, but it's empty. On the floor, you find a pair of wet white panties, a dirty magenta skirt, and a dirty striped pullover.
+Available actions:
+* close clothes drier
+* close laundry basket
+* close washing machine
+* examine bench
+* examine clothes drier
+* examine dirty brown pullover
+* examine dirty magenta skirt
+* examine dirty striped polo shirt
+* examine dirty striped pullover
+* examine laundry basket
+* examine suspended shelf
+* examine washing machine
+* examine wet blue jumper
+* examine wet plaid socks
+* examine wet white panties
+* examine work table
+* look
+* take dirty brown pullover from washing machine
+* take dirty magenta skirt
+* take dirty striped polo shirt from suspended shelf
+* take dirty striped pullover
+* take wet blue jumper from work table
+* take wet plaid socks from suspended shelf
+* take wet white panties
+
+Answer (in json form: {"consideration": string, "action": string}):
+
+
+
+{'consideration': 'Since wet clothes should go in the dryer and dirty clothes in the washing machine, I should start by picking up the wet white panties from the floor to put them in the dryer.', 'action': 'take wet white panties'}
+
+
+
+Task: You are a text game player, your goal is to put things in there proper locations and improve your score. You can only perform one action at a time. Answer in json form: {"consideration": string, "action": string}.
+Action history: Action 0: take dirty brown pullover -> You pick up the dirty brown pullover from the ground. Action 1: insert dirty brown pullover into washing machine -> You put the dirty brown pullover into the washing machine.Your score has just gone up by one point.Right position. Action 2: take wet white panties -> You pick up the wet white panties from the ground. 
+Inventory: You are carrying:  a pair of wet white panties
+Environment: -= Laundry Room =- You enter a typical laundry room. There's a washing machine with a dirty brown pullover inside. An empty laundry basket sits nearby. A clothes dryer is also present. You notice a work table with a wet blue jumper on it. The ceiling is low, but it doesn't hinder your exploration. A suspended shelf holds a pair of wet plaid socks and a dirty striped polo shirt. There's a bench, but it's empty. On the floor, you see a dirty magenta skirt and a dirty striped pullover.
+Available actions:
+* close clothes drier
+* close laundry basket
+* close washing machine
+* drop wet white panties
+* examine bench
+* examine clothes drier
+* examine dirty brown pullover
+* examine dirty magenta skirt
+* examine dirty striped polo shirt
+* examine dirty striped pullover
+* examine laundry basket
+* examine suspended shelf
+* examine washing machine
+* examine wet blue jumper
+* examine wet plaid socks
+* examine work table
+* insert wet white panties into clothes drier
+* insert wet white panties into laundry basket
+* insert wet white panties into washing machine
+* look
+* put wet white panties on bench
+* put wet white panties on suspended shelf
+* put wet white panties on work table
+* take dirty brown pullover from washing machine
+* take dirty magenta skirt
+* take dirty striped polo shirt from suspended shelf
+* take dirty striped pullover
+* take wet blue jumper from work table
+* take wet plaid socks from suspended shelf
+
+Answer (in json form: {"consideration": string, "action": string}):
+
+
+
+{'consideration': 'Since I have wet white panties, they should go in the dryer to be dried. This would be the logical next step in the laundry process after washing.', 'action': 'insert wet white panties into clothes drier'}
+
+
+
+Task: You are a text game player, your goal is to put things in there proper locations and improve your score. You can only perform one action at a time. Answer in json form: {"consideration": string, "action": string}.
+Action history: Action 0: take dirty brown pullover -> You pick up the dirty brown pullover from the ground. Action 1: insert dirty brown pullover into washing machine -> You put the dirty brown pullover into the washing machine.Your score has just gone up by one point.Right position. Action 2: take wet white panties -> You pick up the wet white panties from the ground. Action 3: insert wet white panties into clothes drier -> You put the wet white panties into the clothes drier.Your score has just gone up by one point.Right position. 
+Inventory: You are carrying nothing.
+Environment: -= Laundry Room =- You enter a typical laundry room. There's a washing machine with a dirty brown pullover inside. An empty laundry basket sits nearby. A clothes drier holds a pair of wet white panties. On a work table, you find a wet blue jumper. The ceiling is low, but you can still see a suspended shelf with wet plaid socks and a dirty striped polo shirt. A bench is present, but it's empty. On the floor, there are a dirty magenta skirt and a dirty striped pullover.
+Available actions:
+* close clothes drier
+* close laundry basket
+* close washing machine
+* examine bench
+* examine clothes drier
+* examine dirty brown pullover
+* examine dirty magenta skirt
+* examine dirty striped polo shirt
+* examine dirty striped pullover
+* examine laundry basket
+* examine suspended shelf
+* examine washing machine
+* examine wet blue jumper
+* examine wet plaid socks
+* examine wet white panties
+* examine work table
+* look
+* take dirty brown pullover from washing machine
+* take dirty magenta skirt
+* take dirty striped polo shirt from suspended shelf
+* take dirty striped pullover
+* take wet blue jumper from work table
+* take wet plaid socks from suspended shelf
+* take wet white panties from clothes drier
+
+Answer (in json form: {"consideration": string, "action": string}):
+
+
+
+{'consideration': 'Since the wet blue jumper is on the work table, and wet items should go in the clothes drier, I should take it and put it there next', 'action': 'take wet blue jumper from work table'}
+
+
+
+Task: You are a text game player, your goal is to put things in there proper locations and improve your score. You can only perform one action at a time. Answer in json form: {"consideration": string, "action": string}.
+Action history: Action 0: take dirty brown pullover -> You pick up the dirty brown pullover from the ground. Action 1: insert dirty brown pullover into washing machine -> You put the dirty brown pullover into the washing machine.Your score has just gone up by one point.Right position. Action 2: take wet white panties -> You pick up the wet white panties from the ground. Action 3: insert wet white panties into clothes drier -> You put the wet white panties into the clothes drier.Your score has just gone up by one point.Right position. Action 4: take wet blue jumper from work table -> You take the wet blue jumper from the work table. 
+Inventory: You are carrying:  a wet blue jumper
+Environment: -= Laundry Room =- You enter a typical laundry room. There's a washing machine with a dirty brown pullover inside. An empty laundry basket sits nearby. A clothes drier holds a pair of wet white panties. A work table and a bench are both empty. On a suspended shelf, you find wet plaid socks and a dirty striped polo shirt. The floor has a dirty magenta skirt and a dirty striped pullover.
+Available actions:
+* close clothes drier
+* close laundry basket
+* close washing machine
+* drop wet blue jumper
+* examine bench
+* examine clothes drier
+* examine dirty brown pullover
+* examine dirty magenta skirt
+* examine dirty striped polo shirt
+* examine dirty striped pullover
+* examine laundry basket
+* examine suspended shelf
+* examine washing machine
+* examine wet plaid socks
+* examine wet white panties
+* examine work table
+* insert wet blue jumper into clothes drier
+* insert wet blue jumper into laundry basket
+* insert wet blue jumper into washing machine
+* look
+* put wet blue jumper on bench
+* put wet blue jumper on suspended shelf
+* put wet blue jumper on work table
+* take dirty brown pullover from washing machine
+* take dirty magenta skirt
+* take dirty striped polo shirt from suspended shelf
+* take dirty striped pullover
+* take wet plaid socks from suspended shelf
+* take wet white panties from clothes drier
+
+Answer (in json form: {"consideration": string, "action": string}):
+
+
+
+{'consideration': 'Since the blue jumper is wet, it should go in the clothes drier with the wet white panties to be dried', 'action': 'insert wet blue jumper into clothes drier'}
+
+
+
+Task: You are a text game player, your goal is to put things in there proper locations and improve your score. You can only perform one action at a time. Answer in json form: {"consideration": string, "action": string}.
+Action history: Action 0: take dirty brown pullover -> You pick up the dirty brown pullover from the ground. Action 1: insert dirty brown pullover into washing machine -> You put the dirty brown pullover into the washing machine.Your score has just gone up by one point.Right position. Action 2: take wet white panties -> You pick up the wet white panties from the ground. Action 3: insert wet white panties into clothes drier -> You put the wet white panties into the clothes drier.Your score has just gone up by one point.Right position. Action 4: take wet blue jumper from work table -> You take the wet blue jumper from the work table. Action 5: insert wet blue jumper into clothes drier -> You put the wet blue jumper into the clothes drier.Your score has just gone up by one point.Right position. 
+Inventory: You are carrying nothing.
+Environment: -= Laundry Room =- You enter a typical laundry room. There's a washing machine with a dirty brown pullover inside. An empty laundry basket sits nearby. A clothes drier holds a wet blue jumper and a pair of wet white panties. A work table and a bench are both empty. On a suspended shelf, you find a pair of wet plaid socks and a dirty striped polo shirt. On the floor, there's a dirty magenta skirt and a dirty striped pullover.
+Available actions:
+* close clothes drier
+* close laundry basket
+* close washing machine
+* examine bench
+* examine clothes drier
+* examine dirty brown pullover
+* examine dirty magenta skirt
+* examine dirty striped polo shirt
+* examine dirty striped pullover
+* examine laundry basket
+* examine suspended shelf
+* examine washing machine
+* examine wet blue jumper
+* examine wet plaid socks
+* examine wet white panties
+* examine work table
+* look
+* take dirty brown pullover from washing machine
+* take dirty magenta skirt
+* take dirty striped polo shirt from suspended shelf
+* take dirty striped pullover
+* take wet blue jumper from clothes drier
+* take wet plaid socks from suspended shelf
+* take wet white panties from clothes drier
+
+Answer (in json form: {"consideration": string, "action": string}):
+
+
+
+{'consideration': 'I see a dirty magenta skirt on the floor that should go in the washing machine. Since dirty clothes belong in the washing machine, I should pick it up.', 'action': 'take dirty magenta skirt'}
+
+
+
+Task: You are a text game player, your goal is to put things in there proper locations and improve your score. You can only perform one action at a time. Answer in json form: {"consideration": string, "action": string}.
+Action history: Action 0: take dirty brown pullover -> You pick up the dirty brown pullover from the ground. Action 1: insert dirty brown pullover into washing machine -> You put the dirty brown pullover into the washing machine.Your score has just gone up by one point.Right position. Action 2: take wet white panties -> You pick up the wet white panties from the ground. Action 3: insert wet white panties into clothes drier -> You put the wet white panties into the clothes drier.Your score has just gone up by one point.Right position. Action 4: take wet blue jumper from work table -> You take the wet blue jumper from the work table. Action 5: insert wet blue jumper into clothes drier -> You put the wet blue jumper into the clothes drier.Your score has just gone up by one point.Right position. Action 6: take dirty magenta skirt -> You pick up the dirty magenta skirt from the ground. 
+Inventory: You are carrying:  a dirty magenta skirt
+Environment: -= Laundry Room =- You enter a typical laundry room. There's a washing machine with a dirty brown pullover inside. An empty laundry basket sits nearby. A clothes drier holds a wet blue jumper and a pair of wet white panties. A work table and a bench are both empty. On a suspended shelf, you find a pair of wet plaid socks and a dirty striped polo shirt. A dirty striped pullover lies on the floor.
+Available actions:
+* close clothes drier
+* close laundry basket
+* close washing machine
+* drop dirty magenta skirt
+* examine bench
+* examine clothes drier
+* examine dirty brown pullover
+* examine dirty striped polo shirt
+* examine dirty striped pullover
+* examine laundry basket
+* examine suspended shelf
+* examine washing machine
+* examine wet blue jumper
+* examine wet plaid socks
+* examine wet white panties
+* examine work table
+* insert dirty magenta skirt into clothes drier
+* insert dirty magenta skirt into laundry basket
+* insert dirty magenta skirt into washing machine
+* look
+* put dirty magenta skirt on bench
+* put dirty magenta skirt on suspended shelf
+* put dirty magenta skirt on work table
+* take dirty brown pullover from washing machine
+* take dirty striped polo shirt from suspended shelf
+* take dirty striped pullover
+* take wet blue jumper from clothes drier
+* take wet plaid socks from suspended shelf
+* take wet white panties from clothes drier
+
+Answer (in json form: {"consideration": string, "action": string}):
+
+
+
+{'consideration': "Since I'm holding a dirty magenta skirt, it should go in the washing machine like the other dirty items", 'action': 'insert dirty magenta skirt into washing machine'}
+
+
+
+Task: You are a text game player, your goal is to put things in there proper locations and improve your score. You can only perform one action at a time. Answer in json form: {"consideration": string, "action": string}.
+Action history: Action 0: take dirty brown pullover -> You pick up the dirty brown pullover from the ground. Action 1: insert dirty brown pullover into washing machine -> You put the dirty brown pullover into the washing machine.Your score has just gone up by one point.Right position. Action 2: take wet white panties -> You pick up the wet white panties from the ground. Action 3: insert wet white panties into clothes drier -> You put the wet white panties into the clothes drier.Your score has just gone up by one point.Right position. Action 4: take wet blue jumper from work table -> You take the wet blue jumper from the work table. Action 5: insert wet blue jumper into clothes drier -> You put the wet blue jumper into the clothes drier.Your score has just gone up by one point.Right position. Action 6: take dirty magenta skirt -> You pick up the dirty magenta skirt from the ground. Action 7: insert dirty magenta skirt into washing machine -> You put the dirty magenta skirt into the washing machine.Your score has just gone up by one point.Right position. 
+Inventory: You are carrying nothing.
+Environment: -= Laundry Room =- You enter a typical laundry room. There's a washing machine with a dirty magenta skirt and a brown pullover inside. An empty laundry basket sits nearby. A clothes drier holds a wet blue jumper and wet white panties. A work table and a bench are both empty. On a suspended shelf, you find wet plaid socks and a dirty striped polo shirt. A dirty striped pullover lies on the floor.
+Available actions:
+* close clothes drier
+* close laundry basket
+* close washing machine
+* examine bench
+* examine clothes drier
+* examine dirty brown pullover
+* examine dirty magenta skirt
+* examine dirty striped polo shirt
+* examine dirty striped pullover
+* examine laundry basket
+* examine suspended shelf
+* examine washing machine
+* examine wet blue jumper
+* examine wet plaid socks
+* examine wet white panties
+* examine work table
+* look
+* take dirty brown pullover from washing machine
+* take dirty magenta skirt from washing machine
+* take dirty striped polo shirt from suspended shelf
+* take dirty striped pullover
+* take wet blue jumper from clothes drier
+* take wet plaid socks from suspended shelf
+* take wet white panties from clothes drier
+
+Answer (in json form: {"consideration": string, "action": string}):
+
+
+
+{'consideration': "I see a dirty striped polo shirt on the suspended shelf that should go in the washing machine. Let's get that next.", 'action': 'take dirty striped polo shirt from suspended shelf'}
+
+
+
+Task: You are a text game player, your goal is to put things in there proper locations and improve your score. You can only perform one action at a time. Answer in json form: {"consideration": string, "action": string}.
+Action history: Action 0: take dirty brown pullover -> You pick up the dirty brown pullover from the ground. Action 1: insert dirty brown pullover into washing machine -> You put the dirty brown pullover into the washing machine.Your score has just gone up by one point.Right position. Action 2: take wet white panties -> You pick up the wet white panties from the ground. Action 3: insert wet white panties into clothes drier -> You put the wet white panties into the clothes drier.Your score has just gone up by one point.Right position. Action 4: take wet blue jumper from work table -> You take the wet blue jumper from the work table. Action 5: insert wet blue jumper into clothes drier -> You put the wet blue jumper into the clothes drier.Your score has just gone up by one point.Right position. Action 6: take dirty magenta skirt -> You pick up the dirty magenta skirt from the ground. Action 7: insert dirty magenta skirt into washing machine -> You put the dirty magenta skirt into the washing machine.Your score has just gone up by one point.Right position. Action 8: take dirty striped polo shirt from suspended shelf -> You take the dirty striped polo shirt from the suspended shelf. 
+Inventory: You are carrying:  a dirty striped polo shirt
+Environment: -= Laundry Room =- You enter a typical laundry room. There's a washing machine with a dirty magenta skirt and a brown pullover inside. An empty laundry basket sits nearby. A clothes drier holds a wet blue jumper and a pair of wet white panties. A work table and a bench are both empty. On a suspended shelf, you find a pair of wet plaid socks. A dirty striped pullover lies on the floor.
+Available actions:
+* close clothes drier
+* close laundry basket
+* close washing machine
+* drop dirty striped polo shirt
+* examine bench
+* examine clothes drier
+* examine dirty brown pullover
+* examine dirty magenta skirt
+* examine dirty striped pullover
+* examine laundry basket
+* examine suspended shelf
+* examine washing machine
+* examine wet blue jumper
+* examine wet plaid socks
+* examine wet white panties
+* examine work table
+* insert dirty striped polo shirt into clothes drier
+* insert dirty striped polo shirt into laundry basket
+* insert dirty striped polo shirt into washing machine
+* look
+* put dirty striped polo shirt on bench
+* put dirty striped polo shirt on suspended shelf
+* put dirty striped polo shirt on work table
+* take dirty brown pullover from washing machine
+* take dirty magenta skirt from washing machine
+* take dirty striped pullover
+* take wet blue jumper from clothes drier
+* take wet plaid socks from suspended shelf
+* take wet white panties from clothes drier
+
+Answer (in json form: {"consideration": string, "action": string}):
+
+
+
+{'consideration': "I'm holding a dirty striped polo shirt, and since it's dirty, it should go in the washing machine like the other dirty clothes", 'action': 'insert dirty striped polo shirt into washing machine'}
+
+
+
+Task: You are a text game player, your goal is to put things in there proper locations and improve your score. You can only perform one action at a time. Answer in json form: {"consideration": string, "action": string}.
+Action history: Action 0: take dirty brown pullover -> You pick up the dirty brown pullover from the ground. Action 1: insert dirty brown pullover into washing machine -> You put the dirty brown pullover into the washing machine.Your score has just gone up by one point.Right position. Action 2: take wet white panties -> You pick up the wet white panties from the ground. Action 3: insert wet white panties into clothes drier -> You put the wet white panties into the clothes drier.Your score has just gone up by one point.Right position. Action 4: take wet blue jumper from work table -> You take the wet blue jumper from the work table. Action 5: insert wet blue jumper into clothes drier -> You put the wet blue jumper into the clothes drier.Your score has just gone up by one point.Right position. Action 6: take dirty magenta skirt -> You pick up the dirty magenta skirt from the ground. Action 7: insert dirty magenta skirt into washing machine -> You put the dirty magenta skirt into the washing machine.Your score has just gone up by one point.Right position. Action 8: take dirty striped polo shirt from suspended shelf -> You take the dirty striped polo shirt from the suspended shelf. Action 9: insert dirty striped polo shirt into washing machine -> You put the dirty striped polo shirt into the washing machine.Your score has just gone up by one point.Right position. 
+Inventory: You are carrying nothing.
+Environment: -= Laundry Room =- You enter a typical laundry room. There's a washing machine with a dirty striped polo shirt, a magenta skirt, and a brown pullover inside. An empty laundry basket sits nearby. A clothes drier holds a wet blue jumper and a pair of wet white panties. A work table and a bench are both empty. On a suspended shelf, you find a pair of wet plaid socks. A dirty striped pullover lies on the floor.
+Available actions:
+* close clothes drier
+* close laundry basket
+* close washing machine
+* examine bench
+* examine clothes drier
+* examine dirty brown pullover
+* examine dirty magenta skirt
+* examine dirty striped polo shirt
+* examine dirty striped pullover
+* examine laundry basket
+* examine suspended shelf
+* examine washing machine
+* examine wet blue jumper
+* examine wet plaid socks
+* examine wet white panties
+* examine work table
+* look
+* take dirty brown pullover from washing machine
+* take dirty magenta skirt from washing machine
+* take dirty striped polo shirt from washing machine
+* take dirty striped pullover
+* take wet blue jumper from clothes drier
+* take wet plaid socks from suspended shelf
+* take wet white panties from clothes drier
+
+Answer (in json form: {"consideration": string, "action": string}):
+
+
+
+{'consideration': 'I see wet plaid socks on the suspended shelf that should go in the clothes drier with the other wet items', 'action': 'take wet plaid socks from suspended shelf'}
+
+
+
+Task: You are a text game player, your goal is to put things in there proper locations and improve your score. You can only perform one action at a time. Answer in json form: {"consideration": string, "action": string}.
+Action history: Action 0: take dirty brown pullover -> You pick up the dirty brown pullover from the ground. Action 1: insert dirty brown pullover into washing machine -> You put the dirty brown pullover into the washing machine.Your score has just gone up by one point.Right position. Action 2: take wet white panties -> You pick up the wet white panties from the ground. Action 3: insert wet white panties into clothes drier -> You put the wet white panties into the clothes drier.Your score has just gone up by one point.Right position. Action 4: take wet blue jumper from work table -> You take the wet blue jumper from the work table. Action 5: insert wet blue jumper into clothes drier -> You put the wet blue jumper into the clothes drier.Your score has just gone up by one point.Right position. Action 6: take dirty magenta skirt -> You pick up the dirty magenta skirt from the ground. Action 7: insert dirty magenta skirt into washing machine -> You put the dirty magenta skirt into the washing machine.Your score has just gone up by one point.Right position. Action 8: take dirty striped polo shirt from suspended shelf -> You take the dirty striped polo shirt from the suspended shelf. Action 9: insert dirty striped polo shirt into washing machine -> You put the dirty striped polo shirt into the washing machine.Your score has just gone up by one point.Right position. Action 10: take wet plaid socks from suspended shelf -> You take the wet plaid socks from the suspended shelf. 
+Inventory: You are carrying:  a pair of wet plaid socks
+Environment: You are in a typical laundry room. There is a washing machine with a dirty striped polo shirt, a dirty magenta skirt, and a dirty brown pullover inside. An empty laundry basket sits nearby. A clothes drier contains a wet blue jumper and a pair of wet white panties. There is a work table, a suspended shelf, and a bench, but all are empty. A dirty striped pullover lies on the floor.
+Available actions:
+* close clothes drier
+* close laundry basket
+* close washing machine
+* drop wet plaid socks
+* examine bench
+* examine clothes drier
+* examine dirty brown pullover
+* examine dirty magenta skirt
+* examine dirty striped polo shirt
+* examine dirty striped pullover
+* examine laundry basket
+* examine suspended shelf
+* examine washing machine
+* examine wet blue jumper
+* examine wet white panties
+* examine work table
+* insert wet plaid socks into clothes drier
+* insert wet plaid socks into laundry basket
+* insert wet plaid socks into washing machine
+* look
+* put wet plaid socks on bench
+* put wet plaid socks on suspended shelf
+* put wet plaid socks on work table
+* take dirty brown pullover from washing machine
+* take dirty magenta skirt from washing machine
+* take dirty striped polo shirt from washing machine
+* take dirty striped pullover
+* take wet blue jumper from clothes drier
+* take wet white panties from clothes drier
+
+Answer (in json form: {"consideration": string, "action": string}):
+
+
+
+{'consideration': "I'm holding wet plaid socks, which should go in the clothes drier with the other wet items", 'action': 'insert wet plaid socks into clothes drier'}
+
+
+
+Task: You are a text game player, your goal is to put things in there proper locations and improve your score. You can only perform one action at a time. Answer in json form: {"consideration": string, "action": string}.
+Action history: Action 0: take dirty brown pullover -> You pick up the dirty brown pullover from the ground. Action 1: insert dirty brown pullover into washing machine -> You put the dirty brown pullover into the washing machine.Your score has just gone up by one point.Right position. Action 2: take wet white panties -> You pick up the wet white panties from the ground. Action 3: insert wet white panties into clothes drier -> You put the wet white panties into the clothes drier.Your score has just gone up by one point.Right position. Action 4: take wet blue jumper from work table -> You take the wet blue jumper from the work table. Action 5: insert wet blue jumper into clothes drier -> You put the wet blue jumper into the clothes drier.Your score has just gone up by one point.Right position. Action 6: take dirty magenta skirt -> You pick up the dirty magenta skirt from the ground. Action 7: insert dirty magenta skirt into washing machine -> You put the dirty magenta skirt into the washing machine.Your score has just gone up by one point.Right position. Action 8: take dirty striped polo shirt from suspended shelf -> You take the dirty striped polo shirt from the suspended shelf. Action 9: insert dirty striped polo shirt into washing machine -> You put the dirty striped polo shirt into the washing machine.Your score has just gone up by one point.Right position. Action 10: take wet plaid socks from suspended shelf -> You take the wet plaid socks from the suspended shelf. Action 11: insert wet plaid socks into clothes drier -> You put the wet plaid socks into the clothes drier.Your score has just gone up by one point.Right position. 
+Inventory: You are carrying nothing.
+Environment: -= Laundry Room =- You enter a typical laundry room. There's a washing machine with a dirty striped polo shirt, a dirty magenta skirt, and a dirty brown pullover inside. An empty laundry basket sits nearby. A clothes drier contains wet plaid socks, a wet blue jumper, and wet white panties. There's a work table, but it's empty, as is a suspended shelf and a bench. A dirty striped pullover lies on the floor.
+Available actions:
+* close clothes drier
+* close laundry basket
+* close washing machine
+* examine bench
+* examine clothes drier
+* examine dirty brown pullover
+* examine dirty magenta skirt
+* examine dirty striped polo shirt
+* examine dirty striped pullover
+* examine laundry basket
+* examine suspended shelf
+* examine washing machine
+* examine wet blue jumper
+* examine wet plaid socks
+* examine wet white panties
+* examine work table
+* look
+* take dirty brown pullover from washing machine
+* take dirty magenta skirt from washing machine
+* take dirty striped polo shirt from washing machine
+* take dirty striped pullover
+* take wet blue jumper from clothes drier
+* take wet plaid socks from clothes drier
+* take wet white panties from clothes drier
+
+Answer (in json form: {"consideration": string, "action": string}):
+
+
+
+{'consideration': "There's a dirty striped pullover on the floor that should go in the washing machine like the other dirty clothes", 'action': 'take dirty striped pullover'}
+
+
+
+Task: You are a text game player, your goal is to put things in there proper locations and improve your score. You can only perform one action at a time. Answer in json form: {"consideration": string, "action": string}.
+Action history: Action 0: take dirty brown pullover -> You pick up the dirty brown pullover from the ground. Action 1: insert dirty brown pullover into washing machine -> You put the dirty brown pullover into the washing machine.Your score has just gone up by one point.Right position. Action 2: take wet white panties -> You pick up the wet white panties from the ground. Action 3: insert wet white panties into clothes drier -> You put the wet white panties into the clothes drier.Your score has just gone up by one point.Right position. Action 4: take wet blue jumper from work table -> You take the wet blue jumper from the work table. Action 5: insert wet blue jumper into clothes drier -> You put the wet blue jumper into the clothes drier.Your score has just gone up by one point.Right position. Action 6: take dirty magenta skirt -> You pick up the dirty magenta skirt from the ground. Action 7: insert dirty magenta skirt into washing machine -> You put the dirty magenta skirt into the washing machine.Your score has just gone up by one point.Right position. Action 8: take dirty striped polo shirt from suspended shelf -> You take the dirty striped polo shirt from the suspended shelf. Action 9: insert dirty striped polo shirt into washing machine -> You put the dirty striped polo shirt into the washing machine.Your score has just gone up by one point.Right position. Action 10: take wet plaid socks from suspended shelf -> You take the wet plaid socks from the suspended shelf. Action 11: insert wet plaid socks into clothes drier -> You put the wet plaid socks into the clothes drier.Your score has just gone up by one point.Right position. Action 12: take dirty striped pullover -> You pick up the dirty striped pullover from the ground. 
+Inventory: You are carrying:  a dirty striped pullover
+Environment: -= Laundry Room =- You enter a typical laundry room. There's a washing machine with a dirty striped polo shirt, a dirty magenta skirt, and a dirty brown pullover inside. An empty laundry basket sits nearby. A clothes drier contains wet plaid socks, a wet blue jumper, and wet white panties. There's a work table, but it's empty, as is a suspended shelf and a bench.
+Available actions:
+* close clothes drier
+* close laundry basket
+* close washing machine
+* drop dirty striped pullover
+* examine bench
+* examine clothes drier
+* examine dirty brown pullover
+* examine dirty magenta skirt
+* examine dirty striped polo shirt
+* examine laundry basket
+* examine suspended shelf
+* examine washing machine
+* examine wet blue jumper
+* examine wet plaid socks
+* examine wet white panties
+* examine work table
+* insert dirty striped pullover into clothes drier
+* insert dirty striped pullover into laundry basket
+* insert dirty striped pullover into washing machine
+* look
+* put dirty striped pullover on bench
+* put dirty striped pullover on suspended shelf
+* put dirty striped pullover on work table
+* take dirty brown pullover from washing machine
+* take dirty magenta skirt from washing machine
+* take dirty striped polo shirt from washing machine
+* take wet blue jumper from clothes drier
+* take wet plaid socks from clothes drier
+* take wet white panties from clothes drier
+
+Answer (in json form: {"consideration": string, "action": string}):
+
+
+
+{'consideration': "I have a dirty striped pullover in my inventory. Since it's dirty, it should go in the washing machine like the other dirty clothes.", 'action': 'insert dirty striped pullover into washing machine'}
+
+
+
