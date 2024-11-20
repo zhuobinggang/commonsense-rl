@@ -190,3 +190,97 @@ class Env:
             )
             return None, None, None, None
         return description, inventory, env.available_actions, env.action_obs_pairs
+
+
+class Env_extra_info(Env):
+
+    def _step(self, cmd):
+        # Add 2024.11.20 增加更多来自环境的反馈
+        extra_info_dic = {}
+        # Add 2024.8.17 需要判断行动是否成功，如果不成功返回None
+        old_moves = self.get_moves(self.env.info)
+        obs, reward, is_not_terminal, info = self.origin_env_step(cmd)
+        new_moves = self.get_moves(info)
+        if old_moves == new_moves:  # Add 2024.8.17 命令执行失败，obs被存储到env.err['obs']
+            extra_info_dic = {'desc': f'步数没有增加，{cmd}执行失败，raw obs为{obs}', 'raw_obs': obs, 'raw_info': info, 'env_act_failed': True}
+            print(f'TAKU: env._step WARNING, {cmd} NOT EXECUTABLE!')
+            self.err = {'obs': obs, 'info': info}
+            self.env.err = {'obs': obs, 'info': info}
+            return None, None, extra_info_dic
+        elif new_moves == old_moves + 1:  # SUCCESS
+            extra_info_dic = {'desc': f'步数增加，{cmd}执行成功，raw obs为{obs}', 'raw_obs': obs, 'raw_info': info, 'env_act_failed': False}
+            self.env.obs = obs  # Added 2024.8.9
+            self.env.info = info  # Added 2024.5.23
+            return obs, info, extra_info_dic
+        else:
+            print('TAKU: ERRRRRRRRRRRRRRRRRRR IMPOSIBLE!')
+            extra_info_dic = {'desc': f'进入了不可能的领域', 'raw_obs': 'Unknown failure.', 'env_act_failed': True}
+            return None, None, extra_info_dic
+        
+    def act(self, command=None, no_augment=None):
+        #initiate_env(env)
+        env = self.env
+        no_augment = no_augment or self.no_augment
+        extra_info = {}
+        if command:
+            # Add 2024.8.17 需要判断行动是否成功，如果不成功则直接跳出
+            obs_raw, info, extra_info_raw = self._step(command)
+            extra_info = extra_info | extra_info_raw # merge extra info
+            if obs_raw is None: # 执行失败的情况，直接跳出
+                print(f'TAKU: env.act WARNING, {command} NOT EXECUTABLE!')
+                return None, None, None, None, extra_info # 2024.11.20 extra info
+            # CLEAN OBSERVATION
+            obs = self.get_obs(obs_raw)
+            inventory = self.get_inventory(info)
+            description = self.get_desc(info)
+            if obs == description:  # 如果obs和description重复，应该被截断以保证输入简洁
+                obs = obs.split('.')[0] + '.'
+                extra_info['obs_abbreviation'] = True
+            # Available actions
+            env.available_actions = self.get_available_actions(info)
+            # 记录瞬时奖励
+            new_reward = self.get_score(info)
+            env.instant_reward = new_reward - env.last_reward
+            env.last_reward = new_reward
+            # 2024.1.21  反馈强化
+            if not no_augment:
+                if env.instant_reward != 0:
+                    obs += self.RIGHT_POSITION_HINT
+                    extra_info['is_placing_item'] = True
+                    extra_info['point_up'] = True
+                    # print(f'FA: {obs}')
+                else:
+                    if self.is_placing_item(command):
+                        extra_info['is_placing_item'] = True
+                        obs_lower = obs.lower()
+                        if obs_lower.startswith(
+                                "you can't") or obs_lower.startswith(
+                                    'you need'):  # 放置失败
+                            extra_info['placing_failed'] = True
+                            pass  # 什么也不做
+                        else:
+                            extra_info['placing_wrong'] = True
+                            obs += self.WRONG_POSITION_HINT  # 放置成功，但是位置错误
+                            # print(f'FA: {obs}')
+            # 记录历史
+            self.append_command_obs_pair(command, obs);
+        else:  # 重新开始的情况
+            print('RESTAR\n\n')
+            _, info = env.reset()
+            extra_info['desc'] = '重新启动游戏'
+            env.info = info  # Add 2024.8.17
+            description = self.get_desc(info)
+            inventory = self.get_inventory(info)
+            env.available_actions = self.get_available_actions(info)
+            env.action_obs_pairs = []
+            env.last_reward = 0
+            env.instant_reward = 0
+        if self.is_won(info):
+            env.end = True
+            # 打引结束信息
+            print(
+                f"YOU WIN, score at {info['score']}/{info['max_score']}, steps {info['moves']}"
+            )
+            extra_info['won'] = True
+            return None, None, None, None, extra_info
+        return description, inventory, env.available_actions, env.action_obs_pairs, extra_info

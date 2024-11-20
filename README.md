@@ -72,3 +72,9 @@ caller.act_until_error(command)
 # 2024.11.19 将smooth desc作为新的基线，以后的所有模型基于此基线
 
 同标题。
+
+* Desc simple smooth (新的baseline) -> `exp6.test_gpt4o_desc_only_simplify_smooth`
+* Desc simple smooth + another room info -> `exp6.test_gpt4o_desc_only_simplify_smooth_another_room`
+* Claude -> `exp6.test_claude_desc_smooth` + `exp6.test_claude_desc_smooth_another_room`
+
+# 2024.11.20 引入reflexion尝试提高4omini的性能

@@ -1,6 +1,7 @@
 # 2024.11.13 将精简化进行到底
 
 from llm_caller import get_client, GPT_Caller, text_from_raw_response, Claude_Caller
+from claude_caller import action_obs_pairs_to_history
 import global_variable as G
 
 GPT4O = 'gpt-4o-2024-08-06'
@@ -90,6 +91,9 @@ class Builder_old_style:  # 2024.8.9之前的
         self.builder = None
         self.name = 'normal_builder'
 
+    def action_obs_pairs_to_history(self, action_obs_pairs):
+        return action_obs_pairs_to_history(action_obs_pairs)
+
     def build(self,
               current_enviroment,
               inventory,
@@ -103,13 +107,7 @@ class Builder_old_style:  # 2024.8.9之前的
         for act in available_actions:
             available_action_text += f'* {act}\n'
         builder.action_list = available_action_text
-        action_history = ''
-        if len(action_obs_pairs) > 0:
-            for idx, (act, obs) in enumerate(action_obs_pairs):
-                action_history += f'Action {idx}: {act} -> {obs} '
-        else:
-            action_history = 'No action was taken now.'
-        builder.action_history = action_history
+        builder.action_history = self.action_obs_pairs_to_history(action_obs_pairs)
         # another room info
         builder.another_room_info = another_room_info
         self.builder = builder
@@ -120,7 +118,7 @@ class Builder_old_style:  # 2024.8.9之前的
     
 
 
-def quest_summarization(system_msg,
+def quest_simple_get_text(system_msg,
                         user_msg,
                         gpt_type=GPT4OMINI,
                         verbose = True):
@@ -153,7 +151,7 @@ class GPT_Caller_Simple_Desc(GPT_Caller):
         self.summarize_prompt_builder.desc = description
         self.summarize_prompt_builder.build()
         sys_msg, usr_msg = self.summarize_prompt_builder.sys_usr_msg()
-        new_desc = quest_summarization(sys_msg, usr_msg)
+        new_desc = quest_simple_get_text(sys_msg, usr_msg)
         self.summarize_log += f'{self.summarize_prompt_builder.prompt}\n\n{new_desc}\n\n'
         return new_desc
         
@@ -245,7 +243,7 @@ class GPT_Caller_Simplify(Claude_Caller):
         self.summarize_prompt_builder.desc = description
         self.summarize_prompt_builder.build()
         sys_msg, usr_msg = self.summarize_prompt_builder.sys_usr_msg()
-        new_desc = quest_summarization(sys_msg, usr_msg)
+        new_desc = quest_simple_get_text(sys_msg, usr_msg)
         self.summarize_log += f'{self.summarize_prompt_builder.prompt}\n\n{new_desc}\n\n'
         self.description_updated_callback(description, new_desc)
         return new_desc

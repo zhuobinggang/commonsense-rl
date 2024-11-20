@@ -145,6 +145,15 @@ class Prompt_builder:
         self.prompt = f'{system_msg}\n{user_msg}'
 
 
+def action_obs_pairs_to_history(action_obs_pairs):
+    action_history = ''
+    if len(action_obs_pairs) > 0:
+        for idx, (act, obs) in enumerate(action_obs_pairs):
+            action_history += f'Action {idx}: {act} -> {obs} '
+    else:
+        action_history = 'No action was taken now.'
+    return action_history
+
 class Builder1:  # 2024.8.9之前的
 
     def __init__(self):
@@ -167,13 +176,7 @@ class Builder1:  # 2024.8.9之前的
         for act in available_actions:
             available_action_text += f'* {act}\n'
         builder.action_list = available_action_text
-        action_history = ''
-        if len(action_obs_pairs) > 0:
-            for idx, (act, obs) in enumerate(action_obs_pairs):
-                action_history += f'Action {idx}: {act} -> {obs} '
-        else:
-            action_history = 'No action was taken now.'
-        builder.action_history = action_history
+        builder.action_history = action_obs_pairs_to_history(action_obs_pairs)
         if zero_shot:
             builder.example = None
         else:  # one shot
@@ -406,6 +409,15 @@ class Claude_Caller:
     def env_act_succeed_callback(self):
         pass
 
+    def add_to_readable_log(self, text):
+        self.env.env.readable_log += text
+
+    def is_end(self):
+        return self.env.env.end
+    
+    def append_score_by_step(self):
+        self.env.env.score_by_step.append(self.env.env.last_reward)
+
     def act_and_call(
             self,
             command=None):  # @RETURN: None means 2 path, first means the command non-executable, second means response from LLM irregular.
@@ -416,21 +428,21 @@ class Claude_Caller:
                 # 给予一次重新请求的机会
                 print('Please Try Recalling.')
                 recommand = self.recall_and_get_command()
-                print(f'\n\nTrying recall LLM!!! {command} -> {recommand}\n\n')
-                self.env.env.readable_log += f'\n\nTrying recall LLM!!! {command} -> {recommand}\n\n'
+                self.add_to_readable_log(f'\n\nTrying recall LLM!!! {command} -> {recommand}\n\n');
                 description, inventory, available_actions, action_obs_pairs = self.try_adjust_and_execute(recommand)
                 if description is None and not self.env.env.end:
                     print(f'Recall but Failed!')
-                    self.env.env.readable_log += f'\n\nRecall but Failed\n\n'
+                    self.add_to_readable_log(f'\n\nRecall but Failed\n\n')
                     return None
                 else:
                     print(f'Recall success!')
-                    self.env.env.readable_log += f'\n\nRecall success!\n\n'
+                    self.add_to_readable_log(f'\n\nRecall success!\n\n')
             # 执行成功之后
             self.step_counter += 1
             self.env_act_succeed_callback()
-            if self.env.env.end: # 如果赢了就不再需要调用LLM
+            if self.is_end(): # 如果赢了就不再需要调用LLM
                 print('YOU WIN! NO API CALL NEED.')
+                self.add_to_readable_log('YOU WIN! NO API CALL NEED.')
                 self.save()
                 return None
             else:
@@ -439,7 +451,7 @@ class Claude_Caller:
                 description = self.updated_description(description)
                 self.desc_after_update = description
                 self.set_act_result_to_body(self.desc_after_update, inventory, available_actions, action_obs_pairs)
-                self.env.env.score_by_step.append(self.env.env.last_reward)
+                self.append_score_by_step()
                 # NOTE: 2024.11.11 如果返回的文本中提取指令失败，给予一次重试机会
                 command_may_none = self.recall_and_get_command()
                 if command_may_none is None:
