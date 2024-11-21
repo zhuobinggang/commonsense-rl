@@ -154,6 +154,12 @@ def action_obs_pairs_to_history(action_obs_pairs):
         action_history = 'No action was taken now.'
     return action_history
 
+def actions_to_list(actions):
+    available_action_text = ''
+    for act in actions:
+        available_action_text += f'* {act}\n'
+    return available_action_text
+
 class Builder1:  # 2024.8.9之前的
 
     def __init__(self):
@@ -172,9 +178,7 @@ class Builder1:  # 2024.8.9之前的
         builder = Prompt_builder()
         builder.inventory = inventory
         builder.current_enviroment = current_enviroment
-        available_action_text = ''
-        for act in available_actions:
-            available_action_text += f'* {act}\n'
+        available_action_text = actions_to_list(available_actions)
         builder.action_list = available_action_text
         builder.action_history = action_obs_pairs_to_history(action_obs_pairs)
         if zero_shot:

@@ -112,6 +112,9 @@ class Env:
         command = command.lower()
         return command.split()[0] in ['put', 'insert']
     
+    def get_action_obs_pair(self):
+        return self.env.action_obs_pairs
+
     def append_command_obs_pair(self, command, obs):
         self.env.action_obs_pairs.append((command, obs))
 

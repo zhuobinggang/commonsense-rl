@@ -1,56 +1,72 @@
 from llm_simplify_smooth_summarization import GPT_caller_simplify_desc_only_smooth_another_room
 from llm_simplify import Builder_old_style, GPT4OMINI, quest_simple_get_text
+from claude_caller import actions_to_list, json_obj_from_text
 
-# TODO: 完成prompt的建构
-class Summarization_Prompt_builder:
-    def __init__(self):
+class Reflextion_prompt_builder:
+    def __init__(self, action_history, inventory, another_room_info, current_environment, action_list):
         self.system_msg = ''
         self.user_msg = ''
         self.prompt = ''
-        self.desc = ''
+        self.action_history = action_history
+        self.inventory = inventory
+        self.current_environment = current_environment
+        self.action_history = action_history
+        self.action_list = action_list
+        self.another_room_info = another_room_info
 
     def build(self):
         system_msg = ''
         system_msg += '\n'
-        system_msg += 'Example: Bedroom[wardrobe, chest of drawers[black sock], desk[pen, eraser]]\n'
-        system_msg += 'Response with the new environment description directly.\n'
+        system_msg += 'You are a text game player, and you just made an incorrect action. Please analyze the reason for the mistake based on the information below and response in json form.\n'
         system_msg = system_msg.strip() + '\n'
         self.system_msg = system_msg
         user_msg = ''
-        user_msg += 'The environment description:\n'
-        user_msg += self.desc.strip().replace('\n', '')
-        user_msg = user_msg.strip() + '\n'
-        user_msg += 'Response:\n'
+        user_msg += f'Action history: {self.action_history}\n'
+        user_msg += f'Inventory: {self.inventory}\n'
+        user_msg += f'Another room: {self.another_room_info}\n' if self.another_room_info else ''
+        user_msg += f'Current enviroment: {self.current_enviroment}\n' if self.current_enviroment else ''
+        user_msg += f'Available actions:\n{self.action_list}\n' if self.action_list else ''
+        user_msg += 'Reflection (in json form: {"reflection": string}):\n'
         self.user_msg = user_msg
         self.prompt = f'{system_msg}{user_msg}'
 
     def sys_usr_msg(self):
         return self.system_msg, self.user_msg
     
+
+def action_obs_pairs_to_history_with_reflection(action_obs_pairs):
+    action_history = ''
+    action_idx = 0
+    if len(action_obs_pairs) > 0:
+        for _, (act, obs) in enumerate(action_obs_pairs):
+            if act.startswith('Refle'):
+                action_history += f'Reflection: {obs} ';
+            else:
+                action_history += f'Action {action_idx}: {act} -> {obs} '
+                action_idx += 1
+    else:
+        action_history = 'No action was taken now.'
+    return action_history
+
 class Builder_full_action_list_with_reflextion(Builder_old_style):
     def action_obs_pairs_to_history(self, action_obs_pairs):
-        action_history = ''
-        action_idx = 0
-        if len(action_obs_pairs) > 0:
-            for _, (act, obs) in enumerate(action_obs_pairs):
-                if act.startswith('Refle'):
-                    action_history += f'Reflection: {obs} ';
-                else:
-                    action_history += f'Action {action_idx}: {act} -> {obs} '
-                    action_idx += 1
-        else:
-            action_history = 'No action was taken now.'
-        return action_history
+        return action_obs_pairs_to_history_with_reflection(action_obs_pairs)
 
 def quest_reflextion(system_msg,
                         user_msg,
                         gpt_type=GPT4OMINI,
                         verbose = True):
-    return quest_simple_get_text(system_msg, user_msg, gpt_type, verbose)
+    text = quest_simple_get_text(system_msg, user_msg, gpt_type, verbose)
+    obj = json_obj_from_text(text)
+    return obj['reflection']
 
 
 # 2024.11.20 Reflextion
 class GPT_agent_smooth_desc_another_room_reflextion(GPT_caller_simplify_desc_only_smooth_another_room):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.reflextion_promptor = Reflextion_prompt_builder()
+
     def try_adjust_and_execute(self, command): # 2024.11.20
         available_actions = self.env.available_actions;
         if command not in available_actions:
@@ -80,13 +96,19 @@ class GPT_agent_smooth_desc_another_room_reflextion(GPT_caller_simplify_desc_onl
         self.set_act_result_to_body(self.desc_after_update, inventory, available_actions, action_obs_pairs)
         self.append_score_by_step()
 
-    def llm_reflextion(self, raw_obs):
-        # TODO: 完成prompt的建构
-        return 'I have no idea.'
+    def llm_reflextion(self):
+        self.reflextion_promptor.action_history = action_obs_pairs_to_history_with_reflection(self.action_obs_pairs)
+        self.reflextion_promptor.inventory = self.inventory
+        self.reflextion_promptor.another_room_info = self.another_room_info
+        self.reflextion_promptor.action_list = actions_to_list(self.available_actions)
+        self.reflextion_promptor.current_environment = self.desc
+        self.reflextion_promptor.build()
+        sys, usr = self.reflextion_promptor.sys_usr_msg()
+        return quest_reflextion(sys, usr)
     
     def add_reflextion_into_action_history(self, reflextion):
-        # TODO: 完成
-        pass
+        self.env.append_command_obs_pair('reflection', reflextion)
+        self.action_obs_pairs = self.env.get_action_obs_pair()
 
     # NOTE: 只考虑提供options的情况，所以可以忽视执行错误的情况
     def act_and_call(
@@ -104,7 +126,7 @@ class GPT_agent_smooth_desc_another_room_reflextion(GPT_caller_simplify_desc_onl
             if extra_info['env_act_failed']: # 指令执行失败的情况，需要让模型反思，随后调用模型获取下一个指令，NOTE: 该情况下步数不会增加
                 # NOTE: Reflextion: 让模型反思该错误并把结果放进action history
                 self.env.append_command_obs_pair(command, extra_info['raw_obs'])
-                reflextion = self.llm_reflextion(extra_info['raw_obs'])
+                reflextion = self.llm_reflextion()
                 self.add_reflextion_into_action_history(reflextion)
                 extra_info['reflexted'] = True;
                 command_may_none, raw_extra_info = self.call_llm_get_next_command_try_twice()
