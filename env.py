@@ -205,13 +205,13 @@ class Env_extra_info(Env):
         obs, reward, is_not_terminal, info = self.origin_env_step(cmd)
         new_moves = self.get_moves(info)
         if old_moves == new_moves:  # Add 2024.8.17 命令执行失败，obs被存储到env.err['obs']
-            extra_info_dic = {'desc': f'步数没有增加，{cmd}执行失败，raw obs为{obs}', 'raw_obs': obs, 'raw_info': info, 'env_act_failed': True}
+            extra_info_dic = {'desc': f'步数没有增加，{cmd}执行失败，raw obs为{obs}', 'raw_obs': obs, 'env_act_failed': True}
             print(f'TAKU: env._step WARNING, {cmd} NOT EXECUTABLE!')
             self.err = {'obs': obs, 'info': info}
             self.env.err = {'obs': obs, 'info': info}
             return None, None, extra_info_dic
         elif new_moves == old_moves + 1:  # SUCCESS
-            extra_info_dic = {'desc': f'步数增加，{cmd}执行成功，raw obs为{obs}', 'raw_obs': obs, 'raw_info': info, 'env_act_failed': False}
+            extra_info_dic = {'desc': f'步数增加，{cmd}执行成功，raw obs为{obs}', 'raw_obs': obs, 'env_act_failed': False}
             self.env.obs = obs  # Added 2024.8.9
             self.env.info = info  # Added 2024.5.23
             return obs, info, extra_info_dic
@@ -225,6 +225,9 @@ class Env_extra_info(Env):
         env = self.env
         no_augment = no_augment or self.no_augment
         extra_info = {}
+        extra_info['env_act_failed'] = False
+        extra_info['is_placing_item'] = False
+        extra_info['placing_failed'] = False
         if command:
             # Add 2024.8.17 需要判断行动是否成功，如果不成功则直接跳出
             obs_raw, info, extra_info_raw = self._step(command)
@@ -247,22 +250,21 @@ class Env_extra_info(Env):
             env.last_reward = new_reward
             # 2024.1.21  反馈强化
             if not no_augment:
-                if env.instant_reward != 0:
-                    obs += self.RIGHT_POSITION_HINT
+                if self.is_placing_item(command):
                     extra_info['is_placing_item'] = True
-                    extra_info['point_up'] = True
-                    # print(f'FA: {obs}')
-                else:
-                    if self.is_placing_item(command):
-                        extra_info['is_placing_item'] = True
+                    if env.instant_reward != 0:
+                        obs += self.RIGHT_POSITION_HINT
+                        extra_info['placing_failed'] = False
+                        extra_info['point_up'] = True
+                        # print(f'FA: {obs}')
+                    else:
+                        extra_info['placing_failed'] = True
                         obs_lower = obs.lower()
                         if obs_lower.startswith(
                                 "you can't") or obs_lower.startswith(
                                     'you need'):  # 放置失败
-                            extra_info['placing_failed'] = True
                             pass  # 什么也不做
                         else:
-                            extra_info['placing_wrong'] = True
                             obs += self.WRONG_POSITION_HINT  # 放置成功，但是位置错误
                             # print(f'FA: {obs}')
             # 记录历史

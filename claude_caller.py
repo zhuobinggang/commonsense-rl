@@ -2,6 +2,7 @@ from functools import lru_cache
 import global_variable as G
 import pyperclip
 import re
+from common import actions_to_list
 
 CLAUDE_TYPE = 'claude-3-5-sonnet-20241022'
 
@@ -154,12 +155,6 @@ def action_obs_pairs_to_history(action_obs_pairs):
         action_history = 'No action was taken now.'
     return action_history
 
-def actions_to_list(actions):
-    available_action_text = ''
-    for act in actions:
-        available_action_text += f'* {act}\n'
-    return available_action_text
-
 class Builder1:  # 2024.8.9之前的
 
     def __init__(self):
@@ -227,6 +222,10 @@ class Claude_Caller:
         self.no_augment = no_augment
         self.step_limit = step_limit
         self.filename_prefix = filename_prefix
+        self.desc = ''
+        self.inventory = ''
+        self.available_actions = []
+        self.action_obs_pairs = []
         self.file_name_generate()
         # print(f'ZERO SHOT: {zero_shot}')
         # print(f'COT: {cot}')
@@ -307,11 +306,11 @@ class Claude_Caller:
     def updated_description(self, description):
         return description
 
-    def set_act_result_to_body(self, desc, inventory, actions, action_obs_pairs):
-        self.desc = desc
-        self.inventory = inventory
-        self.available_actions = actions
-        self.action_obs_pairs = action_obs_pairs
+    def set_act_result_to_body(self, desc = None, inventory = None, available_actions = None, action_obs_pairs = None):
+        self.desc = desc if desc else self.desc
+        self.inventory = inventory if inventory else self.inventory
+        self.available_actions = available_actions if available_actions else self.available_actions
+        self.action_obs_pairs = action_obs_pairs if action_obs_pairs else self.action_obs_pairs
 
     def recall_and_get_command(self, need_print= False):
         return self.__call__(self.desc, self.inventory,

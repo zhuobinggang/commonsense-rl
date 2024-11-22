@@ -3,6 +3,7 @@
 from llm_caller import get_client, GPT_Caller, text_from_raw_response, Claude_Caller
 from claude_caller import action_obs_pairs_to_history
 import global_variable as G
+from common import json_obj_from_text
 
 GPT4O = 'gpt-4o-2024-08-06'
 GPT4OMINI = 'gpt-4o-mini-2024-07-18'
@@ -40,6 +41,7 @@ class Prompt_builder:
     def __init__(self,
                  task=G.TASK_NEW,
                  action_history=None,
+                 recent_considerations = None,
                  inventory=None,
                  current_enviroment=None,
                  example=None,
@@ -54,6 +56,7 @@ class Prompt_builder:
         self.current_enviroment = current_enviroment
         self.example = example
         self.action_history = action_history
+        self.recent_considerations = recent_considerations
         self.action_list = action_list
         self.question = question
         self.consideration = consideration
@@ -66,14 +69,15 @@ class Prompt_builder:
     def build(self):
         system_msg = ''
         system_msg += f'Task: {self.task}\n' if self.task else ''
-        system_msg += f'Example walkthrough: {self.example}\n' if self.example else ''
-        system_msg += f'Action history: {self.action_history}\n' if self.action_history else ''
-        system_msg += f'Inventory: {self.inventory}\n' if self.inventory else ''
-        system_msg += f'Another room: {self.another_room_info}\n' if self.another_room_info else ''
-        system_msg += f'Environment: {self.current_enviroment}\n' if self.current_enviroment else ''
         system_msg = system_msg.strip() + '\n'
         self.system_msg = system_msg
         user_msg = ''
+        user_msg += f'Example walkthrough: {self.example}\n' if self.example else ''
+        user_msg += f'Action history: {self.action_history}\n' if self.action_history else ''
+        user_msg += f'Recent considerations: {self.recent_considerations}\n' if self.recent_considerations else ''
+        user_msg += f'Inventory: {self.inventory}\n' if self.inventory else ''
+        user_msg += f'Another room: {self.another_room_info}\n' if self.another_room_info else ''
+        user_msg += f'Environment: {self.current_enviroment}\n' if self.current_enviroment else ''
         user_msg += f'Available actions:\n{self.action_list}\n' if self.action_list else ''
         user_msg += f'Question: {self.question}\n' if self.question else ''
         user_msg += f'Consideration: {self.consideration}\n' if self.consideration else ''
@@ -121,7 +125,7 @@ class Builder_old_style:  # 2024.8.9之前的
 def quest_simple_get_text(system_msg,
                         user_msg,
                         gpt_type=GPT4OMINI,
-                        verbose = True):
+                        verbose = False):
     client = get_client()
     completion = client.chat.completions.create(
         model=gpt_type,  # 
@@ -151,7 +155,7 @@ class GPT_Caller_Simple_Desc(GPT_Caller):
         self.summarize_prompt_builder.desc = description
         self.summarize_prompt_builder.build()
         sys_msg, usr_msg = self.summarize_prompt_builder.sys_usr_msg()
-        new_desc = quest_simple_get_text(sys_msg, usr_msg)
+        new_desc = quest_simple_get_text(sys_msg, usr_msg, verbose=False)
         self.summarize_log += f'{self.summarize_prompt_builder.prompt}\n\n{new_desc}\n\n'
         return new_desc
         
@@ -214,6 +218,10 @@ class GPT_Caller_Simplify(Claude_Caller):
         self.env = env
         self.step_limit = step_limit
         self.filename_prefix = filename_prefix
+        self.desc = ''
+        self.inventory = ''
+        self.available_actions = []
+        self.action_obs_pairs = []
         self.file_name_generate()
         self.step_counter = 0
         # Add 2024.8.9
@@ -255,10 +263,14 @@ class GPT_Caller_Simplify(Claude_Caller):
         f.write(self.summarize_log)
         f.close()
 
+    def llm_response_dic_got(self, dic):
+        pass
+
     def quest_my_llm(self, system_msg, user_msg, llm_type, verbose = False):
         complete, dic, the_command = quest_gpt_simple(get_client(), system_msg,
                                         user_msg,
                                         llm_type, verbose=verbose) # 获得the_command，可能为空
+        self.llm_response_dic_got(dic)
         return complete, dic, the_command
     
     def build_prompt(self, desc, inventory, available_actions, act_obs_pairs):
@@ -285,17 +297,3 @@ class GPT_Caller_Simplify(Claude_Caller):
         return the_command
 
 
-def json_obj_from_text(text):
-    import re
-    import json
-    text = text.replace('\n','')
-    pattern = r'\{.+\}'
-    result = re.search(pattern, text)
-    try:
-        json_string = result.group(0)
-        json_data = json.loads(json_string)
-        print(json_data)
-        return json_data
-    except IndexError:
-        print("No json found!")
-        return None
