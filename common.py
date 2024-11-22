@@ -61,6 +61,21 @@ def action_obs_pairs_to_history(action_obs_pairs):
         action_history = 'No action was taken now.'
     return action_history
 
+
+def action_obs_pairs_to_history_react_style(action_obs_pairs, considerations):
+    if len(action_obs_pairs) == 0:
+        return ''
+    text = ''
+    idx = 1
+    for consideration, (action, obs) in zip(considerations, action_obs_pairs):
+        text += f'Consideration {idx}: {consideration}\n'
+        text += f'Action {idx}: {action}\n'
+        text += f'Observation {idx}: {obs}\n'
+        idx += 1
+    return '\n' + text.strip()
+
+
+
 def considerations_to_text(considerations):
     if len(considerations) == 0:
         return 'Nothing.'
