@@ -55,7 +55,6 @@ class Prompt_builder:
         self.inventory = inventory
         self.current_enviroment = current_enviroment
         self.example = example
-        self.action_history = action_history
         self.recent_considerations = recent_considerations
         self.action_list = action_list
         self.question = question
@@ -270,6 +269,7 @@ class GPT_Caller_Simplify(Claude_Caller):
         complete, dic, the_command = quest_gpt_simple(get_client(), system_msg,
                                         user_msg,
                                         llm_type, verbose=verbose) # 获得the_command，可能为空
+        self.add_to_readable_log(str(dic['response']))
         self.llm_response_dic_got(dic)
         return complete, dic, the_command
     
@@ -283,6 +283,7 @@ class GPT_Caller_Simplify(Claude_Caller):
                  action_obs_pairs, need_print = False):
         self.build_prompt(description, inventory, available_actions, action_obs_pairs)
         system_msg, user_msg = self.builder.sys_usr_msg()
+        self.add_to_readable_log(system_msg + user_msg + '\n')
         complete, dic, the_command = self.quest_my_llm(system_msg,
                                              user_msg,
                                              self.gpt_type) # 获得the_command，可能为空
@@ -292,8 +293,6 @@ class GPT_Caller_Simplify(Claude_Caller):
         if self.env is not None:
             self.env.env.system_user_msgs.append(system_msg + user_msg) # 2024.11.9: 不管command是否为空，都存储sys, user信息，这个可以用于再次请求才对。
             self.env.env.gpt_responses.append(complete)
-            self.env.env.readable_log += (system_msg + user_msg + '\n\n\n' +
-                                          str(dic['response']) + '\n\n\n\n')
         return the_command
 
 

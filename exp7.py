@@ -27,8 +27,15 @@ def test_4omini_react_style(hard_test_index = 0, filename_prefix = ''):
     caller.act_until_error(None)
     return caller
 
+def test_4omini_self_refine(hard_test_index = 0, filename_prefix = ''):
+    from llm_simplify import GPT4OMINI
+    from llm_self_refine import GPT_caller_self_refine
+    env = Env_extra_info(2, hard_test_index, 1, no_augment = False)
+    caller = GPT_caller_self_refine(env, gpt_type = GPT4OMINI, step_limit = 20, filename_prefix=filename_prefix)
+    caller.act_until_error(None)
+    return caller
 
 def run_batch(start = 0, end = 3):
     for i in range(start, end):
         for game_index in range(5):
-            test_4omini_react_style(game_index, f'B{i}')
+            test_4omini_self_refine(game_index, f'B{i}')
