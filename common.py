@@ -48,7 +48,7 @@ def actions_to_list(actions):
     available_action_text = ''
     for act in actions:
         available_action_text += f'* {act}\n'
-    return available_action_text
+    return available_action_text.strip()
 
 
 def action_obs_pairs_to_history(action_obs_pairs):

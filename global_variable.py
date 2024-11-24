@@ -32,3 +32,4 @@ GPT4o = 'gpt-4o-2024-05-13'
 ##################### 2024.11.13
 
 TASK_NEW = 'You are a text game player, your goal is to put things in their proper locations and improve your score. You can only perform one action at a time. Answer in json form: {"consideration": string, "action": string}.'
+TASK_FINETUNE = 'You are a text game player, your goal is to put things in their proper locations and improve your score. You can only perform one action at a time.'
