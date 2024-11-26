@@ -228,6 +228,7 @@ class Env_extra_info(Env):
         extra_info['env_act_failed'] = False
         extra_info['is_placing_item'] = False
         extra_info['placing_failed'] = False
+        extra_info['won'] = False
         if command:
             # Add 2024.8.17 需要判断行动是否成功，如果不成功则直接跳出
             obs_raw, info, extra_info_raw = self._step(command)

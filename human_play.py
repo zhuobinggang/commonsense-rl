@@ -34,13 +34,13 @@ class Prompt_builder_for_finetune:
         self.user_msg = user_msg
         self.prompt = f'{system_msg}{user_msg}'
 
-def prompt_from_env_feedback(description, inventory, available_actions, action_obs_pairs, extra_info):
+def prompt_from_env_feedback(description, inventory, available_actions, action_obs_pairs, another_room_info):
     promptor = Prompt_builder_for_finetune()
     promptor.action_history = common.action_obs_pairs_to_history(action_obs_pairs)
     promptor.inventory = inventory
     promptor.current_enviroment = description
     promptor.action_list = common.actions_to_list(available_actions)
-    promptor.another_room_info = extra_info['another_room_info']# TODO
+    promptor.another_room_info = another_room_info# TODO
     promptor.build()
     return promptor.system_msg, promptor.user_msg
 
@@ -56,6 +56,7 @@ class Game_interface:
         self.updated_description = ''
         self.another_room_info = 'Unknown'
         self.filename = f'finetune_dataset_{dataset_index}_level_{hard_level_index}_game_{game_index}.json'
+        self.won = False
     def reset(self):
         self.act_and_output(None)
     def update_description(self, description):
@@ -65,17 +66,28 @@ class Game_interface:
         if not command:
             return False
         return command.startswith('go ')
+    def set_to_body(self, description, inventory, available_actions, action_obs_pairs):
+        self.description = description
+        self.inventory = inventory
+        self.available_actions = available_actions
+        self.action_obs_pairs = action_obs_pairs
     def act_and_output(self, command = None):
         description, inventory, available_actions, action_obs_pairs, extra_info = self.env.act(command)
-        if self.is_move_command(command):
-            self.another_room_info = self.updated_description
-        extra_info['another_room_info'] = self.another_room_info
-        description = self.update_description(description)
-        self.updated_description = description
-        sys, usr = prompt_from_env_feedback(description, inventory, available_actions, action_obs_pairs, extra_info)
-        self.current_sys = sys
-        self.current_usr = usr
-        print(f'{sys}{usr}')
+        if description is not None:
+            if self.is_move_command(command):
+                self.another_room_info = self.updated_description
+            description = self.update_description(description)
+            self.updated_description = description
+            self.set_to_body(description, inventory, available_actions, action_obs_pairs)
+            sys, usr = prompt_from_env_feedback(self.description, self.inventory, self.available_actions, self.action_obs_pairs, self.another_room_info)
+            self.current_sys = sys
+            self.current_usr = usr
+        else: # 执行失败
+            self.won = extra_info['won']
+            self.action_obs_pairs.append((command, extra_info['raw_obs']))
+            sys, usr = prompt_from_env_feedback(self.description, self.inventory, self.available_actions, self.action_obs_pairs, self.another_room_info)
+            self.current_sys = sys
+            self.current_usr = usr
     def input(self, command):
         self.command = command
         self.finetune_triples.append((self.current_sys, self.current_usr, self.command))
@@ -89,6 +101,11 @@ class Game_interface:
     def output_actions(self):
         actions = [command for sys, usr, command in self.finetune_triples]
         return actions
+    def save_readable(self):
+        f = open(f'exp/auto_filename/{self.filename}.txt', 'w')
+        for sys, usr, command in self.finetune_triples:
+            f.write(sys + usr + '\n' + command + '\n\n')
+        f.close()
 
 def auto_play(game_index, action_list):
     game = Game_interface(game_index)
