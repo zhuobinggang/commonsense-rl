@@ -6,7 +6,7 @@ from functools import lru_cache
 
 data_path = "out.jsonl"
 
-def load_ds():
+def load_ds(data_path = data_path):
     # Load the dataset
     with open(data_path, 'r', encoding='utf-8') as f:
         dataset = [json.loads(line) for line in f]

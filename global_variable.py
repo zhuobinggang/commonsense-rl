@@ -33,3 +33,4 @@ GPT4o = 'gpt-4o-2024-05-13'
 
 TASK_NEW = 'You are a text game player, your goal is to put things in their proper locations and improve your score. You can only perform one action at a time. Answer in json form: {"consideration": string, "action": string}.'
 TASK_FINETUNE = 'You are a text game player, your goal is to put things in their proper locations and improve your score. You can only perform one action at a time.'
+TASK_COT_DISTLL = 'You are a text game player, your goal is to put things in their proper locations and improve your score. You can only perform one action at a time. You have already taken the best action based on the current situation. Now, you need to explain the reasons behind your choice.'

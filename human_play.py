@@ -49,6 +49,9 @@ class Game_interface:
         from env import Env_extra_info
          # train set
         self.env = Env_extra_info(hard_level_index, game_index, dataset_index=dataset_index)
+        self.game_index = game_index
+        self.dataset_index = dataset_index
+        self.hard_level_index = hard_level_index
         self.finetune_triples = [] # (sys, usr, command_next)
         self.current_sys = ''
         self.current_usr = ''
@@ -61,7 +64,9 @@ class Game_interface:
         self.act_and_output(None)
     def update_description(self, description):
         # TODO: 使用gpt4o来summarization
-        return description
+        updated_description = description
+        self.updated_description = updated_description
+        return updated_description
     def is_move_command(self, command):
         if not command:
             return False
@@ -71,21 +76,25 @@ class Game_interface:
         self.inventory = inventory
         self.available_actions = available_actions
         self.action_obs_pairs = action_obs_pairs
+    def construct_sys_usr(self, description, inventory, available_actions, action_obs_pairs):
+        sys, usr = prompt_from_env_feedback(description, inventory, available_actions, action_obs_pairs, self.another_room_info)
+        return sys, usr
+    def get_updated_description_before_description_update(self):
+        return self.updated_description
     def act_and_output(self, command = None):
         description, inventory, available_actions, action_obs_pairs, extra_info = self.env.act(command)
         if description is not None:
             if self.is_move_command(command):
-                self.another_room_info = self.updated_description
+                self.another_room_info = self.get_updated_description_before_description_update()
             description = self.update_description(description)
-            self.updated_description = description
             self.set_to_body(description, inventory, available_actions, action_obs_pairs)
-            sys, usr = prompt_from_env_feedback(self.description, self.inventory, self.available_actions, self.action_obs_pairs, self.another_room_info)
+            sys, usr = self.construct_sys_usr(self.description, self.inventory, self.available_actions, self.action_obs_pairs)
             self.current_sys = sys
             self.current_usr = usr
         else: # 执行失败
             self.won = extra_info['won']
             self.action_obs_pairs.append((command, extra_info['raw_obs']))
-            sys, usr = prompt_from_env_feedback(self.description, self.inventory, self.available_actions, self.action_obs_pairs, self.another_room_info)
+            sys, usr = self.construct_sys_usr(self.description, self.inventory, self.available_actions, self.action_obs_pairs)
             self.current_sys = sys
             self.current_usr = usr
     def input(self, command):
@@ -106,6 +115,11 @@ class Game_interface:
         for sys, usr, command in self.finetune_triples:
             f.write(sys + usr + '\n' + command + '\n\n')
         f.close()
+    def auto_play(self, action_list):
+        self.reset()
+        for action in action_list:
+            self.input(action)
+
 
 def auto_play(game_index, action_list):
     game = Game_interface(game_index)

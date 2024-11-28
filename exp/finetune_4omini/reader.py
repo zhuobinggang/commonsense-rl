@@ -20,50 +20,25 @@ def read_lines_from_json_files_in_directory(path):
     for file_name in os.listdir(path):
         if file_name.endswith('.json'):  # 只处理 JSON 文件
             file_path = os.path.join(path, file_name)
-            try:
-                with open(file_path, 'r', encoding='utf-8') as file:
-                    for line in file:
-                        line = line.strip()  # 去掉前后空白字符
-                        if line:  # 跳过空行
-                            result.append(line)
-            except Exception as e:
-                print(f"读取文件 {file_path} 时出错: {e}")
-
+            temp_result = read_lines_by_file(file_path)
+            result += temp_result
     return result
 
 
-def lines_random_then_output(lines, output_file='out.json'):
-    """
-    将输入列表的顺序随机打乱并保存到文件中，每行保存一个字符串。
-
-    Args:
-        lines (list): 要随机打乱的字符串列表。
-        output_file (str): 输出文件路径，默认为 'out.json'。
-
-    Returns:
-        None
-    """
-    if not isinstance(lines, list):
-        raise ValueError("输入必须是一个列表。")
-    
-    # 打乱列表顺序
-    random.shuffle(lines)
-    
+def read_lines_by_file(file_path):
+    result = []
     try:
-        # 将打乱后的内容写入文件
-        with open(output_file, 'w', encoding='utf-8') as file:
-            for line in lines:
-                file.write(line + '\n')  # 每行写入一个字符串，后接换行符
-        print(f"打乱后的内容已保存到文件: {output_file}")
+        with open(file_path, 'r', encoding='utf-8') as file:
+            for line in file:
+                line = line.strip()  # 去掉前后空白字符
+                if line:  # 跳过空行
+                    result.append(line)
     except Exception as e:
-        print(f"写入文件 {output_file} 时发生错误: {e}")
-
-# 示例使用
-# lines = ["line1", "line2", "line3", "line4"]
-# lines_random_then_output(lines)
+        print(f"读取文件 {file_path} 时出错: {e}")
+    return result
 
 
-def lines_random_then_output_v2(lines, output_file='out.jsonl'):
+def lines_random_then_output(lines, output_file='out.jsonl'):
     import json
     """
     将输入的 Python 字典格式列表随机打乱，并以 JSON Lines 格式输出到文件。
@@ -92,3 +67,8 @@ def lines_random_then_output_v2(lines, output_file='out.jsonl'):
         print(f"打乱后的内容已保存到文件: {output_file}")
     except Exception as e:
         print(f"写入文件 {output_file} 时发生错误: {e}")
+
+def command_from_line(line):
+    obj = eval(line)
+    sys, usr, agent = obj['messages']
+    return agent['content']
