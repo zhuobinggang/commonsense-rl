@@ -30,8 +30,24 @@ def game_played(game_index = 0):
     game.auto_play(commands)
     return game
 
+def save_pkl_with_game_index(game_index, pkl):
+    import pickle
+    with open(f'exp/auto_filename/game_{game_index}_human_play_llm_reason.pkl', 'wb') as outp:  # Overwrites any existing file.
+        pickle.dump(pkl, outp, pickle.HIGHEST_PROTOCOL)
 
-def game_played_then_request_reason(game_index = 0):
+def game_played_then_request_reason_abstract(game_index, dic_to_sys_usr_func, quest_get_reason_func, save_pkl_func):
+    game = game_played(game_index)
+    prompt_necessary_info_dics = game.prompt_necessary_info_dics
+    for dic in prompt_necessary_info_dics:
+        sys, usr = dic_to_sys_usr_func(dic)
+        response = quest_get_reason_func(sys, usr)
+        dic['reason'] = response
+    save_pkl_func(game_index, prompt_necessary_info_dics)
+
+
+
+
+def game_played_then_request_reason_legacy(game_index = 0):
     game = game_played(game_index)
     prompt_necessary_info_dics = game.prompt_necessary_info_dics
     for dic in prompt_necessary_info_dics:
@@ -42,6 +58,9 @@ def game_played_then_request_reason(game_index = 0):
     with open(f'exp/finetune_4omini_cot_distill/game_{game_index}_play_reason_4omini.pkl', 'wb') as outp:  # Overwrites any existing file.
         pickle.dump(prompt_necessary_info_dics, outp, pickle.HIGHEST_PROTOCOL)
     return prompt_necessary_info_dics
+
+def game_played_then_request_reason(game_index = 0):
+    game_played_then_request_reason_abstract(game_index, dic_to_sys_usr, quest_get_reason, save_pkl_with_game_index)
 
 def load_reason_dics(file_path):
     import pickle
@@ -192,7 +211,7 @@ def sys_usr_cot_distill_training(description, inventory, available_actions, acti
     promptor.build()
     return promptor.system_msg, promptor.user_msg
 
-def dics_random_train_file_prepare(directory_path):
+def dics_random_train_file_prepare(directory_path, out_path = 'exp/finetune_4omini_cot_distill/cot_distill_training.jsonl'):
     import os
     # 遍历文件夹中的所有文件
     dics = []
@@ -208,11 +227,11 @@ def dics_random_train_file_prepare(directory_path):
     import json
     for dic in dics:
         sys, usr = sys_usr_cot_distill_training(dic['description'], dic['inventory'], dic['available_actions'], dic['action_obs_pairs'], dic['another_room_info'])
-        assistant = json.dumps({'consideration': dic['reason'], 'action': dic['command']})
+        assistant = json.dumps({'consideration': dic['reason'].replace('\n',''), 'action': dic['command']})
         obj = {'messages': [{"role": "system", "content": sys.strip()}, {"role": "user", "content": usr.strip()}, {"role": "assistant", "content": assistant.strip()}]}
         line = json.dumps(obj)
         lines.append(line)
-    f = open('exp/finetune_4omini_cot_distill/cot_distill_training.jsonl', 'w')
+    f = open(out_path, 'w')
     for line in lines:
         f.write(line + '\n')
     f.close()

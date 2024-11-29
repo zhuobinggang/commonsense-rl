@@ -11,28 +11,28 @@ def get_client():
     return client
 
 # out: id='file-9C619S53TAisjJwmkTwbcE'
-def create_file():
+def create_file(file_path = "out.jsonl"):
     client = get_client()
     return client.files.create(
-        file=open("out.jsonl", "rb"),
+        file=open(file_path, "rb"),
         purpose="fine-tune"
     )
 
-def fine_tune():
+def fine_tune(file_id_openai = 'file-9C619S53TAisjJwmkTwbcE', n_epochs = 3):
     client = get_client()
     return client.fine_tuning.jobs.create(
-        training_file="file-9C619S53TAisjJwmkTwbcE",
+        training_file=file_id_openai,
         model="gpt-4o-mini-2024-07-18",
         hyperparameters={
-            "n_epochs": 1
+            "n_epochs": n_epochs
         }
     )
 
-def retune():
+def retune(file_id_openai, model_id_openai):
     client = get_client()
     return client.fine_tuning.jobs.create(
-        training_file="file-9C619S53TAisjJwmkTwbcE",
-        model=E2,
+        training_file=file_id_openai,
+        model=model_id_openai,
         hyperparameters={
             "n_epochs": 1
         }
