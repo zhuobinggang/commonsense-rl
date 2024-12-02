@@ -40,7 +40,7 @@ def prompt_from_env_feedback(description, inventory, available_actions, action_o
     promptor.inventory = inventory
     promptor.current_enviroment = description
     promptor.action_list = common.actions_to_list(available_actions)
-    promptor.another_room_info = another_room_info# TODO
+    promptor.another_room_info = another_room_info
     promptor.build()
     return promptor.system_msg, promptor.user_msg
 

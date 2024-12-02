@@ -85,3 +85,8 @@ def considerations_to_text(considerations):
         text += f'{idx}. {consideration}\n'
         idx += 1
     return '\n' + text.strip()
+
+
+def training_line_prepare(sys, usr, agent):
+    obj = {'messages': [{"role": "system", "content": sys.strip()}, {"role": "user", "content": usr.strip()}, {"role": "assistant", "content": agent.strip()}]}
+    return obj

@@ -142,20 +142,26 @@ def quest_simple_get_text(system_msg,
     usage = str(completion.usage)
     return content
 
+# ================== common funcs =================
+def quest_4omini_simplify_desc(desc):
+    promptor = Summarization_Prompt_builder()
+    promptor.desc = desc
+    promptor.build()
+    sys_msg, usr_msg = promptor.sys_usr_msg()
+    new_desc = quest_simple_get_text(sys_msg, usr_msg, verbose=False)
+    prompt = promptor.prompt
+    return prompt, new_desc
+# ================== END ====================
 
 class GPT_Caller_Simple_Desc(GPT_Caller):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.summarize_prompt_builder = Summarization_Prompt_builder()
         self.summarize_log = ''
 
     def updated_description(self, description):
-        self.summarize_prompt_builder.desc = description
-        self.summarize_prompt_builder.build()
-        sys_msg, usr_msg = self.summarize_prompt_builder.sys_usr_msg()
-        new_desc = quest_simple_get_text(sys_msg, usr_msg, verbose=False)
-        self.summarize_log += f'{self.summarize_prompt_builder.prompt}\n\n{new_desc}\n\n'
+        prompt, new_desc = quest_4omini_simplify_desc(description)
+        self.summarize_log += f'{prompt}\n\n{new_desc}\n\n'
         return new_desc
         
     def save_hook(self):
@@ -233,7 +239,7 @@ class GPT_Caller_Simplify(Claude_Caller):
         self.builder = builder or Builder_Simple_Option()
 
     def init_summarize_prompt_builder(self):
-        self.summarize_prompt_builder = Summarization_Prompt_builder()
+        pass
 
     def file_name_generate(self):
         shot = 'ZERO_SHOT'
@@ -247,11 +253,8 @@ class GPT_Caller_Simplify(Claude_Caller):
         pass
 
     def updated_description(self, description):
-        self.summarize_prompt_builder.desc = description
-        self.summarize_prompt_builder.build()
-        sys_msg, usr_msg = self.summarize_prompt_builder.sys_usr_msg()
-        new_desc = quest_simple_get_text(sys_msg, usr_msg)
-        self.summarize_log += f'{self.summarize_prompt_builder.prompt}\n\n{new_desc}\n\n'
+        prompt, new_desc = quest_4omini_simplify_desc(description)
+        self.summarize_log += f'{prompt}\n\n{new_desc}\n\n'
         self.description_updated_callback(description, new_desc)
         return new_desc
         
