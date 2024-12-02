@@ -38,7 +38,8 @@ def quest_get_consideration_and_command(system_msg,
     consideration = obj['consideration']
     return consideration, the_command
 
-def llm_auto_play(game_index, file_prefix = 'B0_', max_try = 20):
+def llm_auto_play(game_index, file_prefix = 'B0_', max_try = 20, gpt_type = E3):
+    print(gpt_type)
     game = Game_cot_distill(game_index, 1, 2)
     game.reset()
     count = 0
@@ -46,7 +47,7 @@ def llm_auto_play(game_index, file_prefix = 'B0_', max_try = 20):
         count += 1
         try:
             sys, usr = sys_usr_cot_distill_training(game.description, game.inventory, game.available_actions, game.action_obs_pairs, game.another_room_info)
-            consideration, command = quest_get_consideration_and_command(sys, usr, gpt_type=E3)
+            consideration, command = quest_get_consideration_and_command(sys, usr, gpt_type=gpt_type)
             game.input(command, consideration)
         except:
             print('EXCEPT')
@@ -56,8 +57,8 @@ def llm_auto_play(game_index, file_prefix = 'B0_', max_try = 20):
     game.save_readable()
     return game
 
-def llm_auto_play_valid_set(game_index, file_prefix = 'B0_', max_try = 20, E = 1):
-    print(f'VALID E{E}: {MODELS[E]}')
+def llm_auto_play_valid_set(game_index, file_prefix = 'B0_', max_try = 20, gpt_type = MODELS[1]):
+    print(f'VALID gpt_type: {gpt_type}')
     game = Game_cot_distill(game_index, 2, 2) # game_index, dataset_index, hard_level
     game.reset()
     count = 0
@@ -65,24 +66,24 @@ def llm_auto_play_valid_set(game_index, file_prefix = 'B0_', max_try = 20, E = 1
         count += 1
         try:
             sys, usr = sys_usr_cot_distill_training(game.description, game.inventory, game.available_actions, game.action_obs_pairs, game.another_room_info)
-            consideration, command = quest_get_consideration_and_command(sys, usr, gpt_type=MODELS[E])
+            consideration, command = quest_get_consideration_and_command(sys, usr, gpt_type=gpt_type)
             game.input(command, consideration)
         except:
             print('EXCEPT')
             break
-    game.filename = f'valid_E{E}_{file_prefix}finetuned_play_game{game_index}_score{game.env.env.last_reward}.jsonl'
+    game.filename = f'valid_{gpt_type}_{file_prefix}finetuned_play_game{game_index}_score{game.env.env.last_reward}.jsonl'
     game.save_as_json()
     game.save_readable()
     return game
 
-def batch(start = 0, end = 1):
+def batch(start = 0, end = 1, gpt_type = E3):
     for batch_index in range(start, end):
         for game_index in range(5):
-            _ = llm_auto_play(game_index, f'B{batch_index}_')
+            _ = llm_auto_play(game_index, f'B{batch_index}_', gpt_type=gpt_type)
 
 
 def batch_valid(start = 0, end = 1):
     for batch_index in range(start, end):
         for e in range(3):
             for game_index in range(5):
-                _ = llm_auto_play_valid_set(game_index, f'B{batch_index}_', E = e)
+                _ = llm_auto_play_valid_set(game_index, f'B{batch_index}_', gpt_type=MODELS[e])

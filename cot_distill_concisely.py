@@ -80,10 +80,34 @@ def valid():
     cost_est(ds, dd)
 
 
+# Result: file-4ABmkrsyPrVYxQ5r2vyBLq
 def finetune_file_upload():
     from exp.finetune_4omini.finetune import create_file
-    create_file(training_data_path)
+    return create_file(training_data_path)
 
+UPLOADED_FILE_ID = 'file-4ABmkrsyPrVYxQ5r2vyBLq'
 
 def finetune():
-    pass
+    from exp.finetune_4omini.finetune import fine_tune
+    return fine_tune(UPLOADED_FILE_ID)
+
+E1 = 'ft:gpt-4o-mini-2024-07-18:personal::AZqq53xr:ckpt-step-70'
+E2 = 'ft:gpt-4o-mini-2024-07-18:personal::AZqq638q:ckpt-step-140'
+E3 = 'ft:gpt-4o-mini-2024-07-18:personal::AZqq6wkl'
+MODELS = [E1, E2, E3]
+
+# ================= GAME PLAY ===================
+
+from finetuned_play_cot_distill import llm_auto_play_valid_set, llm_auto_play
+
+def batch_valid(start = 0, end = 1):
+    for batch_index in range(start, end):
+        for e in range(3):
+            for game_index in range(5):
+                _ = llm_auto_play_valid_set(game_index, f'B{batch_index}_', gpt_type=MODELS[e])
+
+
+def batch_test(start = 0, end = 1):
+    for batch_index in range(start, end):
+        for game_index in range(5):
+            _ = llm_auto_play(game_index, f'B{batch_index}_', gpt_type=E3)
