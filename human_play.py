@@ -81,8 +81,11 @@ class Game_interface:
         return sys, usr
     def get_updated_description_before_description_update(self):
         return self.updated_description
+    def available_actions_got_callback(self, available_actions):
+        pass
     def act_and_output(self, command = None):
         description, inventory, available_actions, action_obs_pairs, extra_info = self.env.act(command)
+        self.available_actions_got_callback(available_actions)
         if description is not None:
             if self.is_move_command(command):
                 self.another_room_info = self.get_updated_description_before_description_update()

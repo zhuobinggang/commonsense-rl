@@ -1,0 +1,1 @@
+在人类玩家做出的决策之上，使用4omini来生成chain of thought再用来微调自己。

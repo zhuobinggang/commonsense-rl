@@ -32,6 +32,27 @@ class Game_simplify(Game_cot_distill):
         print('SAVE IT IN LLM PLAY FUNCTION YOURSELF!!!!!')
     def save_readable(self):
         print('SAVE IT IN LLM PLAY FUNCTION YOURSELF!!!!!')
+    def available_actions_got_callback(self, available_actions):
+        # NOTE: save movable direction
+        self.movable_direction = ''
+        if not available_actions:
+            return
+        for action in available_actions:
+            if action.startswith('go'):
+                self.movable_direction = action.replace('go ', '')
+                print('movable direction updated: ' + self.movable_direction)
+    def input(self, command, consideration = ''):
+        self.command = command
+        dic = {'description': self.description, 
+               'inventory': self.inventory, 
+               'available_actions': self.available_actions.copy(), 
+               'action_obs_pairs': self.action_obs_pairs.copy(),
+               'another_room_info': self.another_room_info,
+               'command': self.command,
+               'consideration': consideration,
+               'movable_direction': self.movable_direction} # NOTE
+        self.prompt_necessary_info_dics.append(dic)
+        self.act_and_output(command)
 
 def game_played(game_index = 0):
     game = Game_simplify(game_index)
@@ -113,7 +134,7 @@ def lines_random_train_file_prepare(directory_path = 'exp/auto_filename', out_pa
 # ### validation
 training_data_path ='exp/finetune_4omini_simplify_desc/training.jsonl'
 
-def valid():
+def valid(training_data_path = training_data_path):
     from exp.finetune_4omini.varidation import load_ds, format_valid, ds_info, cost_est
     data_path = training_data_path
     ds = load_ds(data_path)
@@ -122,13 +143,13 @@ def valid():
     cost_est(ds, dd)
 
 # Result: file-4ABmkrsyPrVYxQ5r2vyBLq
-def finetune_file_upload():
+def finetune_file_upload(training_data_path = training_data_path):
     from exp.finetune_4omini.finetune import create_file
     return create_file(training_data_path)
 
 UPLOADED_FILE_ID = 'file-5L2WHriDUkQqJ9RRXZxYcZ'
 
-def finetune():
+def finetune(UPLOADED_FILE_ID = UPLOADED_FILE_ID):
     from exp.finetune_4omini.finetune import fine_tune
     return fine_tune(UPLOADED_FILE_ID)
 
@@ -138,8 +159,10 @@ E3 = 'ft:gpt-4o-mini-2024-07-18:personal::AZtikr70'
 MODELS = [E1, E2, E3]
 
 # ==================== 重新实现llm play，需要实时将desc简化 ==================
+def sys_usr_from_game(game):
+    return prompt_from_env_feedback_simple_desc(game.description, game.inventory, game.available_actions, game.action_obs_pairs, game.another_room_info)
 
-def llm_auto_play(game_index, testing = True, file_prefix = 'B0_', max_try = 20, gpt_type = E3):
+def llm_auto_play(game_index, testing = True, file_prefix = 'B0_', max_try = 20, gpt_type = E3, sys_usr_from_game_func = sys_usr_from_game):
     from finetuned_play import quest_get_command
     print(gpt_type)
     if testing:
@@ -152,7 +175,7 @@ def llm_auto_play(game_index, testing = True, file_prefix = 'B0_', max_try = 20,
     while count < max_try and not game.won:
         count += 1
         try:
-            sys, usr = prompt_from_env_feedback_simple_desc(game.description, game.inventory, game.available_actions, game.action_obs_pairs, game.another_room_info)
+            sys, usr = sys_usr_from_game_func(game)
             command = quest_get_command(sys, usr, gpt_type=gpt_type)
             game.input(command)
             log_triples.append((sys, usr, command))
