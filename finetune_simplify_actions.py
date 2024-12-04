@@ -106,13 +106,58 @@ def finetune_simple_actions():
 MODELS = ['ft:gpt-4o-mini-2024-07-18:personal::AaEAigkN:ckpt-step-70',
           'ft:gpt-4o-mini-2024-07-18:personal::AaEAiVmA:ckpt-step-140',
           'ft:gpt-4o-mini-2024-07-18:personal::AaEAiAUu']
+BEST = MODELS[2]
 
 # ================== play =====================
-
-from finetune_simplify import llm_auto_play
 
 def sys_usr_from_game(game):
     return prompt_from_env_feedback_simple_actions(game.description, game.inventory, game.action_obs_pairs, game.another_room_info, game.movable_direction)
 
-# TODO: 测试　
-llm_auto_play(0, testing=False, gpt_type = MODELS[0], max_try=10, sys_usr_from_game_func = sys_usr_from_game)
+
+def llm_auto_play(game_index, testing = True, file_prefix = 'B0_', max_try = 20, gpt_type = MODELS[2], sys_usr_from_game_func = sys_usr_from_game):
+    from finetuned_play import quest_get_command
+    from action_selector import quest_closet_action
+    print(gpt_type)
+    if testing:
+        game = Game_simplify(game_index, 1, 2) # test set
+    else:
+        game = Game_simplify(game_index, 2, 2) # valid set
+    game.reset()
+    count = 0
+    log_triples = []
+    while count < max_try and not game.won:
+        count += 1
+        try:
+            sys, usr = sys_usr_from_game_func(game)
+            command = quest_get_command(sys, usr, gpt_type=gpt_type).strip()
+            log_triples.append((sys, usr, command))
+            if command not in game.available_actions:
+                org_command = command
+                command = quest_closet_action(game.available_actions, command).strip()
+                print(f'调用action selector: {org_command}->{command}')
+                log_triples.append(('ACTION SELCTOR', 'ACTION SELCTOR', f'{org_command}->{command}'))
+            _ = game.input(command)
+        except:
+            print('EXCEPT')
+            break
+    if testing:
+        f = open(f'exp/auto_filename/testing_{gpt_type}_{file_prefix}finetuned_play_game{game_index}_score{game.env.env.last_reward}.txt', 'w')
+    else:
+        f = open(f'exp/auto_filename/valid_{gpt_type}_{file_prefix}finetuned_play_game{game_index}_score{game.env.env.last_reward}.txt', 'w')
+    for sys, usr, command in log_triples:
+        f.write(sys + '\n' + usr + '\n' + command + '\n\n')
+    f.close()
+    return game
+
+# DONE: 测试　
+def test():
+    llm_auto_play(0, testing=False, gpt_type = MODELS[0], max_try=10, sys_usr_from_game_func = sys_usr_from_game)
+
+def batch_valid():
+    for model in MODELS:
+        for i in range(5):
+            llm_auto_play(i, testing=False, gpt_type = model, max_try=20, sys_usr_from_game_func = sys_usr_from_game)
+
+def batch_test():
+    for i in range(5):
+        llm_auto_play(i, testing=True, gpt_type = BEST, max_try=20, sys_usr_from_game_func = sys_usr_from_game)

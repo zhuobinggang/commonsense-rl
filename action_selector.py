@@ -47,7 +47,7 @@ def quest_closet_action(action_list, action):
     sys, usr = sys_usr_from_actions_and_action(action_list, action)
     answer = quest_simple_get_text(sys, usr)
     answer = answer.strip()
-    if answer not in [action_list]:
+    if answer not in action_list:
         print('好像没有找到最相近的命令，应该考虑在action history加上类似的提醒。')
         print(answer)
     return answer

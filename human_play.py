@@ -85,6 +85,7 @@ class Game_interface:
         pass
     def act_and_output(self, command = None):
         description, inventory, available_actions, action_obs_pairs, extra_info = self.env.act(command)
+        act_failed = extra_info['env_act_failed']
         self.available_actions_got_callback(available_actions)
         if description is not None:
             if self.is_move_command(command):
@@ -94,12 +95,13 @@ class Game_interface:
             sys, usr = self.construct_sys_usr(self.description, self.inventory, self.available_actions, self.action_obs_pairs)
             self.current_sys = sys
             self.current_usr = usr
-        else: # 执行失败
+        else: # 执行失败: 不更新self.desc之类的
             self.won = extra_info['won']
             self.action_obs_pairs.append((command, extra_info['raw_obs']))
             sys, usr = self.construct_sys_usr(self.description, self.inventory, self.available_actions, self.action_obs_pairs)
             self.current_sys = sys
             self.current_usr = usr
+        return act_failed
     def input(self, command):
         self.command = command
         self.finetune_triples.append((self.current_sys, self.current_usr, self.command))

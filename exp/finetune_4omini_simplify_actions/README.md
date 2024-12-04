@@ -25,3 +25,7 @@ Answer (Action closest to the target action):
 ```
 
 ## Action selector -> action_selector.py
+
+## 实验及结果
+
+0.67，目前最高，但不是特别好那种。

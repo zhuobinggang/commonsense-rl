@@ -40,7 +40,7 @@ class Game_simplify(Game_cot_distill):
         for action in available_actions:
             if action.startswith('go'):
                 self.movable_direction = action.replace('go ', '')
-                print('movable direction updated: ' + self.movable_direction)
+                # print('movable direction updated: ' + self.movable_direction)
     def input(self, command, consideration = ''):
         self.command = command
         dic = {'description': self.description, 
