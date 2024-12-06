@@ -28,4 +28,4 @@ Answer (Action closest to the target action):
 
 ## 实验及结果
 
-0.67，目前最高，但不是特别好那种。
+0.67，目前最高，但不是特别好那种。接下来实验两方优化。
