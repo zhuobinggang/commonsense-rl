@@ -1,4 +1,4 @@
-from env import Env
+from env import Env_extra_info
 
 def get_all_games(target_path, recipe = 1):
     import os
@@ -12,7 +12,7 @@ def get_all_games(target_path, recipe = 1):
     ]
     return matching_files
 
-class Env_ftwp(Env):
+class Env_ftwp(Env_extra_info):
 
     def __init__(self,
                  recipe_num = 1,

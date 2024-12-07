@@ -62,6 +62,7 @@ def finetune_both():
 
 
 MODELS = ['ft:gpt-4o-mini-2024-07-18:personal::AadYwWBS:ckpt-step-70', 'ft:gpt-4o-mini-2024-07-18:personal::AadYxmyg:ckpt-step-140', 'ft:gpt-4o-mini-2024-07-18:personal::AadYxS0e']
+BEST = MODELS[2]
 
 # ================ play ==================
 
@@ -114,6 +115,7 @@ def batch_valid():
         for i in range(5):
             llm_auto_play(i, testing=False, gpt_type = model, max_try=20, sys_usr_from_game_func = sys_usr_from_game)
 
-def batch_test():
+
+def batch_test(): # DONE: 0.79
     for i in range(5):
         llm_auto_play(i, testing=True, gpt_type = BEST, max_try=20, sys_usr_from_game_func = sys_usr_from_game)
