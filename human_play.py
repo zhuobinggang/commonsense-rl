@@ -46,9 +46,8 @@ def prompt_from_env_feedback(description, inventory, available_actions, action_o
 
 class Game_interface:
     def __init__(self, game_index, dataset_index = 0, hard_level_index = 2): # datset_index = 0 for training, hard_level_index = 2 for hard-level.
-        from env import Env_extra_info
          # train set
-        self.env = Env_extra_info(hard_level_index, game_index, dataset_index=dataset_index)
+        self.env = self.init_env(hard_level_index, game_index, dataset_index)
         self.game_index = game_index
         self.dataset_index = dataset_index
         self.hard_level_index = hard_level_index
@@ -60,6 +59,10 @@ class Game_interface:
         self.another_room_info = 'Unknown'
         self.filename = f'finetune_dataset_{dataset_index}_level_{hard_level_index}_game_{game_index}.json'
         self.won = False
+        self.verbose = False
+    def init_env(self, hard_level_index, game_index, dataset_index):
+        from env import Env_extra_info
+        return Env_extra_info(hard_level_index, game_index, dataset_index=dataset_index)
     def reset(self):
         self.act_and_output(None)
     def update_description(self, description):
@@ -101,6 +104,8 @@ class Game_interface:
             sys, usr = self.construct_sys_usr(self.description, self.inventory, self.available_actions, self.action_obs_pairs)
             self.current_sys = sys
             self.current_usr = usr
+        if self.verbose:
+            print(self.current_sys + self.current_usr)
         return act_failed
     def input(self, command):
         self.command = command

@@ -12,6 +12,8 @@ def get_all_games(target_path, recipe = 1):
     ]
     return matching_files
 
+
+
 class Env_ftwp(Env_extra_info):
 
     def __init__(self,
@@ -52,7 +54,7 @@ class Env_ftwp(Env_extra_info):
         return info['score']
     
     def get_obs(self, obs_raw):
-        return obs_raw.strip().replace('\n', '')
+        return obs_raw.strip().replace('\n', ' ')
 
     def get_game_env(self, recipe_num=0, game_index=0, dataset_index = 1, need_reset = True):
         files = get_all_games(self.PATH_PREFIX, recipe=recipe_num) # ['tw-cooking-recipe1+take1+cook+cut+open+go6-8MN7Cv1vS2epHEqe.z8']
@@ -75,6 +77,40 @@ class Env_ftwp(Env_extra_info):
         env = textworld.gym.make(env_id)
         if need_reset:
             obs, infos = env.reset()
+        return env    
+
+class Env_ftwp_by_path(Env_ftwp):
+    def __init__(self,
+                 game_path,
+                 no_augment=True):
+        # 初始化
+        self.game_path = game_path
+        self.env = self.get_game_env(game_path)
+        # act
+        self.RIGHT_POSITION_HINT = 'Right position.'
+        self.WRONG_POSITION_HINT = 'Wrong position, you should put it somewhere else, maybe the other room.'
+        # 反馈强化
+        self.no_augment = no_augment
+
+    def get_game_env(self, path, need_reset = True):
+        import textworld.gym
+        from textworld import EnvInfos
+        infos_to_request = EnvInfos(description=True,
+                                    inventory=True,
+                                    admissible_commands=True,
+                                    won=True,
+                                    lost=True,
+                                    location=True,
+                                    last_action=True,
+                                    facts=True,
+                                    entities=True,
+                                    max_score=True,
+                                    moves=True,
+                                    score=True)
+        env_id = textworld.gym.register_game(path, infos_to_request, max_episode_steps=50)
+        env = textworld.gym.make(env_id)
+        if need_reset:
+            obs, infos = env.reset()
         return env
     
 
@@ -82,3 +118,8 @@ def test():
     env = Env_ftwp()
     _ = env.act()
     return env
+
+def test_get_train_set():
+    from ftwp_info import train_set_v0
+    file_paths = train_set_v0()
+    return Env_ftwp_by_path(file_paths[0])

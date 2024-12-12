@@ -150,7 +150,7 @@ class Env:
             obs = self.get_obs(obs_raw)
             inventory = self.get_inventory(info)
             description = self.get_desc(info)
-            if obs == description:  # 如果obs和description重复，应该被截断以保证输入简洁
+            if obs.replace(' ', '') == description.replace(' ', ''):  # 如果obs和description重复，应该被截断以保证输入简洁
                 obs = obs.split('.')[0] + '.'
             # Available actions
             env.available_actions = self.get_available_actions(info)
@@ -240,7 +240,7 @@ class Env_extra_info(Env):
             obs = self.get_obs(obs_raw)
             inventory = self.get_inventory(info)
             description = self.get_desc(info)
-            if obs == description:  # 如果obs和description重复，应该被截断以保证输入简洁
+            if obs.replace(' ', '') == description.replace(' ', ''):  # 如果obs和description重复，应该被截断以保证输入简洁
                 obs = obs.split('.')[0] + '.'
                 extra_info['obs_abbreviation'] = True
             # Available actions
