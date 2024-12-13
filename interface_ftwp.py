@@ -79,6 +79,7 @@ class Ftwp_interface_by_path(human_play.Game_interface):
         self.env = Env_ftwp_by_path(game_path, no_augment)
         self.game_path = game_path
         game_name = game_path.split('/')[-1]
+        self.game_name = game_name
         self.dataset_index = 'trainset'
         self.hard_level_index = 'unknown'
         self.finetune_triples = [] # (sys, usr, command_next)
@@ -107,3 +108,15 @@ def test_get_test_set():
     file_paths = test_set_v0()
     return Ftwp_interface_by_path(file_paths[0])
 
+# ====================== training file prepare =========================
+
+def game_played_and_save_training_file(game, output_file_path = 'exp/auto_filename/dd.jsonl'):
+    import json
+    game.verbose = False
+    game.auto_play(game.get_walkthrough())
+    f = open(output_file_path, 'w')
+    for sys, usr, agent in game.finetune_triples:
+        obj = common.training_line_prepare(sys, usr, agent)
+        line = json.dumps(obj)
+        f.write(line + '\n')
+    f.close()

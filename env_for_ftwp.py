@@ -56,7 +56,6 @@ class Env_ftwp(Env_extra_info):
         return info['score']
     
     def get_obs(self, obs_raw):
-        print('XXXX')
         return ' '.join(obs_raw.strip().split())
 
     def get_game_env(self, recipe_num=0, game_index=0, dataset_index = 1, need_reset = True):
