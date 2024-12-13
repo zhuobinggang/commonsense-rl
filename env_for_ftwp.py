@@ -36,10 +36,10 @@ class Env_ftwp(Env_extra_info):
         return info['won']
     
     def get_desc(self, info):
-        return info['description'].strip().replace('\n', '')
+        return ' '.join(info['description'].strip().split())
     
     def get_inventory(self, info):
-        return info['inventory'].strip().replace('\n', '')
+        return ' '.join(info['inventory'].strip().split())
     
     def get_available_actions(self, info):
         return info['admissible_commands']
@@ -48,13 +48,16 @@ class Env_ftwp(Env_extra_info):
         return info['moves']
     
     def origin_env_step(self, cmd):
-        return self.env.step(cmd)
+        obs, reward, is_not_terminal, info = self.env.step(cmd)
+        obs = ' '.join(obs.split())
+        return obs, reward, is_not_terminal, info
     
     def get_score(self, info):
         return info['score']
     
     def get_obs(self, obs_raw):
-        return obs_raw.strip().replace('\n', ' ')
+        print('XXXX')
+        return ' '.join(obs_raw.strip().split())
 
     def get_game_env(self, recipe_num=0, game_index=0, dataset_index = 1, need_reset = True):
         files = get_all_games(self.PATH_PREFIX, recipe=recipe_num) # ['tw-cooking-recipe1+take1+cook+cut+open+go6-8MN7Cv1vS2epHEqe.z8']

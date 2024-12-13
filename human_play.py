@@ -51,7 +51,7 @@ class Game_interface:
         self.game_index = game_index
         self.dataset_index = dataset_index
         self.hard_level_index = hard_level_index
-        self.finetune_triples = [] # (sys, usr, command_next)
+        self.finetune_triples = [] # (sys, usr, agent)
         self.current_sys = ''
         self.current_usr = ''
         self.command = ''

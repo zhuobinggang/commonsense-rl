@@ -1,5 +1,6 @@
 from functools import lru_cache
 TRAIN_PATH = '/home/taku/Downloads/cog2019_ftwp/games/train'
+TEST_PATH = '/home/taku/Downloads/cog2019_ftwp/games/test'
 
 def read_json_files_in_directory(directory_path):
     import os
@@ -58,7 +59,7 @@ def skill_set(json_list):
         skills.update(obj['metadata']['skills'].keys())
     return skills
 
-
+@lru_cache(maxsize=None)
 def filenames_good_length(directory_path = TRAIN_PATH):
     import os
     import json
@@ -107,8 +108,36 @@ def filepaths_skill_count(paths):
             print(f"无法读取文件 {file_path}: {e}")
     return skill_dic
 
-@lru_cache(maxsize=None)
 def train_set_v0():
-    file_paths = filenames_good_length()[:10]
+    import numpy as np
+    file_paths = filenames_good_length()
+    np.random.seed(0)
+    file_paths = np.random.choice(file_paths, 10, False)
     file_paths = [file.replace('.json', '.z8') for file in file_paths]
     return file_paths
+
+@lru_cache(maxsize=None)
+def all_test_game_paths(test_path = TEST_PATH):
+    import os
+    results = []
+    # 遍历文件夹中的所有文件
+    for filename in os.listdir(test_path):
+        if filename.endswith('.z8'):  # 只处理 .json 文件
+            file_path = os.path.join(test_path, filename)
+            results.append(file_path)
+    return results
+
+def test_set_v0():
+    import numpy as np
+    paths = all_test_game_paths()
+    np.random.seed(0)
+    paths = np.random.choice(paths, 10, False)
+    return paths
+
+def walkthrougn_by_game_path(game_path):
+    import json
+    json_path = game_path.replace('.z8', '.json')
+    f = open(json_path)
+    data = json.load(f)
+    f.close()
+    return data['extras']['walkthrough']

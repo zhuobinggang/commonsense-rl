@@ -77,6 +77,7 @@ class Ftwp_interface_by_path(human_play.Game_interface):
     def __init__(self, game_path, no_augment = True): # datset_index = 0 for training, hard_level_index = 2 for hard-level.
          # train set
         self.env = Env_ftwp_by_path(game_path, no_augment)
+        self.game_path = game_path
         game_name = game_path.split('/')[-1]
         self.dataset_index = 'trainset'
         self.hard_level_index = 'unknown'
@@ -92,8 +93,17 @@ class Ftwp_interface_by_path(human_play.Game_interface):
     def construct_sys_usr(self, description, inventory, available_actions, action_obs_pairs):
         sys, usr = prompt_from_env_feedback(description, inventory, available_actions, action_obs_pairs, self.another_room_info)
         return sys, usr
+    def get_walkthrough(self):
+        from ftwp_info import walkthrougn_by_game_path
+        return walkthrougn_by_game_path(self.game_path)
 
 def test_get_train_set():
     from ftwp_info import train_set_v0
     file_paths = train_set_v0()
     return Ftwp_interface_by_path(file_paths[0])
+
+def test_get_test_set():
+    from ftwp_info import test_set_v0
+    file_paths = test_set_v0()
+    return Ftwp_interface_by_path(file_paths[0])
+
