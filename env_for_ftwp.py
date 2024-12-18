@@ -35,6 +35,9 @@ class Env_ftwp(Env_extra_info):
     def is_won(self, info):
         return info['won']
     
+    def is_lost(self, info):
+        return info['lost']
+    
     def get_desc(self, info):
         return ' '.join(info['description'].strip().split())
     

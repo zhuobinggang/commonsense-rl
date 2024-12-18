@@ -59,6 +59,7 @@ class Game_interface:
         self.another_room_info = 'Unknown'
         self.filename = f'finetune_dataset_{dataset_index}_level_{hard_level_index}_game_{game_index}.json'
         self.won = False
+        self.lost = False
         self.verbose = False
     def init_env(self, hard_level_index, game_index, dataset_index):
         from env import Env_extra_info
@@ -100,6 +101,7 @@ class Game_interface:
             self.current_usr = usr
         else: # 执行失败: 不更新self.desc之类的
             self.won = extra_info['won']
+            self.lost = extra_info['lost']
             self.action_obs_pairs.append((command, extra_info['raw_obs']))
             sys, usr = self.construct_sys_usr(self.description, self.inventory, self.available_actions, self.action_obs_pairs)
             self.current_sys = sys

@@ -1,6 +1,7 @@
 from functools import lru_cache
 TRAIN_PATH = '/home/taku/Downloads/cog2019_ftwp/games/train'
 TEST_PATH = '/home/taku/Downloads/cog2019_ftwp/games/test'
+VALID_PATH = '/home/taku/Downloads/cog2019_ftwp/games/valid'
 
 def read_json_files_in_directory(directory_path):
     import os
@@ -108,11 +109,11 @@ def filepaths_skill_count(paths):
             print(f"无法读取文件 {file_path}: {e}")
     return skill_dic
 
-def train_set_v0():
+def train_set_v0(size = 10):
     import numpy as np
     file_paths = filenames_good_length()
     np.random.seed(0)
-    file_paths = np.random.choice(file_paths, 10, False)
+    file_paths = np.random.choice(file_paths, size, False)
     file_paths = [file.replace('.json', '.z8') for file in file_paths]
     return file_paths
 
@@ -141,3 +142,20 @@ def walkthrougn_by_game_path(game_path):
     data = json.load(f)
     f.close()
     return data['extras']['walkthrough']
+
+# 从valid set中获取临时的test集和valid集
+def temp_test_valid_set():
+    import numpy as np
+    paths = all_test_game_paths(VALID_PATH)
+    np.random.seed(0)
+    paths = np.random.choice(paths, 25, False) # Only 5 games for valid to save money
+    valid_paths = paths[:5]
+    test_paths = paths[5:]
+    return test_paths, valid_paths
+
+def valid_set_v0():
+    import numpy as np
+    paths = all_test_game_paths(VALID_PATH)
+    np.random.seed(0)
+    paths = np.random.choice(paths, 5, False) # Only 5 games for valid to save money
+    return paths

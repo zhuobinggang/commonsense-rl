@@ -121,6 +121,9 @@ class Env:
     def is_won(self, info):
         return info['won'][0]
     
+    def is_lost(self, info):
+        return info['lost'][0]
+
     def get_desc(self, info):
         return info['description'][0].strip().replace('\n', '')
     
@@ -229,6 +232,7 @@ class Env_extra_info(Env):
         extra_info['is_placing_item'] = False
         extra_info['placing_failed'] = False
         extra_info['won'] = False
+        extra_info['lost'] = False
         if command:
             # Add 2024.8.17 需要判断行动是否成功，如果不成功则直接跳出
             obs_raw, info, extra_info_raw = self._step(command)
@@ -281,12 +285,14 @@ class Env_extra_info(Env):
             env.action_obs_pairs = []
             env.last_reward = 0
             env.instant_reward = 0
-        if self.is_won(info):
+            # Add 2024.12.16
+            env.max_score = info['max_score']
+        won = self.is_won(info)
+        lost = self.is_lost(info)
+        if lost or won:
             env.end = True
-            # 打引结束信息
-            print(
-                f"YOU WIN, score at {info['score']}/{info['max_score']}, steps {info['moves']}"
-            )
-            extra_info['won'] = True
+            print(f"YOU WIN, score at {info['score']}/{info['max_score']}, steps {info['moves']}") if won else print(f"YOU LOST, score at {info['score']}/{info['max_score']}, steps {info['moves']}")
+            extra_info['won'] = won
+            extra_info['lost'] = lost
             return None, None, None, None, extra_info
         return description, inventory, env.available_actions, env.action_obs_pairs, extra_info

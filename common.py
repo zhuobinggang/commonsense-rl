@@ -90,3 +90,41 @@ def considerations_to_text(considerations):
 def training_line_prepare(sys, usr, agent):
     obj = {'messages': [{"role": "system", "content": sys.strip()}, {"role": "user", "content": usr.strip()}, {"role": "assistant", "content": agent.strip()}]}
     return obj
+
+
+
+def calculate_normalized_score_by_path(folder_path = 'exp/auto_filename'):
+    import os
+    import re
+    """
+    Calculate the normalized score from filenames in the given folder.
+    Filenames should end in the format: 'scoreX_of_Y.txt'.
+
+    Args:
+        folder_path (str): The path to the folder containing the files.
+
+    Returns:
+        float: The normalized score (sum of scores / sum of maximum scores).
+    """
+    # Regular expression to match and capture scores and max scores
+    pattern = re.compile(r'score(\d+)_of_(\d+)\.txt')
+
+    total_score = 0
+    total_max_score = 0
+
+    # Iterate through files in the folder
+    for filename in os.listdir(folder_path):
+        match = pattern.search(filename)
+        if match:
+            # Extract the score and maximum score from the filename
+            score = int(match.group(1))
+            max_score = int(match.group(2))
+            total_score += score
+            total_max_score += max_score
+
+    # Avoid division by zero
+    if total_max_score == 0:
+        return 0.0
+
+    # Calculate and return the normalized score
+    return total_score / total_max_score
