@@ -153,6 +153,21 @@ def temp_test_valid_set():
     test_paths = paths[5:]
     return test_paths, valid_paths
 
+# Date: 2024.12.21
+# From: history.ftwp_4omini_finetune_base
+def kitchen_not_found_games():
+    test_paths, valid_paths = temp_test_valid_set()
+    results = []
+    results.append(test_paths[2])
+    results.append(test_paths[6])
+    results.append(test_paths[9])
+    results.append(test_paths[11])
+    results.append(test_paths[12])
+    results.append(test_paths[13])
+    results.append(test_paths[16])
+    return results
+        
+
 def valid_set_v0():
     import numpy as np
     paths = all_test_game_paths(VALID_PATH)

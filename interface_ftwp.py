@@ -74,6 +74,10 @@ class Ftwp_interface(human_play.Game_interface):
     def construct_sys_usr(self, description, inventory, available_actions, action_obs_pairs):
         sys, usr = prompt_from_env_feedback(description, inventory, available_actions, action_obs_pairs, self.another_room_info)
         return sys, usr
+    def move_command_succeeded_callback(self, action_obs):
+        action, obs = action_obs
+        obs = 'fake obs'
+        return action, obs
     
 
 class Ftwp_interface_by_path(human_play.Game_interface):
@@ -95,6 +99,7 @@ class Ftwp_interface_by_path(human_play.Game_interface):
         self.won = False
         self.lost = False
         self.verbose = False
+        self.visited_dict = {} # 2024.12.21 用于存储访问过的地点次数
     def construct_sys_usr(self, description, inventory, available_actions, action_obs_pairs):
         sys, usr = prompt_from_env_feedback(description, inventory, available_actions, action_obs_pairs, self.another_room_info)
         return sys, usr
@@ -102,10 +107,12 @@ class Ftwp_interface_by_path(human_play.Game_interface):
         from ftwp_info import walkthrougn_by_game_path
         return walkthrougn_by_game_path(self.game_path)
 
-def test_get_train_set():
+def game_for_test():
     from ftwp_info import train_set_v0
     file_paths = train_set_v0()
-    return Ftwp_interface_by_path(file_paths[0])
+    game = Ftwp_interface_by_path(file_paths[1])
+    game.verbose = True
+    return game
 
 def test_get_test_set():
     from ftwp_info import test_set_v0
@@ -199,9 +206,18 @@ def batch_valid():
 
 # @history: 2024.12.18 从valid集合中获取临时的test set
 # @history: 2024.12.18 将训练集扩大到20重新实验
-def run_test():
+def run_test_temp():
     from ftwp_info import temp_test_valid_set
     test_game_paths, _ = temp_test_valid_set()
+    model = BEST_20_GAMES_MODEL
+    for game_index, game_path in enumerate(test_game_paths):
+        game = Ftwp_interface_by_path(game_path)
+        llm_auto_play(game, game_index, testing=True, gpt_type = model, max_try=20, sys_usr_from_game_func = prompt_from_game_classic)
+
+
+def run_test():
+    from ftwp_info import test_set_v0
+    test_game_paths = test_set_v0()
     model = BEST_20_GAMES_MODEL
     for game_index, game_path in enumerate(test_game_paths):
         game = Ftwp_interface_by_path(game_path)

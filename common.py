@@ -128,3 +128,18 @@ def calculate_normalized_score_by_path(folder_path = 'exp/auto_filename'):
 
     # Calculate and return the normalized score
     return total_score / total_max_score
+
+
+
+def extract_room_name(description):
+    import re
+    """
+    从字符串中提取房间名。
+
+    :param description: 包含房间名的字符串
+    :return: 提取的房间名，如果未找到则返回 None
+    """
+    match = re.search(r"-= (.*?) =-", description)
+    if match:
+        return match.group(1)
+    return None

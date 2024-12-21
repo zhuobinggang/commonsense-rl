@@ -61,6 +61,7 @@ class Game_interface:
         self.won = False
         self.lost = False
         self.verbose = False
+        self.visited_dict = {} # 2024.12.21 用于存储访问过的地点次数
     def init_env(self, hard_level_index, game_index, dataset_index):
         from env import Env_extra_info
         return Env_extra_info(hard_level_index, game_index, dataset_index=dataset_index)
@@ -87,6 +88,18 @@ class Game_interface:
         return self.updated_description
     def available_actions_got_callback(self, available_actions):
         pass
+    def move_command_succeeded_callback(self, action_obs):
+        action, obs = action_obs
+        room_name = common.extract_room_name(obs)
+        if not room_name:
+            print('XXXXXXXXXXXXXXX WRONG SITUATION XXXXXXXXXXXXXX')
+            return obs
+        if room_name not in self.visited_dict:
+            self.visited_dict[room_name] = 0
+        self.visited_dict[room_name] += 1
+        # NOTE: Do not change obs as default behavior. Only save info into visited dict.
+        # obs = obs + f' Visited {self.visited_dict[room_name]} times.'
+        return action, obs
     def act_and_output(self, command = None):
         description, inventory, available_actions, action_obs_pairs, extra_info = self.env.act(command)
         act_failed = extra_info['env_act_failed']
@@ -94,6 +107,7 @@ class Game_interface:
         if description is not None:
             if self.is_move_command(command):
                 self.another_room_info = self.get_updated_description_before_description_update()
+                action_obs_pairs[-1] = self.move_command_succeeded_callback(action_obs_pairs[-1])
             description = self.update_description(description)
             self.set_to_body(description, inventory, available_actions, action_obs_pairs)
             sys, usr = self.construct_sys_usr(self.description, self.inventory, self.available_actions, self.action_obs_pairs)
