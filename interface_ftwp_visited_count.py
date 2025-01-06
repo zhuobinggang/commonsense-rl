@@ -1,4 +1,4 @@
-from interface_ftwp import Ftwp_interface_by_path, game_played_and_save_training_file
+from interface_ftwp import Ftwp_interface_by_path, game_played_and_save_training_file, llm_auto_play
 import common
 
 class Ftwp_interface_visited_count(Ftwp_interface_by_path):
@@ -56,3 +56,35 @@ def valid_then_upload_testing():
 def test_finetune():
     from finetune_simplify_desc import finetune
     finetune('file-RiuBCeZJj9fZSDvH6JKyTk')
+
+# ================== 2025.1.6 测试 ====================
+
+TUNED_MODELS = ['ft:gpt-4o-mini-2024-07-18:personal::AmYBh1o9:ckpt-step-143', 'ft:gpt-4o-mini-2024-07-18:personal::AmYBicFP:ckpt-step-286', 'ft:gpt-4o-mini-2024-07-18:personal::AmYBi3DL']
+BEST = TUNED_MODELS[1]
+
+def batch_valid():
+    from ftwp_info import temp_test_valid_set
+    _, valid_game_paths = temp_test_valid_set()
+    for model in TUNED_MODELS:
+        for game_index, game_path in enumerate(valid_game_paths):
+            game = Ftwp_interface_visited_count(game_path)
+            llm_auto_play(game, game_index, testing=False, gpt_type = model, max_try=20)
+
+def run_test_temp():
+    from ftwp_info import temp_test_valid_set
+    test_game_paths, _ = temp_test_valid_set()
+    model = BEST
+    for game_index, game_path in enumerate(test_game_paths):
+        game = Ftwp_interface_visited_count(game_path)
+        llm_auto_play(game, game_index, testing=True, gpt_type = model, max_try=20)
+
+
+def run_test():
+    from ftwp_info import test_set_v0
+    test_game_paths = test_set_v0()
+    model = BEST
+    for game_index, game_path in enumerate(test_game_paths):
+        game = Ftwp_interface_visited_count(game_path)
+        llm_auto_play(game, game_index, testing=True, gpt_type = model, max_try=20)
+
+
