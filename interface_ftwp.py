@@ -100,6 +100,7 @@ class Ftwp_interface_by_path(human_play.Game_interface):
         self.lost = False
         self.verbose = False
         self.visited_dict = {} # 2024.12.21 用于存储访问过的地点次数
+        self.init_hook()
     def construct_sys_usr(self, description, inventory, available_actions, action_obs_pairs):
         sys, usr = prompt_from_env_feedback(description, inventory, available_actions, action_obs_pairs, self.another_room_info)
         return sys, usr
