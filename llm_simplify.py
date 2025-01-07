@@ -18,9 +18,9 @@ class Summarization_Prompt_builder:
 
     def build(self):
         system_msg = ''
-        system_msg += 'Reform the environment description using format: Room[Furniture[Object]]\n'
+        system_msg += 'Reform the environment description using format: Room[Furniture(status)[Objects]]\n'
         # @history: 2025.1.6 add "patio door" to the example.
-        system_msg += 'Example: Bedroom[wardrobe, chest of drawers[black sock], desk[pen, eraser], patio door]\n'
+        system_msg += 'Example: Bedroom[wardrobe(closed), chest of drawers(opened)[black sock], desk[pen, eraser], patio door(opened, west)]\n'
         system_msg += 'Response with the new environment description directly.\n'
         system_msg = system_msg.strip() + '\n'
         self.system_msg = system_msg

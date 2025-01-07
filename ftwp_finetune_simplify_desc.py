@@ -1,5 +1,6 @@
 from interface_ftwp import Ftwp_interface_by_path, Promptor_ftwp
 from llm_simplify import quest_4omini_simplify_desc
+from interface_ftwp import llm_auto_play
 import common
 
 # =================== Promptor ===================
@@ -72,3 +73,34 @@ FILE_ID_20_GAMES = 'file-VtcfFgN4WM1cvsArgykDd5'
 def finetune_ftwp_simplify():
     from finetune_simplify_desc import finetune
     finetune(FILE_ID_20_GAMES)
+
+
+MODELS_20_GAMES = ['ft:gpt-4o-mini-2024-07-18:personal::AmcYzhuG:ckpt-step-285', 'ft:gpt-4o-mini-2024-07-18:personal::AmcYzEqj:ckpt-step-570', 'ft:gpt-4o-mini-2024-07-18:personal::AmcYzgWT']
+BEST = MODELS_20_GAMES[2]
+
+def batch_valid():
+    from ftwp_info import temp_test_valid_set
+    _, valid_game_paths = temp_test_valid_set()
+    for model in MODELS_20_GAMES:
+        for game_index, game_path in enumerate(valid_game_paths):
+            game = Ftwp_simple_desc(game_path)
+            llm_auto_play(game, game_index, testing=False, gpt_type = model, max_try=20)
+
+# @result: 0.7701149425287356
+def run_test_temp():
+    from ftwp_info import temp_test_valid_set
+    test_game_paths, _ = temp_test_valid_set()
+    model = BEST
+    for game_index, game_path in enumerate(test_game_paths):
+        game = Ftwp_simple_desc(game_path)
+        llm_auto_play(game, game_index, testing=True, gpt_type = model, max_try=20)
+
+
+# @result: 0.3230769230769231
+def run_test():
+    from ftwp_info import test_set_v0
+    test_game_paths = test_set_v0()
+    model = BEST
+    for game_index, game_path in enumerate(test_game_paths):
+        game = Ftwp_simple_desc(game_path)
+        llm_auto_play(game, game_index, testing=True, gpt_type = model, max_try=20)

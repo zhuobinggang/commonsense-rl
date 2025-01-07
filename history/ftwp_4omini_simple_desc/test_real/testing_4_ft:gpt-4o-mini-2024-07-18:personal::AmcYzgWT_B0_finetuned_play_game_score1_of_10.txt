@@ -1,0 +1,537 @@
+Task: Your task is to find and examine the recipe, then prepare the ingredients as required, prepare the meal and eat it.
+
+Action history: No action was taken now.
+Inventory: You are carrying nothing.
+Current environment: Bedroom[bed]
+Available actions:
+* examine bed
+* go north
+* look
+Next action (answer with the command directly):
+
+inventory
+
+Task: Your task is to find and examine the recipe, then prepare the ingredients as required, prepare the meal and eat it.
+
+Action history: Action 0: inventory -> You are carrying nothing. 
+Inventory: You are carrying nothing.
+Current environment: Bedroom[bed]
+Available actions:
+* examine bed
+* go north
+* look
+Next action (answer with the command directly):
+
+go north
+
+Task: Your task is to find and examine the recipe, then prepare the ingredients as required, prepare the meal and eat it.
+
+Action history: Action 0: inventory -> You are carrying nothing. Action 1: go north -> -= Livingroom =- You arrive in a livingroom. 
+Inventory: You are carrying nothing.
+Current environment: Livingroom[front door, exit to the north, entranceway to the south]
+Available actions:
+* go north
+* go south
+* look
+* open front door
+Next action (answer with the command directly):
+
+go north
+
+Task: Your task is to find and examine the recipe, then prepare the ingredients as required, prepare the meal and eat it.
+
+Action history: Action 0: inventory -> You are carrying nothing. Action 1: go north -> -= Livingroom =- You arrive in a livingroom. Action 2: go north -> -= Corridor =- Look at you, bigshot, walking into a corridor like it isn't some huge deal. 
+Inventory: You are carrying nothing.
+Current environment: Corridor[entranceway, exit[south], exit[west]]
+Available actions:
+* go east
+* go south
+* go west
+* look
+Next action (answer with the command directly):
+
+go west
+
+Task: Your task is to find and examine the recipe, then prepare the ingredients as required, prepare the meal and eat it.
+
+Action history: Action 0: inventory -> You are carrying nothing. Action 1: go north -> -= Livingroom =- You arrive in a livingroom. Action 2: go north -> -= Corridor =- Look at you, bigshot, walking into a corridor like it isn't some huge deal. Action 3: go west -> -= Kitchen =- You are in a kitchen. 
+Inventory: You are carrying nothing.
+Current environment: Kitchen[fridge, oven, table, counter[cookbook, knife], stove, screen door, plain door]
+Available actions:
+* examine cookbook
+* examine counter
+* examine fridge
+* examine knife
+* examine oven
+* examine stove
+* examine table
+* go east
+* look
+* open fridge
+* open plain door
+* open screen door
+* take cookbook from counter
+* take knife from counter
+Next action (answer with the command directly):
+
+examine cookbook
+
+Task: Your task is to find and examine the recipe, then prepare the ingredients as required, prepare the meal and eat it.
+
+Action history: Action 0: inventory -> You are carrying nothing. Action 1: go north -> -= Livingroom =- You arrive in a livingroom. Action 2: go north -> -= Corridor =- Look at you, bigshot, walking into a corridor like it isn't some huge deal. Action 3: go west -> -= Kitchen =- You are in a kitchen. Action 4: examine cookbook -> You open the copy of "Cooking: A Modern Approach (3rd Ed.)" and start reading: Recipe #1 --------- Gather all following ingredients and follow the directions to prepare this tasty meal. Ingredients: chicken wing red hot pepper red onion yellow onion Directions: fry the chicken wing chop the red onion slice the yellow onion grill the yellow onion prepare meal 
+Inventory: You are carrying nothing.
+Current environment: Kitchen[fridge, oven, table, counter[cookbook, knife], stove, screen door, plain door]
+Available actions:
+* examine cookbook
+* examine counter
+* examine fridge
+* examine knife
+* examine oven
+* examine stove
+* examine table
+* go east
+* look
+* open fridge
+* open plain door
+* open screen door
+* take cookbook from counter
+* take knife from counter
+Next action (answer with the command directly):
+
+open fridge
+
+Task: Your task is to find and examine the recipe, then prepare the ingredients as required, prepare the meal and eat it.
+
+Action history: Action 0: inventory -> You are carrying nothing. Action 1: go north -> -= Livingroom =- You arrive in a livingroom. Action 2: go north -> -= Corridor =- Look at you, bigshot, walking into a corridor like it isn't some huge deal. Action 3: go west -> -= Kitchen =- You are in a kitchen. Action 4: examine cookbook -> You open the copy of "Cooking: A Modern Approach (3rd Ed.)" and start reading: Recipe #1 --------- Gather all following ingredients and follow the directions to prepare this tasty meal. Ingredients: chicken wing red hot pepper red onion yellow onion Directions: fry the chicken wing chop the red onion slice the yellow onion grill the yellow onion prepare meal Action 5: open fridge -> You open the fridge, revealing a raw chicken wing and a raw chicken leg. 
+Inventory: You are carrying nothing.
+Current environment: Kitchen[fridge[raw chicken wing, raw chicken leg], oven, table, counter[cookbook, knife], stove, screen door, plain door]
+Available actions:
+* close fridge
+* examine chicken leg
+* examine chicken wing
+* examine cookbook
+* examine counter
+* examine fridge
+* examine knife
+* examine oven
+* examine stove
+* examine table
+* go east
+* look
+* open plain door
+* open screen door
+* take chicken leg from fridge
+* take chicken wing from fridge
+* take cookbook from counter
+* take knife from counter
+Next action (answer with the command directly):
+
+take chicken wing from fridge
+
+Task: Your task is to find and examine the recipe, then prepare the ingredients as required, prepare the meal and eat it.
+
+Action history: Action 0: inventory -> You are carrying nothing. Action 1: go north -> -= Livingroom =- You arrive in a livingroom. Action 2: go north -> -= Corridor =- Look at you, bigshot, walking into a corridor like it isn't some huge deal. Action 3: go west -> -= Kitchen =- You are in a kitchen. Action 4: examine cookbook -> You open the copy of "Cooking: A Modern Approach (3rd Ed.)" and start reading: Recipe #1 --------- Gather all following ingredients and follow the directions to prepare this tasty meal. Ingredients: chicken wing red hot pepper red onion yellow onion Directions: fry the chicken wing chop the red onion slice the yellow onion grill the yellow onion prepare meal Action 5: open fridge -> You open the fridge, revealing a raw chicken wing and a raw chicken leg. Action 6: take chicken wing from fridge -> You take the chicken wing from the fridge. Your score has just gone up by one point. 
+Inventory: You are carrying: a raw chicken wing
+Current environment: Kitchen[fridge[raw chicken leg], oven, table, counter[cookbook, knife], stove, screen door, plain door]
+Available actions:
+* close fridge
+* cook chicken wing with oven
+* cook chicken wing with stove
+* drop chicken wing
+* examine chicken leg
+* examine cookbook
+* examine counter
+* examine fridge
+* examine knife
+* examine oven
+* examine stove
+* examine table
+* go east
+* insert chicken wing into fridge
+* look
+* open plain door
+* open screen door
+* prepare meal
+* put chicken wing on counter
+* put chicken wing on stove
+* put chicken wing on table
+* take chicken leg from fridge
+* take cookbook from counter
+* take knife from counter
+Next action (answer with the command directly):
+
+open screen door
+
+Task: Your task is to find and examine the recipe, then prepare the ingredients as required, prepare the meal and eat it.
+
+Action history: Action 0: inventory -> You are carrying nothing. Action 1: go north -> -= Livingroom =- You arrive in a livingroom. Action 2: go north -> -= Corridor =- Look at you, bigshot, walking into a corridor like it isn't some huge deal. Action 3: go west -> -= Kitchen =- You are in a kitchen. Action 4: examine cookbook -> You open the copy of "Cooking: A Modern Approach (3rd Ed.)" and start reading: Recipe #1 --------- Gather all following ingredients and follow the directions to prepare this tasty meal. Ingredients: chicken wing red hot pepper red onion yellow onion Directions: fry the chicken wing chop the red onion slice the yellow onion grill the yellow onion prepare meal Action 5: open fridge -> You open the fridge, revealing a raw chicken wing and a raw chicken leg. Action 6: take chicken wing from fridge -> You take the chicken wing from the fridge. Your score has just gone up by one point. Action 7: open screen door -> You open screen door. 
+Inventory: You are carrying: a raw chicken wing
+Current environment: Kitchen[fridge[raw chicken leg], oven, table, counter[cookbook, knife], stove, screen door, plain door]
+Available actions:
+* close fridge
+* close screen door
+* cook chicken wing with oven
+* cook chicken wing with stove
+* drop chicken wing
+* examine chicken leg
+* examine cookbook
+* examine counter
+* examine fridge
+* examine knife
+* examine oven
+* examine stove
+* examine table
+* go east
+* go south
+* insert chicken wing into fridge
+* look
+* open plain door
+* prepare meal
+* put chicken wing on counter
+* put chicken wing on stove
+* put chicken wing on table
+* take chicken leg from fridge
+* take cookbook from counter
+* take knife from counter
+Next action (answer with the command directly):
+
+go east
+
+Task: Your task is to find and examine the recipe, then prepare the ingredients as required, prepare the meal and eat it.
+
+Action history: Action 0: inventory -> You are carrying nothing. Action 1: go north -> -= Livingroom =- You arrive in a livingroom. Action 2: go north -> -= Corridor =- Look at you, bigshot, walking into a corridor like it isn't some huge deal. Action 3: go west -> -= Kitchen =- You are in a kitchen. Action 4: examine cookbook -> You open the copy of "Cooking: A Modern Approach (3rd Ed.)" and start reading: Recipe #1 --------- Gather all following ingredients and follow the directions to prepare this tasty meal. Ingredients: chicken wing red hot pepper red onion yellow onion Directions: fry the chicken wing chop the red onion slice the yellow onion grill the yellow onion prepare meal Action 5: open fridge -> You open the fridge, revealing a raw chicken wing and a raw chicken leg. Action 6: take chicken wing from fridge -> You take the chicken wing from the fridge. Your score has just gone up by one point. Action 7: open screen door -> You open screen door. Action 8: go east -> -= Corridor =- Look at you, bigshot, walking into a corridor like it isn't some huge deal. 
+Inventory: You are carrying: a raw chicken wing
+Current environment: Corridor[entranceway, exit[south], exit[west]]
+Available actions:
+* drop chicken wing
+* go east
+* go south
+* go west
+* look
+Next action (answer with the command directly):
+
+go east
+
+Task: Your task is to find and examine the recipe, then prepare the ingredients as required, prepare the meal and eat it.
+
+Action history: Action 0: inventory -> You are carrying nothing. Action 1: go north -> -= Livingroom =- You arrive in a livingroom. Action 2: go north -> -= Corridor =- Look at you, bigshot, walking into a corridor like it isn't some huge deal. Action 3: go west -> -= Kitchen =- You are in a kitchen. Action 4: examine cookbook -> You open the copy of "Cooking: A Modern Approach (3rd Ed.)" and start reading: Recipe #1 --------- Gather all following ingredients and follow the directions to prepare this tasty meal. Ingredients: chicken wing red hot pepper red onion yellow onion Directions: fry the chicken wing chop the red onion slice the yellow onion grill the yellow onion prepare meal Action 5: open fridge -> You open the fridge, revealing a raw chicken wing and a raw chicken leg. Action 6: take chicken wing from fridge -> You take the chicken wing from the fridge. Your score has just gone up by one point. Action 7: open screen door -> You open screen door. Action 8: go east -> -= Corridor =- Look at you, bigshot, walking into a corridor like it isn't some huge deal. Action 9: go east -> -= Bathroom =- You've entered a bathroom. 
+Inventory: You are carrying: a raw chicken wing
+Current environment: Bathroom[bathtub, sink, toilet, mirror]
+Available actions:
+* drop chicken wing
+* go west
+* look
+Next action (answer with the command directly):
+
+go west
+
+Task: Your task is to find and examine the recipe, then prepare the ingredients as required, prepare the meal and eat it.
+
+Action history: Action 0: inventory -> You are carrying nothing. Action 1: go north -> -= Livingroom =- You arrive in a livingroom. Action 2: go north -> -= Corridor =- Look at you, bigshot, walking into a corridor like it isn't some huge deal. Action 3: go west -> -= Kitchen =- You are in a kitchen. Action 4: examine cookbook -> You open the copy of "Cooking: A Modern Approach (3rd Ed.)" and start reading: Recipe #1 --------- Gather all following ingredients and follow the directions to prepare this tasty meal. Ingredients: chicken wing red hot pepper red onion yellow onion Directions: fry the chicken wing chop the red onion slice the yellow onion grill the yellow onion prepare meal Action 5: open fridge -> You open the fridge, revealing a raw chicken wing and a raw chicken leg. Action 6: take chicken wing from fridge -> You take the chicken wing from the fridge. Your score has just gone up by one point. Action 7: open screen door -> You open screen door. Action 8: go east -> -= Corridor =- Look at you, bigshot, walking into a corridor like it isn't some huge deal. Action 9: go east -> -= Bathroom =- You've entered a bathroom. Action 10: go west -> -= Corridor =- Look at you, bigshot, walking into a corridor like it isn't some huge deal. 
+Inventory: You are carrying: a raw chicken wing
+Current environment: Corridor[entranceway, exit[south], exit[west]]
+Available actions:
+* drop chicken wing
+* go east
+* go south
+* go west
+* look
+Next action (answer with the command directly):
+
+go west
+
+Task: Your task is to find and examine the recipe, then prepare the ingredients as required, prepare the meal and eat it.
+
+Action history: Action 0: inventory -> You are carrying nothing. Action 1: go north -> -= Livingroom =- You arrive in a livingroom. Action 2: go north -> -= Corridor =- Look at you, bigshot, walking into a corridor like it isn't some huge deal. Action 3: go west -> -= Kitchen =- You are in a kitchen. Action 4: examine cookbook -> You open the copy of "Cooking: A Modern Approach (3rd Ed.)" and start reading: Recipe #1 --------- Gather all following ingredients and follow the directions to prepare this tasty meal. Ingredients: chicken wing red hot pepper red onion yellow onion Directions: fry the chicken wing chop the red onion slice the yellow onion grill the yellow onion prepare meal Action 5: open fridge -> You open the fridge, revealing a raw chicken wing and a raw chicken leg. Action 6: take chicken wing from fridge -> You take the chicken wing from the fridge. Your score has just gone up by one point. Action 7: open screen door -> You open screen door. Action 8: go east -> -= Corridor =- Look at you, bigshot, walking into a corridor like it isn't some huge deal. Action 9: go east -> -= Bathroom =- You've entered a bathroom. Action 10: go west -> -= Corridor =- Look at you, bigshot, walking into a corridor like it isn't some huge deal. Action 11: go west -> -= Kitchen =- You are in a kitchen. 
+Inventory: You are carrying: a raw chicken wing
+Current environment: Kitchen[fridge[raw chicken leg], oven, table, counter[cookbook, knife], stove, screen door, plain door]
+Available actions:
+* close fridge
+* close screen door
+* cook chicken wing with oven
+* cook chicken wing with stove
+* drop chicken wing
+* examine chicken leg
+* examine cookbook
+* examine counter
+* examine fridge
+* examine knife
+* examine oven
+* examine stove
+* examine table
+* go east
+* go south
+* insert chicken wing into fridge
+* look
+* open plain door
+* prepare meal
+* put chicken wing on counter
+* put chicken wing on stove
+* put chicken wing on table
+* take chicken leg from fridge
+* take cookbook from counter
+* take knife from counter
+Next action (answer with the command directly):
+
+take knife from counter
+
+Task: Your task is to find and examine the recipe, then prepare the ingredients as required, prepare the meal and eat it.
+
+Action history: Action 0: inventory -> You are carrying nothing. Action 1: go north -> -= Livingroom =- You arrive in a livingroom. Action 2: go north -> -= Corridor =- Look at you, bigshot, walking into a corridor like it isn't some huge deal. Action 3: go west -> -= Kitchen =- You are in a kitchen. Action 4: examine cookbook -> You open the copy of "Cooking: A Modern Approach (3rd Ed.)" and start reading: Recipe #1 --------- Gather all following ingredients and follow the directions to prepare this tasty meal. Ingredients: chicken wing red hot pepper red onion yellow onion Directions: fry the chicken wing chop the red onion slice the yellow onion grill the yellow onion prepare meal Action 5: open fridge -> You open the fridge, revealing a raw chicken wing and a raw chicken leg. Action 6: take chicken wing from fridge -> You take the chicken wing from the fridge. Your score has just gone up by one point. Action 7: open screen door -> You open screen door. Action 8: go east -> -= Corridor =- Look at you, bigshot, walking into a corridor like it isn't some huge deal. Action 9: go east -> -= Bathroom =- You've entered a bathroom. Action 10: go west -> -= Corridor =- Look at you, bigshot, walking into a corridor like it isn't some huge deal. Action 11: go west -> -= Kitchen =- You are in a kitchen. Action 12: take knife from counter -> You take the knife from the counter. 
+Inventory: You are carrying: a knife a raw chicken wing
+Current environment: Kitchen[fridge[raw chicken leg], oven, table, counter[cookbook], stove, screen door, plain door]
+Available actions:
+* close fridge
+* close screen door
+* cook chicken wing with oven
+* cook chicken wing with stove
+* drop chicken wing
+* drop knife
+* examine chicken leg
+* examine cookbook
+* examine counter
+* examine fridge
+* examine oven
+* examine stove
+* examine table
+* go east
+* go south
+* insert chicken wing into fridge
+* insert knife into fridge
+* look
+* open plain door
+* prepare meal
+* put chicken wing on counter
+* put chicken wing on stove
+* put chicken wing on table
+* put knife on counter
+* put knife on stove
+* put knife on table
+* take chicken leg from fridge
+* take cookbook from counter
+Next action (answer with the command directly):
+
+chop red onion
+
+Task: Your task is to find and examine the recipe, then prepare the ingredients as required, prepare the meal and eat it.
+
+Action history: Action 0: inventory -> You are carrying nothing. Action 1: go north -> -= Livingroom =- You arrive in a livingroom. Action 2: go north -> -= Corridor =- Look at you, bigshot, walking into a corridor like it isn't some huge deal. Action 3: go west -> -= Kitchen =- You are in a kitchen. Action 4: examine cookbook -> You open the copy of "Cooking: A Modern Approach (3rd Ed.)" and start reading: Recipe #1 --------- Gather all following ingredients and follow the directions to prepare this tasty meal. Ingredients: chicken wing red hot pepper red onion yellow onion Directions: fry the chicken wing chop the red onion slice the yellow onion grill the yellow onion prepare meal Action 5: open fridge -> You open the fridge, revealing a raw chicken wing and a raw chicken leg. Action 6: take chicken wing from fridge -> You take the chicken wing from the fridge. Your score has just gone up by one point. Action 7: open screen door -> You open screen door. Action 8: go east -> -= Corridor =- Look at you, bigshot, walking into a corridor like it isn't some huge deal. Action 9: go east -> -= Bathroom =- You've entered a bathroom. Action 10: go west -> -= Corridor =- Look at you, bigshot, walking into a corridor like it isn't some huge deal. Action 11: go west -> -= Kitchen =- You are in a kitchen. Action 12: take knife from counter -> You take the knife from the counter. Action 13: chop red onion -> You can't see any such thing. 
+Inventory: You are carrying: a knife a raw chicken wing
+Current environment: Kitchen[fridge[raw chicken leg], oven, table, counter[cookbook], stove, screen door, plain door]
+Available actions:
+* close fridge
+* close screen door
+* cook chicken wing with oven
+* cook chicken wing with stove
+* drop chicken wing
+* drop knife
+* examine chicken leg
+* examine cookbook
+* examine counter
+* examine fridge
+* examine oven
+* examine stove
+* examine table
+* go east
+* go south
+* insert chicken wing into fridge
+* insert knife into fridge
+* look
+* open plain door
+* prepare meal
+* put chicken wing on counter
+* put chicken wing on stove
+* put chicken wing on table
+* put knife on counter
+* put knife on stove
+* put knife on table
+* take chicken leg from fridge
+* take cookbook from counter
+Next action (answer with the command directly):
+
+drop knife
+
+Task: Your task is to find and examine the recipe, then prepare the ingredients as required, prepare the meal and eat it.
+
+Action history: Action 0: inventory -> You are carrying nothing. Action 1: go north -> -= Livingroom =- You arrive in a livingroom. Action 2: go north -> -= Corridor =- Look at you, bigshot, walking into a corridor like it isn't some huge deal. Action 3: go west -> -= Kitchen =- You are in a kitchen. Action 4: examine cookbook -> You open the copy of "Cooking: A Modern Approach (3rd Ed.)" and start reading: Recipe #1 --------- Gather all following ingredients and follow the directions to prepare this tasty meal. Ingredients: chicken wing red hot pepper red onion yellow onion Directions: fry the chicken wing chop the red onion slice the yellow onion grill the yellow onion prepare meal Action 5: open fridge -> You open the fridge, revealing a raw chicken wing and a raw chicken leg. Action 6: take chicken wing from fridge -> You take the chicken wing from the fridge. Your score has just gone up by one point. Action 7: open screen door -> You open screen door. Action 8: go east -> -= Corridor =- Look at you, bigshot, walking into a corridor like it isn't some huge deal. Action 9: go east -> -= Bathroom =- You've entered a bathroom. Action 10: go west -> -= Corridor =- Look at you, bigshot, walking into a corridor like it isn't some huge deal. Action 11: go west -> -= Kitchen =- You are in a kitchen. Action 12: take knife from counter -> You take the knife from the counter. Action 13: chop red onion -> You can't see any such thing. Action 14: drop knife -> You drop the knife on the ground. 
+Inventory: You are carrying: a raw chicken wing
+Current environment: Kitchen[fridge[raw chicken leg], oven, table, counter[cookbook], stove, screen door, plain door, knife]
+Available actions:
+* close fridge
+* close screen door
+* cook chicken wing with oven
+* cook chicken wing with stove
+* drop chicken wing
+* examine chicken leg
+* examine cookbook
+* examine counter
+* examine fridge
+* examine knife
+* examine oven
+* examine stove
+* examine table
+* go east
+* go south
+* insert chicken wing into fridge
+* look
+* open plain door
+* prepare meal
+* put chicken wing on counter
+* put chicken wing on stove
+* put chicken wing on table
+* take chicken leg from fridge
+* take cookbook from counter
+* take knife
+Next action (answer with the command directly):
+
+take knife
+
+Task: Your task is to find and examine the recipe, then prepare the ingredients as required, prepare the meal and eat it.
+
+Action history: Action 0: inventory -> You are carrying nothing. Action 1: go north -> -= Livingroom =- You arrive in a livingroom. Action 2: go north -> -= Corridor =- Look at you, bigshot, walking into a corridor like it isn't some huge deal. Action 3: go west -> -= Kitchen =- You are in a kitchen. Action 4: examine cookbook -> You open the copy of "Cooking: A Modern Approach (3rd Ed.)" and start reading: Recipe #1 --------- Gather all following ingredients and follow the directions to prepare this tasty meal. Ingredients: chicken wing red hot pepper red onion yellow onion Directions: fry the chicken wing chop the red onion slice the yellow onion grill the yellow onion prepare meal Action 5: open fridge -> You open the fridge, revealing a raw chicken wing and a raw chicken leg. Action 6: take chicken wing from fridge -> You take the chicken wing from the fridge. Your score has just gone up by one point. Action 7: open screen door -> You open screen door. Action 8: go east -> -= Corridor =- Look at you, bigshot, walking into a corridor like it isn't some huge deal. Action 9: go east -> -= Bathroom =- You've entered a bathroom. Action 10: go west -> -= Corridor =- Look at you, bigshot, walking into a corridor like it isn't some huge deal. Action 11: go west -> -= Kitchen =- You are in a kitchen. Action 12: take knife from counter -> You take the knife from the counter. Action 13: chop red onion -> You can't see any such thing. Action 14: drop knife -> You drop the knife on the ground. Action 15: take knife -> You pick up the knife from the ground. 
+Inventory: You are carrying: a knife a raw chicken wing
+Current environment: Kitchen[fridge[raw chicken leg], oven, table, counter[cookbook], stove, screen door, plain door]
+Available actions:
+* close fridge
+* close screen door
+* cook chicken wing with oven
+* cook chicken wing with stove
+* drop chicken wing
+* drop knife
+* examine chicken leg
+* examine cookbook
+* examine counter
+* examine fridge
+* examine oven
+* examine stove
+* examine table
+* go east
+* go south
+* insert chicken wing into fridge
+* insert knife into fridge
+* look
+* open plain door
+* prepare meal
+* put chicken wing on counter
+* put chicken wing on stove
+* put chicken wing on table
+* put knife on counter
+* put knife on stove
+* put knife on table
+* take chicken leg from fridge
+* take cookbook from counter
+Next action (answer with the command directly):
+
+chop red onion
+
+Task: Your task is to find and examine the recipe, then prepare the ingredients as required, prepare the meal and eat it.
+
+Action history: Action 0: inventory -> You are carrying nothing. Action 1: go north -> -= Livingroom =- You arrive in a livingroom. Action 2: go north -> -= Corridor =- Look at you, bigshot, walking into a corridor like it isn't some huge deal. Action 3: go west -> -= Kitchen =- You are in a kitchen. Action 4: examine cookbook -> You open the copy of "Cooking: A Modern Approach (3rd Ed.)" and start reading: Recipe #1 --------- Gather all following ingredients and follow the directions to prepare this tasty meal. Ingredients: chicken wing red hot pepper red onion yellow onion Directions: fry the chicken wing chop the red onion slice the yellow onion grill the yellow onion prepare meal Action 5: open fridge -> You open the fridge, revealing a raw chicken wing and a raw chicken leg. Action 6: take chicken wing from fridge -> You take the chicken wing from the fridge. Your score has just gone up by one point. Action 7: open screen door -> You open screen door. Action 8: go east -> -= Corridor =- Look at you, bigshot, walking into a corridor like it isn't some huge deal. Action 9: go east -> -= Bathroom =- You've entered a bathroom. Action 10: go west -> -= Corridor =- Look at you, bigshot, walking into a corridor like it isn't some huge deal. Action 11: go west -> -= Kitchen =- You are in a kitchen. Action 12: take knife from counter -> You take the knife from the counter. Action 13: chop red onion -> You can't see any such thing. Action 14: drop knife -> You drop the knife on the ground. Action 15: take knife -> You pick up the knife from the ground. Action 16: chop red onion -> You can't see any such thing. 
+Inventory: You are carrying: a knife a raw chicken wing
+Current environment: Kitchen[fridge[raw chicken leg], oven, table, counter[cookbook], stove, screen door, plain door]
+Available actions:
+* close fridge
+* close screen door
+* cook chicken wing with oven
+* cook chicken wing with stove
+* drop chicken wing
+* drop knife
+* examine chicken leg
+* examine cookbook
+* examine counter
+* examine fridge
+* examine oven
+* examine stove
+* examine table
+* go east
+* go south
+* insert chicken wing into fridge
+* insert knife into fridge
+* look
+* open plain door
+* prepare meal
+* put chicken wing on counter
+* put chicken wing on stove
+* put chicken wing on table
+* put knife on counter
+* put knife on stove
+* put knife on table
+* take chicken leg from fridge
+* take cookbook from counter
+Next action (answer with the command directly):
+
+drop knife
+
+Task: Your task is to find and examine the recipe, then prepare the ingredients as required, prepare the meal and eat it.
+
+Action history: Action 0: inventory -> You are carrying nothing. Action 1: go north -> -= Livingroom =- You arrive in a livingroom. Action 2: go north -> -= Corridor =- Look at you, bigshot, walking into a corridor like it isn't some huge deal. Action 3: go west -> -= Kitchen =- You are in a kitchen. Action 4: examine cookbook -> You open the copy of "Cooking: A Modern Approach (3rd Ed.)" and start reading: Recipe #1 --------- Gather all following ingredients and follow the directions to prepare this tasty meal. Ingredients: chicken wing red hot pepper red onion yellow onion Directions: fry the chicken wing chop the red onion slice the yellow onion grill the yellow onion prepare meal Action 5: open fridge -> You open the fridge, revealing a raw chicken wing and a raw chicken leg. Action 6: take chicken wing from fridge -> You take the chicken wing from the fridge. Your score has just gone up by one point. Action 7: open screen door -> You open screen door. Action 8: go east -> -= Corridor =- Look at you, bigshot, walking into a corridor like it isn't some huge deal. Action 9: go east -> -= Bathroom =- You've entered a bathroom. Action 10: go west -> -= Corridor =- Look at you, bigshot, walking into a corridor like it isn't some huge deal. Action 11: go west -> -= Kitchen =- You are in a kitchen. Action 12: take knife from counter -> You take the knife from the counter. Action 13: chop red onion -> You can't see any such thing. Action 14: drop knife -> You drop the knife on the ground. Action 15: take knife -> You pick up the knife from the ground. Action 16: chop red onion -> You can't see any such thing. Action 17: drop knife -> You drop the knife on the ground. 
+Inventory: You are carrying: a raw chicken wing
+Current environment: Kitchen[fridge[raw chicken leg], oven, table, counter[cookbook], stove, screen door, plain door, knife]
+Available actions:
+* close fridge
+* close screen door
+* cook chicken wing with oven
+* cook chicken wing with stove
+* drop chicken wing
+* examine chicken leg
+* examine cookbook
+* examine counter
+* examine fridge
+* examine knife
+* examine oven
+* examine stove
+* examine table
+* go east
+* go south
+* insert chicken wing into fridge
+* look
+* open plain door
+* prepare meal
+* put chicken wing on counter
+* put chicken wing on stove
+* put chicken wing on table
+* take chicken leg from fridge
+* take cookbook from counter
+* take knife
+Next action (answer with the command directly):
+
+take knife
+
+Task: Your task is to find and examine the recipe, then prepare the ingredients as required, prepare the meal and eat it.
+
+Action history: Action 0: inventory -> You are carrying nothing. Action 1: go north -> -= Livingroom =- You arrive in a livingroom. Action 2: go north -> -= Corridor =- Look at you, bigshot, walking into a corridor like it isn't some huge deal. Action 3: go west -> -= Kitchen =- You are in a kitchen. Action 4: examine cookbook -> You open the copy of "Cooking: A Modern Approach (3rd Ed.)" and start reading: Recipe #1 --------- Gather all following ingredients and follow the directions to prepare this tasty meal. Ingredients: chicken wing red hot pepper red onion yellow onion Directions: fry the chicken wing chop the red onion slice the yellow onion grill the yellow onion prepare meal Action 5: open fridge -> You open the fridge, revealing a raw chicken wing and a raw chicken leg. Action 6: take chicken wing from fridge -> You take the chicken wing from the fridge. Your score has just gone up by one point. Action 7: open screen door -> You open screen door. Action 8: go east -> -= Corridor =- Look at you, bigshot, walking into a corridor like it isn't some huge deal. Action 9: go east -> -= Bathroom =- You've entered a bathroom. Action 10: go west -> -= Corridor =- Look at you, bigshot, walking into a corridor like it isn't some huge deal. Action 11: go west -> -= Kitchen =- You are in a kitchen. Action 12: take knife from counter -> You take the knife from the counter. Action 13: chop red onion -> You can't see any such thing. Action 14: drop knife -> You drop the knife on the ground. Action 15: take knife -> You pick up the knife from the ground. Action 16: chop red onion -> You can't see any such thing. Action 17: drop knife -> You drop the knife on the ground. Action 18: take knife -> You pick up the knife from the ground. 
+Inventory: You are carrying: a knife a raw chicken wing
+Current environment: Kitchen[fridge[raw chicken leg], oven, table, counter[cookbook], stove, screen door, plain door]
+Available actions:
+* close fridge
+* close screen door
+* cook chicken wing with oven
+* cook chicken wing with stove
+* drop chicken wing
+* drop knife
+* examine chicken leg
+* examine cookbook
+* examine counter
+* examine fridge
+* examine oven
+* examine stove
+* examine table
+* go east
+* go south
+* insert chicken wing into fridge
+* insert knife into fridge
+* look
+* open plain door
+* prepare meal
+* put chicken wing on counter
+* put chicken wing on stove
+* put chicken wing on table
+* put knife on counter
+* put knife on stove
+* put knife on table
+* take chicken leg from fridge
+* take cookbook from counter
+Next action (answer with the command directly):
+
+chop red onion
+
