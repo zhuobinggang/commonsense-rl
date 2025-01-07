@@ -62,14 +62,26 @@ class Game_interface:
         self.lost = False
         self.verbose = False
         self.visited_dict = {} # 2024.12.21 用于存储访问过的地点次数
+        self.desc_update_cache = {} # 2025.1.7 储存desc更新
     def init_env(self, hard_level_index, game_index, dataset_index):
         from env import Env_extra_info
         return Env_extra_info(hard_level_index, game_index, dataset_index=dataset_index)
     def reset(self):
         self.act_and_output(None)
-    def update_description(self, description):
-        # TODO: 使用gpt4o来summarization
-        updated_description = description
+    def update_desciption(self, desc):
+        return desc
+    def desc_from_cache_or_update_desc(self, description):
+        room_name = common.extract_room_name(description)
+        # new key
+        if room_name not in self.desc_update_cache:
+            self.desc_update_cache[room_name] = {'desc': '', 'desc_updated': ''}
+        # main logic
+        if self.desc_update_cache[room_name]['desc'] == description: # 说明已经请求过了，直接返回cache
+            updated_description = self.desc_update_cache[room_name]['desc_updated']
+        else:
+            updated_description = self.update_desciption(description)
+            self.desc_update_cache[room_name]['desc_updated'] = updated_description
+            self.desc_update_cache[room_name]['desc'] = description # 记得记录desc
         self.updated_description = updated_description
         return updated_description
     def is_move_command(self, command):
@@ -101,28 +113,24 @@ class Game_interface:
         # obs = obs + f' Visited {self.visited_dict[room_name]} times.'
         return action, obs
     def act_and_output(self, command = None):
-        description, inventory, available_actions, action_obs_pairs, extra_info = self.env.act(command)
-        act_failed = extra_info['env_act_failed']
+        description, inventory, available_actions, action_obs_pairs = self.env.act(command)
         self.available_actions_got_callback(available_actions)
         if description is not None:
             if self.is_move_command(command):
-                self.another_room_info = self.get_updated_description_before_description_update()
                 action_obs_pairs[-1] = self.move_command_succeeded_callback(action_obs_pairs[-1])
-            description = self.update_description(description)
+            description = self.desc_from_cache_or_update_desc(description)
             self.set_to_body(description, inventory, available_actions, action_obs_pairs)
             sys, usr = self.construct_sys_usr(self.description, self.inventory, self.available_actions, self.action_obs_pairs)
             self.current_sys = sys
             self.current_usr = usr
-        else: # 执行失败: 不更新self.desc之类的
-            self.won = extra_info['won']
-            self.lost = extra_info['lost']
-            self.action_obs_pairs.append((command, extra_info['raw_obs']))
-            sys, usr = self.construct_sys_usr(self.description, self.inventory, self.available_actions, self.action_obs_pairs)
-            self.current_sys = sys
-            self.current_usr = usr
+            self.won = self.env.is_won(self.env.info)
+            self.lost = self.env.is_lost(self.env.info)
+        else:
+            print('？？？？？？？？？？？？')
+            self.won = self.env.is_won(self.env.info)
+            self.lost = self.env.is_lost(self.env.info)
         if self.verbose:
             print(self.current_sys + self.current_usr)
-        return act_failed
     def input(self, command):
         self.command = command
         self.finetune_triples.append((self.current_sys, self.current_usr, self.command))

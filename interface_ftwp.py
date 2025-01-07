@@ -71,6 +71,8 @@ class Ftwp_interface(human_play.Game_interface):
         self.filename = f'FTWP_{self.dataset_index}_level_{self.hard_level_index}_game_{self.game_index}.json'
         self.won = False
         self.verbose = False
+        self.visited_dict = {} # 2024.12.21 用于存储访问过的地点次数
+        self.desc_update_cache = {} # 2025.1.7 储存desc更新
     def construct_sys_usr(self, description, inventory, available_actions, action_obs_pairs):
         sys, usr = prompt_from_env_feedback(description, inventory, available_actions, action_obs_pairs, self.another_room_info)
         return sys, usr
@@ -100,7 +102,10 @@ class Ftwp_interface_by_path(human_play.Game_interface):
         self.lost = False
         self.verbose = False
         self.visited_dict = {} # 2024.12.21 用于存储访问过的地点次数
+        self.desc_update_cache = {} # 2025.1.7 储存desc更新
         self.init_hook()
+    def init_hook(self):
+        pass
     def construct_sys_usr(self, description, inventory, available_actions, action_obs_pairs):
         sys, usr = prompt_from_env_feedback(description, inventory, available_actions, action_obs_pairs, self.another_room_info)
         return sys, usr

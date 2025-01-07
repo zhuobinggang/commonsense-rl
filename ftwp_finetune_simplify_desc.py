@@ -3,6 +3,12 @@ from llm_simplify import quest_4omini_simplify_desc
 from interface_ftwp import llm_auto_play
 import common
 
+LEGACY_VARS = {
+    'models_before_simplification_prompt_reconstruction': ['ft:gpt-4o-mini-2024-07-18:personal::AmcYzhuG:ckpt-step-285', 'ft:gpt-4o-mini-2024-07-18:personal::AmcYzEqj:ckpt-step-570', 'ft:gpt-4o-mini-2024-07-18:personal::AmcYzgWT'],
+    'model_best_before_simplification_prompt_reconstruction': 'ft:gpt-4o-mini-2024-07-18:personal::AmcYzgWT',
+    'train_file_id_before_simplification_prompt_reconstruction': 'file-VtcfFgN4WM1cvsArgykDd5'
+}
+
 # =================== Promptor ===================
 
 def prompt_from_env_feedback(description, inventory, available_actions, action_obs_pairs):
@@ -17,25 +23,11 @@ def prompt_from_env_feedback(description, inventory, available_actions, action_o
 # ======================================
 
 class Ftwp_simple_desc(Ftwp_interface_by_path):
-    def init_hook(self):
-        self.simple_desc_cache = {}
     def construct_sys_usr(self, description, inventory, available_actions, action_obs_pairs):
         sys, usr = prompt_from_env_feedback(description, inventory, available_actions, action_obs_pairs)
         return sys, usr
-    def update_description(self, description):
-        room_name = common.extract_room_name(description)
-        # new key
-        if room_name not in self.simple_desc_cache:
-            self.simple_desc_cache[room_name] = {'desc': '', 'simple_desc': ''}
-        # main logic
-        if self.simple_desc_cache[room_name]['desc'] == description: # 说明已经请求过了，直接返回cache
-            updated_simple_description = self.simple_desc_cache[room_name]['simple_desc']
-        else:
-            updated_simple_description = quest_4omini_simplify_desc(description, need_prompt=False)
-            self.simple_desc_cache[room_name]['simple_desc'] = updated_simple_description
-            self.simple_desc_cache[room_name]['desc'] = description # 记得记录desc
-        self.updated_description = updated_simple_description
-        return updated_simple_description
+    def update_desciption(self, description):
+        return quest_4omini_simplify_desc(description, need_prompt=False)
 
 def game_played_and_save_training_file(game, output_file_path):
     import json
@@ -66,27 +58,26 @@ train_file_path = 'exp/auto_filename/ftwp_simplify_desc.jsonl'
 def valid_then_upload():
     from finetune_simplify_desc import valid, finetune_file_upload
     valid(train_file_path)
-    finetune_file_upload(train_file_path)
+    return finetune_file_upload(train_file_path)
 
-FILE_ID_20_GAMES = 'file-VtcfFgN4WM1cvsArgykDd5'
+FILE_ID = 'file-RK4rADgtGgZqXKDFpzxy8W'
 
 def finetune_ftwp_simplify():
     from finetune_simplify_desc import finetune
-    finetune(FILE_ID_20_GAMES)
+    finetune(FILE_ID)
 
-
-MODELS_20_GAMES = ['ft:gpt-4o-mini-2024-07-18:personal::AmcYzhuG:ckpt-step-285', 'ft:gpt-4o-mini-2024-07-18:personal::AmcYzEqj:ckpt-step-570', 'ft:gpt-4o-mini-2024-07-18:personal::AmcYzgWT']
-BEST = MODELS_20_GAMES[2]
+MODELS = ['ft:gpt-4o-mini-2024-07-18:personal::AmyTTM95:ckpt-step-285', 'ft:gpt-4o-mini-2024-07-18:personal::AmyTTzDW:ckpt-step-570', 'ft:gpt-4o-mini-2024-07-18:personal::AmyTUwF1']
+BEST = MODELS[2]
 
 def batch_valid():
     from ftwp_info import temp_test_valid_set
     _, valid_game_paths = temp_test_valid_set()
-    for model in MODELS_20_GAMES:
+    for model in MODELS:
         for game_index, game_path in enumerate(valid_game_paths):
             game = Ftwp_simple_desc(game_path)
             llm_auto_play(game, game_index, testing=False, gpt_type = model, max_try=20)
 
-# @result: 0.7701149425287356
+# @result: 0.6209150326797386
 def run_test_temp():
     from ftwp_info import temp_test_valid_set
     test_game_paths, _ = temp_test_valid_set()
@@ -94,7 +85,6 @@ def run_test_temp():
     for game_index, game_path in enumerate(test_game_paths):
         game = Ftwp_simple_desc(game_path)
         llm_auto_play(game, game_index, testing=True, gpt_type = model, max_try=20)
-
 
 # @result: 0.3230769230769231
 def run_test():

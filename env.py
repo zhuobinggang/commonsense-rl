@@ -92,19 +92,24 @@ class Env:
 
     def _step(self, cmd):
         # Add 2024.8.17 需要判断行动是否成功，如果不成功返回None
+        # @history 2025.1.7 考虑到一些命令，比如检查库存，以及开门等等，不会增加步数，且错误的指令也会得到反馈，因此建议不改编引擎行为，返回全部，并且增加额外判断信息。
         old_moves = self.get_moves(self.env.info)
         obs, reward, is_not_terminal, info = self.origin_env_step(cmd)
         new_moves = self.get_moves(info)
+        info['taku_info'] = {}
         if old_moves == new_moves:  # Add 2024.8.17 需要判断行动是否成功，如果不成功返回None
-            print(f'TAKU: env._step WARNING, {cmd} NOT EXECUTABLE!')
+            info['taku_info'] = {'status': 2, 'desc': '步数不增加，需要小心'}
+            print(f'TAKU: env._step WARNING, {cmd} 步数不增加，需要小心!但是返回环境反馈')
             self.err = {'obs': obs, 'info': info}
             self.env.err = {'obs': obs, 'info': info}
-            return None, None
+            return obs, info
         elif new_moves == old_moves + 1:  # SUCCESS
+            info['taku_info'] = {'status': 1, 'desc': '成功改变环境状态'}
             self.env.obs = obs  # Added 2024.8.9
             self.env.info = info  # Added 2024.5.23
             return obs, info
         else:
+            info['taku_info'] = {'status': 3, 'desc': '不应该进入的分支'}
             print('TAKU: ERRRRRRRRRRRRRRRRRRR IMPOSIBLE!')
             return None, None
 
@@ -138,6 +143,11 @@ class Env:
     
     def get_obs(self, obs_raw):
         return obs_raw[0].strip().replace('\n', '')
+    
+    def reset(self, env):
+        _, info = env.reset()
+        info['taku_info'] = {}
+        return _, info
 
     def act(self, command=None, no_augment=None):
         #initiate_env(env)
@@ -146,9 +156,6 @@ class Env:
         if command:
             # Add 2024.8.17 需要判断行动是否成功，如果不成功则直接跳出
             obs_raw, info = self._step(command)
-            if obs_raw is None:
-                print(f'TAKU: env.act WARNING, {command} NOT EXECUTABLE!')
-                return None, None, None, None  # 在该情况下，唯一被设置的东西是env.err
             # CLEAN OBSERVATION
             obs = self.get_obs(obs_raw)
             inventory = self.get_inventory(info)
@@ -180,7 +187,7 @@ class Env:
             self.append_command_obs_pair(command, obs);
         else:  # 重新开始的情况
             print('RESTAR\n\n')
-            _, info = env.reset()
+            _, info = self.reset(env)
             env.info = info  # Add 2024.8.17
             description = self.get_desc(info)
             inventory = self.get_inventory(info)
@@ -199,54 +206,20 @@ class Env:
 
 
 class Env_extra_info(Env):
-
-    def _step(self, cmd):
-        # Add 2024.11.20 增加更多来自环境的反馈
-        extra_info_dic = {}
-        # Add 2024.8.17 需要判断行动是否成功，如果不成功返回None
-        old_moves = self.get_moves(self.env.info)
-        obs, reward, is_not_terminal, info = self.origin_env_step(cmd)
-        new_moves = self.get_moves(info)
-        if old_moves == new_moves:  # Add 2024.8.17 命令执行失败，obs被存储到env.err['obs']
-            extra_info_dic = {'desc': f'步数没有增加，{cmd}执行失败，raw obs为{obs}', 'raw_obs': obs, 'env_act_failed': True}
-            print(f'TAKU: env._step WARNING, {cmd} NOT EXECUTABLE!')
-            self.err = {'obs': obs, 'info': info}
-            self.env.err = {'obs': obs, 'info': info}
-            return None, None, extra_info_dic
-        elif new_moves == old_moves + 1:  # SUCCESS
-            extra_info_dic = {'desc': f'步数增加，{cmd}执行成功，raw obs为{obs}', 'raw_obs': obs, 'env_act_failed': False}
-            self.env.obs = obs  # Added 2024.8.9
-            self.env.info = info  # Added 2024.5.23
-            return obs, info, extra_info_dic
-        else:
-            print('TAKU: ERRRRRRRRRRRRRRRRRRR IMPOSIBLE!')
-            extra_info_dic = {'desc': f'进入了不可能的领域', 'raw_obs': 'Unknown failure.', 'env_act_failed': True}
-            return None, None, extra_info_dic
-        
     def act(self, command=None, no_augment=None):
         #initiate_env(env)
         env = self.env
         no_augment = no_augment or self.no_augment
-        extra_info = {}
-        extra_info['env_act_failed'] = False
-        extra_info['is_placing_item'] = False
-        extra_info['placing_failed'] = False
-        extra_info['won'] = False
-        extra_info['lost'] = False
         if command:
             # Add 2024.8.17 需要判断行动是否成功，如果不成功则直接跳出
-            obs_raw, info, extra_info_raw = self._step(command)
-            extra_info = extra_info | extra_info_raw # merge extra info
-            if obs_raw is None: # 执行失败的情况，直接跳出
-                print(f'TAKU: env.act WARNING, {command} NOT EXECUTABLE!')
-                return None, None, None, None, extra_info # 2024.11.20 extra info
+            obs_raw, info = self._step(command)
             # CLEAN OBSERVATION
             obs = self.get_obs(obs_raw)
             inventory = self.get_inventory(info)
             description = self.get_desc(info)
             if obs.replace(' ', '') == description.replace(' ', ''):  # 如果obs和description重复，应该被截断以保证输入简洁
                 obs = obs.split('.')[0] + '.'
-                extra_info['obs_abbreviation'] = True
+                info['obs_abbreviation'] = True
             # Available actions
             env.available_actions = self.get_available_actions(info)
             # 记录瞬时奖励
@@ -256,14 +229,14 @@ class Env_extra_info(Env):
             # 2024.1.21  反馈强化
             if not no_augment:
                 if self.is_placing_item(command):
-                    extra_info['is_placing_item'] = True
+                    info['is_placing_item'] = True
                     if env.instant_reward != 0:
                         obs += self.RIGHT_POSITION_HINT
-                        extra_info['placing_failed'] = False
-                        extra_info['point_up'] = True
+                        info['placing_failed'] = False
+                        info['point_up'] = True
                         # print(f'FA: {obs}')
                     else:
-                        extra_info['placing_failed'] = True
+                        info['placing_failed'] = True
                         obs_lower = obs.lower()
                         if obs_lower.startswith(
                                 "you can't") or obs_lower.startswith(
@@ -276,8 +249,8 @@ class Env_extra_info(Env):
             self.append_command_obs_pair(command, obs);
         else:  # 重新开始的情况
             print('RESTAR\n\n')
-            _, info = env.reset()
-            extra_info['desc'] = '重新启动游戏'
+            _, info = self.reset(env)
+            info['taku_info']['desc'] = '重新启动游戏'
             env.info = info  # Add 2024.8.17
             description = self.get_desc(info)
             inventory = self.get_inventory(info)
@@ -287,12 +260,11 @@ class Env_extra_info(Env):
             env.instant_reward = 0
             # Add 2024.12.16
             env.max_score = info['max_score']
+        self.info = info
         won = self.is_won(info)
         lost = self.is_lost(info)
         if lost or won:
             env.end = True
             print(f"YOU WIN, score at {info['score']}/{info['max_score']}, steps {info['moves']}") if won else print(f"YOU LOST, score at {info['score']}/{info['max_score']}, steps {info['moves']}")
-            extra_info['won'] = won
-            extra_info['lost'] = lost
-            return None, None, None, None, extra_info
-        return description, inventory, env.available_actions, env.action_obs_pairs, extra_info
+            return None, None, None, None
+        return description, inventory, env.available_actions, env.action_obs_pairs
