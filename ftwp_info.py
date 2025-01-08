@@ -174,3 +174,26 @@ def valid_set_v0():
     np.random.seed(0)
     paths = np.random.choice(paths, 5, False) # Only 5 games for valid to save money
     return paths
+
+
+# ===================== 使用nltk来获取命令模板 ========================
+
+# @result: 2025.1.8 确认了所有训练集中的命令以wold_list开头
+def filter_commands(commands, word_list = ['inventory', 'examine', 'open', 'take', 'drop', 'cook', 'slice', 'chop', 'dice', 'prepare', 'eat', 'go']):
+    """
+    过滤出不以单词列表中的单词开头的指令。
+
+    参数:
+        commands (list): 包含指令的字符串列表。
+        word_list (list): 包含要过滤的单词的列表。
+
+    返回:
+        list: 不以 word_list 中单词开头的指令列表。
+    """
+    filtered_commands = []
+    for command in commands:
+        if not any(command.startswith(word) for word in word_list):
+            filtered_commands.append(command)
+    return filtered_commands
+
+
