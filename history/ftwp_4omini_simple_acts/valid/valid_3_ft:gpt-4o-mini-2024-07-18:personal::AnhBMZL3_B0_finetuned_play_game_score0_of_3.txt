@@ -1,0 +1,368 @@
+Task: Your task is to find and examine the recipe, then prepare the ingredients as required, prepare the meal and eat it.
+
+Action history: No action was taken now.
+Inventory: You are carrying: a red bell pepper a raw red tuna a yellow bell pepper
+Current environment: -= Driveway =- You are in a driveway. An usual one. There is an open fiberglass door leading west. You need an exit without a door? You should try going north.
+Action templates:
+* inventory
+* examine <object>
+* open <object>
+* take <object> from <object>
+* cook <object> with <stove | oven>
+* drop <object>
+* <slice | dice | chop> <object> with knife
+* prepare meal
+* eat meal
+* go <direction>
+Next action (answer with the command directly):
+
+inventory
+
+Task: Your task is to find and examine the recipe, then prepare the ingredients as required, prepare the meal and eat it.
+
+Action history: Action 0: inventory -> You are carrying: a red bell pepper a raw red tuna a yellow bell pepper 
+Inventory: You are carrying: a red bell pepper a raw red tuna a yellow bell pepper
+Current environment: -= Driveway =- You are in a driveway. An usual one. There is an open fiberglass door leading west. You need an exit without a door? You should try going north.
+Action templates:
+* inventory
+* examine <object>
+* open <object>
+* take <object> from <object>
+* cook <object> with <stove | oven>
+* drop <object>
+* <slice | dice | chop> <object> with knife
+* prepare meal
+* eat meal
+* go <direction>
+Next action (answer with the command directly):
+
+go north
+
+Task: Your task is to find and examine the recipe, then prepare the ingredients as required, prepare the meal and eat it.
+
+Action history: Action 0: inventory -> You are carrying: a red bell pepper a raw red tuna a yellow bell pepper Action 1: go north -> -= Street =- This might come as a shock to you, but you've just come into a street. 
+Inventory: You are carrying: a red bell pepper a raw red tuna a yellow bell pepper
+Current environment: -= Street =- This might come as a shock to you, but you've just come into a street. There is an open commercial glass door leading east. You don't like doors? Why not try going south, that entranceway is not blocked by one.
+Action templates:
+* inventory
+* examine <object>
+* open <object>
+* take <object> from <object>
+* cook <object> with <stove | oven>
+* drop <object>
+* <slice | dice | chop> <object> with knife
+* prepare meal
+* eat meal
+* go <direction>
+Next action (answer with the command directly):
+
+open commercial glass door
+
+ACTION SELCTOR
+ACTION SELCTOR
+open commercial glass door->close commercial glass door
+
+Task: Your task is to find and examine the recipe, then prepare the ingredients as required, prepare the meal and eat it.
+
+Action history: Action 0: inventory -> You are carrying: a red bell pepper a raw red tuna a yellow bell pepper Action 1: go north -> -= Street =- This might come as a shock to you, but you've just come into a street. Action 2: close commercial glass door -> You close commercial glass door. 
+Inventory: You are carrying: a red bell pepper a raw red tuna a yellow bell pepper
+Current environment: -= Street =- This might come as a shock to you, but you've just come into a street. There is a closed commercial glass door leading east. You don't like doors? Why not try going south, that entranceway is not blocked by one.
+Action templates:
+* inventory
+* examine <object>
+* open <object>
+* take <object> from <object>
+* cook <object> with <stove | oven>
+* drop <object>
+* <slice | dice | chop> <object> with knife
+* prepare meal
+* eat meal
+* go <direction>
+Next action (answer with the command directly):
+
+go south
+
+Task: Your task is to find and examine the recipe, then prepare the ingredients as required, prepare the meal and eat it.
+
+Action history: Action 0: inventory -> You are carrying: a red bell pepper a raw red tuna a yellow bell pepper Action 1: go north -> -= Street =- This might come as a shock to you, but you've just come into a street. Action 2: close commercial glass door -> You close commercial glass door. Action 3: go south -> -= Driveway =- You are in a driveway. 
+Inventory: You are carrying: a red bell pepper a raw red tuna a yellow bell pepper
+Current environment: -= Driveway =- You are in a driveway. An usual one. There is an open fiberglass door leading west. You need an exit without a door? You should try going north.
+Action templates:
+* inventory
+* examine <object>
+* open <object>
+* take <object> from <object>
+* cook <object> with <stove | oven>
+* drop <object>
+* <slice | dice | chop> <object> with knife
+* prepare meal
+* eat meal
+* go <direction>
+Next action (answer with the command directly):
+
+open fiberglass door
+
+ACTION SELCTOR
+ACTION SELCTOR
+open fiberglass door->close fiberglass door
+
+Task: Your task is to find and examine the recipe, then prepare the ingredients as required, prepare the meal and eat it.
+
+Action history: Action 0: inventory -> You are carrying: a red bell pepper a raw red tuna a yellow bell pepper Action 1: go north -> -= Street =- This might come as a shock to you, but you've just come into a street. Action 2: close commercial glass door -> You close commercial glass door. Action 3: go south -> -= Driveway =- You are in a driveway. Action 4: close fiberglass door -> You close fiberglass door. 
+Inventory: You are carrying: a red bell pepper a raw red tuna a yellow bell pepper
+Current environment: -= Driveway =- You are in a driveway. An usual one. There is a closed fiberglass door leading west. You need an exit without a door? You should try going north.
+Action templates:
+* inventory
+* examine <object>
+* open <object>
+* take <object> from <object>
+* cook <object> with <stove | oven>
+* drop <object>
+* <slice | dice | chop> <object> with knife
+* prepare meal
+* eat meal
+* go <direction>
+Next action (answer with the command directly):
+
+go north
+
+Task: Your task is to find and examine the recipe, then prepare the ingredients as required, prepare the meal and eat it.
+
+Action history: Action 0: inventory -> You are carrying: a red bell pepper a raw red tuna a yellow bell pepper Action 1: go north -> -= Street =- This might come as a shock to you, but you've just come into a street. Action 2: close commercial glass door -> You close commercial glass door. Action 3: go south -> -= Driveway =- You are in a driveway. Action 4: close fiberglass door -> You close fiberglass door. Action 5: go north -> -= Street =- This might come as a shock to you, but you've just come into a street. 
+Inventory: You are carrying: a red bell pepper a raw red tuna a yellow bell pepper
+Current environment: -= Street =- This might come as a shock to you, but you've just come into a street. There is a closed commercial glass door leading east. You don't like doors? Why not try going south, that entranceway is not blocked by one.
+Action templates:
+* inventory
+* examine <object>
+* open <object>
+* take <object> from <object>
+* cook <object> with <stove | oven>
+* drop <object>
+* <slice | dice | chop> <object> with knife
+* prepare meal
+* eat meal
+* go <direction>
+Next action (answer with the command directly):
+
+go south
+
+Task: Your task is to find and examine the recipe, then prepare the ingredients as required, prepare the meal and eat it.
+
+Action history: Action 0: inventory -> You are carrying: a red bell pepper a raw red tuna a yellow bell pepper Action 1: go north -> -= Street =- This might come as a shock to you, but you've just come into a street. Action 2: close commercial glass door -> You close commercial glass door. Action 3: go south -> -= Driveway =- You are in a driveway. Action 4: close fiberglass door -> You close fiberglass door. Action 5: go north -> -= Street =- This might come as a shock to you, but you've just come into a street. Action 6: go south -> -= Driveway =- You are in a driveway. 
+Inventory: You are carrying: a red bell pepper a raw red tuna a yellow bell pepper
+Current environment: -= Driveway =- You are in a driveway. An usual one. There is a closed fiberglass door leading west. You need an exit without a door? You should try going north.
+Action templates:
+* inventory
+* examine <object>
+* open <object>
+* take <object> from <object>
+* cook <object> with <stove | oven>
+* drop <object>
+* <slice | dice | chop> <object> with knife
+* prepare meal
+* eat meal
+* go <direction>
+Next action (answer with the command directly):
+
+go north
+
+Task: Your task is to find and examine the recipe, then prepare the ingredients as required, prepare the meal and eat it.
+
+Action history: Action 0: inventory -> You are carrying: a red bell pepper a raw red tuna a yellow bell pepper Action 1: go north -> -= Street =- This might come as a shock to you, but you've just come into a street. Action 2: close commercial glass door -> You close commercial glass door. Action 3: go south -> -= Driveway =- You are in a driveway. Action 4: close fiberglass door -> You close fiberglass door. Action 5: go north -> -= Street =- This might come as a shock to you, but you've just come into a street. Action 6: go south -> -= Driveway =- You are in a driveway. Action 7: go north -> -= Street =- This might come as a shock to you, but you've just come into a street. 
+Inventory: You are carrying: a red bell pepper a raw red tuna a yellow bell pepper
+Current environment: -= Street =- This might come as a shock to you, but you've just come into a street. There is a closed commercial glass door leading east. You don't like doors? Why not try going south, that entranceway is not blocked by one.
+Action templates:
+* inventory
+* examine <object>
+* open <object>
+* take <object> from <object>
+* cook <object> with <stove | oven>
+* drop <object>
+* <slice | dice | chop> <object> with knife
+* prepare meal
+* eat meal
+* go <direction>
+Next action (answer with the command directly):
+
+go south
+
+Task: Your task is to find and examine the recipe, then prepare the ingredients as required, prepare the meal and eat it.
+
+Action history: Action 0: inventory -> You are carrying: a red bell pepper a raw red tuna a yellow bell pepper Action 1: go north -> -= Street =- This might come as a shock to you, but you've just come into a street. Action 2: close commercial glass door -> You close commercial glass door. Action 3: go south -> -= Driveway =- You are in a driveway. Action 4: close fiberglass door -> You close fiberglass door. Action 5: go north -> -= Street =- This might come as a shock to you, but you've just come into a street. Action 6: go south -> -= Driveway =- You are in a driveway. Action 7: go north -> -= Street =- This might come as a shock to you, but you've just come into a street. Action 8: go south -> -= Driveway =- You are in a driveway. 
+Inventory: You are carrying: a red bell pepper a raw red tuna a yellow bell pepper
+Current environment: -= Driveway =- You are in a driveway. An usual one. There is a closed fiberglass door leading west. You need an exit without a door? You should try going north.
+Action templates:
+* inventory
+* examine <object>
+* open <object>
+* take <object> from <object>
+* cook <object> with <stove | oven>
+* drop <object>
+* <slice | dice | chop> <object> with knife
+* prepare meal
+* eat meal
+* go <direction>
+Next action (answer with the command directly):
+
+go north
+
+Task: Your task is to find and examine the recipe, then prepare the ingredients as required, prepare the meal and eat it.
+
+Action history: Action 0: inventory -> You are carrying: a red bell pepper a raw red tuna a yellow bell pepper Action 1: go north -> -= Street =- This might come as a shock to you, but you've just come into a street. Action 2: close commercial glass door -> You close commercial glass door. Action 3: go south -> -= Driveway =- You are in a driveway. Action 4: close fiberglass door -> You close fiberglass door. Action 5: go north -> -= Street =- This might come as a shock to you, but you've just come into a street. Action 6: go south -> -= Driveway =- You are in a driveway. Action 7: go north -> -= Street =- This might come as a shock to you, but you've just come into a street. Action 8: go south -> -= Driveway =- You are in a driveway. Action 9: go north -> -= Street =- This might come as a shock to you, but you've just come into a street. 
+Inventory: You are carrying: a red bell pepper a raw red tuna a yellow bell pepper
+Current environment: -= Street =- This might come as a shock to you, but you've just come into a street. There is a closed commercial glass door leading east. You don't like doors? Why not try going south, that entranceway is not blocked by one.
+Action templates:
+* inventory
+* examine <object>
+* open <object>
+* take <object> from <object>
+* cook <object> with <stove | oven>
+* drop <object>
+* <slice | dice | chop> <object> with knife
+* prepare meal
+* eat meal
+* go <direction>
+Next action (answer with the command directly):
+
+go south
+
+Task: Your task is to find and examine the recipe, then prepare the ingredients as required, prepare the meal and eat it.
+
+Action history: Action 0: inventory -> You are carrying: a red bell pepper a raw red tuna a yellow bell pepper Action 1: go north -> -= Street =- This might come as a shock to you, but you've just come into a street. Action 2: close commercial glass door -> You close commercial glass door. Action 3: go south -> -= Driveway =- You are in a driveway. Action 4: close fiberglass door -> You close fiberglass door. Action 5: go north -> -= Street =- This might come as a shock to you, but you've just come into a street. Action 6: go south -> -= Driveway =- You are in a driveway. Action 7: go north -> -= Street =- This might come as a shock to you, but you've just come into a street. Action 8: go south -> -= Driveway =- You are in a driveway. Action 9: go north -> -= Street =- This might come as a shock to you, but you've just come into a street. Action 10: go south -> -= Driveway =- You are in a driveway. 
+Inventory: You are carrying: a red bell pepper a raw red tuna a yellow bell pepper
+Current environment: -= Driveway =- You are in a driveway. An usual one. There is a closed fiberglass door leading west. You need an exit without a door? You should try going north.
+Action templates:
+* inventory
+* examine <object>
+* open <object>
+* take <object> from <object>
+* cook <object> with <stove | oven>
+* drop <object>
+* <slice | dice | chop> <object> with knife
+* prepare meal
+* eat meal
+* go <direction>
+Next action (answer with the command directly):
+
+open fiberglass door
+
+Task: Your task is to find and examine the recipe, then prepare the ingredients as required, prepare the meal and eat it.
+
+Action history: Action 0: inventory -> You are carrying: a red bell pepper a raw red tuna a yellow bell pepper Action 1: go north -> -= Street =- This might come as a shock to you, but you've just come into a street. Action 2: close commercial glass door -> You close commercial glass door. Action 3: go south -> -= Driveway =- You are in a driveway. Action 4: close fiberglass door -> You close fiberglass door. Action 5: go north -> -= Street =- This might come as a shock to you, but you've just come into a street. Action 6: go south -> -= Driveway =- You are in a driveway. Action 7: go north -> -= Street =- This might come as a shock to you, but you've just come into a street. Action 8: go south -> -= Driveway =- You are in a driveway. Action 9: go north -> -= Street =- This might come as a shock to you, but you've just come into a street. Action 10: go south -> -= Driveway =- You are in a driveway. Action 11: open fiberglass door -> You open fiberglass door. 
+Inventory: You are carrying: a red bell pepper a raw red tuna a yellow bell pepper
+Current environment: -= Driveway =- You are in a driveway. An usual one. There is an open fiberglass door leading west. You need an exit without a door? You should try going north.
+Action templates:
+* inventory
+* examine <object>
+* open <object>
+* take <object> from <object>
+* cook <object> with <stove | oven>
+* drop <object>
+* <slice | dice | chop> <object> with knife
+* prepare meal
+* eat meal
+* go <direction>
+Next action (answer with the command directly):
+
+go west
+
+Task: Your task is to find and examine the recipe, then prepare the ingredients as required, prepare the meal and eat it.
+
+Action history: Action 0: inventory -> You are carrying: a red bell pepper a raw red tuna a yellow bell pepper Action 1: go north -> -= Street =- This might come as a shock to you, but you've just come into a street. Action 2: close commercial glass door -> You close commercial glass door. Action 3: go south -> -= Driveway =- You are in a driveway. Action 4: close fiberglass door -> You close fiberglass door. Action 5: go north -> -= Street =- This might come as a shock to you, but you've just come into a street. Action 6: go south -> -= Driveway =- You are in a driveway. Action 7: go north -> -= Street =- This might come as a shock to you, but you've just come into a street. Action 8: go south -> -= Driveway =- You are in a driveway. Action 9: go north -> -= Street =- This might come as a shock to you, but you've just come into a street. Action 10: go south -> -= Driveway =- You are in a driveway. Action 11: open fiberglass door -> You open fiberglass door. Action 12: go west -> -= Livingroom =- You are in a livingroom. 
+Inventory: You are carrying: a red bell pepper a raw red tuna a yellow bell pepper
+Current environment: -= Livingroom =- You are in a livingroom. A standard one. You can see a sofa. The sofa is comfy. However, the sofa, like an empty sofa, has nothing on it. There is an open fiberglass door leading east. You need an exit without a door? You should try going west.
+Action templates:
+* inventory
+* examine <object>
+* open <object>
+* take <object> from <object>
+* cook <object> with <stove | oven>
+* drop <object>
+* <slice | dice | chop> <object> with knife
+* prepare meal
+* eat meal
+* go <direction>
+Next action (answer with the command directly):
+
+go west
+
+Task: Your task is to find and examine the recipe, then prepare the ingredients as required, prepare the meal and eat it.
+
+Action history: Action 0: inventory -> You are carrying: a red bell pepper a raw red tuna a yellow bell pepper Action 1: go north -> -= Street =- This might come as a shock to you, but you've just come into a street. Action 2: close commercial glass door -> You close commercial glass door. Action 3: go south -> -= Driveway =- You are in a driveway. Action 4: close fiberglass door -> You close fiberglass door. Action 5: go north -> -= Street =- This might come as a shock to you, but you've just come into a street. Action 6: go south -> -= Driveway =- You are in a driveway. Action 7: go north -> -= Street =- This might come as a shock to you, but you've just come into a street. Action 8: go south -> -= Driveway =- You are in a driveway. Action 9: go north -> -= Street =- This might come as a shock to you, but you've just come into a street. Action 10: go south -> -= Driveway =- You are in a driveway. Action 11: open fiberglass door -> You open fiberglass door. Action 12: go west -> -= Livingroom =- You are in a livingroom. Action 13: go west -> -= Kitchen =- Well, here we are in a kitchen. 
+Inventory: You are carrying: a red bell pepper a raw red tuna a yellow bell pepper
+Current environment: -= Kitchen =- Well, here we are in a kitchen. Let's see what's in here. You can see a fridge. The fridge is empty, what a horrible day! You see a closed oven. What's that over there? It looks like it's a table. You see a knife on the table. Suddenly, you bump your head on the ceiling, but it's not such a bad bump that it's going to prevent you from looking at objects and even things. You can see a counter. The counter is vast. On the counter you see a cookbook. You can see a stove. The stove is conventional. Looks like someone's already been here and taken everything off it, though. Aw, here you were, all excited for there to be things on it! There is an open sliding patio door leading north. There is an open frosted-glass door leading west. There is an exit to the east. Don't worry, there is no door. You need an exit without a door? You should try going south.
+Action templates:
+* inventory
+* examine <object>
+* open <object>
+* take <object> from <object>
+* cook <object> with <stove | oven>
+* drop <object>
+* <slice | dice | chop> <object> with knife
+* prepare meal
+* eat meal
+* go <direction>
+Next action (answer with the command directly):
+
+examine cookbook
+
+Task: Your task is to find and examine the recipe, then prepare the ingredients as required, prepare the meal and eat it.
+
+Action history: Action 0: inventory -> You are carrying: a red bell pepper a raw red tuna a yellow bell pepper Action 1: go north -> -= Street =- This might come as a shock to you, but you've just come into a street. Action 2: close commercial glass door -> You close commercial glass door. Action 3: go south -> -= Driveway =- You are in a driveway. Action 4: close fiberglass door -> You close fiberglass door. Action 5: go north -> -= Street =- This might come as a shock to you, but you've just come into a street. Action 6: go south -> -= Driveway =- You are in a driveway. Action 7: go north -> -= Street =- This might come as a shock to you, but you've just come into a street. Action 8: go south -> -= Driveway =- You are in a driveway. Action 9: go north -> -= Street =- This might come as a shock to you, but you've just come into a street. Action 10: go south -> -= Driveway =- You are in a driveway. Action 11: open fiberglass door -> You open fiberglass door. Action 12: go west -> -= Livingroom =- You are in a livingroom. Action 13: go west -> -= Kitchen =- Well, here we are in a kitchen. Action 14: examine cookbook -> You open the copy of "Cooking: A Modern Approach (3rd Ed.)" and start reading: Recipe #1 --------- Gather all following ingredients and follow the directions to prepare this tasty meal. Ingredients: red bell pepper Directions: grill the red bell pepper prepare meal 
+Inventory: You are carrying: a red bell pepper a raw red tuna a yellow bell pepper
+Current environment: -= Kitchen =- Well, here we are in a kitchen. Let's see what's in here. You can see a fridge. The fridge is empty, what a horrible day! You see a closed oven. What's that over there? It looks like it's a table. You see a knife on the table. Suddenly, you bump your head on the ceiling, but it's not such a bad bump that it's going to prevent you from looking at objects and even things. You can see a counter. The counter is vast. On the counter you see a cookbook. You can see a stove. The stove is conventional. Looks like someone's already been here and taken everything off it, though. Aw, here you were, all excited for there to be things on it! There is an open sliding patio door leading north. There is an open frosted-glass door leading west. There is an exit to the east. Don't worry, there is no door. You need an exit without a door? You should try going south.
+Action templates:
+* inventory
+* examine <object>
+* open <object>
+* take <object> from <object>
+* cook <object> with <stove | oven>
+* drop <object>
+* <slice | dice | chop> <object> with knife
+* prepare meal
+* eat meal
+* go <direction>
+Next action (answer with the command directly):
+
+drop red tuna
+
+Task: Your task is to find and examine the recipe, then prepare the ingredients as required, prepare the meal and eat it.
+
+Action history: Action 0: inventory -> You are carrying: a red bell pepper a raw red tuna a yellow bell pepper Action 1: go north -> -= Street =- This might come as a shock to you, but you've just come into a street. Action 2: close commercial glass door -> You close commercial glass door. Action 3: go south -> -= Driveway =- You are in a driveway. Action 4: close fiberglass door -> You close fiberglass door. Action 5: go north -> -= Street =- This might come as a shock to you, but you've just come into a street. Action 6: go south -> -= Driveway =- You are in a driveway. Action 7: go north -> -= Street =- This might come as a shock to you, but you've just come into a street. Action 8: go south -> -= Driveway =- You are in a driveway. Action 9: go north -> -= Street =- This might come as a shock to you, but you've just come into a street. Action 10: go south -> -= Driveway =- You are in a driveway. Action 11: open fiberglass door -> You open fiberglass door. Action 12: go west -> -= Livingroom =- You are in a livingroom. Action 13: go west -> -= Kitchen =- Well, here we are in a kitchen. Action 14: examine cookbook -> You open the copy of "Cooking: A Modern Approach (3rd Ed.)" and start reading: Recipe #1 --------- Gather all following ingredients and follow the directions to prepare this tasty meal. Ingredients: red bell pepper Directions: grill the red bell pepper prepare meal Action 15: drop red tuna -> You drop the red tuna on the ground. 
+Inventory: You are carrying: a red bell pepper a yellow bell pepper
+Current environment: -= Kitchen =- Well, here we are in a kitchen. Let's see what's in here. You can see a fridge. The fridge is empty, what a horrible day! You see a closed oven. What's that over there? It looks like it's a table. You see a knife on the table. Suddenly, you bump your head on the ceiling, but it's not such a bad bump that it's going to prevent you from looking at objects and even things. You can see a counter. The counter is vast. On the counter you see a cookbook. You can see a stove. The stove is conventional. Looks like someone's already been here and taken everything off it, though. Aw, here you were, all excited for there to be things on it! There is an open sliding patio door leading north. There is an open frosted-glass door leading west. There is an exit to the east. Don't worry, there is no door. You need an exit without a door? You should try going south. There is a raw red tuna on the floor.
+Action templates:
+* inventory
+* examine <object>
+* open <object>
+* take <object> from <object>
+* cook <object> with <stove | oven>
+* drop <object>
+* <slice | dice | chop> <object> with knife
+* prepare meal
+* eat meal
+* go <direction>
+Next action (answer with the command directly):
+
+drop yellow bell pepper
+
+Task: Your task is to find and examine the recipe, then prepare the ingredients as required, prepare the meal and eat it.
+
+Action history: Action 0: inventory -> You are carrying: a red bell pepper a raw red tuna a yellow bell pepper Action 1: go north -> -= Street =- This might come as a shock to you, but you've just come into a street. Action 2: close commercial glass door -> You close commercial glass door. Action 3: go south -> -= Driveway =- You are in a driveway. Action 4: close fiberglass door -> You close fiberglass door. Action 5: go north -> -= Street =- This might come as a shock to you, but you've just come into a street. Action 6: go south -> -= Driveway =- You are in a driveway. Action 7: go north -> -= Street =- This might come as a shock to you, but you've just come into a street. Action 8: go south -> -= Driveway =- You are in a driveway. Action 9: go north -> -= Street =- This might come as a shock to you, but you've just come into a street. Action 10: go south -> -= Driveway =- You are in a driveway. Action 11: open fiberglass door -> You open fiberglass door. Action 12: go west -> -= Livingroom =- You are in a livingroom. Action 13: go west -> -= Kitchen =- Well, here we are in a kitchen. Action 14: examine cookbook -> You open the copy of "Cooking: A Modern Approach (3rd Ed.)" and start reading: Recipe #1 --------- Gather all following ingredients and follow the directions to prepare this tasty meal. Ingredients: red bell pepper Directions: grill the red bell pepper prepare meal Action 15: drop red tuna -> You drop the red tuna on the ground. Action 16: drop yellow bell pepper -> You drop the yellow bell pepper on the ground. 
+Inventory: You are carrying: a red bell pepper
+Current environment: -= Kitchen =- Well, here we are in a kitchen. Let's see what's in here. You can see a fridge. The fridge is empty, what a horrible day! You see a closed oven. What's that over there? It looks like it's a table. You see a knife on the table. Suddenly, you bump your head on the ceiling, but it's not such a bad bump that it's going to prevent you from looking at objects and even things. You can see a counter. The counter is vast. On the counter you see a cookbook. You can see a stove. The stove is conventional. Looks like someone's already been here and taken everything off it, though. Aw, here you were, all excited for there to be things on it! There is an open sliding patio door leading north. There is an open frosted-glass door leading west. There is an exit to the east. Don't worry, there is no door. You need an exit without a door? You should try going south. There is a yellow bell pepper and a raw red tuna on the floor.
+Action templates:
+* inventory
+* examine <object>
+* open <object>
+* take <object> from <object>
+* cook <object> with <stove | oven>
+* drop <object>
+* <slice | dice | chop> <object> with knife
+* prepare meal
+* eat meal
+* go <direction>
+Next action (answer with the command directly):
+
+cook red bell pepper with stove
+

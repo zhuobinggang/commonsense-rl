@@ -1,0 +1,412 @@
+Task: Your task is to find and examine the recipe, then prepare the ingredients as required, prepare the meal and eat it.
+
+Action history: No action was taken now.
+Inventory: You are carrying nothing.
+Current environment: -= Backyard =- Well, here we are in a backyard. Let's see what's in here. Oh, great. Here's a patio chair. But the thing hasn't got anything on it. Hm. Oh well You can see a patio table. The patio table is stylish. However, the patio table, like an empty patio table, has nothing on it. You make out a BBQ. You shudder, but continue examining the room. There is an open sliding patio door leading north. There is an open barn door leading south. You don't like doors? Why not try going west, that entranceway is not blocked by one.
+Action templates:
+* inventory
+* examine <object>
+* open <object>
+* take <object> from <object>
+* cook <object> with <stove | oven>
+* drop <object>
+* <slice | dice | chop> <object> with knife
+* prepare meal
+* eat meal
+* go <direction>
+Next action (answer with the command directly):
+
+inventory
+
+Task: Your task is to find and examine the recipe, then prepare the ingredients as required, prepare the meal and eat it.
+
+Action history: Action 0: inventory -> You are carrying nothing. 
+Inventory: You are carrying nothing.
+Current environment: -= Backyard =- Well, here we are in a backyard. Let's see what's in here. Oh, great. Here's a patio chair. But the thing hasn't got anything on it. Hm. Oh well You can see a patio table. The patio table is stylish. However, the patio table, like an empty patio table, has nothing on it. You make out a BBQ. You shudder, but continue examining the room. There is an open sliding patio door leading north. There is an open barn door leading south. You don't like doors? Why not try going west, that entranceway is not blocked by one.
+Action templates:
+* inventory
+* examine <object>
+* open <object>
+* take <object> from <object>
+* cook <object> with <stove | oven>
+* drop <object>
+* <slice | dice | chop> <object> with knife
+* prepare meal
+* eat meal
+* go <direction>
+Next action (answer with the command directly):
+
+go north
+
+Task: Your task is to find and examine the recipe, then prepare the ingredients as required, prepare the meal and eat it.
+
+Action history: Action 0: inventory -> You are carrying nothing. Action 1: go north -> -= Kitchen =- You are in a kitchen. 
+Inventory: You are carrying nothing.
+Current environment: -= Kitchen =- You are in a kitchen. It seems to be pretty standard here. You see a fridge. Empty! What kind of nightmare TextWorld is this? You can make out a closed oven, which looks conventional, here. You can make out a table. Wow, isn't TextWorld just the best? You see a cookbook on the table. Were you looking for a counter? Because look over there, it's a counter. The counter is vast. On the counter you see a knife. Hey, want to see a stove? Look over there, a stove. The stove is conventional. But the thing is empty. There is an open sliding patio door leading south. There is an open plain door leading west. You don't like doors? Why not try going east, that entranceway is not blocked by one.
+Action templates:
+* inventory
+* examine <object>
+* open <object>
+* take <object> from <object>
+* cook <object> with <stove | oven>
+* drop <object>
+* <slice | dice | chop> <object> with knife
+* prepare meal
+* eat meal
+* go <direction>
+Next action (answer with the command directly):
+
+examine cookbook
+
+Task: Your task is to find and examine the recipe, then prepare the ingredients as required, prepare the meal and eat it.
+
+Action history: Action 0: inventory -> You are carrying nothing. Action 1: go north -> -= Kitchen =- You are in a kitchen. Action 2: examine cookbook -> You open the copy of "Cooking: A Modern Approach (3rd Ed.)" and start reading: Recipe #1 --------- Gather all following ingredients and follow the directions to prepare this tasty meal. Ingredients: flour Directions: prepare meal 
+Inventory: You are carrying nothing.
+Current environment: -= Kitchen =- You are in a kitchen. It seems to be pretty standard here. You see a fridge. Empty! What kind of nightmare TextWorld is this? You can make out a closed oven, which looks conventional, here. You can make out a table. Wow, isn't TextWorld just the best? You see a cookbook on the table. Were you looking for a counter? Because look over there, it's a counter. The counter is vast. On the counter you see a knife. Hey, want to see a stove? Look over there, a stove. The stove is conventional. But the thing is empty. There is an open sliding patio door leading south. There is an open plain door leading west. You don't like doors? Why not try going east, that entranceway is not blocked by one.
+Action templates:
+* inventory
+* examine <object>
+* open <object>
+* take <object> from <object>
+* cook <object> with <stove | oven>
+* drop <object>
+* <slice | dice | chop> <object> with knife
+* prepare meal
+* eat meal
+* go <direction>
+Next action (answer with the command directly):
+
+go east
+
+Task: Your task is to find and examine the recipe, then prepare the ingredients as required, prepare the meal and eat it.
+
+Action history: Action 0: inventory -> You are carrying nothing. Action 1: go north -> -= Kitchen =- You are in a kitchen. Action 2: examine cookbook -> You open the copy of "Cooking: A Modern Approach (3rd Ed.)" and start reading: Recipe #1 --------- Gather all following ingredients and follow the directions to prepare this tasty meal. Ingredients: flour Directions: prepare meal Action 3: go east -> -= Corridor =- Well, here we are in the corridor. 
+Inventory: You are carrying nothing.
+Current environment: -= Corridor =- Well, here we are in the corridor. You begin looking for stuff. You need an exit without a door? You should try going north. You need an exit without a door? You should try going south. There is an exit to the west. Don't worry, there is no door.
+Action templates:
+* inventory
+* examine <object>
+* open <object>
+* take <object> from <object>
+* cook <object> with <stove | oven>
+* drop <object>
+* <slice | dice | chop> <object> with knife
+* prepare meal
+* eat meal
+* go <direction>
+Next action (answer with the command directly):
+
+go west
+
+Task: Your task is to find and examine the recipe, then prepare the ingredients as required, prepare the meal and eat it.
+
+Action history: Action 0: inventory -> You are carrying nothing. Action 1: go north -> -= Kitchen =- You are in a kitchen. Action 2: examine cookbook -> You open the copy of "Cooking: A Modern Approach (3rd Ed.)" and start reading: Recipe #1 --------- Gather all following ingredients and follow the directions to prepare this tasty meal. Ingredients: flour Directions: prepare meal Action 3: go east -> -= Corridor =- Well, here we are in the corridor. Action 4: go west -> -= Kitchen =- You are in a kitchen. 
+Inventory: You are carrying nothing.
+Current environment: -= Kitchen =- You are in a kitchen. It seems to be pretty standard here. You see a fridge. Empty! What kind of nightmare TextWorld is this? You can make out a closed oven, which looks conventional, here. You can make out a table. Wow, isn't TextWorld just the best? You see a cookbook on the table. Were you looking for a counter? Because look over there, it's a counter. The counter is vast. On the counter you see a knife. Hey, want to see a stove? Look over there, a stove. The stove is conventional. But the thing is empty. There is an open sliding patio door leading south. There is an open plain door leading west. You don't like doors? Why not try going east, that entranceway is not blocked by one.
+Action templates:
+* inventory
+* examine <object>
+* open <object>
+* take <object> from <object>
+* cook <object> with <stove | oven>
+* drop <object>
+* <slice | dice | chop> <object> with knife
+* prepare meal
+* eat meal
+* go <direction>
+Next action (answer with the command directly):
+
+open sliding patio door
+
+ACTION SELCTOR
+ACTION SELCTOR
+open sliding patio door->close sliding patio door
+
+Task: Your task is to find and examine the recipe, then prepare the ingredients as required, prepare the meal and eat it.
+
+Action history: Action 0: inventory -> You are carrying nothing. Action 1: go north -> -= Kitchen =- You are in a kitchen. Action 2: examine cookbook -> You open the copy of "Cooking: A Modern Approach (3rd Ed.)" and start reading: Recipe #1 --------- Gather all following ingredients and follow the directions to prepare this tasty meal. Ingredients: flour Directions: prepare meal Action 3: go east -> -= Corridor =- Well, here we are in the corridor. Action 4: go west -> -= Kitchen =- You are in a kitchen. Action 5: close sliding patio door -> You close sliding patio door. 
+Inventory: You are carrying nothing.
+Current environment: -= Kitchen =- You are in a kitchen. It seems to be pretty standard here. You see a fridge. Empty! What kind of nightmare TextWorld is this? You can make out a closed oven, which looks conventional, here. You can make out a table. Wow, isn't TextWorld just the best? You see a cookbook on the table. Were you looking for a counter? Because look over there, it's a counter. The counter is vast. On the counter you see a knife. Hey, want to see a stove? Look over there, a stove. The stove is conventional. But the thing is empty. There is a closed sliding patio door leading south. There is an open plain door leading west. You don't like doors? Why not try going east, that entranceway is not blocked by one.
+Action templates:
+* inventory
+* examine <object>
+* open <object>
+* take <object> from <object>
+* cook <object> with <stove | oven>
+* drop <object>
+* <slice | dice | chop> <object> with knife
+* prepare meal
+* eat meal
+* go <direction>
+Next action (answer with the command directly):
+
+go west
+
+Task: Your task is to find and examine the recipe, then prepare the ingredients as required, prepare the meal and eat it.
+
+Action history: Action 0: inventory -> You are carrying nothing. Action 1: go north -> -= Kitchen =- You are in a kitchen. Action 2: examine cookbook -> You open the copy of "Cooking: A Modern Approach (3rd Ed.)" and start reading: Recipe #1 --------- Gather all following ingredients and follow the directions to prepare this tasty meal. Ingredients: flour Directions: prepare meal Action 3: go east -> -= Corridor =- Well, here we are in the corridor. Action 4: go west -> -= Kitchen =- You are in a kitchen. Action 5: close sliding patio door -> You close sliding patio door. Action 6: go west -> -= Pantry =- You've just shown up in a pantry. 
+Inventory: You are carrying nothing.
+Current environment: -= Pantry =- You've just shown up in a pantry. Look over there! a shelf. Unfortunately, there isn't a thing on it. There is an open plain door leading east.
+Action templates:
+* inventory
+* examine <object>
+* open <object>
+* take <object> from <object>
+* cook <object> with <stove | oven>
+* drop <object>
+* <slice | dice | chop> <object> with knife
+* prepare meal
+* eat meal
+* go <direction>
+Next action (answer with the command directly):
+
+open plain door
+
+ACTION SELCTOR
+ACTION SELCTOR
+open plain door->go east
+
+Task: Your task is to find and examine the recipe, then prepare the ingredients as required, prepare the meal and eat it.
+
+Action history: Action 0: inventory -> You are carrying nothing. Action 1: go north -> -= Kitchen =- You are in a kitchen. Action 2: examine cookbook -> You open the copy of "Cooking: A Modern Approach (3rd Ed.)" and start reading: Recipe #1 --------- Gather all following ingredients and follow the directions to prepare this tasty meal. Ingredients: flour Directions: prepare meal Action 3: go east -> -= Corridor =- Well, here we are in the corridor. Action 4: go west -> -= Kitchen =- You are in a kitchen. Action 5: close sliding patio door -> You close sliding patio door. Action 6: go west -> -= Pantry =- You've just shown up in a pantry. Action 7: go east -> -= Kitchen =- You are in a kitchen. 
+Inventory: You are carrying nothing.
+Current environment: -= Kitchen =- You are in a kitchen. It seems to be pretty standard here. You see a fridge. Empty! What kind of nightmare TextWorld is this? You can make out a closed oven, which looks conventional, here. You can make out a table. Wow, isn't TextWorld just the best? You see a cookbook on the table. Were you looking for a counter? Because look over there, it's a counter. The counter is vast. On the counter you see a knife. Hey, want to see a stove? Look over there, a stove. The stove is conventional. But the thing is empty. There is a closed sliding patio door leading south. There is an open plain door leading west. You don't like doors? Why not try going east, that entranceway is not blocked by one.
+Action templates:
+* inventory
+* examine <object>
+* open <object>
+* take <object> from <object>
+* cook <object> with <stove | oven>
+* drop <object>
+* <slice | dice | chop> <object> with knife
+* prepare meal
+* eat meal
+* go <direction>
+Next action (answer with the command directly):
+
+open plain door
+
+ACTION SELCTOR
+ACTION SELCTOR
+open plain door->close plain door
+
+Task: Your task is to find and examine the recipe, then prepare the ingredients as required, prepare the meal and eat it.
+
+Action history: Action 0: inventory -> You are carrying nothing. Action 1: go north -> -= Kitchen =- You are in a kitchen. Action 2: examine cookbook -> You open the copy of "Cooking: A Modern Approach (3rd Ed.)" and start reading: Recipe #1 --------- Gather all following ingredients and follow the directions to prepare this tasty meal. Ingredients: flour Directions: prepare meal Action 3: go east -> -= Corridor =- Well, here we are in the corridor. Action 4: go west -> -= Kitchen =- You are in a kitchen. Action 5: close sliding patio door -> You close sliding patio door. Action 6: go west -> -= Pantry =- You've just shown up in a pantry. Action 7: go east -> -= Kitchen =- You are in a kitchen. Action 8: close plain door -> You close plain door. 
+Inventory: You are carrying nothing.
+Current environment: -= Kitchen =- You are in a kitchen. It seems to be pretty standard here. You see a fridge. Empty! What kind of nightmare TextWorld is this? You can make out a closed oven, which looks conventional, here. You can make out a table. Wow, isn't TextWorld just the best? You see a cookbook on the table. Were you looking for a counter? Because look over there, it's a counter. The counter is vast. On the counter you see a knife. Hey, want to see a stove? Look over there, a stove. The stove is conventional. But the thing is empty. There is a closed sliding patio door leading south. There is a closed plain door leading west. You don't like doors? Why not try going east, that entranceway is not blocked by one.
+Action templates:
+* inventory
+* examine <object>
+* open <object>
+* take <object> from <object>
+* cook <object> with <stove | oven>
+* drop <object>
+* <slice | dice | chop> <object> with knife
+* prepare meal
+* eat meal
+* go <direction>
+Next action (answer with the command directly):
+
+go east
+
+Task: Your task is to find and examine the recipe, then prepare the ingredients as required, prepare the meal and eat it.
+
+Action history: Action 0: inventory -> You are carrying nothing. Action 1: go north -> -= Kitchen =- You are in a kitchen. Action 2: examine cookbook -> You open the copy of "Cooking: A Modern Approach (3rd Ed.)" and start reading: Recipe #1 --------- Gather all following ingredients and follow the directions to prepare this tasty meal. Ingredients: flour Directions: prepare meal Action 3: go east -> -= Corridor =- Well, here we are in the corridor. Action 4: go west -> -= Kitchen =- You are in a kitchen. Action 5: close sliding patio door -> You close sliding patio door. Action 6: go west -> -= Pantry =- You've just shown up in a pantry. Action 7: go east -> -= Kitchen =- You are in a kitchen. Action 8: close plain door -> You close plain door. Action 9: go east -> -= Corridor =- Well, here we are in the corridor. 
+Inventory: You are carrying nothing.
+Current environment: -= Corridor =- Well, here we are in the corridor. You begin looking for stuff. You need an exit without a door? You should try going north. You need an exit without a door? You should try going south. There is an exit to the west. Don't worry, there is no door.
+Action templates:
+* inventory
+* examine <object>
+* open <object>
+* take <object> from <object>
+* cook <object> with <stove | oven>
+* drop <object>
+* <slice | dice | chop> <object> with knife
+* prepare meal
+* eat meal
+* go <direction>
+Next action (answer with the command directly):
+
+go north
+
+Task: Your task is to find and examine the recipe, then prepare the ingredients as required, prepare the meal and eat it.
+
+Action history: Action 0: inventory -> You are carrying nothing. Action 1: go north -> -= Kitchen =- You are in a kitchen. Action 2: examine cookbook -> You open the copy of "Cooking: A Modern Approach (3rd Ed.)" and start reading: Recipe #1 --------- Gather all following ingredients and follow the directions to prepare this tasty meal. Ingredients: flour Directions: prepare meal Action 3: go east -> -= Corridor =- Well, here we are in the corridor. Action 4: go west -> -= Kitchen =- You are in a kitchen. Action 5: close sliding patio door -> You close sliding patio door. Action 6: go west -> -= Pantry =- You've just shown up in a pantry. Action 7: go east -> -= Kitchen =- You are in a kitchen. Action 8: close plain door -> You close plain door. Action 9: go east -> -= Corridor =- Well, here we are in the corridor. Action 10: go north -> -= Bathroom =- You find yourself in a bathroom. 
+Inventory: You are carrying nothing.
+Current environment: -= Bathroom =- You find yourself in a bathroom. A typical one. The room is well lit. Oh wow! Is that what I think it is? It is! It's a toilet. The toilet is white. But the thing is empty, unfortunately. There is an exit to the south. Don't worry, there is no door.
+Action templates:
+* inventory
+* examine <object>
+* open <object>
+* take <object> from <object>
+* cook <object> with <stove | oven>
+* drop <object>
+* <slice | dice | chop> <object> with knife
+* prepare meal
+* eat meal
+* go <direction>
+Next action (answer with the command directly):
+
+go south
+
+Task: Your task is to find and examine the recipe, then prepare the ingredients as required, prepare the meal and eat it.
+
+Action history: Action 0: inventory -> You are carrying nothing. Action 1: go north -> -= Kitchen =- You are in a kitchen. Action 2: examine cookbook -> You open the copy of "Cooking: A Modern Approach (3rd Ed.)" and start reading: Recipe #1 --------- Gather all following ingredients and follow the directions to prepare this tasty meal. Ingredients: flour Directions: prepare meal Action 3: go east -> -= Corridor =- Well, here we are in the corridor. Action 4: go west -> -= Kitchen =- You are in a kitchen. Action 5: close sliding patio door -> You close sliding patio door. Action 6: go west -> -= Pantry =- You've just shown up in a pantry. Action 7: go east -> -= Kitchen =- You are in a kitchen. Action 8: close plain door -> You close plain door. Action 9: go east -> -= Corridor =- Well, here we are in the corridor. Action 10: go north -> -= Bathroom =- You find yourself in a bathroom. Action 11: go south -> -= Corridor =- Well, here we are in the corridor. 
+Inventory: You are carrying nothing.
+Current environment: -= Corridor =- Well, here we are in the corridor. You begin looking for stuff. You need an exit without a door? You should try going north. You need an exit without a door? You should try going south. There is an exit to the west. Don't worry, there is no door.
+Action templates:
+* inventory
+* examine <object>
+* open <object>
+* take <object> from <object>
+* cook <object> with <stove | oven>
+* drop <object>
+* <slice | dice | chop> <object> with knife
+* prepare meal
+* eat meal
+* go <direction>
+Next action (answer with the command directly):
+
+go south
+
+Task: Your task is to find and examine the recipe, then prepare the ingredients as required, prepare the meal and eat it.
+
+Action history: Action 0: inventory -> You are carrying nothing. Action 1: go north -> -= Kitchen =- You are in a kitchen. Action 2: examine cookbook -> You open the copy of "Cooking: A Modern Approach (3rd Ed.)" and start reading: Recipe #1 --------- Gather all following ingredients and follow the directions to prepare this tasty meal. Ingredients: flour Directions: prepare meal Action 3: go east -> -= Corridor =- Well, here we are in the corridor. Action 4: go west -> -= Kitchen =- You are in a kitchen. Action 5: close sliding patio door -> You close sliding patio door. Action 6: go west -> -= Pantry =- You've just shown up in a pantry. Action 7: go east -> -= Kitchen =- You are in a kitchen. Action 8: close plain door -> You close plain door. Action 9: go east -> -= Corridor =- Well, here we are in the corridor. Action 10: go north -> -= Bathroom =- You find yourself in a bathroom. Action 11: go south -> -= Corridor =- Well, here we are in the corridor. Action 12: go south -> -= Livingroom =- Well, here we are in the livingroom. 
+Inventory: You are carrying nothing.
+Current environment: -= Livingroom =- Well, here we are in the livingroom. You make out a sofa. The sofa is comfy. But oh no! there's nothing on this piece of trash. There is an open front door leading south. You need an exit without a door? You should try going east. You don't like doors? Why not try going north, that entranceway is not blocked by one.
+Action templates:
+* inventory
+* examine <object>
+* open <object>
+* take <object> from <object>
+* cook <object> with <stove | oven>
+* drop <object>
+* <slice | dice | chop> <object> with knife
+* prepare meal
+* eat meal
+* go <direction>
+Next action (answer with the command directly):
+
+go north
+
+Task: Your task is to find and examine the recipe, then prepare the ingredients as required, prepare the meal and eat it.
+
+Action history: Action 0: inventory -> You are carrying nothing. Action 1: go north -> -= Kitchen =- You are in a kitchen. Action 2: examine cookbook -> You open the copy of "Cooking: A Modern Approach (3rd Ed.)" and start reading: Recipe #1 --------- Gather all following ingredients and follow the directions to prepare this tasty meal. Ingredients: flour Directions: prepare meal Action 3: go east -> -= Corridor =- Well, here we are in the corridor. Action 4: go west -> -= Kitchen =- You are in a kitchen. Action 5: close sliding patio door -> You close sliding patio door. Action 6: go west -> -= Pantry =- You've just shown up in a pantry. Action 7: go east -> -= Kitchen =- You are in a kitchen. Action 8: close plain door -> You close plain door. Action 9: go east -> -= Corridor =- Well, here we are in the corridor. Action 10: go north -> -= Bathroom =- You find yourself in a bathroom. Action 11: go south -> -= Corridor =- Well, here we are in the corridor. Action 12: go south -> -= Livingroom =- Well, here we are in the livingroom. Action 13: go north -> -= Corridor =- Well, here we are in the corridor. 
+Inventory: You are carrying nothing.
+Current environment: -= Corridor =- Well, here we are in the corridor. You begin looking for stuff. You need an exit without a door? You should try going north. You need an exit without a door? You should try going south. There is an exit to the west. Don't worry, there is no door.
+Action templates:
+* inventory
+* examine <object>
+* open <object>
+* take <object> from <object>
+* cook <object> with <stove | oven>
+* drop <object>
+* <slice | dice | chop> <object> with knife
+* prepare meal
+* eat meal
+* go <direction>
+Next action (answer with the command directly):
+
+go west
+
+Task: Your task is to find and examine the recipe, then prepare the ingredients as required, prepare the meal and eat it.
+
+Action history: Action 0: inventory -> You are carrying nothing. Action 1: go north -> -= Kitchen =- You are in a kitchen. Action 2: examine cookbook -> You open the copy of "Cooking: A Modern Approach (3rd Ed.)" and start reading: Recipe #1 --------- Gather all following ingredients and follow the directions to prepare this tasty meal. Ingredients: flour Directions: prepare meal Action 3: go east -> -= Corridor =- Well, here we are in the corridor. Action 4: go west -> -= Kitchen =- You are in a kitchen. Action 5: close sliding patio door -> You close sliding patio door. Action 6: go west -> -= Pantry =- You've just shown up in a pantry. Action 7: go east -> -= Kitchen =- You are in a kitchen. Action 8: close plain door -> You close plain door. Action 9: go east -> -= Corridor =- Well, here we are in the corridor. Action 10: go north -> -= Bathroom =- You find yourself in a bathroom. Action 11: go south -> -= Corridor =- Well, here we are in the corridor. Action 12: go south -> -= Livingroom =- Well, here we are in the livingroom. Action 13: go north -> -= Corridor =- Well, here we are in the corridor. Action 14: go west -> -= Kitchen =- You are in a kitchen. 
+Inventory: You are carrying nothing.
+Current environment: -= Kitchen =- You are in a kitchen. It seems to be pretty standard here. You see a fridge. Empty! What kind of nightmare TextWorld is this? You can make out a closed oven, which looks conventional, here. You can make out a table. Wow, isn't TextWorld just the best? You see a cookbook on the table. Were you looking for a counter? Because look over there, it's a counter. The counter is vast. On the counter you see a knife. Hey, want to see a stove? Look over there, a stove. The stove is conventional. But the thing is empty. There is a closed sliding patio door leading south. There is a closed plain door leading west. You don't like doors? Why not try going east, that entranceway is not blocked by one.
+Action templates:
+* inventory
+* examine <object>
+* open <object>
+* take <object> from <object>
+* cook <object> with <stove | oven>
+* drop <object>
+* <slice | dice | chop> <object> with knife
+* prepare meal
+* eat meal
+* go <direction>
+Next action (answer with the command directly):
+
+open sliding patio door
+
+Task: Your task is to find and examine the recipe, then prepare the ingredients as required, prepare the meal and eat it.
+
+Action history: Action 0: inventory -> You are carrying nothing. Action 1: go north -> -= Kitchen =- You are in a kitchen. Action 2: examine cookbook -> You open the copy of "Cooking: A Modern Approach (3rd Ed.)" and start reading: Recipe #1 --------- Gather all following ingredients and follow the directions to prepare this tasty meal. Ingredients: flour Directions: prepare meal Action 3: go east -> -= Corridor =- Well, here we are in the corridor. Action 4: go west -> -= Kitchen =- You are in a kitchen. Action 5: close sliding patio door -> You close sliding patio door. Action 6: go west -> -= Pantry =- You've just shown up in a pantry. Action 7: go east -> -= Kitchen =- You are in a kitchen. Action 8: close plain door -> You close plain door. Action 9: go east -> -= Corridor =- Well, here we are in the corridor. Action 10: go north -> -= Bathroom =- You find yourself in a bathroom. Action 11: go south -> -= Corridor =- Well, here we are in the corridor. Action 12: go south -> -= Livingroom =- Well, here we are in the livingroom. Action 13: go north -> -= Corridor =- Well, here we are in the corridor. Action 14: go west -> -= Kitchen =- You are in a kitchen. Action 15: open sliding patio door -> You open sliding patio door. 
+Inventory: You are carrying nothing.
+Current environment: -= Kitchen =- You are in a kitchen. It seems to be pretty standard here. You see a fridge. Empty! What kind of nightmare TextWorld is this? You can make out a closed oven, which looks conventional, here. You can make out a table. Wow, isn't TextWorld just the best? You see a cookbook on the table. Were you looking for a counter? Because look over there, it's a counter. The counter is vast. On the counter you see a knife. Hey, want to see a stove? Look over there, a stove. The stove is conventional. But the thing is empty. There is an open sliding patio door leading south. There is a closed plain door leading west. You don't like doors? Why not try going east, that entranceway is not blocked by one.
+Action templates:
+* inventory
+* examine <object>
+* open <object>
+* take <object> from <object>
+* cook <object> with <stove | oven>
+* drop <object>
+* <slice | dice | chop> <object> with knife
+* prepare meal
+* eat meal
+* go <direction>
+Next action (answer with the command directly):
+
+go south
+
+Task: Your task is to find and examine the recipe, then prepare the ingredients as required, prepare the meal and eat it.
+
+Action history: Action 0: inventory -> You are carrying nothing. Action 1: go north -> -= Kitchen =- You are in a kitchen. Action 2: examine cookbook -> You open the copy of "Cooking: A Modern Approach (3rd Ed.)" and start reading: Recipe #1 --------- Gather all following ingredients and follow the directions to prepare this tasty meal. Ingredients: flour Directions: prepare meal Action 3: go east -> -= Corridor =- Well, here we are in the corridor. Action 4: go west -> -= Kitchen =- You are in a kitchen. Action 5: close sliding patio door -> You close sliding patio door. Action 6: go west -> -= Pantry =- You've just shown up in a pantry. Action 7: go east -> -= Kitchen =- You are in a kitchen. Action 8: close plain door -> You close plain door. Action 9: go east -> -= Corridor =- Well, here we are in the corridor. Action 10: go north -> -= Bathroom =- You find yourself in a bathroom. Action 11: go south -> -= Corridor =- Well, here we are in the corridor. Action 12: go south -> -= Livingroom =- Well, here we are in the livingroom. Action 13: go north -> -= Corridor =- Well, here we are in the corridor. Action 14: go west -> -= Kitchen =- You are in a kitchen. Action 15: open sliding patio door -> You open sliding patio door. Action 16: go south -> -= Backyard =- Well, here we are in a backyard. 
+Inventory: You are carrying nothing.
+Current environment: -= Backyard =- Well, here we are in a backyard. Let's see what's in here. Oh, great. Here's a patio chair. But the thing hasn't got anything on it. Hm. Oh well You can see a patio table. The patio table is stylish. However, the patio table, like an empty patio table, has nothing on it. You make out a BBQ. You shudder, but continue examining the room. There is an open sliding patio door leading north. There is an open barn door leading south. You don't like doors? Why not try going west, that entranceway is not blocked by one.
+Action templates:
+* inventory
+* examine <object>
+* open <object>
+* take <object> from <object>
+* cook <object> with <stove | oven>
+* drop <object>
+* <slice | dice | chop> <object> with knife
+* prepare meal
+* eat meal
+* go <direction>
+Next action (answer with the command directly):
+
+go south
+
+Task: Your task is to find and examine the recipe, then prepare the ingredients as required, prepare the meal and eat it.
+
+Action history: Action 0: inventory -> You are carrying nothing. Action 1: go north -> -= Kitchen =- You are in a kitchen. Action 2: examine cookbook -> You open the copy of "Cooking: A Modern Approach (3rd Ed.)" and start reading: Recipe #1 --------- Gather all following ingredients and follow the directions to prepare this tasty meal. Ingredients: flour Directions: prepare meal Action 3: go east -> -= Corridor =- Well, here we are in the corridor. Action 4: go west -> -= Kitchen =- You are in a kitchen. Action 5: close sliding patio door -> You close sliding patio door. Action 6: go west -> -= Pantry =- You've just shown up in a pantry. Action 7: go east -> -= Kitchen =- You are in a kitchen. Action 8: close plain door -> You close plain door. Action 9: go east -> -= Corridor =- Well, here we are in the corridor. Action 10: go north -> -= Bathroom =- You find yourself in a bathroom. Action 11: go south -> -= Corridor =- Well, here we are in the corridor. Action 12: go south -> -= Livingroom =- Well, here we are in the livingroom. Action 13: go north -> -= Corridor =- Well, here we are in the corridor. Action 14: go west -> -= Kitchen =- You are in a kitchen. Action 15: open sliding patio door -> You open sliding patio door. Action 16: go south -> -= Backyard =- Well, here we are in a backyard. Action 17: go south -> -= Shed =- You've just sauntered into a shed. 
+Inventory: You are carrying nothing.
+Current environment: -= Shed =- You've just sauntered into a shed. You can make out an opened toolbox in the room. The toolbox is empty, what a horrible day! Hey, want to see a workbench? Look over there, a workbench. But the thing hasn't got anything on it. You think about smashing the workbench to bits, throwing the bits in a fire, etc, until you get bored and decide to move on. There is an open barn door leading north.
+Action templates:
+* inventory
+* examine <object>
+* open <object>
+* take <object> from <object>
+* cook <object> with <stove | oven>
+* drop <object>
+* <slice | dice | chop> <object> with knife
+* prepare meal
+* eat meal
+* go <direction>
+Next action (answer with the command directly):
+
+go north
+
+Task: Your task is to find and examine the recipe, then prepare the ingredients as required, prepare the meal and eat it.
+
+Action history: Action 0: inventory -> You are carrying nothing. Action 1: go north -> -= Kitchen =- You are in a kitchen. Action 2: examine cookbook -> You open the copy of "Cooking: A Modern Approach (3rd Ed.)" and start reading: Recipe #1 --------- Gather all following ingredients and follow the directions to prepare this tasty meal. Ingredients: flour Directions: prepare meal Action 3: go east -> -= Corridor =- Well, here we are in the corridor. Action 4: go west -> -= Kitchen =- You are in a kitchen. Action 5: close sliding patio door -> You close sliding patio door. Action 6: go west -> -= Pantry =- You've just shown up in a pantry. Action 7: go east -> -= Kitchen =- You are in a kitchen. Action 8: close plain door -> You close plain door. Action 9: go east -> -= Corridor =- Well, here we are in the corridor. Action 10: go north -> -= Bathroom =- You find yourself in a bathroom. Action 11: go south -> -= Corridor =- Well, here we are in the corridor. Action 12: go south -> -= Livingroom =- Well, here we are in the livingroom. Action 13: go north -> -= Corridor =- Well, here we are in the corridor. Action 14: go west -> -= Kitchen =- You are in a kitchen. Action 15: open sliding patio door -> You open sliding patio door. Action 16: go south -> -= Backyard =- Well, here we are in a backyard. Action 17: go south -> -= Shed =- You've just sauntered into a shed. Action 18: go north -> -= Backyard =- Well, here we are in a backyard. 
+Inventory: You are carrying nothing.
+Current environment: -= Backyard =- Well, here we are in a backyard. Let's see what's in here. Oh, great. Here's a patio chair. But the thing hasn't got anything on it. Hm. Oh well You can see a patio table. The patio table is stylish. However, the patio table, like an empty patio table, has nothing on it. You make out a BBQ. You shudder, but continue examining the room. There is an open sliding patio door leading north. There is an open barn door leading south. You don't like doors? Why not try going west, that entranceway is not blocked by one.
+Action templates:
+* inventory
+* examine <object>
+* open <object>
+* take <object> from <object>
+* cook <object> with <stove | oven>
+* drop <object>
+* <slice | dice | chop> <object> with knife
+* prepare meal
+* eat meal
+* go <direction>
+Next action (answer with the command directly):
+
+go north
+

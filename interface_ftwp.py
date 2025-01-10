@@ -3,6 +3,7 @@ import human_play
 from env_for_ftwp import Env_ftwp, Env_ftwp_by_path
 import global_variable as G
 import common
+import finetuned_play
 
 # ============================= Promptor ================================
 
@@ -14,6 +15,8 @@ class Promptor_ftwp:
         self.another_room_info = ''
         self.current_enviroment = ''
         self.action_list = ''
+        # Added 2025.1.9
+        self.action_templates = ''
         # last consideration and action
         self.prev_consideration = ''
         self.prev_action = ''
@@ -34,6 +37,10 @@ class Promptor_ftwp:
         # user_msg += f'Another room: {self.another_room_info}\n' if self.another_room_info else ''
         user_msg += f'Current environment: {self.current_enviroment}\n' if self.current_enviroment else ''
         user_msg += f'Available actions:\n{self.action_list}\n' if self.action_list else ''
+        # Added 2025.1.9
+        if not self.action_list:
+            if self.action_templates:
+                user_msg += f'Action templates:\n{self.action_templates}\n'
         user_msg += 'Next action (answer with the command directly): '
         user_msg = user_msg.strip() + '\n'
         self.user_msg = user_msg
@@ -173,32 +180,8 @@ BEST_20_GAMES_MODEL = TUNED_MODELS_20_GAMES[2]
 
 # ==================== run valid & test ============================
 
-def llm_auto_play(game, game_index, testing = True, file_prefix = 'B0_', max_try = 30, gpt_type = TUNED_MODELS_20_GAMES[0], sys_usr_from_game_func = prompt_from_game_classic):
-    from finetuned_play import quest_get_command
-    # from action_selector import quest_closet_action
-    print(gpt_type)
-    game.reset()
-    count = 0
-    log_triples = []
-    while count < max_try and not game.won and not game.lost:
-        count += 1
-        try:
-            sys, usr = sys_usr_from_game_func(game)
-            command = quest_get_command(sys, usr, gpt_type=gpt_type).strip()
-            log_triples.append((sys, usr, command))
-            _ = game.input(command)
-        except:
-            print('EXCEPT')
-            break
-    if testing:
-        f = open(f'exp/auto_filename/testing_{game_index}_{gpt_type}_{file_prefix}finetuned_play_game_score{game.env.env.last_reward}_of_{game.env.env.max_score}.txt', 'w')
-    else:
-        f = open(f'exp/auto_filename/valid_{game_index}_{gpt_type}_{file_prefix}finetuned_play_game_score{game.env.env.last_reward}_of_{game.env.env.max_score}.txt', 'w')
-    for sys, usr, command in log_triples:
-        f.write(sys + '\n' + usr + '\n' + command + '\n\n')
-    print(f'##################  GAME {game_index} WROTE!!!')
-    f.close()
-    return game
+def llm_auto_play(game, game_index, testing = True, file_prefix = 'B0_', max_try = 20, gpt_type = TUNED_MODELS_20_GAMES[0], sys_usr_from_game_func = prompt_from_game_classic):
+    return finetuned_play.llm_auto_play(game, game_index, testing, file_prefix, max_try, gpt_type, sys_usr_from_game_func)
 
 def batch_valid():
     from ftwp_info import temp_test_valid_set
