@@ -1,0 +1,60 @@
+Task: Your task is to find and examine the recipe, then prepare the ingredients as required, prepare the meal and eat it.
+
+Action history: No action was taken now.
+Inventory: You are carrying: a raw chicken leg a red bell pepper a raw pork chop
+Current environment: Shed[toolbox(opened)[empty], barn door(opened, south)]
+Action templates:
+* inventory
+* examine <object>
+* open <object>
+* take <object> from <object>
+* cook <object> with <stove | oven>
+* drop <object>
+* <slice | dice | chop> <object> with knife
+* prepare meal
+* eat meal
+* go <direction>
+Next action (answer with the command directly):
+
+inventory
+
+Task: Your task is to find and examine the recipe, then prepare the ingredients as required, prepare the meal and eat it.
+
+Action history: Action 0: inventory -> You are carrying: a raw chicken leg a red bell pepper a raw pork chop 
+Inventory: You are carrying: a raw chicken leg a red bell pepper a raw pork chop
+Current environment: Shed[toolbox(opened)[empty], barn door(opened, south)]
+Action templates:
+* inventory
+* examine <object>
+* open <object>
+* take <object> from <object>
+* cook <object> with <stove | oven>
+* drop <object>
+* <slice | dice | chop> <object> with knife
+* prepare meal
+* eat meal
+* go <direction>
+Next action (answer with the command directly):
+
+go south
+
+Task: Your task is to find and examine the recipe, then prepare the ingredients as required, prepare the meal and eat it.
+
+Action history: Action 0: inventory -> You are carrying: a raw chicken leg a red bell pepper a raw pork chop Action 1: go south -> -= Backyard =- You find yourself in a backyard. 
+Inventory: You are carrying: a raw chicken leg a red bell pepper a raw pork chop
+Current environment: Backyard[patio table(empty), BBQ, barn door(opened, north), screen door(opened, west), exit(south)]
+Action templates:
+* inventory
+* examine <object>
+* open <object>
+* take <object> from <object>
+* cook <object> with <stove | oven>
+* drop <object>
+* <slice | dice | chop> <object> with knife
+* prepare meal
+* eat meal
+* go <direction>
+Next action (answer with the command directly):
+
+cook chicken leg with BBQ
+

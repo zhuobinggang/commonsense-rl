@@ -1,0 +1,428 @@
+Task: Your task is to find and examine the recipe, then prepare the ingredients as required, prepare the meal and eat it.
+
+Action history: No action was taken now.
+Inventory: You are carrying: a black pepper a sliced raw red tuna a green bell pepper a red apple
+Current environment: Backyard[patio chair(empty), patio table(empty), BBQ, patio door(opened, east), wooden door(opened, north)]
+Action templates:
+* inventory
+* examine <object>
+* open <object>
+* take <object> from <object>
+* cook <object> with <stove | oven>
+* drop <object>
+* <slice | dice | chop> <object> with knife
+* prepare meal
+* eat meal
+* go <direction>
+Next action (answer with the command directly):
+
+inventory
+
+Task: Your task is to find and examine the recipe, then prepare the ingredients as required, prepare the meal and eat it.
+
+Action history: Action 0: inventory -> You are carrying: a black pepper a sliced raw red tuna a green bell pepper a red apple 
+Inventory: You are carrying: a black pepper a sliced raw red tuna a green bell pepper a red apple
+Current environment: Backyard[patio chair(empty), patio table(empty), BBQ, patio door(opened, east), wooden door(opened, north)]
+Action templates:
+* inventory
+* examine <object>
+* open <object>
+* take <object> from <object>
+* cook <object> with <stove | oven>
+* drop <object>
+* <slice | dice | chop> <object> with knife
+* prepare meal
+* eat meal
+* go <direction>
+Next action (answer with the command directly):
+
+open patio door
+
+ACTION SELCTOR
+ACTION SELCTOR
+open patio door->close patio door
+
+Task: Your task is to find and examine the recipe, then prepare the ingredients as required, prepare the meal and eat it.
+
+Action history: Action 0: inventory -> You are carrying: a black pepper a sliced raw red tuna a green bell pepper a red apple Action 1: close patio door -> You close patio door. 
+Inventory: You are carrying: a black pepper a sliced raw red tuna a green bell pepper a red apple
+Current environment: Backyard[patio chair(empty), patio table(empty), BBQ, patio door(closed, east), wooden door(opened, north), entranceway(open, west)]
+Action templates:
+* inventory
+* examine <object>
+* open <object>
+* take <object> from <object>
+* cook <object> with <stove | oven>
+* drop <object>
+* <slice | dice | chop> <object> with knife
+* prepare meal
+* eat meal
+* go <direction>
+Next action (answer with the command directly):
+
+go north
+
+Task: Your task is to find and examine the recipe, then prepare the ingredients as required, prepare the meal and eat it.
+
+Action history: Action 0: inventory -> You are carrying: a black pepper a sliced raw red tuna a green bell pepper a red apple Action 1: close patio door -> You close patio door. Action 2: go north -> -= Shed =- You are in a shed. 
+Inventory: You are carrying: a black pepper a sliced raw red tuna a green bell pepper a red apple
+Current environment: Shed[toolbox(empty), workbench(empty), wooden door(opened, south)]
+Action templates:
+* inventory
+* examine <object>
+* open <object>
+* take <object> from <object>
+* cook <object> with <stove | oven>
+* drop <object>
+* <slice | dice | chop> <object> with knife
+* prepare meal
+* eat meal
+* go <direction>
+Next action (answer with the command directly):
+
+open patio door
+
+ACTION SELCTOR
+ACTION SELCTOR
+open patio door->close wooden door
+
+Task: Your task is to find and examine the recipe, then prepare the ingredients as required, prepare the meal and eat it.
+
+Action history: Action 0: inventory -> You are carrying: a black pepper a sliced raw red tuna a green bell pepper a red apple Action 1: close patio door -> You close patio door. Action 2: go north -> -= Shed =- You are in a shed. Action 3: close wooden door -> You close wooden door. 
+Inventory: You are carrying: a black pepper a sliced raw red tuna a green bell pepper a red apple
+Current environment: Shed[toolbox(empty), workbench(empty), door(closed, south)]
+Action templates:
+* inventory
+* examine <object>
+* open <object>
+* take <object> from <object>
+* cook <object> with <stove | oven>
+* drop <object>
+* <slice | dice | chop> <object> with knife
+* prepare meal
+* eat meal
+* go <direction>
+Next action (answer with the command directly):
+
+go south
+
+ACTION SELCTOR
+ACTION SELCTOR
+go south->open wooden door
+
+Task: Your task is to find and examine the recipe, then prepare the ingredients as required, prepare the meal and eat it.
+
+Action history: Action 0: inventory -> You are carrying: a black pepper a sliced raw red tuna a green bell pepper a red apple Action 1: close patio door -> You close patio door. Action 2: go north -> -= Shed =- You are in a shed. Action 3: close wooden door -> You close wooden door. Action 4: open wooden door -> You open wooden door. 
+Inventory: You are carrying: a black pepper a sliced raw red tuna a green bell pepper a red apple
+Current environment: Shed[toolbox(empty), workbench(empty), wooden door(opened, south)]
+Action templates:
+* inventory
+* examine <object>
+* open <object>
+* take <object> from <object>
+* cook <object> with <stove | oven>
+* drop <object>
+* <slice | dice | chop> <object> with knife
+* prepare meal
+* eat meal
+* go <direction>
+Next action (answer with the command directly):
+
+go south
+
+Task: Your task is to find and examine the recipe, then prepare the ingredients as required, prepare the meal and eat it.
+
+Action history: Action 0: inventory -> You are carrying: a black pepper a sliced raw red tuna a green bell pepper a red apple Action 1: close patio door -> You close patio door. Action 2: go north -> -= Shed =- You are in a shed. Action 3: close wooden door -> You close wooden door. Action 4: open wooden door -> You open wooden door. Action 5: go south -> -= Backyard =- You've just shown up in a backyard. 
+Inventory: You are carrying: a black pepper a sliced raw red tuna a green bell pepper a red apple
+Current environment: Backyard[patio chair(empty), patio table(empty), BBQ, patio door(closed, east), wooden door(opened, north), entranceway(open, west)]
+Action templates:
+* inventory
+* examine <object>
+* open <object>
+* take <object> from <object>
+* cook <object> with <stove | oven>
+* drop <object>
+* <slice | dice | chop> <object> with knife
+* prepare meal
+* eat meal
+* go <direction>
+Next action (answer with the command directly):
+
+cook red tuna with BBQ
+
+Task: Your task is to find and examine the recipe, then prepare the ingredients as required, prepare the meal and eat it.
+
+Action history: Action 0: inventory -> You are carrying: a black pepper a sliced raw red tuna a green bell pepper a red apple Action 1: close patio door -> You close patio door. Action 2: go north -> -= Shed =- You are in a shed. Action 3: close wooden door -> You close wooden door. Action 4: open wooden door -> You open wooden door. Action 5: go south -> -= Backyard =- You've just shown up in a backyard. Action 6: cook red tuna with BBQ -> You grilled the red tuna. Your score has just gone up by one point. 
+Inventory: You are carrying: a black pepper a sliced grilled red tuna a green bell pepper a red apple
+Current environment: Backyard[patio chair(empty), patio table(empty), BBQ, patio door(closed, east), wooden door(opened, north), entranceway(open, west)]
+Action templates:
+* inventory
+* examine <object>
+* open <object>
+* take <object> from <object>
+* cook <object> with <stove | oven>
+* drop <object>
+* <slice | dice | chop> <object> with knife
+* prepare meal
+* eat meal
+* go <direction>
+Next action (answer with the command directly):
+
+cook green bell pepper with BBQ
+
+Task: Your task is to find and examine the recipe, then prepare the ingredients as required, prepare the meal and eat it.
+
+Action history: Action 0: inventory -> You are carrying: a black pepper a sliced raw red tuna a green bell pepper a red apple Action 1: close patio door -> You close patio door. Action 2: go north -> -= Shed =- You are in a shed. Action 3: close wooden door -> You close wooden door. Action 4: open wooden door -> You open wooden door. Action 5: go south -> -= Backyard =- You've just shown up in a backyard. Action 6: cook red tuna with BBQ -> You grilled the red tuna. Your score has just gone up by one point. Action 7: cook green bell pepper with BBQ -> You grilled the green bell pepper. 
+Inventory: You are carrying: a black pepper a sliced grilled red tuna a grilled green bell pepper a red apple
+Current environment: Backyard[patio chair(empty), patio table(empty), BBQ, patio door(closed, east), wooden door(opened, north), entranceway(open, west)]
+Action templates:
+* inventory
+* examine <object>
+* open <object>
+* take <object> from <object>
+* cook <object> with <stove | oven>
+* drop <object>
+* <slice | dice | chop> <object> with knife
+* prepare meal
+* eat meal
+* go <direction>
+Next action (answer with the command directly):
+
+drop red apple
+
+Task: Your task is to find and examine the recipe, then prepare the ingredients as required, prepare the meal and eat it.
+
+Action history: Action 0: inventory -> You are carrying: a black pepper a sliced raw red tuna a green bell pepper a red apple Action 1: close patio door -> You close patio door. Action 2: go north -> -= Shed =- You are in a shed. Action 3: close wooden door -> You close wooden door. Action 4: open wooden door -> You open wooden door. Action 5: go south -> -= Backyard =- You've just shown up in a backyard. Action 6: cook red tuna with BBQ -> You grilled the red tuna. Your score has just gone up by one point. Action 7: cook green bell pepper with BBQ -> You grilled the green bell pepper. Action 8: drop red apple -> You drop the red apple on the ground. 
+Inventory: You are carrying: a black pepper a sliced grilled red tuna a grilled green bell pepper
+Current environment: Backyard[patio chair(empty), patio table(empty), BBQ, patio door(closed, east), wooden door(closed, north), entranceway(open, west), floor[red apple]]
+Action templates:
+* inventory
+* examine <object>
+* open <object>
+* take <object> from <object>
+* cook <object> with <stove | oven>
+* drop <object>
+* <slice | dice | chop> <object> with knife
+* prepare meal
+* eat meal
+* go <direction>
+Next action (answer with the command directly):
+
+take knife from patio table
+
+ACTION SELCTOR
+ACTION SELCTOR
+take knife from patio table->examine patio table
+
+Task: Your task is to find and examine the recipe, then prepare the ingredients as required, prepare the meal and eat it.
+
+Action history: Action 0: inventory -> You are carrying: a black pepper a sliced raw red tuna a green bell pepper a red apple Action 1: close patio door -> You close patio door. Action 2: go north -> -= Shed =- You are in a shed. Action 3: close wooden door -> You close wooden door. Action 4: open wooden door -> You open wooden door. Action 5: go south -> -= Backyard =- You've just shown up in a backyard. Action 6: cook red tuna with BBQ -> You grilled the red tuna. Your score has just gone up by one point. Action 7: cook green bell pepper with BBQ -> You grilled the green bell pepper. Action 8: drop red apple -> You drop the red apple on the ground. Action 9: examine patio table -> The patio table is reliable. 
+Inventory: You are carrying: a black pepper a sliced grilled red tuna a grilled green bell pepper
+Current environment: Backyard[patio chair(empty), patio table(empty), BBQ, patio door(closed, east), wooden door(closed, north), entranceway(open, west), floor[red apple]]
+Action templates:
+* inventory
+* examine <object>
+* open <object>
+* take <object> from <object>
+* cook <object> with <stove | oven>
+* drop <object>
+* <slice | dice | chop> <object> with knife
+* prepare meal
+* eat meal
+* go <direction>
+Next action (answer with the command directly):
+
+take red apple
+
+Task: Your task is to find and examine the recipe, then prepare the ingredients as required, prepare the meal and eat it.
+
+Action history: Action 0: inventory -> You are carrying: a black pepper a sliced raw red tuna a green bell pepper a red apple Action 1: close patio door -> You close patio door. Action 2: go north -> -= Shed =- You are in a shed. Action 3: close wooden door -> You close wooden door. Action 4: open wooden door -> You open wooden door. Action 5: go south -> -= Backyard =- You've just shown up in a backyard. Action 6: cook red tuna with BBQ -> You grilled the red tuna. Your score has just gone up by one point. Action 7: cook green bell pepper with BBQ -> You grilled the green bell pepper. Action 8: drop red apple -> You drop the red apple on the ground. Action 9: examine patio table -> The patio table is reliable. Action 10: take red apple -> You pick up the red apple from the ground. 
+Inventory: You are carrying: a red apple a black pepper a sliced grilled red tuna a grilled green bell pepper
+Current environment: Backyard[patio chair(empty), patio table(empty), BBQ, patio door(closed, east), wooden door(opened, north), entranceway(open, west)]
+Action templates:
+* inventory
+* examine <object>
+* open <object>
+* take <object> from <object>
+* cook <object> with <stove | oven>
+* drop <object>
+* <slice | dice | chop> <object> with knife
+* prepare meal
+* eat meal
+* go <direction>
+Next action (answer with the command directly):
+
+prepare meal
+
+ACTION SELCTOR
+ACTION SELCTOR
+prepare meal->cook green bell pepper with BBQ
+
+Task: Your task is to find and examine the recipe, then prepare the ingredients as required, prepare the meal and eat it.
+
+Action history: Action 0: inventory -> You are carrying: a black pepper a sliced raw red tuna a green bell pepper a red apple Action 1: close patio door -> You close patio door. Action 2: go north -> -= Shed =- You are in a shed. Action 3: close wooden door -> You close wooden door. Action 4: open wooden door -> You open wooden door. Action 5: go south -> -= Backyard =- You've just shown up in a backyard. Action 6: cook red tuna with BBQ -> You grilled the red tuna. Your score has just gone up by one point. Action 7: cook green bell pepper with BBQ -> You grilled the green bell pepper. Action 8: drop red apple -> You drop the red apple on the ground. Action 9: examine patio table -> The patio table is reliable. Action 10: take red apple -> You pick up the red apple from the ground. Action 11: cook green bell pepper with BBQ -> You burned the green bell pepper! 
+Inventory: You are carrying: a red apple a black pepper a sliced grilled red tuna a burned green bell pepper
+Current environment: Backyard[patio chair(empty), patio table(empty), BBQ, patio door(closed, east), wooden door(opened, north), entranceway(open, west)]
+Action templates:
+* inventory
+* examine <object>
+* open <object>
+* take <object> from <object>
+* cook <object> with <stove | oven>
+* drop <object>
+* <slice | dice | chop> <object> with knife
+* prepare meal
+* eat meal
+* go <direction>
+Next action (answer with the command directly):
+
+drop green bell pepper
+
+Task: Your task is to find and examine the recipe, then prepare the ingredients as required, prepare the meal and eat it.
+
+Action history: Action 0: inventory -> You are carrying: a black pepper a sliced raw red tuna a green bell pepper a red apple Action 1: close patio door -> You close patio door. Action 2: go north -> -= Shed =- You are in a shed. Action 3: close wooden door -> You close wooden door. Action 4: open wooden door -> You open wooden door. Action 5: go south -> -= Backyard =- You've just shown up in a backyard. Action 6: cook red tuna with BBQ -> You grilled the red tuna. Your score has just gone up by one point. Action 7: cook green bell pepper with BBQ -> You grilled the green bell pepper. Action 8: drop red apple -> You drop the red apple on the ground. Action 9: examine patio table -> The patio table is reliable. Action 10: take red apple -> You pick up the red apple from the ground. Action 11: cook green bell pepper with BBQ -> You burned the green bell pepper! Action 12: drop green bell pepper -> You drop the green bell pepper on the ground. 
+Inventory: You are carrying: a red apple a black pepper a sliced grilled red tuna
+Current environment: Backyard[patio chair(empty), patio table(empty), BBQ, patio door(closed, east), wooden door(opened, north), entranceway(open, west), burned green bell pepper]
+Action templates:
+* inventory
+* examine <object>
+* open <object>
+* take <object> from <object>
+* cook <object> with <stove | oven>
+* drop <object>
+* <slice | dice | chop> <object> with knife
+* prepare meal
+* eat meal
+* go <direction>
+Next action (answer with the command directly):
+
+take knife from patio table
+
+ACTION SELCTOR
+ACTION SELCTOR
+take knife from patio table->examine patio table
+
+Task: Your task is to find and examine the recipe, then prepare the ingredients as required, prepare the meal and eat it.
+
+Action history: Action 0: inventory -> You are carrying: a black pepper a sliced raw red tuna a green bell pepper a red apple Action 1: close patio door -> You close patio door. Action 2: go north -> -= Shed =- You are in a shed. Action 3: close wooden door -> You close wooden door. Action 4: open wooden door -> You open wooden door. Action 5: go south -> -= Backyard =- You've just shown up in a backyard. Action 6: cook red tuna with BBQ -> You grilled the red tuna. Your score has just gone up by one point. Action 7: cook green bell pepper with BBQ -> You grilled the green bell pepper. Action 8: drop red apple -> You drop the red apple on the ground. Action 9: examine patio table -> The patio table is reliable. Action 10: take red apple -> You pick up the red apple from the ground. Action 11: cook green bell pepper with BBQ -> You burned the green bell pepper! Action 12: drop green bell pepper -> You drop the green bell pepper on the ground. Action 13: examine patio table -> The patio table is reliable. 
+Inventory: You are carrying: a red apple a black pepper a sliced grilled red tuna
+Current environment: Backyard[patio chair(empty), patio table(empty), BBQ, patio door(closed, east), wooden door(opened, north), entranceway(open, west), burned green bell pepper]
+Action templates:
+* inventory
+* examine <object>
+* open <object>
+* take <object> from <object>
+* cook <object> with <stove | oven>
+* drop <object>
+* <slice | dice | chop> <object> with knife
+* prepare meal
+* eat meal
+* go <direction>
+Next action (answer with the command directly):
+
+take green bell pepper
+
+Task: Your task is to find and examine the recipe, then prepare the ingredients as required, prepare the meal and eat it.
+
+Action history: Action 0: inventory -> You are carrying: a black pepper a sliced raw red tuna a green bell pepper a red apple Action 1: close patio door -> You close patio door. Action 2: go north -> -= Shed =- You are in a shed. Action 3: close wooden door -> You close wooden door. Action 4: open wooden door -> You open wooden door. Action 5: go south -> -= Backyard =- You've just shown up in a backyard. Action 6: cook red tuna with BBQ -> You grilled the red tuna. Your score has just gone up by one point. Action 7: cook green bell pepper with BBQ -> You grilled the green bell pepper. Action 8: drop red apple -> You drop the red apple on the ground. Action 9: examine patio table -> The patio table is reliable. Action 10: take red apple -> You pick up the red apple from the ground. Action 11: cook green bell pepper with BBQ -> You burned the green bell pepper! Action 12: drop green bell pepper -> You drop the green bell pepper on the ground. Action 13: examine patio table -> The patio table is reliable. Action 14: take green bell pepper -> You pick up the green bell pepper from the ground. 
+Inventory: You are carrying: a burned green bell pepper a red apple a black pepper a sliced grilled red tuna
+Current environment: Backyard[patio chair(empty), patio table(empty), BBQ, patio door(closed, east), wooden door(opened, north), entranceway(open, west)]
+Action templates:
+* inventory
+* examine <object>
+* open <object>
+* take <object> from <object>
+* cook <object> with <stove | oven>
+* drop <object>
+* <slice | dice | chop> <object> with knife
+* prepare meal
+* eat meal
+* go <direction>
+Next action (answer with the command directly):
+
+cook red apple with BBQ
+
+Task: Your task is to find and examine the recipe, then prepare the ingredients as required, prepare the meal and eat it.
+
+Action history: Action 0: inventory -> You are carrying: a black pepper a sliced raw red tuna a green bell pepper a red apple Action 1: close patio door -> You close patio door. Action 2: go north -> -= Shed =- You are in a shed. Action 3: close wooden door -> You close wooden door. Action 4: open wooden door -> You open wooden door. Action 5: go south -> -= Backyard =- You've just shown up in a backyard. Action 6: cook red tuna with BBQ -> You grilled the red tuna. Your score has just gone up by one point. Action 7: cook green bell pepper with BBQ -> You grilled the green bell pepper. Action 8: drop red apple -> You drop the red apple on the ground. Action 9: examine patio table -> The patio table is reliable. Action 10: take red apple -> You pick up the red apple from the ground. Action 11: cook green bell pepper with BBQ -> You burned the green bell pepper! Action 12: drop green bell pepper -> You drop the green bell pepper on the ground. Action 13: examine patio table -> The patio table is reliable. Action 14: take green bell pepper -> You pick up the green bell pepper from the ground. Action 15: cook red apple with BBQ -> You grilled the red apple. 
+Inventory: You are carrying: a burned green bell pepper a grilled red apple a black pepper a sliced grilled red tuna
+Current environment: Backyard[patio chair(empty), patio table(empty), BBQ, patio door(closed, east), wooden door(opened, north), entranceway(open, west)]
+Action templates:
+* inventory
+* examine <object>
+* open <object>
+* take <object> from <object>
+* cook <object> with <stove | oven>
+* drop <object>
+* <slice | dice | chop> <object> with knife
+* prepare meal
+* eat meal
+* go <direction>
+Next action (answer with the command directly):
+
+drop red apple
+
+Task: Your task is to find and examine the recipe, then prepare the ingredients as required, prepare the meal and eat it.
+
+Action history: Action 0: inventory -> You are carrying: a black pepper a sliced raw red tuna a green bell pepper a red apple Action 1: close patio door -> You close patio door. Action 2: go north -> -= Shed =- You are in a shed. Action 3: close wooden door -> You close wooden door. Action 4: open wooden door -> You open wooden door. Action 5: go south -> -= Backyard =- You've just shown up in a backyard. Action 6: cook red tuna with BBQ -> You grilled the red tuna. Your score has just gone up by one point. Action 7: cook green bell pepper with BBQ -> You grilled the green bell pepper. Action 8: drop red apple -> You drop the red apple on the ground. Action 9: examine patio table -> The patio table is reliable. Action 10: take red apple -> You pick up the red apple from the ground. Action 11: cook green bell pepper with BBQ -> You burned the green bell pepper! Action 12: drop green bell pepper -> You drop the green bell pepper on the ground. Action 13: examine patio table -> The patio table is reliable. Action 14: take green bell pepper -> You pick up the green bell pepper from the ground. Action 15: cook red apple with BBQ -> You grilled the red apple. Action 16: drop red apple -> You drop the red apple on the ground. 
+Inventory: You are carrying: a burned green bell pepper a black pepper a sliced grilled red tuna
+Current environment: Backyard[patio chair(empty), patio table(empty), BBQ, patio door(closed, east), wooden door(opened, north), entranceway(open, west), grilled red apple]
+Action templates:
+* inventory
+* examine <object>
+* open <object>
+* take <object> from <object>
+* cook <object> with <stove | oven>
+* drop <object>
+* <slice | dice | chop> <object> with knife
+* prepare meal
+* eat meal
+* go <direction>
+Next action (answer with the command directly):
+
+take red apple
+
+Task: Your task is to find and examine the recipe, then prepare the ingredients as required, prepare the meal and eat it.
+
+Action history: Action 0: inventory -> You are carrying: a black pepper a sliced raw red tuna a green bell pepper a red apple Action 1: close patio door -> You close patio door. Action 2: go north -> -= Shed =- You are in a shed. Action 3: close wooden door -> You close wooden door. Action 4: open wooden door -> You open wooden door. Action 5: go south -> -= Backyard =- You've just shown up in a backyard. Action 6: cook red tuna with BBQ -> You grilled the red tuna. Your score has just gone up by one point. Action 7: cook green bell pepper with BBQ -> You grilled the green bell pepper. Action 8: drop red apple -> You drop the red apple on the ground. Action 9: examine patio table -> The patio table is reliable. Action 10: take red apple -> You pick up the red apple from the ground. Action 11: cook green bell pepper with BBQ -> You burned the green bell pepper! Action 12: drop green bell pepper -> You drop the green bell pepper on the ground. Action 13: examine patio table -> The patio table is reliable. Action 14: take green bell pepper -> You pick up the green bell pepper from the ground. Action 15: cook red apple with BBQ -> You grilled the red apple. Action 16: drop red apple -> You drop the red apple on the ground. Action 17: take red apple -> You pick up the red apple from the ground. 
+Inventory: You are carrying: a grilled red apple a burned green bell pepper a black pepper a sliced grilled red tuna
+Current environment: Backyard[patio chair(empty), patio table(empty), BBQ, patio door(closed, east), wooden door(opened, north), entranceway(opened, west)]
+Action templates:
+* inventory
+* examine <object>
+* open <object>
+* take <object> from <object>
+* cook <object> with <stove | oven>
+* drop <object>
+* <slice | dice | chop> <object> with knife
+* prepare meal
+* eat meal
+* go <direction>
+Next action (answer with the command directly):
+
+cook green bell pepper with BBQ
+
+ACTION SELCTOR
+ACTION SELCTOR
+cook green bell pepper with BBQ->cook red apple with BBQ
+
+Task: Your task is to find and examine the recipe, then prepare the ingredients as required, prepare the meal and eat it.
+
+Action history: Action 0: inventory -> You are carrying: a black pepper a sliced raw red tuna a green bell pepper a red apple Action 1: close patio door -> You close patio door. Action 2: go north -> -= Shed =- You are in a shed. Action 3: close wooden door -> You close wooden door. Action 4: open wooden door -> You open wooden door. Action 5: go south -> -= Backyard =- You've just shown up in a backyard. Action 6: cook red tuna with BBQ -> You grilled the red tuna. Your score has just gone up by one point. Action 7: cook green bell pepper with BBQ -> You grilled the green bell pepper. Action 8: drop red apple -> You drop the red apple on the ground. Action 9: examine patio table -> The patio table is reliable. Action 10: take red apple -> You pick up the red apple from the ground. Action 11: cook green bell pepper with BBQ -> You burned the green bell pepper! Action 12: drop green bell pepper -> You drop the green bell pepper on the ground. Action 13: examine patio table -> The patio table is reliable. Action 14: take green bell pepper -> You pick up the green bell pepper from the ground. Action 15: cook red apple with BBQ -> You grilled the red apple. Action 16: drop red apple -> You drop the red apple on the ground. Action 17: take red apple -> You pick up the red apple from the ground. Action 18: cook red apple with BBQ -> You burned the red apple! 
+Inventory: You are carrying: a burned red apple a burned green bell pepper a black pepper a sliced grilled red tuna
+Current environment: Backyard[patio chair(empty), patio table(empty), BBQ, patio door(closed, east), wooden door(opened, north), entranceway(opened, west)]
+Action templates:
+* inventory
+* examine <object>
+* open <object>
+* take <object> from <object>
+* cook <object> with <stove | oven>
+* drop <object>
+* <slice | dice | chop> <object> with knife
+* prepare meal
+* eat meal
+* go <direction>
+Next action (answer with the command directly):
+
+drop red apple
+

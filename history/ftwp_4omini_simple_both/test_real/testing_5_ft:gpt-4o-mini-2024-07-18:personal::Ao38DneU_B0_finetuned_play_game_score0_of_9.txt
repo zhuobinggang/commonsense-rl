@@ -1,0 +1,104 @@
+Task: Your task is to find and examine the recipe, then prepare the ingredients as required, prepare the meal and eat it.
+
+Action history: No action was taken now.
+Inventory: You are carrying: a grilled pork chop
+Current environment: Garden[entranceway(opened, south), floor[green hot pepper, red onion, banana]]
+Action templates:
+* inventory
+* examine <object>
+* open <object>
+* take <object> from <object>
+* cook <object> with <stove | oven>
+* drop <object>
+* <slice | dice | chop> <object> with knife
+* prepare meal
+* eat meal
+* go <direction>
+Next action (answer with the command directly):
+
+inventory
+
+Task: Your task is to find and examine the recipe, then prepare the ingredients as required, prepare the meal and eat it.
+
+Action history: Action 0: inventory -> You are carrying: a grilled pork chop 
+Inventory: You are carrying: a grilled pork chop
+Current environment: Garden[entranceway(opened, south), floor[green hot pepper, red onion, banana]]
+Action templates:
+* inventory
+* examine <object>
+* open <object>
+* take <object> from <object>
+* cook <object> with <stove | oven>
+* drop <object>
+* <slice | dice | chop> <object> with knife
+* prepare meal
+* eat meal
+* go <direction>
+Next action (answer with the command directly):
+
+go south
+
+Task: Your task is to find and examine the recipe, then prepare the ingredients as required, prepare the meal and eat it.
+
+Action history: Action 0: inventory -> You are carrying: a grilled pork chop Action 1: go south -> -= Backyard =- Well, here we are in the backyard. 
+Inventory: You are carrying: a grilled pork chop
+Current environment: Backyard[patio chair(empty), patio table(empty), BBQ, sliding patio door(opened, south), barn door(opened, west), exit(opened, north)]
+Action templates:
+* inventory
+* examine <object>
+* open <object>
+* take <object> from <object>
+* cook <object> with <stove | oven>
+* drop <object>
+* <slice | dice | chop> <object> with knife
+* prepare meal
+* eat meal
+* go <direction>
+Next action (answer with the command directly):
+
+open patio door
+
+ACTION SELCTOR
+ACTION SELCTOR
+open patio door->close sliding patio door
+
+Task: Your task is to find and examine the recipe, then prepare the ingredients as required, prepare the meal and eat it.
+
+Action history: Action 0: inventory -> You are carrying: a grilled pork chop Action 1: go south -> -= Backyard =- Well, here we are in the backyard. Action 2: close sliding patio door -> You close sliding patio door. 
+Inventory: You are carrying: a grilled pork chop
+Current environment: Backyard[patio chair(empty), patio table(empty), BBQ, sliding patio door(closed, south), barn door(opened, west), exit(opened, north)]
+Action templates:
+* inventory
+* examine <object>
+* open <object>
+* take <object> from <object>
+* cook <object> with <stove | oven>
+* drop <object>
+* <slice | dice | chop> <object> with knife
+* prepare meal
+* eat meal
+* go <direction>
+Next action (answer with the command directly):
+
+examine BBQ
+
+Task: Your task is to find and examine the recipe, then prepare the ingredients as required, prepare the meal and eat it.
+
+Action history: Action 0: inventory -> You are carrying: a grilled pork chop Action 1: go south -> -= Backyard =- Well, here we are in the backyard. Action 2: close sliding patio door -> You close sliding patio door. Action 3: examine BBQ -> Useful for grilling things. 
+Inventory: You are carrying: a grilled pork chop
+Current environment: Backyard[patio chair(empty), patio table(empty), BBQ, sliding patio door(closed, south), barn door(opened, west), exit(opened, north)]
+Action templates:
+* inventory
+* examine <object>
+* open <object>
+* take <object> from <object>
+* cook <object> with <stove | oven>
+* drop <object>
+* <slice | dice | chop> <object> with knife
+* prepare meal
+* eat meal
+* go <direction>
+Next action (answer with the command directly):
+
+cook pork chop with BBQ
+

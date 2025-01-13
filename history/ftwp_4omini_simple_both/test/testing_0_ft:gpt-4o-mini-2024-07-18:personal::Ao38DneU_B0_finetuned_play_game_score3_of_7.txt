@@ -1,0 +1,120 @@
+Task: Your task is to find and examine the recipe, then prepare the ingredients as required, prepare the meal and eat it.
+
+Action history: No action was taken now.
+Inventory: You are carrying nothing.
+Current environment: Kitchen[fridge(closed)[block of cheese, lettuce, red bell pepper], oven(closed), wall(opened)[table[cookbook]], counter[vast, knife], stove(conventional)]
+Action templates:
+* inventory
+* examine <object>
+* open <object>
+* take <object> from <object>
+* cook <object> with <stove | oven>
+* drop <object>
+* <slice | dice | chop> <object> with knife
+* prepare meal
+* eat meal
+* go <direction>
+Next action (answer with the command directly):
+
+inventory
+
+Task: Your task is to find and examine the recipe, then prepare the ingredients as required, prepare the meal and eat it.
+
+Action history: Action 0: inventory -> You are carrying nothing. 
+Inventory: You are carrying nothing.
+Current environment: Kitchen[fridge(closed)[block of cheese, lettuce, red bell pepper], oven(closed), wall(opened)[table[cookbook]], counter[vast, knife], stove(conventional)]
+Action templates:
+* inventory
+* examine <object>
+* open <object>
+* take <object> from <object>
+* cook <object> with <stove | oven>
+* drop <object>
+* <slice | dice | chop> <object> with knife
+* prepare meal
+* eat meal
+* go <direction>
+Next action (answer with the command directly):
+
+examine cookbook
+
+Task: Your task is to find and examine the recipe, then prepare the ingredients as required, prepare the meal and eat it.
+
+Action history: Action 0: inventory -> You are carrying nothing. Action 1: examine cookbook -> You open the copy of "Cooking: A Modern Approach (3rd Ed.)" and start reading: Recipe #1 --------- Gather all following ingredients and follow the directions to prepare this tasty meal. Ingredients: block of cheese lettuce Directions: dice the block of cheese chop the lettuce roast the lettuce prepare meal 
+Inventory: You are carrying nothing.
+Current environment: Kitchen[fridge(closed)[block of cheese, lettuce, red bell pepper], oven(closed), wall(opened)[table[cookbook]], counter[vast, knife], stove(conventional)]
+Action templates:
+* inventory
+* examine <object>
+* open <object>
+* take <object> from <object>
+* cook <object> with <stove | oven>
+* drop <object>
+* <slice | dice | chop> <object> with knife
+* prepare meal
+* eat meal
+* go <direction>
+Next action (answer with the command directly):
+
+take block of cheese from fridge
+
+Task: Your task is to find and examine the recipe, then prepare the ingredients as required, prepare the meal and eat it.
+
+Action history: Action 0: inventory -> You are carrying nothing. Action 1: examine cookbook -> You open the copy of "Cooking: A Modern Approach (3rd Ed.)" and start reading: Recipe #1 --------- Gather all following ingredients and follow the directions to prepare this tasty meal. Ingredients: block of cheese lettuce Directions: dice the block of cheese chop the lettuce roast the lettuce prepare meal Action 2: take block of cheese from fridge -> You take the block of cheese from the fridge. Your score has just gone up by one point. 
+Inventory: You are carrying: a block of cheese
+Current environment: Kitchen[fridge(closed)[lettuce, red bell pepper], oven(closed), wall(opened)[table[cookbook]], counter[vast, knife], stove(conventional)]
+Action templates:
+* inventory
+* examine <object>
+* open <object>
+* take <object> from <object>
+* cook <object> with <stove | oven>
+* drop <object>
+* <slice | dice | chop> <object> with knife
+* prepare meal
+* eat meal
+* go <direction>
+Next action (answer with the command directly):
+
+take lettuce from fridge
+
+Task: Your task is to find and examine the recipe, then prepare the ingredients as required, prepare the meal and eat it.
+
+Action history: Action 0: inventory -> You are carrying nothing. Action 1: examine cookbook -> You open the copy of "Cooking: A Modern Approach (3rd Ed.)" and start reading: Recipe #1 --------- Gather all following ingredients and follow the directions to prepare this tasty meal. Ingredients: block of cheese lettuce Directions: dice the block of cheese chop the lettuce roast the lettuce prepare meal Action 2: take block of cheese from fridge -> You take the block of cheese from the fridge. Your score has just gone up by one point. Action 3: take lettuce from fridge -> You take the lettuce from the fridge. Your score has just gone up by one point. 
+Inventory: You are carrying: a lettuce a block of cheese
+Current environment: Kitchen[fridge(closed)[red bell pepper], oven(closed), wall(opened)[table[cookbook]], counter[vast, knife], stove(conventional)]
+Action templates:
+* inventory
+* examine <object>
+* open <object>
+* take <object> from <object>
+* cook <object> with <stove | oven>
+* drop <object>
+* <slice | dice | chop> <object> with knife
+* prepare meal
+* eat meal
+* go <direction>
+Next action (answer with the command directly):
+
+cook lettuce with oven
+
+Task: Your task is to find and examine the recipe, then prepare the ingredients as required, prepare the meal and eat it.
+
+Action history: Action 0: inventory -> You are carrying nothing. Action 1: examine cookbook -> You open the copy of "Cooking: A Modern Approach (3rd Ed.)" and start reading: Recipe #1 --------- Gather all following ingredients and follow the directions to prepare this tasty meal. Ingredients: block of cheese lettuce Directions: dice the block of cheese chop the lettuce roast the lettuce prepare meal Action 2: take block of cheese from fridge -> You take the block of cheese from the fridge. Your score has just gone up by one point. Action 3: take lettuce from fridge -> You take the lettuce from the fridge. Your score has just gone up by one point. Action 4: cook lettuce with oven -> You roasted the lettuce. Your score has just gone up by one point. 
+Inventory: You are carrying: a roasted lettuce a block of cheese
+Current environment: Kitchen[fridge(closed)[red bell pepper], oven(closed), wall(opened)[table[cookbook]], counter[vast, knife], stove(conventional)]
+Action templates:
+* inventory
+* examine <object>
+* open <object>
+* take <object> from <object>
+* cook <object> with <stove | oven>
+* drop <object>
+* <slice | dice | chop> <object> with knife
+* prepare meal
+* eat meal
+* go <direction>
+Next action (answer with the command directly):
+
+cook block of cheese with stove
+

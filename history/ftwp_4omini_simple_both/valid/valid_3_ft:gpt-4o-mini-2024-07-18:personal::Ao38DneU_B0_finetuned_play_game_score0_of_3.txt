@@ -1,0 +1,432 @@
+Task: Your task is to find and examine the recipe, then prepare the ingredients as required, prepare the meal and eat it.
+
+Action history: No action was taken now.
+Inventory: You are carrying: a red bell pepper a raw red tuna a yellow bell pepper
+Current environment: Driveway[fiberglass door(opened, west)]
+Action templates:
+* inventory
+* examine <object>
+* open <object>
+* take <object> from <object>
+* cook <object> with <stove | oven>
+* drop <object>
+* <slice | dice | chop> <object> with knife
+* prepare meal
+* eat meal
+* go <direction>
+Next action (answer with the command directly):
+
+inventory
+
+Task: Your task is to find and examine the recipe, then prepare the ingredients as required, prepare the meal and eat it.
+
+Action history: Action 0: inventory -> You are carrying: a red bell pepper a raw red tuna a yellow bell pepper 
+Inventory: You are carrying: a red bell pepper a raw red tuna a yellow bell pepper
+Current environment: Driveway[fiberglass door(opened, west)]
+Action templates:
+* inventory
+* examine <object>
+* open <object>
+* take <object> from <object>
+* cook <object> with <stove | oven>
+* drop <object>
+* <slice | dice | chop> <object> with knife
+* prepare meal
+* eat meal
+* go <direction>
+Next action (answer with the command directly):
+
+go west
+
+Task: Your task is to find and examine the recipe, then prepare the ingredients as required, prepare the meal and eat it.
+
+Action history: Action 0: inventory -> You are carrying: a red bell pepper a raw red tuna a yellow bell pepper Action 1: go west -> -= Livingroom =- You are in a livingroom. 
+Inventory: You are carrying: a red bell pepper a raw red tuna a yellow bell pepper
+Current environment: Livingroom[sofa(empty), fiberglass door(opened, east)]
+Action templates:
+* inventory
+* examine <object>
+* open <object>
+* take <object> from <object>
+* cook <object> with <stove | oven>
+* drop <object>
+* <slice | dice | chop> <object> with knife
+* prepare meal
+* eat meal
+* go <direction>
+Next action (answer with the command directly):
+
+go east
+
+Task: Your task is to find and examine the recipe, then prepare the ingredients as required, prepare the meal and eat it.
+
+Action history: Action 0: inventory -> You are carrying: a red bell pepper a raw red tuna a yellow bell pepper Action 1: go west -> -= Livingroom =- You are in a livingroom. Action 2: go east -> -= Driveway =- You are in a driveway. 
+Inventory: You are carrying: a red bell pepper a raw red tuna a yellow bell pepper
+Current environment: Driveway[fiberglass door(opened, west)]
+Action templates:
+* inventory
+* examine <object>
+* open <object>
+* take <object> from <object>
+* cook <object> with <stove | oven>
+* drop <object>
+* <slice | dice | chop> <object> with knife
+* prepare meal
+* eat meal
+* go <direction>
+Next action (answer with the command directly):
+
+open fiberglass door
+
+ACTION SELCTOR
+ACTION SELCTOR
+open fiberglass door->close fiberglass door
+
+Task: Your task is to find and examine the recipe, then prepare the ingredients as required, prepare the meal and eat it.
+
+Action history: Action 0: inventory -> You are carrying: a red bell pepper a raw red tuna a yellow bell pepper Action 1: go west -> -= Livingroom =- You are in a livingroom. Action 2: go east -> -= Driveway =- You are in a driveway. Action 3: close fiberglass door -> You close fiberglass door. 
+Inventory: You are carrying: a red bell pepper a raw red tuna a yellow bell pepper
+Current environment: Driveway[fiberglass door(closed, west)]
+Action templates:
+* inventory
+* examine <object>
+* open <object>
+* take <object> from <object>
+* cook <object> with <stove | oven>
+* drop <object>
+* <slice | dice | chop> <object> with knife
+* prepare meal
+* eat meal
+* go <direction>
+Next action (answer with the command directly):
+
+go north
+
+Task: Your task is to find and examine the recipe, then prepare the ingredients as required, prepare the meal and eat it.
+
+Action history: Action 0: inventory -> You are carrying: a red bell pepper a raw red tuna a yellow bell pepper Action 1: go west -> -= Livingroom =- You are in a livingroom. Action 2: go east -> -= Driveway =- You are in a driveway. Action 3: close fiberglass door -> You close fiberglass door. Action 4: go north -> -= Street =- This might come as a shock to you, but you've just come into a street. 
+Inventory: You are carrying: a red bell pepper a raw red tuna a yellow bell pepper
+Current environment: Street[commercial door(opened, east)]
+Action templates:
+* inventory
+* examine <object>
+* open <object>
+* take <object> from <object>
+* cook <object> with <stove | oven>
+* drop <object>
+* <slice | dice | chop> <object> with knife
+* prepare meal
+* eat meal
+* go <direction>
+Next action (answer with the command directly):
+
+go east
+
+Task: Your task is to find and examine the recipe, then prepare the ingredients as required, prepare the meal and eat it.
+
+Action history: Action 0: inventory -> You are carrying: a red bell pepper a raw red tuna a yellow bell pepper Action 1: go west -> -= Livingroom =- You are in a livingroom. Action 2: go east -> -= Driveway =- You are in a driveway. Action 3: close fiberglass door -> You close fiberglass door. Action 4: go north -> -= Street =- This might come as a shock to you, but you've just come into a street. Action 5: go east -> -= Supermarket =- You've entered a supermarket. 
+Inventory: You are carrying: a red bell pepper a raw red tuna a yellow bell pepper
+Current environment: Supermarket[showcase(empty), commercial glass door(opened, west)]
+Action templates:
+* inventory
+* examine <object>
+* open <object>
+* take <object> from <object>
+* cook <object> with <stove | oven>
+* drop <object>
+* <slice | dice | chop> <object> with knife
+* prepare meal
+* eat meal
+* go <direction>
+Next action (answer with the command directly):
+
+go west
+
+Task: Your task is to find and examine the recipe, then prepare the ingredients as required, prepare the meal and eat it.
+
+Action history: Action 0: inventory -> You are carrying: a red bell pepper a raw red tuna a yellow bell pepper Action 1: go west -> -= Livingroom =- You are in a livingroom. Action 2: go east -> -= Driveway =- You are in a driveway. Action 3: close fiberglass door -> You close fiberglass door. Action 4: go north -> -= Street =- This might come as a shock to you, but you've just come into a street. Action 5: go east -> -= Supermarket =- You've entered a supermarket. Action 6: go west -> -= Street =- This might come as a shock to you, but you've just come into a street. 
+Inventory: You are carrying: a red bell pepper a raw red tuna a yellow bell pepper
+Current environment: Street[commercial door(opened, east)]
+Action templates:
+* inventory
+* examine <object>
+* open <object>
+* take <object> from <object>
+* cook <object> with <stove | oven>
+* drop <object>
+* <slice | dice | chop> <object> with knife
+* prepare meal
+* eat meal
+* go <direction>
+Next action (answer with the command directly):
+
+go east
+
+Task: Your task is to find and examine the recipe, then prepare the ingredients as required, prepare the meal and eat it.
+
+Action history: Action 0: inventory -> You are carrying: a red bell pepper a raw red tuna a yellow bell pepper Action 1: go west -> -= Livingroom =- You are in a livingroom. Action 2: go east -> -= Driveway =- You are in a driveway. Action 3: close fiberglass door -> You close fiberglass door. Action 4: go north -> -= Street =- This might come as a shock to you, but you've just come into a street. Action 5: go east -> -= Supermarket =- You've entered a supermarket. Action 6: go west -> -= Street =- This might come as a shock to you, but you've just come into a street. Action 7: go east -> -= Supermarket =- You've entered a supermarket. 
+Inventory: You are carrying: a red bell pepper a raw red tuna a yellow bell pepper
+Current environment: Supermarket[showcase(empty), commercial glass door(opened, west)]
+Action templates:
+* inventory
+* examine <object>
+* open <object>
+* take <object> from <object>
+* cook <object> with <stove | oven>
+* drop <object>
+* <slice | dice | chop> <object> with knife
+* prepare meal
+* eat meal
+* go <direction>
+Next action (answer with the command directly):
+
+open glass door
+
+ACTION SELCTOR
+ACTION SELCTOR
+open glass door->close commercial glass door
+
+Task: Your task is to find and examine the recipe, then prepare the ingredients as required, prepare the meal and eat it.
+
+Action history: Action 0: inventory -> You are carrying: a red bell pepper a raw red tuna a yellow bell pepper Action 1: go west -> -= Livingroom =- You are in a livingroom. Action 2: go east -> -= Driveway =- You are in a driveway. Action 3: close fiberglass door -> You close fiberglass door. Action 4: go north -> -= Street =- This might come as a shock to you, but you've just come into a street. Action 5: go east -> -= Supermarket =- You've entered a supermarket. Action 6: go west -> -= Street =- This might come as a shock to you, but you've just come into a street. Action 7: go east -> -= Supermarket =- You've entered a supermarket. Action 8: close commercial glass door -> You close commercial glass door. 
+Inventory: You are carrying: a red bell pepper a raw red tuna a yellow bell pepper
+Current environment: Supermarket[showcase(empty), commercial glass door(closed, west)]
+Action templates:
+* inventory
+* examine <object>
+* open <object>
+* take <object> from <object>
+* cook <object> with <stove | oven>
+* drop <object>
+* <slice | dice | chop> <object> with knife
+* prepare meal
+* eat meal
+* go <direction>
+Next action (answer with the command directly):
+
+examine showcase
+
+Task: Your task is to find and examine the recipe, then prepare the ingredients as required, prepare the meal and eat it.
+
+Action history: Action 0: inventory -> You are carrying: a red bell pepper a raw red tuna a yellow bell pepper Action 1: go west -> -= Livingroom =- You are in a livingroom. Action 2: go east -> -= Driveway =- You are in a driveway. Action 3: close fiberglass door -> You close fiberglass door. Action 4: go north -> -= Street =- This might come as a shock to you, but you've just come into a street. Action 5: go east -> -= Supermarket =- You've entered a supermarket. Action 6: go west -> -= Street =- This might come as a shock to you, but you've just come into a street. Action 7: go east -> -= Supermarket =- You've entered a supermarket. Action 8: close commercial glass door -> You close commercial glass door. Action 9: examine showcase -> The showcase is solidly built. 
+Inventory: You are carrying: a red bell pepper a raw red tuna a yellow bell pepper
+Current environment: Supermarket[showcase(empty), commercial glass door(closed, west)]
+Action templates:
+* inventory
+* examine <object>
+* open <object>
+* take <object> from <object>
+* cook <object> with <stove | oven>
+* drop <object>
+* <slice | dice | chop> <object> with knife
+* prepare meal
+* eat meal
+* go <direction>
+Next action (answer with the command directly):
+
+go west
+
+ACTION SELCTOR
+ACTION SELCTOR
+go west->look
+
+Task: Your task is to find and examine the recipe, then prepare the ingredients as required, prepare the meal and eat it.
+
+Action history: Action 0: inventory -> You are carrying: a red bell pepper a raw red tuna a yellow bell pepper Action 1: go west -> -= Livingroom =- You are in a livingroom. Action 2: go east -> -= Driveway =- You are in a driveway. Action 3: close fiberglass door -> You close fiberglass door. Action 4: go north -> -= Street =- This might come as a shock to you, but you've just come into a street. Action 5: go east -> -= Supermarket =- You've entered a supermarket. Action 6: go west -> -= Street =- This might come as a shock to you, but you've just come into a street. Action 7: go east -> -= Supermarket =- You've entered a supermarket. Action 8: close commercial glass door -> You close commercial glass door. Action 9: examine showcase -> The showcase is solidly built. Action 10: look -> -= Supermarket =- You've entered a supermarket. 
+Inventory: You are carrying: a red bell pepper a raw red tuna a yellow bell pepper
+Current environment: Supermarket[showcase(empty), commercial glass door(closed, west)]
+Action templates:
+* inventory
+* examine <object>
+* open <object>
+* take <object> from <object>
+* cook <object> with <stove | oven>
+* drop <object>
+* <slice | dice | chop> <object> with knife
+* prepare meal
+* eat meal
+* go <direction>
+Next action (answer with the command directly):
+
+go west
+
+ACTION SELCTOR
+ACTION SELCTOR
+go west->look
+
+Task: Your task is to find and examine the recipe, then prepare the ingredients as required, prepare the meal and eat it.
+
+Action history: Action 0: inventory -> You are carrying: a red bell pepper a raw red tuna a yellow bell pepper Action 1: go west -> -= Livingroom =- You are in a livingroom. Action 2: go east -> -= Driveway =- You are in a driveway. Action 3: close fiberglass door -> You close fiberglass door. Action 4: go north -> -= Street =- This might come as a shock to you, but you've just come into a street. Action 5: go east -> -= Supermarket =- You've entered a supermarket. Action 6: go west -> -= Street =- This might come as a shock to you, but you've just come into a street. Action 7: go east -> -= Supermarket =- You've entered a supermarket. Action 8: close commercial glass door -> You close commercial glass door. Action 9: examine showcase -> The showcase is solidly built. Action 10: look -> -= Supermarket =- You've entered a supermarket. Action 11: look -> -= Supermarket =- You've entered a supermarket. 
+Inventory: You are carrying: a red bell pepper a raw red tuna a yellow bell pepper
+Current environment: Supermarket[showcase(empty), commercial glass door(closed, west)]
+Action templates:
+* inventory
+* examine <object>
+* open <object>
+* take <object> from <object>
+* cook <object> with <stove | oven>
+* drop <object>
+* <slice | dice | chop> <object> with knife
+* prepare meal
+* eat meal
+* go <direction>
+Next action (answer with the command directly):
+
+go west
+
+ACTION SELCTOR
+ACTION SELCTOR
+go west->look
+
+Task: Your task is to find and examine the recipe, then prepare the ingredients as required, prepare the meal and eat it.
+
+Action history: Action 0: inventory -> You are carrying: a red bell pepper a raw red tuna a yellow bell pepper Action 1: go west -> -= Livingroom =- You are in a livingroom. Action 2: go east -> -= Driveway =- You are in a driveway. Action 3: close fiberglass door -> You close fiberglass door. Action 4: go north -> -= Street =- This might come as a shock to you, but you've just come into a street. Action 5: go east -> -= Supermarket =- You've entered a supermarket. Action 6: go west -> -= Street =- This might come as a shock to you, but you've just come into a street. Action 7: go east -> -= Supermarket =- You've entered a supermarket. Action 8: close commercial glass door -> You close commercial glass door. Action 9: examine showcase -> The showcase is solidly built. Action 10: look -> -= Supermarket =- You've entered a supermarket. Action 11: look -> -= Supermarket =- You've entered a supermarket. Action 12: look -> -= Supermarket =- You've entered a supermarket. 
+Inventory: You are carrying: a red bell pepper a raw red tuna a yellow bell pepper
+Current environment: Supermarket[showcase(empty), commercial glass door(closed, west)]
+Action templates:
+* inventory
+* examine <object>
+* open <object>
+* take <object> from <object>
+* cook <object> with <stove | oven>
+* drop <object>
+* <slice | dice | chop> <object> with knife
+* prepare meal
+* eat meal
+* go <direction>
+Next action (answer with the command directly):
+
+go west
+
+ACTION SELCTOR
+ACTION SELCTOR
+go west->look
+
+Task: Your task is to find and examine the recipe, then prepare the ingredients as required, prepare the meal and eat it.
+
+Action history: Action 0: inventory -> You are carrying: a red bell pepper a raw red tuna a yellow bell pepper Action 1: go west -> -= Livingroom =- You are in a livingroom. Action 2: go east -> -= Driveway =- You are in a driveway. Action 3: close fiberglass door -> You close fiberglass door. Action 4: go north -> -= Street =- This might come as a shock to you, but you've just come into a street. Action 5: go east -> -= Supermarket =- You've entered a supermarket. Action 6: go west -> -= Street =- This might come as a shock to you, but you've just come into a street. Action 7: go east -> -= Supermarket =- You've entered a supermarket. Action 8: close commercial glass door -> You close commercial glass door. Action 9: examine showcase -> The showcase is solidly built. Action 10: look -> -= Supermarket =- You've entered a supermarket. Action 11: look -> -= Supermarket =- You've entered a supermarket. Action 12: look -> -= Supermarket =- You've entered a supermarket. Action 13: look -> -= Supermarket =- You've entered a supermarket. 
+Inventory: You are carrying: a red bell pepper a raw red tuna a yellow bell pepper
+Current environment: Supermarket[showcase(empty), commercial glass door(closed, west)]
+Action templates:
+* inventory
+* examine <object>
+* open <object>
+* take <object> from <object>
+* cook <object> with <stove | oven>
+* drop <object>
+* <slice | dice | chop> <object> with knife
+* prepare meal
+* eat meal
+* go <direction>
+Next action (answer with the command directly):
+
+go west
+
+ACTION SELCTOR
+ACTION SELCTOR
+go west->look
+
+Task: Your task is to find and examine the recipe, then prepare the ingredients as required, prepare the meal and eat it.
+
+Action history: Action 0: inventory -> You are carrying: a red bell pepper a raw red tuna a yellow bell pepper Action 1: go west -> -= Livingroom =- You are in a livingroom. Action 2: go east -> -= Driveway =- You are in a driveway. Action 3: close fiberglass door -> You close fiberglass door. Action 4: go north -> -= Street =- This might come as a shock to you, but you've just come into a street. Action 5: go east -> -= Supermarket =- You've entered a supermarket. Action 6: go west -> -= Street =- This might come as a shock to you, but you've just come into a street. Action 7: go east -> -= Supermarket =- You've entered a supermarket. Action 8: close commercial glass door -> You close commercial glass door. Action 9: examine showcase -> The showcase is solidly built. Action 10: look -> -= Supermarket =- You've entered a supermarket. Action 11: look -> -= Supermarket =- You've entered a supermarket. Action 12: look -> -= Supermarket =- You've entered a supermarket. Action 13: look -> -= Supermarket =- You've entered a supermarket. Action 14: look -> -= Supermarket =- You've entered a supermarket. 
+Inventory: You are carrying: a red bell pepper a raw red tuna a yellow bell pepper
+Current environment: Supermarket[showcase(empty), commercial glass door(closed, west)]
+Action templates:
+* inventory
+* examine <object>
+* open <object>
+* take <object> from <object>
+* cook <object> with <stove | oven>
+* drop <object>
+* <slice | dice | chop> <object> with knife
+* prepare meal
+* eat meal
+* go <direction>
+Next action (answer with the command directly):
+
+cook red tuna with oven
+
+ACTION SELCTOR
+ACTION SELCTOR
+cook red tuna with oven->put red tuna on showcase
+
+Task: Your task is to find and examine the recipe, then prepare the ingredients as required, prepare the meal and eat it.
+
+Action history: Action 0: inventory -> You are carrying: a red bell pepper a raw red tuna a yellow bell pepper Action 1: go west -> -= Livingroom =- You are in a livingroom. Action 2: go east -> -= Driveway =- You are in a driveway. Action 3: close fiberglass door -> You close fiberglass door. Action 4: go north -> -= Street =- This might come as a shock to you, but you've just come into a street. Action 5: go east -> -= Supermarket =- You've entered a supermarket. Action 6: go west -> -= Street =- This might come as a shock to you, but you've just come into a street. Action 7: go east -> -= Supermarket =- You've entered a supermarket. Action 8: close commercial glass door -> You close commercial glass door. Action 9: examine showcase -> The showcase is solidly built. Action 10: look -> -= Supermarket =- You've entered a supermarket. Action 11: look -> -= Supermarket =- You've entered a supermarket. Action 12: look -> -= Supermarket =- You've entered a supermarket. Action 13: look -> -= Supermarket =- You've entered a supermarket. Action 14: look -> -= Supermarket =- You've entered a supermarket. Action 15: put red tuna on showcase -> You put the red tuna on the showcase. 
+Inventory: You are carrying: a red bell pepper a yellow bell pepper
+Current environment: Supermarket[showcase(metallic)[raw red tuna], commercial glass door(closed, west)]
+Action templates:
+* inventory
+* examine <object>
+* open <object>
+* take <object> from <object>
+* cook <object> with <stove | oven>
+* drop <object>
+* <slice | dice | chop> <object> with knife
+* prepare meal
+* eat meal
+* go <direction>
+Next action (answer with the command directly):
+
+drop red bell pepper
+
+Task: Your task is to find and examine the recipe, then prepare the ingredients as required, prepare the meal and eat it.
+
+Action history: Action 0: inventory -> You are carrying: a red bell pepper a raw red tuna a yellow bell pepper Action 1: go west -> -= Livingroom =- You are in a livingroom. Action 2: go east -> -= Driveway =- You are in a driveway. Action 3: close fiberglass door -> You close fiberglass door. Action 4: go north -> -= Street =- This might come as a shock to you, but you've just come into a street. Action 5: go east -> -= Supermarket =- You've entered a supermarket. Action 6: go west -> -= Street =- This might come as a shock to you, but you've just come into a street. Action 7: go east -> -= Supermarket =- You've entered a supermarket. Action 8: close commercial glass door -> You close commercial glass door. Action 9: examine showcase -> The showcase is solidly built. Action 10: look -> -= Supermarket =- You've entered a supermarket. Action 11: look -> -= Supermarket =- You've entered a supermarket. Action 12: look -> -= Supermarket =- You've entered a supermarket. Action 13: look -> -= Supermarket =- You've entered a supermarket. Action 14: look -> -= Supermarket =- You've entered a supermarket. Action 15: put red tuna on showcase -> You put the red tuna on the showcase. Action 16: drop red bell pepper -> You drop the red bell pepper on the ground. 
+Inventory: You are carrying: a yellow bell pepper
+Current environment: Supermarket[showcase(metallic)[raw red tuna], commercial glass door(closed, west), floor[red bell pepper]]
+Action templates:
+* inventory
+* examine <object>
+* open <object>
+* take <object> from <object>
+* cook <object> with <stove | oven>
+* drop <object>
+* <slice | dice | chop> <object> with knife
+* prepare meal
+* eat meal
+* go <direction>
+Next action (answer with the command directly):
+
+take red tuna from showcase
+
+Task: Your task is to find and examine the recipe, then prepare the ingredients as required, prepare the meal and eat it.
+
+Action history: Action 0: inventory -> You are carrying: a red bell pepper a raw red tuna a yellow bell pepper Action 1: go west -> -= Livingroom =- You are in a livingroom. Action 2: go east -> -= Driveway =- You are in a driveway. Action 3: close fiberglass door -> You close fiberglass door. Action 4: go north -> -= Street =- This might come as a shock to you, but you've just come into a street. Action 5: go east -> -= Supermarket =- You've entered a supermarket. Action 6: go west -> -= Street =- This might come as a shock to you, but you've just come into a street. Action 7: go east -> -= Supermarket =- You've entered a supermarket. Action 8: close commercial glass door -> You close commercial glass door. Action 9: examine showcase -> The showcase is solidly built. Action 10: look -> -= Supermarket =- You've entered a supermarket. Action 11: look -> -= Supermarket =- You've entered a supermarket. Action 12: look -> -= Supermarket =- You've entered a supermarket. Action 13: look -> -= Supermarket =- You've entered a supermarket. Action 14: look -> -= Supermarket =- You've entered a supermarket. Action 15: put red tuna on showcase -> You put the red tuna on the showcase. Action 16: drop red bell pepper -> You drop the red bell pepper on the ground. Action 17: take red tuna from showcase -> You take the red tuna from the showcase. 
+Inventory: You are carrying: a raw red tuna a yellow bell pepper
+Current environment: Supermarket[showcase(empty), commercial glass door(closed, west), floor[red bell pepper]]
+Action templates:
+* inventory
+* examine <object>
+* open <object>
+* take <object> from <object>
+* cook <object> with <stove | oven>
+* drop <object>
+* <slice | dice | chop> <object> with knife
+* prepare meal
+* eat meal
+* go <direction>
+Next action (answer with the command directly):
+
+drop red tuna
+
+Task: Your task is to find and examine the recipe, then prepare the ingredients as required, prepare the meal and eat it.
+
+Action history: Action 0: inventory -> You are carrying: a red bell pepper a raw red tuna a yellow bell pepper Action 1: go west -> -= Livingroom =- You are in a livingroom. Action 2: go east -> -= Driveway =- You are in a driveway. Action 3: close fiberglass door -> You close fiberglass door. Action 4: go north -> -= Street =- This might come as a shock to you, but you've just come into a street. Action 5: go east -> -= Supermarket =- You've entered a supermarket. Action 6: go west -> -= Street =- This might come as a shock to you, but you've just come into a street. Action 7: go east -> -= Supermarket =- You've entered a supermarket. Action 8: close commercial glass door -> You close commercial glass door. Action 9: examine showcase -> The showcase is solidly built. Action 10: look -> -= Supermarket =- You've entered a supermarket. Action 11: look -> -= Supermarket =- You've entered a supermarket. Action 12: look -> -= Supermarket =- You've entered a supermarket. Action 13: look -> -= Supermarket =- You've entered a supermarket. Action 14: look -> -= Supermarket =- You've entered a supermarket. Action 15: put red tuna on showcase -> You put the red tuna on the showcase. Action 16: drop red bell pepper -> You drop the red bell pepper on the ground. Action 17: take red tuna from showcase -> You take the red tuna from the showcase. Action 18: drop red tuna -> You drop the red tuna on the ground. 
+Inventory: You are carrying: a yellow bell pepper
+Current environment: Supermarket[showcase(empty), commercial glass door(closed, west), floor[raw red tuna, red bell pepper]]
+Action templates:
+* inventory
+* examine <object>
+* open <object>
+* take <object> from <object>
+* cook <object> with <stove | oven>
+* drop <object>
+* <slice | dice | chop> <object> with knife
+* prepare meal
+* eat meal
+* go <direction>
+Next action (answer with the command directly):
+
+take red bell pepper
+

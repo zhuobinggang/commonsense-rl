@@ -1,0 +1,288 @@
+Task: Your task is to find and examine the recipe, then prepare the ingredients as required, prepare the meal and eat it.
+
+Action history: No action was taken now.
+Inventory: You are carrying: a lettuce a red bell pepper a red onion a black pepper
+Current environment: Kitchen[fridge(opened)[carrot, block of cheese], oven(closed), table[massive, cookbook], counter[raw red potato, knife], stove(empty)]
+Action templates:
+* inventory
+* examine <object>
+* open <object>
+* take <object> from <object>
+* cook <object> with <stove | oven>
+* drop <object>
+* <slice | dice | chop> <object> with knife
+* prepare meal
+* eat meal
+* go <direction>
+Next action (answer with the command directly):
+
+inventory
+
+Task: Your task is to find and examine the recipe, then prepare the ingredients as required, prepare the meal and eat it.
+
+Action history: Action 0: inventory -> You are carrying: a lettuce a red bell pepper a red onion a black pepper 
+Inventory: You are carrying: a lettuce a red bell pepper a red onion a black pepper
+Current environment: Kitchen[fridge(opened)[carrot, block of cheese], oven(closed), table[massive, cookbook], counter[raw red potato, knife], stove(empty)]
+Action templates:
+* inventory
+* examine <object>
+* open <object>
+* take <object> from <object>
+* cook <object> with <stove | oven>
+* drop <object>
+* <slice | dice | chop> <object> with knife
+* prepare meal
+* eat meal
+* go <direction>
+Next action (answer with the command directly):
+
+examine cookbook
+
+Task: Your task is to find and examine the recipe, then prepare the ingredients as required, prepare the meal and eat it.
+
+Action history: Action 0: inventory -> You are carrying: a lettuce a red bell pepper a red onion a black pepper Action 1: examine cookbook -> You open the copy of "Cooking: A Modern Approach (3rd Ed.)" and start reading: Recipe #1 --------- Gather all following ingredients and follow the directions to prepare this tasty meal. Ingredients: lettuce red bell pepper Directions: slice the lettuce roast the lettuce dice the red bell pepper prepare meal 
+Inventory: You are carrying: a lettuce a red bell pepper a red onion a black pepper
+Current environment: Kitchen[fridge(opened)[carrot, block of cheese], oven(closed), table[massive, cookbook], counter[raw red potato, knife], stove(empty)]
+Action templates:
+* inventory
+* examine <object>
+* open <object>
+* take <object> from <object>
+* cook <object> with <stove | oven>
+* drop <object>
+* <slice | dice | chop> <object> with knife
+* prepare meal
+* eat meal
+* go <direction>
+Next action (answer with the command directly):
+
+drop red onion
+
+Task: Your task is to find and examine the recipe, then prepare the ingredients as required, prepare the meal and eat it.
+
+Action history: Action 0: inventory -> You are carrying: a lettuce a red bell pepper a red onion a black pepper Action 1: examine cookbook -> You open the copy of "Cooking: A Modern Approach (3rd Ed.)" and start reading: Recipe #1 --------- Gather all following ingredients and follow the directions to prepare this tasty meal. Ingredients: lettuce red bell pepper Directions: slice the lettuce roast the lettuce dice the red bell pepper prepare meal Action 2: drop red onion -> You drop the red onion on the ground. 
+Inventory: You are carrying: a lettuce a red bell pepper a black pepper
+Current environment: Kitchen[fridge(opened)[carrot, block of cheese], oven(closed), table[massive, cookbook], counter[raw red potato, knife], stove(conventional), floor[red onion]]
+Action templates:
+* inventory
+* examine <object>
+* open <object>
+* take <object> from <object>
+* cook <object> with <stove | oven>
+* drop <object>
+* <slice | dice | chop> <object> with knife
+* prepare meal
+* eat meal
+* go <direction>
+Next action (answer with the command directly):
+
+drop black pepper
+
+Task: Your task is to find and examine the recipe, then prepare the ingredients as required, prepare the meal and eat it.
+
+Action history: Action 0: inventory -> You are carrying: a lettuce a red bell pepper a red onion a black pepper Action 1: examine cookbook -> You open the copy of "Cooking: A Modern Approach (3rd Ed.)" and start reading: Recipe #1 --------- Gather all following ingredients and follow the directions to prepare this tasty meal. Ingredients: lettuce red bell pepper Directions: slice the lettuce roast the lettuce dice the red bell pepper prepare meal Action 2: drop red onion -> You drop the red onion on the ground. Action 3: drop black pepper -> You drop the black pepper on the ground. 
+Inventory: You are carrying: a lettuce a red bell pepper
+Current environment: Kitchen[fridge(opened)[carrot, block of cheese], oven(closed), table(massive)[cookbook], counter[raw red potato, knife], stove(conventional), floor[black pepper, red onion]]
+Action templates:
+* inventory
+* examine <object>
+* open <object>
+* take <object> from <object>
+* cook <object> with <stove | oven>
+* drop <object>
+* <slice | dice | chop> <object> with knife
+* prepare meal
+* eat meal
+* go <direction>
+Next action (answer with the command directly):
+
+cook lettuce with oven
+
+Task: Your task is to find and examine the recipe, then prepare the ingredients as required, prepare the meal and eat it.
+
+Action history: Action 0: inventory -> You are carrying: a lettuce a red bell pepper a red onion a black pepper Action 1: examine cookbook -> You open the copy of "Cooking: A Modern Approach (3rd Ed.)" and start reading: Recipe #1 --------- Gather all following ingredients and follow the directions to prepare this tasty meal. Ingredients: lettuce red bell pepper Directions: slice the lettuce roast the lettuce dice the red bell pepper prepare meal Action 2: drop red onion -> You drop the red onion on the ground. Action 3: drop black pepper -> You drop the black pepper on the ground. Action 4: cook lettuce with oven -> You roasted the lettuce. Your score has just gone up by one point. 
+Inventory: You are carrying: a roasted lettuce a red bell pepper
+Current environment: Kitchen[fridge(opened)[carrot, block of cheese], oven(closed), table(massive)[cookbook], counter[raw red potato, knife], stove(conventional), floor[black pepper, red onion]]
+Action templates:
+* inventory
+* examine <object>
+* open <object>
+* take <object> from <object>
+* cook <object> with <stove | oven>
+* drop <object>
+* <slice | dice | chop> <object> with knife
+* prepare meal
+* eat meal
+* go <direction>
+Next action (answer with the command directly):
+
+take knife from counter
+
+Task: Your task is to find and examine the recipe, then prepare the ingredients as required, prepare the meal and eat it.
+
+Action history: Action 0: inventory -> You are carrying: a lettuce a red bell pepper a red onion a black pepper Action 1: examine cookbook -> You open the copy of "Cooking: A Modern Approach (3rd Ed.)" and start reading: Recipe #1 --------- Gather all following ingredients and follow the directions to prepare this tasty meal. Ingredients: lettuce red bell pepper Directions: slice the lettuce roast the lettuce dice the red bell pepper prepare meal Action 2: drop red onion -> You drop the red onion on the ground. Action 3: drop black pepper -> You drop the black pepper on the ground. Action 4: cook lettuce with oven -> You roasted the lettuce. Your score has just gone up by one point. Action 5: take knife from counter -> You take the knife from the counter. 
+Inventory: You are carrying: a knife a roasted lettuce a red bell pepper
+Current environment: Kitchen[fridge(opened)[carrot, block of cheese], oven(closed), table[massive, cookbook], counter[raw red potato], stove(conventional), floor[black pepper, red onion]]
+Action templates:
+* inventory
+* examine <object>
+* open <object>
+* take <object> from <object>
+* cook <object> with <stove | oven>
+* drop <object>
+* <slice | dice | chop> <object> with knife
+* prepare meal
+* eat meal
+* go <direction>
+Next action (answer with the command directly):
+
+slice lettuce with knife
+
+Task: Your task is to find and examine the recipe, then prepare the ingredients as required, prepare the meal and eat it.
+
+Action history: Action 0: inventory -> You are carrying: a lettuce a red bell pepper a red onion a black pepper Action 1: examine cookbook -> You open the copy of "Cooking: A Modern Approach (3rd Ed.)" and start reading: Recipe #1 --------- Gather all following ingredients and follow the directions to prepare this tasty meal. Ingredients: lettuce red bell pepper Directions: slice the lettuce roast the lettuce dice the red bell pepper prepare meal Action 2: drop red onion -> You drop the red onion on the ground. Action 3: drop black pepper -> You drop the black pepper on the ground. Action 4: cook lettuce with oven -> You roasted the lettuce. Your score has just gone up by one point. Action 5: take knife from counter -> You take the knife from the counter. Action 6: slice lettuce with knife -> You slice the lettuce. Your score has just gone up by one point. 
+Inventory: You are carrying: a knife a sliced roasted lettuce a red bell pepper
+Current environment: Kitchen[fridge(opened)[carrot, block of cheese], oven(closed), table[massive, cookbook], counter[raw red potato], stove(conventional), floor[black pepper, red onion]]
+Action templates:
+* inventory
+* examine <object>
+* open <object>
+* take <object> from <object>
+* cook <object> with <stove | oven>
+* drop <object>
+* <slice | dice | chop> <object> with knife
+* prepare meal
+* eat meal
+* go <direction>
+Next action (answer with the command directly):
+
+drop knife
+
+Task: Your task is to find and examine the recipe, then prepare the ingredients as required, prepare the meal and eat it.
+
+Action history: Action 0: inventory -> You are carrying: a lettuce a red bell pepper a red onion a black pepper Action 1: examine cookbook -> You open the copy of "Cooking: A Modern Approach (3rd Ed.)" and start reading: Recipe #1 --------- Gather all following ingredients and follow the directions to prepare this tasty meal. Ingredients: lettuce red bell pepper Directions: slice the lettuce roast the lettuce dice the red bell pepper prepare meal Action 2: drop red onion -> You drop the red onion on the ground. Action 3: drop black pepper -> You drop the black pepper on the ground. Action 4: cook lettuce with oven -> You roasted the lettuce. Your score has just gone up by one point. Action 5: take knife from counter -> You take the knife from the counter. Action 6: slice lettuce with knife -> You slice the lettuce. Your score has just gone up by one point. Action 7: drop knife -> You drop the knife on the ground. 
+Inventory: You are carrying: a sliced roasted lettuce a red bell pepper
+Current environment: Kitchen[fridge(opened)[carrot, block of cheese], oven(closed), table[massive, cookbook], counter[raw red potato], stove(conventional), floor[knife, black pepper, red onion]]
+Action templates:
+* inventory
+* examine <object>
+* open <object>
+* take <object> from <object>
+* cook <object> with <stove | oven>
+* drop <object>
+* <slice | dice | chop> <object> with knife
+* prepare meal
+* eat meal
+* go <direction>
+Next action (answer with the command directly):
+
+take red bell pepper
+
+ACTION SELCTOR
+ACTION SELCTOR
+take red bell pepper->take red bell pepper from counter
+
+Task: Your task is to find and examine the recipe, then prepare the ingredients as required, prepare the meal and eat it.
+
+Action history: Action 0: inventory -> You are carrying: a lettuce a red bell pepper a red onion a black pepper Action 1: examine cookbook -> You open the copy of "Cooking: A Modern Approach (3rd Ed.)" and start reading: Recipe #1 --------- Gather all following ingredients and follow the directions to prepare this tasty meal. Ingredients: lettuce red bell pepper Directions: slice the lettuce roast the lettuce dice the red bell pepper prepare meal Action 2: drop red onion -> You drop the red onion on the ground. Action 3: drop black pepper -> You drop the black pepper on the ground. Action 4: cook lettuce with oven -> You roasted the lettuce. Your score has just gone up by one point. Action 5: take knife from counter -> You take the knife from the counter. Action 6: slice lettuce with knife -> You slice the lettuce. Your score has just gone up by one point. Action 7: drop knife -> You drop the knife on the ground. Action 8: take red bell pepper from counter -> I only understood you as far as wanting to take the red bell pepper. 
+Inventory: You are carrying: a sliced roasted lettuce a red bell pepper
+Current environment: Kitchen[fridge(opened)[carrot, block of cheese], oven(closed), table[massive, cookbook], counter[raw red potato], stove(conventional), floor[knife, black pepper, red onion]]
+Action templates:
+* inventory
+* examine <object>
+* open <object>
+* take <object> from <object>
+* cook <object> with <stove | oven>
+* drop <object>
+* <slice | dice | chop> <object> with knife
+* prepare meal
+* eat meal
+* go <direction>
+Next action (answer with the command directly):
+
+drop lettuce
+
+Task: Your task is to find and examine the recipe, then prepare the ingredients as required, prepare the meal and eat it.
+
+Action history: Action 0: inventory -> You are carrying: a lettuce a red bell pepper a red onion a black pepper Action 1: examine cookbook -> You open the copy of "Cooking: A Modern Approach (3rd Ed.)" and start reading: Recipe #1 --------- Gather all following ingredients and follow the directions to prepare this tasty meal. Ingredients: lettuce red bell pepper Directions: slice the lettuce roast the lettuce dice the red bell pepper prepare meal Action 2: drop red onion -> You drop the red onion on the ground. Action 3: drop black pepper -> You drop the black pepper on the ground. Action 4: cook lettuce with oven -> You roasted the lettuce. Your score has just gone up by one point. Action 5: take knife from counter -> You take the knife from the counter. Action 6: slice lettuce with knife -> You slice the lettuce. Your score has just gone up by one point. Action 7: drop knife -> You drop the knife on the ground. Action 8: take red bell pepper from counter -> I only understood you as far as wanting to take the red bell pepper. Action 9: drop lettuce -> You drop the lettuce on the ground. 
+Inventory: You are carrying: a red bell pepper
+Current environment: Kitchen[fridge(opened)[carrot, block of cheese], oven(closed), table[massive, cookbook], counter[raw red potato], stove(conventional), floor[sliced roasted lettuce, knife, black pepper, red onion]]
+Action templates:
+* inventory
+* examine <object>
+* open <object>
+* take <object> from <object>
+* cook <object> with <stove | oven>
+* drop <object>
+* <slice | dice | chop> <object> with knife
+* prepare meal
+* eat meal
+* go <direction>
+Next action (answer with the command directly):
+
+take knife
+
+Task: Your task is to find and examine the recipe, then prepare the ingredients as required, prepare the meal and eat it.
+
+Action history: Action 0: inventory -> You are carrying: a lettuce a red bell pepper a red onion a black pepper Action 1: examine cookbook -> You open the copy of "Cooking: A Modern Approach (3rd Ed.)" and start reading: Recipe #1 --------- Gather all following ingredients and follow the directions to prepare this tasty meal. Ingredients: lettuce red bell pepper Directions: slice the lettuce roast the lettuce dice the red bell pepper prepare meal Action 2: drop red onion -> You drop the red onion on the ground. Action 3: drop black pepper -> You drop the black pepper on the ground. Action 4: cook lettuce with oven -> You roasted the lettuce. Your score has just gone up by one point. Action 5: take knife from counter -> You take the knife from the counter. Action 6: slice lettuce with knife -> You slice the lettuce. Your score has just gone up by one point. Action 7: drop knife -> You drop the knife on the ground. Action 8: take red bell pepper from counter -> I only understood you as far as wanting to take the red bell pepper. Action 9: drop lettuce -> You drop the lettuce on the ground. Action 10: take knife -> You pick up the knife from the ground. 
+Inventory: You are carrying: a knife a red bell pepper
+Current environment: Kitchen[fridge(opened)[carrot, block of cheese], oven(closed), table(massive)[cookbook], counter[raw red potato], stove(conventional), floor[sliced roasted lettuce, black pepper, red onion]]
+Action templates:
+* inventory
+* examine <object>
+* open <object>
+* take <object> from <object>
+* cook <object> with <stove | oven>
+* drop <object>
+* <slice | dice | chop> <object> with knife
+* prepare meal
+* eat meal
+* go <direction>
+Next action (answer with the command directly):
+
+dice red bell pepper with knife
+
+Task: Your task is to find and examine the recipe, then prepare the ingredients as required, prepare the meal and eat it.
+
+Action history: Action 0: inventory -> You are carrying: a lettuce a red bell pepper a red onion a black pepper Action 1: examine cookbook -> You open the copy of "Cooking: A Modern Approach (3rd Ed.)" and start reading: Recipe #1 --------- Gather all following ingredients and follow the directions to prepare this tasty meal. Ingredients: lettuce red bell pepper Directions: slice the lettuce roast the lettuce dice the red bell pepper prepare meal Action 2: drop red onion -> You drop the red onion on the ground. Action 3: drop black pepper -> You drop the black pepper on the ground. Action 4: cook lettuce with oven -> You roasted the lettuce. Your score has just gone up by one point. Action 5: take knife from counter -> You take the knife from the counter. Action 6: slice lettuce with knife -> You slice the lettuce. Your score has just gone up by one point. Action 7: drop knife -> You drop the knife on the ground. Action 8: take red bell pepper from counter -> I only understood you as far as wanting to take the red bell pepper. Action 9: drop lettuce -> You drop the lettuce on the ground. Action 10: take knife -> You pick up the knife from the ground. Action 11: dice red bell pepper with knife -> You dice the red bell pepper. Your score has just gone up by one point. 
+Inventory: You are carrying: a knife a diced red bell pepper
+Current environment: Kitchen[fridge(opened)[carrot, block of cheese], oven(closed), table(massive)[cookbook], counter[raw red potato], stove(conventional), floor[sliced roasted lettuce, black pepper, red onion]]
+Action templates:
+* inventory
+* examine <object>
+* open <object>
+* take <object> from <object>
+* cook <object> with <stove | oven>
+* drop <object>
+* <slice | dice | chop> <object> with knife
+* prepare meal
+* eat meal
+* go <direction>
+Next action (answer with the command directly):
+
+drop knife
+
+Task: Your task is to find and examine the recipe, then prepare the ingredients as required, prepare the meal and eat it.
+
+Action history: Action 0: inventory -> You are carrying: a lettuce a red bell pepper a red onion a black pepper Action 1: examine cookbook -> You open the copy of "Cooking: A Modern Approach (3rd Ed.)" and start reading: Recipe #1 --------- Gather all following ingredients and follow the directions to prepare this tasty meal. Ingredients: lettuce red bell pepper Directions: slice the lettuce roast the lettuce dice the red bell pepper prepare meal Action 2: drop red onion -> You drop the red onion on the ground. Action 3: drop black pepper -> You drop the black pepper on the ground. Action 4: cook lettuce with oven -> You roasted the lettuce. Your score has just gone up by one point. Action 5: take knife from counter -> You take the knife from the counter. Action 6: slice lettuce with knife -> You slice the lettuce. Your score has just gone up by one point. Action 7: drop knife -> You drop the knife on the ground. Action 8: take red bell pepper from counter -> I only understood you as far as wanting to take the red bell pepper. Action 9: drop lettuce -> You drop the lettuce on the ground. Action 10: take knife -> You pick up the knife from the ground. Action 11: dice red bell pepper with knife -> You dice the red bell pepper. Your score has just gone up by one point. Action 12: drop knife -> You drop the knife on the ground. 
+Inventory: You are carrying: a diced red bell pepper
+Current environment: Kitchen[fridge(opened)[carrot, block of cheese], oven(closed), table(massive)[cookbook], counter[raw red potato], stove(conventional), floor[knife, sliced roasted lettuce, black pepper, red onion]]
+Action templates:
+* inventory
+* examine <object>
+* open <object>
+* take <object> from <object>
+* cook <object> with <stove | oven>
+* drop <object>
+* <slice | dice | chop> <object> with knife
+* prepare meal
+* eat meal
+* go <direction>
+Next action (answer with the command directly):
+
+prepare meal
+
+ACTION SELCTOR
+ACTION SELCTOR
+prepare meal->cook red bell pepper with stove
+

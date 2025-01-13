@@ -1,0 +1,208 @@
+Task: Your task is to find and examine the recipe, then prepare the ingredients as required, prepare the meal and eat it.
+
+Action history: No action was taken now.
+Inventory: You are carrying: a roasted yellow bell pepper a raw yellow potato a red bell pepper
+Current environment: Kitchen[fridge(open, empty), oven, table[cookbook], counter[knife], stove]
+Action templates:
+* inventory
+* examine <object>
+* open <object>
+* take <object> from <object>
+* cook <object> with <stove | oven>
+* drop <object>
+* <slice | dice | chop> <object> with knife
+* prepare meal
+* eat meal
+* go <direction>
+Next action (answer with the command directly):
+
+inventory
+
+Task: Your task is to find and examine the recipe, then prepare the ingredients as required, prepare the meal and eat it.
+
+Action history: Action 0: inventory -> You are carrying: a roasted yellow bell pepper a raw yellow potato a red bell pepper 
+Inventory: You are carrying: a roasted yellow bell pepper a raw yellow potato a red bell pepper
+Current environment: Kitchen[fridge(open, empty), oven, table[cookbook], counter[knife], stove]
+Action templates:
+* inventory
+* examine <object>
+* open <object>
+* take <object> from <object>
+* cook <object> with <stove | oven>
+* drop <object>
+* <slice | dice | chop> <object> with knife
+* prepare meal
+* eat meal
+* go <direction>
+Next action (answer with the command directly):
+
+examine cookbook
+
+Task: Your task is to find and examine the recipe, then prepare the ingredients as required, prepare the meal and eat it.
+
+Action history: Action 0: inventory -> You are carrying: a roasted yellow bell pepper a raw yellow potato a red bell pepper Action 1: examine cookbook -> You open the copy of "Cooking: A Modern Approach (3rd Ed.)" and start reading: Recipe #1 --------- Gather all following ingredients and follow the directions to prepare this tasty meal. Ingredients: yellow bell pepper Directions: slice the yellow bell pepper roast the yellow bell pepper prepare meal 
+Inventory: You are carrying: a roasted yellow bell pepper a raw yellow potato a red bell pepper
+Current environment: Kitchen[fridge(open, empty), oven, table[cookbook], counter[knife], stove]
+Action templates:
+* inventory
+* examine <object>
+* open <object>
+* take <object> from <object>
+* cook <object> with <stove | oven>
+* drop <object>
+* <slice | dice | chop> <object> with knife
+* prepare meal
+* eat meal
+* go <direction>
+Next action (answer with the command directly):
+
+drop yellow potato
+
+Task: Your task is to find and examine the recipe, then prepare the ingredients as required, prepare the meal and eat it.
+
+Action history: Action 0: inventory -> You are carrying: a roasted yellow bell pepper a raw yellow potato a red bell pepper Action 1: examine cookbook -> You open the copy of "Cooking: A Modern Approach (3rd Ed.)" and start reading: Recipe #1 --------- Gather all following ingredients and follow the directions to prepare this tasty meal. Ingredients: yellow bell pepper Directions: slice the yellow bell pepper roast the yellow bell pepper prepare meal Action 2: drop yellow potato -> You drop the yellow potato on the ground. 
+Inventory: You are carrying: a roasted yellow bell pepper a red bell pepper
+Current environment: Kitchen[fridge(open, empty), oven, table[cookbook], counter[knife], stove, floor[raw yellow potato]]
+Action templates:
+* inventory
+* examine <object>
+* open <object>
+* take <object> from <object>
+* cook <object> with <stove | oven>
+* drop <object>
+* <slice | dice | chop> <object> with knife
+* prepare meal
+* eat meal
+* go <direction>
+Next action (answer with the command directly):
+
+drop red bell pepper
+
+Task: Your task is to find and examine the recipe, then prepare the ingredients as required, prepare the meal and eat it.
+
+Action history: Action 0: inventory -> You are carrying: a roasted yellow bell pepper a raw yellow potato a red bell pepper Action 1: examine cookbook -> You open the copy of "Cooking: A Modern Approach (3rd Ed.)" and start reading: Recipe #1 --------- Gather all following ingredients and follow the directions to prepare this tasty meal. Ingredients: yellow bell pepper Directions: slice the yellow bell pepper roast the yellow bell pepper prepare meal Action 2: drop yellow potato -> You drop the yellow potato on the ground. Action 3: drop red bell pepper -> You drop the red bell pepper on the ground. 
+Inventory: You are carrying: a roasted yellow bell pepper
+Current environment: Kitchen[fridge(open, empty), oven, table[cookbook], counter[knife], stove, floor[red bell pepper, raw yellow potato]]
+Action templates:
+* inventory
+* examine <object>
+* open <object>
+* take <object> from <object>
+* cook <object> with <stove | oven>
+* drop <object>
+* <slice | dice | chop> <object> with knife
+* prepare meal
+* eat meal
+* go <direction>
+Next action (answer with the command directly):
+
+take knife from counter
+
+Task: Your task is to find and examine the recipe, then prepare the ingredients as required, prepare the meal and eat it.
+
+Action history: Action 0: inventory -> You are carrying: a roasted yellow bell pepper a raw yellow potato a red bell pepper Action 1: examine cookbook -> You open the copy of "Cooking: A Modern Approach (3rd Ed.)" and start reading: Recipe #1 --------- Gather all following ingredients and follow the directions to prepare this tasty meal. Ingredients: yellow bell pepper Directions: slice the yellow bell pepper roast the yellow bell pepper prepare meal Action 2: drop yellow potato -> You drop the yellow potato on the ground. Action 3: drop red bell pepper -> You drop the red bell pepper on the ground. Action 4: take knife from counter -> You take the knife from the counter. 
+Inventory: You are carrying: a knife a roasted yellow bell pepper
+Current environment: Kitchen[fridge(open, empty), oven, table[cookbook], counter(empty), stove, floor[red bell pepper, raw yellow potato]]
+Action templates:
+* inventory
+* examine <object>
+* open <object>
+* take <object> from <object>
+* cook <object> with <stove | oven>
+* drop <object>
+* <slice | dice | chop> <object> with knife
+* prepare meal
+* eat meal
+* go <direction>
+Next action (answer with the command directly):
+
+slice yellow bell pepper with knife
+
+Task: Your task is to find and examine the recipe, then prepare the ingredients as required, prepare the meal and eat it.
+
+Action history: Action 0: inventory -> You are carrying: a roasted yellow bell pepper a raw yellow potato a red bell pepper Action 1: examine cookbook -> You open the copy of "Cooking: A Modern Approach (3rd Ed.)" and start reading: Recipe #1 --------- Gather all following ingredients and follow the directions to prepare this tasty meal. Ingredients: yellow bell pepper Directions: slice the yellow bell pepper roast the yellow bell pepper prepare meal Action 2: drop yellow potato -> You drop the yellow potato on the ground. Action 3: drop red bell pepper -> You drop the red bell pepper on the ground. Action 4: take knife from counter -> You take the knife from the counter. Action 5: slice yellow bell pepper with knife -> You slice the yellow bell pepper. Your score has just gone up by one point. 
+Inventory: You are carrying: a knife a sliced roasted yellow bell pepper
+Current environment: Kitchen[fridge(open, empty), oven, table[cookbook], counter(empty), stove, floor[red bell pepper, raw yellow potato]]
+Action templates:
+* inventory
+* examine <object>
+* open <object>
+* take <object> from <object>
+* cook <object> with <stove | oven>
+* drop <object>
+* <slice | dice | chop> <object> with knife
+* prepare meal
+* eat meal
+* go <direction>
+Next action (answer with the command directly):
+
+drop knife
+
+Task: Your task is to find and examine the recipe, then prepare the ingredients as required, prepare the meal and eat it.
+
+Action history: Action 0: inventory -> You are carrying: a roasted yellow bell pepper a raw yellow potato a red bell pepper Action 1: examine cookbook -> You open the copy of "Cooking: A Modern Approach (3rd Ed.)" and start reading: Recipe #1 --------- Gather all following ingredients and follow the directions to prepare this tasty meal. Ingredients: yellow bell pepper Directions: slice the yellow bell pepper roast the yellow bell pepper prepare meal Action 2: drop yellow potato -> You drop the yellow potato on the ground. Action 3: drop red bell pepper -> You drop the red bell pepper on the ground. Action 4: take knife from counter -> You take the knife from the counter. Action 5: slice yellow bell pepper with knife -> You slice the yellow bell pepper. Your score has just gone up by one point. Action 6: drop knife -> You drop the knife on the ground. 
+Inventory: You are carrying: a sliced roasted yellow bell pepper
+Current environment: Kitchen[fridge(open, empty), oven, table[cookbook], counter(empty), stove, floor[knife, red bell pepper, raw yellow potato]]
+Action templates:
+* inventory
+* examine <object>
+* open <object>
+* take <object> from <object>
+* cook <object> with <stove | oven>
+* drop <object>
+* <slice | dice | chop> <object> with knife
+* prepare meal
+* eat meal
+* go <direction>
+Next action (answer with the command directly):
+
+prepare meal
+
+Task: Your task is to find and examine the recipe, then prepare the ingredients as required, prepare the meal and eat it.
+
+Action history: Action 0: inventory -> You are carrying: a roasted yellow bell pepper a raw yellow potato a red bell pepper Action 1: examine cookbook -> You open the copy of "Cooking: A Modern Approach (3rd Ed.)" and start reading: Recipe #1 --------- Gather all following ingredients and follow the directions to prepare this tasty meal. Ingredients: yellow bell pepper Directions: slice the yellow bell pepper roast the yellow bell pepper prepare meal Action 2: drop yellow potato -> You drop the yellow potato on the ground. Action 3: drop red bell pepper -> You drop the red bell pepper on the ground. Action 4: take knife from counter -> You take the knife from the counter. Action 5: slice yellow bell pepper with knife -> You slice the yellow bell pepper. Your score has just gone up by one point. Action 6: drop knife -> You drop the knife on the ground. Action 7: prepare meal -> Adding the meal to your inventory. Your score has just gone up by one point. 
+Inventory: You are carrying: a meal
+Current environment: Kitchen[fridge(open, empty), oven, table[cookbook], counter(empty), stove, floor[knife, red bell pepper, raw yellow potato]]
+Action templates:
+* inventory
+* examine <object>
+* open <object>
+* take <object> from <object>
+* cook <object> with <stove | oven>
+* drop <object>
+* <slice | dice | chop> <object> with knife
+* prepare meal
+* eat meal
+* go <direction>
+Next action (answer with the command directly):
+
+eat meal
+
+ACTION SELCTOR
+ACTION SELCTOR
+eat meal->cook meal with oven
+
+Task: Your task is to find and examine the recipe, then prepare the ingredients as required, prepare the meal and eat it.
+
+Action history: Action 0: inventory -> You are carrying: a roasted yellow bell pepper a raw yellow potato a red bell pepper Action 1: examine cookbook -> You open the copy of "Cooking: A Modern Approach (3rd Ed.)" and start reading: Recipe #1 --------- Gather all following ingredients and follow the directions to prepare this tasty meal. Ingredients: yellow bell pepper Directions: slice the yellow bell pepper roast the yellow bell pepper prepare meal Action 2: drop yellow potato -> You drop the yellow potato on the ground. Action 3: drop red bell pepper -> You drop the red bell pepper on the ground. Action 4: take knife from counter -> You take the knife from the counter. Action 5: slice yellow bell pepper with knife -> You slice the yellow bell pepper. Your score has just gone up by one point. Action 6: drop knife -> You drop the knife on the ground. Action 7: prepare meal -> Adding the meal to your inventory. Your score has just gone up by one point. Action 8: cook meal with oven -> You roasted the meal. 
+Inventory: You are carrying: a roasted meal
+Current environment: Kitchen[fridge(open, empty), oven, table[cookbook], counter(empty), stove, floor[knife, red bell pepper, raw yellow potato]]
+Action templates:
+* inventory
+* examine <object>
+* open <object>
+* take <object> from <object>
+* cook <object> with <stove | oven>
+* drop <object>
+* <slice | dice | chop> <object> with knife
+* prepare meal
+* eat meal
+* go <direction>
+Next action (answer with the command directly):
+
+eat meal
+
+ACTION SELCTOR
+ACTION SELCTOR
+eat meal->cook meal with oven
+

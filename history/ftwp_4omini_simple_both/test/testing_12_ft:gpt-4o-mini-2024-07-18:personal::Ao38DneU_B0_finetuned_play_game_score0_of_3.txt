@@ -1,0 +1,180 @@
+Task: Your task is to find and examine the recipe, then prepare the ingredients as required, prepare the meal and eat it.
+
+Action history: No action was taken now.
+Inventory: You are carrying: a fried chicken leg some olive oil a fried pork chop a raw chicken wing some vegetable oil
+Current environment: Bathroom[exit(opened, east)]
+Action templates:
+* inventory
+* examine <object>
+* open <object>
+* take <object> from <object>
+* cook <object> with <stove | oven>
+* drop <object>
+* <slice | dice | chop> <object> with knife
+* prepare meal
+* eat meal
+* go <direction>
+Next action (answer with the command directly):
+
+inventory
+
+Task: Your task is to find and examine the recipe, then prepare the ingredients as required, prepare the meal and eat it.
+
+Action history: Action 0: inventory -> You are carrying: a fried chicken leg some olive oil a fried pork chop a raw chicken wing some vegetable oil 
+Inventory: You are carrying: a fried chicken leg some olive oil a fried pork chop a raw chicken wing some vegetable oil
+Current environment: Bathroom[exit(opened, east)]
+Action templates:
+* inventory
+* examine <object>
+* open <object>
+* take <object> from <object>
+* cook <object> with <stove | oven>
+* drop <object>
+* <slice | dice | chop> <object> with knife
+* prepare meal
+* eat meal
+* go <direction>
+Next action (answer with the command directly):
+
+go east
+
+Task: Your task is to find and examine the recipe, then prepare the ingredients as required, prepare the meal and eat it.
+
+Action history: Action 0: inventory -> You are carrying: a fried chicken leg some olive oil a fried pork chop a raw chicken wing some vegetable oil Action 1: go east -> -= Corridor =- You arrive in a corridor. 
+Inventory: You are carrying: a fried chicken leg some olive oil a fried pork chop a raw chicken wing some vegetable oil
+Current environment: Corridor[exit(opened, south)]
+Action templates:
+* inventory
+* examine <object>
+* open <object>
+* take <object> from <object>
+* cook <object> with <stove | oven>
+* drop <object>
+* <slice | dice | chop> <object> with knife
+* prepare meal
+* eat meal
+* go <direction>
+Next action (answer with the command directly):
+
+go south
+
+Task: Your task is to find and examine the recipe, then prepare the ingredients as required, prepare the meal and eat it.
+
+Action history: Action 0: inventory -> You are carrying: a fried chicken leg some olive oil a fried pork chop a raw chicken wing some vegetable oil Action 1: go east -> -= Corridor =- You arrive in a corridor. Action 2: go south -> -= Bedroom =- You find yourself in a bedroom. 
+Inventory: You are carrying: a fried chicken leg some olive oil a fried pork chop a raw chicken wing some vegetable oil
+Current environment: Bedroom[bed(emptied), entranceway(opened, north), exit(opened, west)]
+Action templates:
+* inventory
+* examine <object>
+* open <object>
+* take <object> from <object>
+* cook <object> with <stove | oven>
+* drop <object>
+* <slice | dice | chop> <object> with knife
+* prepare meal
+* eat meal
+* go <direction>
+Next action (answer with the command directly):
+
+go west
+
+Task: Your task is to find and examine the recipe, then prepare the ingredients as required, prepare the meal and eat it.
+
+Action history: Action 0: inventory -> You are carrying: a fried chicken leg some olive oil a fried pork chop a raw chicken wing some vegetable oil Action 1: go east -> -= Corridor =- You arrive in a corridor. Action 2: go south -> -= Bedroom =- You find yourself in a bedroom. Action 3: go west -> -= Livingroom =- You're now in the livingroom. 
+Inventory: You are carrying: a fried chicken leg some olive oil a fried pork chop a raw chicken wing some vegetable oil
+Current environment: Livingroom[sofa(empty), exit(east), entranceway(west)]
+Action templates:
+* inventory
+* examine <object>
+* open <object>
+* take <object> from <object>
+* cook <object> with <stove | oven>
+* drop <object>
+* <slice | dice | chop> <object> with knife
+* prepare meal
+* eat meal
+* go <direction>
+Next action (answer with the command directly):
+
+go west
+
+Task: Your task is to find and examine the recipe, then prepare the ingredients as required, prepare the meal and eat it.
+
+Action history: Action 0: inventory -> You are carrying: a fried chicken leg some olive oil a fried pork chop a raw chicken wing some vegetable oil Action 1: go east -> -= Corridor =- You arrive in a corridor. Action 2: go south -> -= Bedroom =- You find yourself in a bedroom. Action 3: go west -> -= Livingroom =- You're now in the livingroom. Action 4: go west -> -= Kitchen =- You find yourself in a kitchen. 
+Inventory: You are carrying: a fried chicken leg some olive oil a fried pork chop a raw chicken wing some vegetable oil
+Current environment: Kitchen[fridge(empty), oven, table[cookbook, knife], counter(empty), stove(empty), plain door(opened, west), exit(east)]
+Action templates:
+* inventory
+* examine <object>
+* open <object>
+* take <object> from <object>
+* cook <object> with <stove | oven>
+* drop <object>
+* <slice | dice | chop> <object> with knife
+* prepare meal
+* eat meal
+* go <direction>
+Next action (answer with the command directly):
+
+examine cookbook
+
+Task: Your task is to find and examine the recipe, then prepare the ingredients as required, prepare the meal and eat it.
+
+Action history: Action 0: inventory -> You are carrying: a fried chicken leg some olive oil a fried pork chop a raw chicken wing some vegetable oil Action 1: go east -> -= Corridor =- You arrive in a corridor. Action 2: go south -> -= Bedroom =- You find yourself in a bedroom. Action 3: go west -> -= Livingroom =- You're now in the livingroom. Action 4: go west -> -= Kitchen =- You find yourself in a kitchen. Action 5: examine cookbook -> You open the copy of "Cooking: A Modern Approach (3rd Ed.)" and start reading: Recipe #1 --------- Gather all following ingredients and follow the directions to prepare this tasty meal. Ingredients: chicken leg olive oil pork chop Directions: fry the chicken leg dice the pork chop fry the pork chop prepare meal 
+Inventory: You are carrying: a fried chicken leg some olive oil a fried pork chop a raw chicken wing some vegetable oil
+Current environment: Kitchen[fridge(empty), oven, table[cookbook, knife], counter(empty), stove(empty), plain door(opened, west), exit(east)]
+Action templates:
+* inventory
+* examine <object>
+* open <object>
+* take <object> from <object>
+* cook <object> with <stove | oven>
+* drop <object>
+* <slice | dice | chop> <object> with knife
+* prepare meal
+* eat meal
+* go <direction>
+Next action (answer with the command directly):
+
+drop chicken wing
+
+Task: Your task is to find and examine the recipe, then prepare the ingredients as required, prepare the meal and eat it.
+
+Action history: Action 0: inventory -> You are carrying: a fried chicken leg some olive oil a fried pork chop a raw chicken wing some vegetable oil Action 1: go east -> -= Corridor =- You arrive in a corridor. Action 2: go south -> -= Bedroom =- You find yourself in a bedroom. Action 3: go west -> -= Livingroom =- You're now in the livingroom. Action 4: go west -> -= Kitchen =- You find yourself in a kitchen. Action 5: examine cookbook -> You open the copy of "Cooking: A Modern Approach (3rd Ed.)" and start reading: Recipe #1 --------- Gather all following ingredients and follow the directions to prepare this tasty meal. Ingredients: chicken leg olive oil pork chop Directions: fry the chicken leg dice the pork chop fry the pork chop prepare meal Action 6: drop chicken wing -> You drop the chicken wing on the ground. 
+Inventory: You are carrying: a fried chicken leg some olive oil a fried pork chop some vegetable oil
+Current environment: Kitchen[fridge(empty), oven, table[cookbook, knife], counter(empty), stove(empty), plain door(opened, west), exit(east), floor[raw chicken wing]]
+Action templates:
+* inventory
+* examine <object>
+* open <object>
+* take <object> from <object>
+* cook <object> with <stove | oven>
+* drop <object>
+* <slice | dice | chop> <object> with knife
+* prepare meal
+* eat meal
+* go <direction>
+Next action (answer with the command directly):
+
+drop vegetable oil
+
+Task: Your task is to find and examine the recipe, then prepare the ingredients as required, prepare the meal and eat it.
+
+Action history: Action 0: inventory -> You are carrying: a fried chicken leg some olive oil a fried pork chop a raw chicken wing some vegetable oil Action 1: go east -> -= Corridor =- You arrive in a corridor. Action 2: go south -> -= Bedroom =- You find yourself in a bedroom. Action 3: go west -> -= Livingroom =- You're now in the livingroom. Action 4: go west -> -= Kitchen =- You find yourself in a kitchen. Action 5: examine cookbook -> You open the copy of "Cooking: A Modern Approach (3rd Ed.)" and start reading: Recipe #1 --------- Gather all following ingredients and follow the directions to prepare this tasty meal. Ingredients: chicken leg olive oil pork chop Directions: fry the chicken leg dice the pork chop fry the pork chop prepare meal Action 6: drop chicken wing -> You drop the chicken wing on the ground. Action 7: drop vegetable oil -> You drop the vegetable oil on the ground. 
+Inventory: You are carrying: a fried chicken leg some olive oil a fried pork chop
+Current environment: Kitchen[fridge(empty), oven, table[cookbook, knife], counter(empty), stove(empty), plain door(opened, west), exit(opened, east), floor[vegetable oil, raw chicken wing]]
+Action templates:
+* inventory
+* examine <object>
+* open <object>
+* take <object> from <object>
+* cook <object> with <stove | oven>
+* drop <object>
+* <slice | dice | chop> <object> with knife
+* prepare meal
+* eat meal
+* go <direction>
+Next action (answer with the command directly):
+
+cook chicken leg with stove
+

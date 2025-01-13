@@ -1,0 +1,196 @@
+Task: Your task is to find and examine the recipe, then prepare the ingredients as required, prepare the meal and eat it.
+
+Action history: No action was taken now.
+Inventory: You are carrying nothing.
+Current environment: Kitchen[fridge(closed), oven(off), table(empty), counter[red apple, red hot pepper, yellow apple, red onion, yellow bell pepper, raw red potato, cookbook, knife], stove(empty)]
+Action templates:
+* inventory
+* examine <object>
+* open <object>
+* take <object> from <object>
+* cook <object> with <stove | oven>
+* drop <object>
+* <slice | dice | chop> <object> with knife
+* prepare meal
+* eat meal
+* go <direction>
+Next action (answer with the command directly):
+
+inventory
+
+Task: Your task is to find and examine the recipe, then prepare the ingredients as required, prepare the meal and eat it.
+
+Action history: Action 0: inventory -> You are carrying nothing. 
+Inventory: You are carrying nothing.
+Current environment: Kitchen[fridge(closed), oven(off), table(empty), counter[red apple, red hot pepper, yellow apple, red onion, yellow bell pepper, raw red potato, cookbook, knife], stove(empty)]
+Action templates:
+* inventory
+* examine <object>
+* open <object>
+* take <object> from <object>
+* cook <object> with <stove | oven>
+* drop <object>
+* <slice | dice | chop> <object> with knife
+* prepare meal
+* eat meal
+* go <direction>
+Next action (answer with the command directly):
+
+examine cookbook
+
+Task: Your task is to find and examine the recipe, then prepare the ingredients as required, prepare the meal and eat it.
+
+Action history: Action 0: inventory -> You are carrying nothing. Action 1: examine cookbook -> You open the copy of "Cooking: A Modern Approach (3rd Ed.)" and start reading: Recipe #1 --------- Gather all following ingredients and follow the directions to prepare this tasty meal. Ingredients: parsley red apple red hot pepper Directions: chop the parsley roast the red apple prepare meal 
+Inventory: You are carrying nothing.
+Current environment: Kitchen[fridge(closed), oven(off), table(empty), counter[red apple, red hot pepper, yellow apple, red onion, yellow bell pepper, raw red potato, cookbook, knife], stove(empty)]
+Action templates:
+* inventory
+* examine <object>
+* open <object>
+* take <object> from <object>
+* cook <object> with <stove | oven>
+* drop <object>
+* <slice | dice | chop> <object> with knife
+* prepare meal
+* eat meal
+* go <direction>
+Next action (answer with the command directly):
+
+take parsley from counter
+
+ACTION SELCTOR
+ACTION SELCTOR
+take parsley from counter->examine counter
+
+Task: Your task is to find and examine the recipe, then prepare the ingredients as required, prepare the meal and eat it.
+
+Action history: Action 0: inventory -> You are carrying nothing. Action 1: examine cookbook -> You open the copy of "Cooking: A Modern Approach (3rd Ed.)" and start reading: Recipe #1 --------- Gather all following ingredients and follow the directions to prepare this tasty meal. Ingredients: parsley red apple red hot pepper Directions: chop the parsley roast the red apple prepare meal Action 2: examine counter -> The counter is wobbly. On the counter are a red apple, a red hot pepper, a yellow apple, a red onion, a yellow bell pepper, a raw red potato, a cookbook and a knife. 
+Inventory: You are carrying nothing.
+Current environment: Kitchen[fridge(closed), oven(off), table(empty), counter[red apple, red hot pepper, yellow apple, red onion, yellow bell pepper, raw red potato, cookbook, knife], stove(empty)]
+Action templates:
+* inventory
+* examine <object>
+* open <object>
+* take <object> from <object>
+* cook <object> with <stove | oven>
+* drop <object>
+* <slice | dice | chop> <object> with knife
+* prepare meal
+* eat meal
+* go <direction>
+Next action (answer with the command directly):
+
+take parsley from fridge
+
+ACTION SELCTOR
+ACTION SELCTOR
+take parsley from fridge->open fridge
+
+Task: Your task is to find and examine the recipe, then prepare the ingredients as required, prepare the meal and eat it.
+
+Action history: Action 0: inventory -> You are carrying nothing. Action 1: examine cookbook -> You open the copy of "Cooking: A Modern Approach (3rd Ed.)" and start reading: Recipe #1 --------- Gather all following ingredients and follow the directions to prepare this tasty meal. Ingredients: parsley red apple red hot pepper Directions: chop the parsley roast the red apple prepare meal Action 2: examine counter -> The counter is wobbly. On the counter are a red apple, a red hot pepper, a yellow apple, a red onion, a yellow bell pepper, a raw red potato, a cookbook and a knife. Action 3: open fridge -> You open the fridge, revealing a parsley, a raw egg and a block of cheese. 
+Inventory: You are carrying nothing.
+Current environment: Kitchen[fridge(closed)[parsley, raw egg, block of cheese], oven(visible), table(empty), counter[red apple, red hot pepper, yellow apple, red onion, yellow bell pepper, raw red potato, cookbook, knife], stove(empty)]
+Action templates:
+* inventory
+* examine <object>
+* open <object>
+* take <object> from <object>
+* cook <object> with <stove | oven>
+* drop <object>
+* <slice | dice | chop> <object> with knife
+* prepare meal
+* eat meal
+* go <direction>
+Next action (answer with the command directly):
+
+take parsley from fridge
+
+Task: Your task is to find and examine the recipe, then prepare the ingredients as required, prepare the meal and eat it.
+
+Action history: Action 0: inventory -> You are carrying nothing. Action 1: examine cookbook -> You open the copy of "Cooking: A Modern Approach (3rd Ed.)" and start reading: Recipe #1 --------- Gather all following ingredients and follow the directions to prepare this tasty meal. Ingredients: parsley red apple red hot pepper Directions: chop the parsley roast the red apple prepare meal Action 2: examine counter -> The counter is wobbly. On the counter are a red apple, a red hot pepper, a yellow apple, a red onion, a yellow bell pepper, a raw red potato, a cookbook and a knife. Action 3: open fridge -> You open the fridge, revealing a parsley, a raw egg and a block of cheese. Action 4: take parsley from fridge -> You take the parsley from the fridge. Your score has just gone up by one point. 
+Inventory: You are carrying: a parsley
+Current environment: Kitchen[fridge(closed)[raw egg, block of cheese], oven(unknown), table(emptied), counter[red apple, red hot pepper, yellow apple, red onion, yellow bell pepper, raw red potato, cookbook, knife], stove(empty)]
+Action templates:
+* inventory
+* examine <object>
+* open <object>
+* take <object> from <object>
+* cook <object> with <stove | oven>
+* drop <object>
+* <slice | dice | chop> <object> with knife
+* prepare meal
+* eat meal
+* go <direction>
+Next action (answer with the command directly):
+
+take red apple from counter
+
+Task: Your task is to find and examine the recipe, then prepare the ingredients as required, prepare the meal and eat it.
+
+Action history: Action 0: inventory -> You are carrying nothing. Action 1: examine cookbook -> You open the copy of "Cooking: A Modern Approach (3rd Ed.)" and start reading: Recipe #1 --------- Gather all following ingredients and follow the directions to prepare this tasty meal. Ingredients: parsley red apple red hot pepper Directions: chop the parsley roast the red apple prepare meal Action 2: examine counter -> The counter is wobbly. On the counter are a red apple, a red hot pepper, a yellow apple, a red onion, a yellow bell pepper, a raw red potato, a cookbook and a knife. Action 3: open fridge -> You open the fridge, revealing a parsley, a raw egg and a block of cheese. Action 4: take parsley from fridge -> You take the parsley from the fridge. Your score has just gone up by one point. Action 5: take red apple from counter -> You take the red apple from the counter. Your score has just gone up by one point. 
+Inventory: You are carrying: a red apple a parsley
+Current environment: Kitchen[fridge(closed)[raw egg, block of cheese], oven(unknown), table(emptied), counter[red hot pepper, yellow apple, red onion, yellow bell pepper, raw red potato, cookbook, knife], stove(empty)]
+Action templates:
+* inventory
+* examine <object>
+* open <object>
+* take <object> from <object>
+* cook <object> with <stove | oven>
+* drop <object>
+* <slice | dice | chop> <object> with knife
+* prepare meal
+* eat meal
+* go <direction>
+Next action (answer with the command directly):
+
+take red hot pepper from counter
+
+Task: Your task is to find and examine the recipe, then prepare the ingredients as required, prepare the meal and eat it.
+
+Action history: Action 0: inventory -> You are carrying nothing. Action 1: examine cookbook -> You open the copy of "Cooking: A Modern Approach (3rd Ed.)" and start reading: Recipe #1 --------- Gather all following ingredients and follow the directions to prepare this tasty meal. Ingredients: parsley red apple red hot pepper Directions: chop the parsley roast the red apple prepare meal Action 2: examine counter -> The counter is wobbly. On the counter are a red apple, a red hot pepper, a yellow apple, a red onion, a yellow bell pepper, a raw red potato, a cookbook and a knife. Action 3: open fridge -> You open the fridge, revealing a parsley, a raw egg and a block of cheese. Action 4: take parsley from fridge -> You take the parsley from the fridge. Your score has just gone up by one point. Action 5: take red apple from counter -> You take the red apple from the counter. Your score has just gone up by one point. Action 6: take red hot pepper from counter -> You take the red hot pepper from the counter. Your score has just gone up by one point. 
+Inventory: You are carrying: a red hot pepper a red apple a parsley
+Current environment: Kitchen[fridge(closed)[raw egg, block of cheese], oven(visible), table(empty), counter[yellow apple, red onion, yellow bell pepper, raw red potato, cookbook, knife], stove(empty)]
+Action templates:
+* inventory
+* examine <object>
+* open <object>
+* take <object> from <object>
+* cook <object> with <stove | oven>
+* drop <object>
+* <slice | dice | chop> <object> with knife
+* prepare meal
+* eat meal
+* go <direction>
+Next action (answer with the command directly):
+
+cook parsley with knife
+
+ACTION SELCTOR
+ACTION SELCTOR
+cook parsley with knife->put parsley on stove
+
+Task: Your task is to find and examine the recipe, then prepare the ingredients as required, prepare the meal and eat it.
+
+Action history: Action 0: inventory -> You are carrying nothing. Action 1: examine cookbook -> You open the copy of "Cooking: A Modern Approach (3rd Ed.)" and start reading: Recipe #1 --------- Gather all following ingredients and follow the directions to prepare this tasty meal. Ingredients: parsley red apple red hot pepper Directions: chop the parsley roast the red apple prepare meal Action 2: examine counter -> The counter is wobbly. On the counter are a red apple, a red hot pepper, a yellow apple, a red onion, a yellow bell pepper, a raw red potato, a cookbook and a knife. Action 3: open fridge -> You open the fridge, revealing a parsley, a raw egg and a block of cheese. Action 4: take parsley from fridge -> You take the parsley from the fridge. Your score has just gone up by one point. Action 5: take red apple from counter -> You take the red apple from the counter. Your score has just gone up by one point. Action 6: take red hot pepper from counter -> You take the red hot pepper from the counter. Your score has just gone up by one point. Action 7: put parsley on stove -> You put the parsley on the stove. 
+Inventory: You are carrying: a red hot pepper a red apple
+Current environment: Kitchen[fridge(closed)[raw egg, block of cheese], oven(visible), table(empty), counter[yellow apple, red onion, yellow bell pepper, raw red potato, cookbook, knife], stove(conventional)[parsley]]
+Action templates:
+* inventory
+* examine <object>
+* open <object>
+* take <object> from <object>
+* cook <object> with <stove | oven>
+* drop <object>
+* <slice | dice | chop> <object> with knife
+* prepare meal
+* eat meal
+* go <direction>
+Next action (answer with the command directly):
+
+cook parsley with stove
+
+ACTION SELCTOR
+ACTION SELCTOR
+cook parsley with stove->cook red hot pepper with stove
+

@@ -1,0 +1,416 @@
+Task: Your task is to find and examine the recipe, then prepare the ingredients as required, prepare the meal and eat it.
+
+Action history: No action was taken now.
+Inventory: You are carrying nothing.
+Current environment: Backyard[patio chair(empty), patio table(empty), BBQ, sliding patio door(opened, north), barn door(opened, south), entranceway(open)]
+Action templates:
+* inventory
+* examine <object>
+* open <object>
+* take <object> from <object>
+* cook <object> with <stove | oven>
+* drop <object>
+* <slice | dice | chop> <object> with knife
+* prepare meal
+* eat meal
+* go <direction>
+Next action (answer with the command directly):
+
+inventory
+
+Task: Your task is to find and examine the recipe, then prepare the ingredients as required, prepare the meal and eat it.
+
+Action history: Action 0: inventory -> You are carrying nothing. 
+Inventory: You are carrying nothing.
+Current environment: Backyard[patio chair(empty), patio table(empty), BBQ, sliding patio door(opened, north), barn door(opened, south), entranceway(open)]
+Action templates:
+* inventory
+* examine <object>
+* open <object>
+* take <object> from <object>
+* cook <object> with <stove | oven>
+* drop <object>
+* <slice | dice | chop> <object> with knife
+* prepare meal
+* eat meal
+* go <direction>
+Next action (answer with the command directly):
+
+go north
+
+Task: Your task is to find and examine the recipe, then prepare the ingredients as required, prepare the meal and eat it.
+
+Action history: Action 0: inventory -> You are carrying nothing. Action 1: go north -> -= Kitchen =- You are in a kitchen. 
+Inventory: You are carrying nothing.
+Current environment: Kitchen[fridge(empty), oven(closed), table[cookbook], counter[knife], stove(empty), sliding patio door(opened, south), plain door(opened, west), entranceway(opened, east)]
+Action templates:
+* inventory
+* examine <object>
+* open <object>
+* take <object> from <object>
+* cook <object> with <stove | oven>
+* drop <object>
+* <slice | dice | chop> <object> with knife
+* prepare meal
+* eat meal
+* go <direction>
+Next action (answer with the command directly):
+
+examine cookbook
+
+Task: Your task is to find and examine the recipe, then prepare the ingredients as required, prepare the meal and eat it.
+
+Action history: Action 0: inventory -> You are carrying nothing. Action 1: go north -> -= Kitchen =- You are in a kitchen. Action 2: examine cookbook -> You open the copy of "Cooking: A Modern Approach (3rd Ed.)" and start reading: Recipe #1 --------- Gather all following ingredients and follow the directions to prepare this tasty meal. Ingredients: flour Directions: prepare meal 
+Inventory: You are carrying nothing.
+Current environment: Kitchen[fridge(empty), oven(closed), table[cookbook], counter[knife], stove(empty), sliding patio door(opened, south), plain door(opened, west), entranceway(opened, east)]
+Action templates:
+* inventory
+* examine <object>
+* open <object>
+* take <object> from <object>
+* cook <object> with <stove | oven>
+* drop <object>
+* <slice | dice | chop> <object> with knife
+* prepare meal
+* eat meal
+* go <direction>
+Next action (answer with the command directly):
+
+open patio door
+
+ACTION SELCTOR
+ACTION SELCTOR
+open patio door->close sliding patio door
+
+Task: Your task is to find and examine the recipe, then prepare the ingredients as required, prepare the meal and eat it.
+
+Action history: Action 0: inventory -> You are carrying nothing. Action 1: go north -> -= Kitchen =- You are in a kitchen. Action 2: examine cookbook -> You open the copy of "Cooking: A Modern Approach (3rd Ed.)" and start reading: Recipe #1 --------- Gather all following ingredients and follow the directions to prepare this tasty meal. Ingredients: flour Directions: prepare meal Action 3: close sliding patio door -> You close sliding patio door. 
+Inventory: You are carrying nothing.
+Current environment: Kitchen[fridge(empty), oven(closed), table[cookbook], counter[knife], stove(empty), patio door(closed, south), plain door(opened, west), entranceway(opened, east)]
+Action templates:
+* inventory
+* examine <object>
+* open <object>
+* take <object> from <object>
+* cook <object> with <stove | oven>
+* drop <object>
+* <slice | dice | chop> <object> with knife
+* prepare meal
+* eat meal
+* go <direction>
+Next action (answer with the command directly):
+
+go west
+
+Task: Your task is to find and examine the recipe, then prepare the ingredients as required, prepare the meal and eat it.
+
+Action history: Action 0: inventory -> You are carrying nothing. Action 1: go north -> -= Kitchen =- You are in a kitchen. Action 2: examine cookbook -> You open the copy of "Cooking: A Modern Approach (3rd Ed.)" and start reading: Recipe #1 --------- Gather all following ingredients and follow the directions to prepare this tasty meal. Ingredients: flour Directions: prepare meal Action 3: close sliding patio door -> You close sliding patio door. Action 4: go west -> -= Pantry =- You've just shown up in a pantry. 
+Inventory: You are carrying nothing.
+Current environment: Pantry[shelf(empty), plain door(opened, east)]
+Action templates:
+* inventory
+* examine <object>
+* open <object>
+* take <object> from <object>
+* cook <object> with <stove | oven>
+* drop <object>
+* <slice | dice | chop> <object> with knife
+* prepare meal
+* eat meal
+* go <direction>
+Next action (answer with the command directly):
+
+open plain door
+
+ACTION SELCTOR
+ACTION SELCTOR
+open plain door->go east
+
+Task: Your task is to find and examine the recipe, then prepare the ingredients as required, prepare the meal and eat it.
+
+Action history: Action 0: inventory -> You are carrying nothing. Action 1: go north -> -= Kitchen =- You are in a kitchen. Action 2: examine cookbook -> You open the copy of "Cooking: A Modern Approach (3rd Ed.)" and start reading: Recipe #1 --------- Gather all following ingredients and follow the directions to prepare this tasty meal. Ingredients: flour Directions: prepare meal Action 3: close sliding patio door -> You close sliding patio door. Action 4: go west -> -= Pantry =- You've just shown up in a pantry. Action 5: go east -> -= Kitchen =- You are in a kitchen. 
+Inventory: You are carrying nothing.
+Current environment: Kitchen[fridge(empty), oven(closed), table[cookbook], counter[knife], stove(empty), patio door(closed, south), plain door(opened, west), entranceway(opened, east)]
+Action templates:
+* inventory
+* examine <object>
+* open <object>
+* take <object> from <object>
+* cook <object> with <stove | oven>
+* drop <object>
+* <slice | dice | chop> <object> with knife
+* prepare meal
+* eat meal
+* go <direction>
+Next action (answer with the command directly):
+
+go west
+
+Task: Your task is to find and examine the recipe, then prepare the ingredients as required, prepare the meal and eat it.
+
+Action history: Action 0: inventory -> You are carrying nothing. Action 1: go north -> -= Kitchen =- You are in a kitchen. Action 2: examine cookbook -> You open the copy of "Cooking: A Modern Approach (3rd Ed.)" and start reading: Recipe #1 --------- Gather all following ingredients and follow the directions to prepare this tasty meal. Ingredients: flour Directions: prepare meal Action 3: close sliding patio door -> You close sliding patio door. Action 4: go west -> -= Pantry =- You've just shown up in a pantry. Action 5: go east -> -= Kitchen =- You are in a kitchen. Action 6: go west -> -= Pantry =- You've just shown up in a pantry. 
+Inventory: You are carrying nothing.
+Current environment: Pantry[shelf(empty), plain door(opened, east)]
+Action templates:
+* inventory
+* examine <object>
+* open <object>
+* take <object> from <object>
+* cook <object> with <stove | oven>
+* drop <object>
+* <slice | dice | chop> <object> with knife
+* prepare meal
+* eat meal
+* go <direction>
+Next action (answer with the command directly):
+
+open plain door
+
+ACTION SELCTOR
+ACTION SELCTOR
+open plain door->go east
+
+Task: Your task is to find and examine the recipe, then prepare the ingredients as required, prepare the meal and eat it.
+
+Action history: Action 0: inventory -> You are carrying nothing. Action 1: go north -> -= Kitchen =- You are in a kitchen. Action 2: examine cookbook -> You open the copy of "Cooking: A Modern Approach (3rd Ed.)" and start reading: Recipe #1 --------- Gather all following ingredients and follow the directions to prepare this tasty meal. Ingredients: flour Directions: prepare meal Action 3: close sliding patio door -> You close sliding patio door. Action 4: go west -> -= Pantry =- You've just shown up in a pantry. Action 5: go east -> -= Kitchen =- You are in a kitchen. Action 6: go west -> -= Pantry =- You've just shown up in a pantry. Action 7: go east -> -= Kitchen =- You are in a kitchen. 
+Inventory: You are carrying nothing.
+Current environment: Kitchen[fridge(empty), oven(closed), table[cookbook], counter[knife], stove(empty), patio door(closed, south), plain door(opened, west), entranceway(opened, east)]
+Action templates:
+* inventory
+* examine <object>
+* open <object>
+* take <object> from <object>
+* cook <object> with <stove | oven>
+* drop <object>
+* <slice | dice | chop> <object> with knife
+* prepare meal
+* eat meal
+* go <direction>
+Next action (answer with the command directly):
+
+go west
+
+Task: Your task is to find and examine the recipe, then prepare the ingredients as required, prepare the meal and eat it.
+
+Action history: Action 0: inventory -> You are carrying nothing. Action 1: go north -> -= Kitchen =- You are in a kitchen. Action 2: examine cookbook -> You open the copy of "Cooking: A Modern Approach (3rd Ed.)" and start reading: Recipe #1 --------- Gather all following ingredients and follow the directions to prepare this tasty meal. Ingredients: flour Directions: prepare meal Action 3: close sliding patio door -> You close sliding patio door. Action 4: go west -> -= Pantry =- You've just shown up in a pantry. Action 5: go east -> -= Kitchen =- You are in a kitchen. Action 6: go west -> -= Pantry =- You've just shown up in a pantry. Action 7: go east -> -= Kitchen =- You are in a kitchen. Action 8: go west -> -= Pantry =- You've just shown up in a pantry. 
+Inventory: You are carrying nothing.
+Current environment: Pantry[shelf(empty), plain door(opened, east)]
+Action templates:
+* inventory
+* examine <object>
+* open <object>
+* take <object> from <object>
+* cook <object> with <stove | oven>
+* drop <object>
+* <slice | dice | chop> <object> with knife
+* prepare meal
+* eat meal
+* go <direction>
+Next action (answer with the command directly):
+
+open plain door
+
+ACTION SELCTOR
+ACTION SELCTOR
+open plain door->go east
+
+Task: Your task is to find and examine the recipe, then prepare the ingredients as required, prepare the meal and eat it.
+
+Action history: Action 0: inventory -> You are carrying nothing. Action 1: go north -> -= Kitchen =- You are in a kitchen. Action 2: examine cookbook -> You open the copy of "Cooking: A Modern Approach (3rd Ed.)" and start reading: Recipe #1 --------- Gather all following ingredients and follow the directions to prepare this tasty meal. Ingredients: flour Directions: prepare meal Action 3: close sliding patio door -> You close sliding patio door. Action 4: go west -> -= Pantry =- You've just shown up in a pantry. Action 5: go east -> -= Kitchen =- You are in a kitchen. Action 6: go west -> -= Pantry =- You've just shown up in a pantry. Action 7: go east -> -= Kitchen =- You are in a kitchen. Action 8: go west -> -= Pantry =- You've just shown up in a pantry. Action 9: go east -> -= Kitchen =- You are in a kitchen. 
+Inventory: You are carrying nothing.
+Current environment: Kitchen[fridge(empty), oven(closed), table[cookbook], counter[knife], stove(empty), patio door(closed, south), plain door(opened, west), entranceway(opened, east)]
+Action templates:
+* inventory
+* examine <object>
+* open <object>
+* take <object> from <object>
+* cook <object> with <stove | oven>
+* drop <object>
+* <slice | dice | chop> <object> with knife
+* prepare meal
+* eat meal
+* go <direction>
+Next action (answer with the command directly):
+
+go west
+
+Task: Your task is to find and examine the recipe, then prepare the ingredients as required, prepare the meal and eat it.
+
+Action history: Action 0: inventory -> You are carrying nothing. Action 1: go north -> -= Kitchen =- You are in a kitchen. Action 2: examine cookbook -> You open the copy of "Cooking: A Modern Approach (3rd Ed.)" and start reading: Recipe #1 --------- Gather all following ingredients and follow the directions to prepare this tasty meal. Ingredients: flour Directions: prepare meal Action 3: close sliding patio door -> You close sliding patio door. Action 4: go west -> -= Pantry =- You've just shown up in a pantry. Action 5: go east -> -= Kitchen =- You are in a kitchen. Action 6: go west -> -= Pantry =- You've just shown up in a pantry. Action 7: go east -> -= Kitchen =- You are in a kitchen. Action 8: go west -> -= Pantry =- You've just shown up in a pantry. Action 9: go east -> -= Kitchen =- You are in a kitchen. Action 10: go west -> -= Pantry =- You've just shown up in a pantry. 
+Inventory: You are carrying nothing.
+Current environment: Pantry[shelf(empty), plain door(opened, east)]
+Action templates:
+* inventory
+* examine <object>
+* open <object>
+* take <object> from <object>
+* cook <object> with <stove | oven>
+* drop <object>
+* <slice | dice | chop> <object> with knife
+* prepare meal
+* eat meal
+* go <direction>
+Next action (answer with the command directly):
+
+go east
+
+Task: Your task is to find and examine the recipe, then prepare the ingredients as required, prepare the meal and eat it.
+
+Action history: Action 0: inventory -> You are carrying nothing. Action 1: go north -> -= Kitchen =- You are in a kitchen. Action 2: examine cookbook -> You open the copy of "Cooking: A Modern Approach (3rd Ed.)" and start reading: Recipe #1 --------- Gather all following ingredients and follow the directions to prepare this tasty meal. Ingredients: flour Directions: prepare meal Action 3: close sliding patio door -> You close sliding patio door. Action 4: go west -> -= Pantry =- You've just shown up in a pantry. Action 5: go east -> -= Kitchen =- You are in a kitchen. Action 6: go west -> -= Pantry =- You've just shown up in a pantry. Action 7: go east -> -= Kitchen =- You are in a kitchen. Action 8: go west -> -= Pantry =- You've just shown up in a pantry. Action 9: go east -> -= Kitchen =- You are in a kitchen. Action 10: go west -> -= Pantry =- You've just shown up in a pantry. Action 11: go east -> -= Kitchen =- You are in a kitchen. 
+Inventory: You are carrying nothing.
+Current environment: Kitchen[fridge(empty), oven(closed), table[cookbook], counter[knife], stove(empty), patio door(closed, south), plain door(opened, west), entranceway(opened, east)]
+Action templates:
+* inventory
+* examine <object>
+* open <object>
+* take <object> from <object>
+* cook <object> with <stove | oven>
+* drop <object>
+* <slice | dice | chop> <object> with knife
+* prepare meal
+* eat meal
+* go <direction>
+Next action (answer with the command directly):
+
+go west
+
+Task: Your task is to find and examine the recipe, then prepare the ingredients as required, prepare the meal and eat it.
+
+Action history: Action 0: inventory -> You are carrying nothing. Action 1: go north -> -= Kitchen =- You are in a kitchen. Action 2: examine cookbook -> You open the copy of "Cooking: A Modern Approach (3rd Ed.)" and start reading: Recipe #1 --------- Gather all following ingredients and follow the directions to prepare this tasty meal. Ingredients: flour Directions: prepare meal Action 3: close sliding patio door -> You close sliding patio door. Action 4: go west -> -= Pantry =- You've just shown up in a pantry. Action 5: go east -> -= Kitchen =- You are in a kitchen. Action 6: go west -> -= Pantry =- You've just shown up in a pantry. Action 7: go east -> -= Kitchen =- You are in a kitchen. Action 8: go west -> -= Pantry =- You've just shown up in a pantry. Action 9: go east -> -= Kitchen =- You are in a kitchen. Action 10: go west -> -= Pantry =- You've just shown up in a pantry. Action 11: go east -> -= Kitchen =- You are in a kitchen. Action 12: go west -> -= Pantry =- You've just shown up in a pantry. 
+Inventory: You are carrying nothing.
+Current environment: Pantry[shelf(empty), plain door(opened, east)]
+Action templates:
+* inventory
+* examine <object>
+* open <object>
+* take <object> from <object>
+* cook <object> with <stove | oven>
+* drop <object>
+* <slice | dice | chop> <object> with knife
+* prepare meal
+* eat meal
+* go <direction>
+Next action (answer with the command directly):
+
+go east
+
+Task: Your task is to find and examine the recipe, then prepare the ingredients as required, prepare the meal and eat it.
+
+Action history: Action 0: inventory -> You are carrying nothing. Action 1: go north -> -= Kitchen =- You are in a kitchen. Action 2: examine cookbook -> You open the copy of "Cooking: A Modern Approach (3rd Ed.)" and start reading: Recipe #1 --------- Gather all following ingredients and follow the directions to prepare this tasty meal. Ingredients: flour Directions: prepare meal Action 3: close sliding patio door -> You close sliding patio door. Action 4: go west -> -= Pantry =- You've just shown up in a pantry. Action 5: go east -> -= Kitchen =- You are in a kitchen. Action 6: go west -> -= Pantry =- You've just shown up in a pantry. Action 7: go east -> -= Kitchen =- You are in a kitchen. Action 8: go west -> -= Pantry =- You've just shown up in a pantry. Action 9: go east -> -= Kitchen =- You are in a kitchen. Action 10: go west -> -= Pantry =- You've just shown up in a pantry. Action 11: go east -> -= Kitchen =- You are in a kitchen. Action 12: go west -> -= Pantry =- You've just shown up in a pantry. Action 13: go east -> -= Kitchen =- You are in a kitchen. 
+Inventory: You are carrying nothing.
+Current environment: Kitchen[fridge(empty), oven(closed), table[cookbook], counter[knife], stove(empty), patio door(closed, south), plain door(opened, west), entranceway(opened, east)]
+Action templates:
+* inventory
+* examine <object>
+* open <object>
+* take <object> from <object>
+* cook <object> with <stove | oven>
+* drop <object>
+* <slice | dice | chop> <object> with knife
+* prepare meal
+* eat meal
+* go <direction>
+Next action (answer with the command directly):
+
+go west
+
+Task: Your task is to find and examine the recipe, then prepare the ingredients as required, prepare the meal and eat it.
+
+Action history: Action 0: inventory -> You are carrying nothing. Action 1: go north -> -= Kitchen =- You are in a kitchen. Action 2: examine cookbook -> You open the copy of "Cooking: A Modern Approach (3rd Ed.)" and start reading: Recipe #1 --------- Gather all following ingredients and follow the directions to prepare this tasty meal. Ingredients: flour Directions: prepare meal Action 3: close sliding patio door -> You close sliding patio door. Action 4: go west -> -= Pantry =- You've just shown up in a pantry. Action 5: go east -> -= Kitchen =- You are in a kitchen. Action 6: go west -> -= Pantry =- You've just shown up in a pantry. Action 7: go east -> -= Kitchen =- You are in a kitchen. Action 8: go west -> -= Pantry =- You've just shown up in a pantry. Action 9: go east -> -= Kitchen =- You are in a kitchen. Action 10: go west -> -= Pantry =- You've just shown up in a pantry. Action 11: go east -> -= Kitchen =- You are in a kitchen. Action 12: go west -> -= Pantry =- You've just shown up in a pantry. Action 13: go east -> -= Kitchen =- You are in a kitchen. Action 14: go west -> -= Pantry =- You've just shown up in a pantry. 
+Inventory: You are carrying nothing.
+Current environment: Pantry[shelf(empty), plain door(opened, east)]
+Action templates:
+* inventory
+* examine <object>
+* open <object>
+* take <object> from <object>
+* cook <object> with <stove | oven>
+* drop <object>
+* <slice | dice | chop> <object> with knife
+* prepare meal
+* eat meal
+* go <direction>
+Next action (answer with the command directly):
+
+go east
+
+Task: Your task is to find and examine the recipe, then prepare the ingredients as required, prepare the meal and eat it.
+
+Action history: Action 0: inventory -> You are carrying nothing. Action 1: go north -> -= Kitchen =- You are in a kitchen. Action 2: examine cookbook -> You open the copy of "Cooking: A Modern Approach (3rd Ed.)" and start reading: Recipe #1 --------- Gather all following ingredients and follow the directions to prepare this tasty meal. Ingredients: flour Directions: prepare meal Action 3: close sliding patio door -> You close sliding patio door. Action 4: go west -> -= Pantry =- You've just shown up in a pantry. Action 5: go east -> -= Kitchen =- You are in a kitchen. Action 6: go west -> -= Pantry =- You've just shown up in a pantry. Action 7: go east -> -= Kitchen =- You are in a kitchen. Action 8: go west -> -= Pantry =- You've just shown up in a pantry. Action 9: go east -> -= Kitchen =- You are in a kitchen. Action 10: go west -> -= Pantry =- You've just shown up in a pantry. Action 11: go east -> -= Kitchen =- You are in a kitchen. Action 12: go west -> -= Pantry =- You've just shown up in a pantry. Action 13: go east -> -= Kitchen =- You are in a kitchen. Action 14: go west -> -= Pantry =- You've just shown up in a pantry. Action 15: go east -> -= Kitchen =- You are in a kitchen. 
+Inventory: You are carrying nothing.
+Current environment: Kitchen[fridge(empty), oven(closed), table[cookbook], counter[knife], stove(empty), patio door(closed, south), plain door(opened, west), entranceway(opened, east)]
+Action templates:
+* inventory
+* examine <object>
+* open <object>
+* take <object> from <object>
+* cook <object> with <stove | oven>
+* drop <object>
+* <slice | dice | chop> <object> with knife
+* prepare meal
+* eat meal
+* go <direction>
+Next action (answer with the command directly):
+
+go west
+
+Task: Your task is to find and examine the recipe, then prepare the ingredients as required, prepare the meal and eat it.
+
+Action history: Action 0: inventory -> You are carrying nothing. Action 1: go north -> -= Kitchen =- You are in a kitchen. Action 2: examine cookbook -> You open the copy of "Cooking: A Modern Approach (3rd Ed.)" and start reading: Recipe #1 --------- Gather all following ingredients and follow the directions to prepare this tasty meal. Ingredients: flour Directions: prepare meal Action 3: close sliding patio door -> You close sliding patio door. Action 4: go west -> -= Pantry =- You've just shown up in a pantry. Action 5: go east -> -= Kitchen =- You are in a kitchen. Action 6: go west -> -= Pantry =- You've just shown up in a pantry. Action 7: go east -> -= Kitchen =- You are in a kitchen. Action 8: go west -> -= Pantry =- You've just shown up in a pantry. Action 9: go east -> -= Kitchen =- You are in a kitchen. Action 10: go west -> -= Pantry =- You've just shown up in a pantry. Action 11: go east -> -= Kitchen =- You are in a kitchen. Action 12: go west -> -= Pantry =- You've just shown up in a pantry. Action 13: go east -> -= Kitchen =- You are in a kitchen. Action 14: go west -> -= Pantry =- You've just shown up in a pantry. Action 15: go east -> -= Kitchen =- You are in a kitchen. Action 16: go west -> -= Pantry =- You've just shown up in a pantry. 
+Inventory: You are carrying nothing.
+Current environment: Pantry[shelf(empty), plain door(opened, east)]
+Action templates:
+* inventory
+* examine <object>
+* open <object>
+* take <object> from <object>
+* cook <object> with <stove | oven>
+* drop <object>
+* <slice | dice | chop> <object> with knife
+* prepare meal
+* eat meal
+* go <direction>
+Next action (answer with the command directly):
+
+go east
+
+Task: Your task is to find and examine the recipe, then prepare the ingredients as required, prepare the meal and eat it.
+
+Action history: Action 0: inventory -> You are carrying nothing. Action 1: go north -> -= Kitchen =- You are in a kitchen. Action 2: examine cookbook -> You open the copy of "Cooking: A Modern Approach (3rd Ed.)" and start reading: Recipe #1 --------- Gather all following ingredients and follow the directions to prepare this tasty meal. Ingredients: flour Directions: prepare meal Action 3: close sliding patio door -> You close sliding patio door. Action 4: go west -> -= Pantry =- You've just shown up in a pantry. Action 5: go east -> -= Kitchen =- You are in a kitchen. Action 6: go west -> -= Pantry =- You've just shown up in a pantry. Action 7: go east -> -= Kitchen =- You are in a kitchen. Action 8: go west -> -= Pantry =- You've just shown up in a pantry. Action 9: go east -> -= Kitchen =- You are in a kitchen. Action 10: go west -> -= Pantry =- You've just shown up in a pantry. Action 11: go east -> -= Kitchen =- You are in a kitchen. Action 12: go west -> -= Pantry =- You've just shown up in a pantry. Action 13: go east -> -= Kitchen =- You are in a kitchen. Action 14: go west -> -= Pantry =- You've just shown up in a pantry. Action 15: go east -> -= Kitchen =- You are in a kitchen. Action 16: go west -> -= Pantry =- You've just shown up in a pantry. Action 17: go east -> -= Kitchen =- You are in a kitchen. 
+Inventory: You are carrying nothing.
+Current environment: Kitchen[fridge(empty), oven(closed), table[cookbook], counter[knife], stove(empty), patio door(closed, south), plain door(opened, west), entranceway(opened, east)]
+Action templates:
+* inventory
+* examine <object>
+* open <object>
+* take <object> from <object>
+* cook <object> with <stove | oven>
+* drop <object>
+* <slice | dice | chop> <object> with knife
+* prepare meal
+* eat meal
+* go <direction>
+Next action (answer with the command directly):
+
+go west
+
+Task: Your task is to find and examine the recipe, then prepare the ingredients as required, prepare the meal and eat it.
+
+Action history: Action 0: inventory -> You are carrying nothing. Action 1: go north -> -= Kitchen =- You are in a kitchen. Action 2: examine cookbook -> You open the copy of "Cooking: A Modern Approach (3rd Ed.)" and start reading: Recipe #1 --------- Gather all following ingredients and follow the directions to prepare this tasty meal. Ingredients: flour Directions: prepare meal Action 3: close sliding patio door -> You close sliding patio door. Action 4: go west -> -= Pantry =- You've just shown up in a pantry. Action 5: go east -> -= Kitchen =- You are in a kitchen. Action 6: go west -> -= Pantry =- You've just shown up in a pantry. Action 7: go east -> -= Kitchen =- You are in a kitchen. Action 8: go west -> -= Pantry =- You've just shown up in a pantry. Action 9: go east -> -= Kitchen =- You are in a kitchen. Action 10: go west -> -= Pantry =- You've just shown up in a pantry. Action 11: go east -> -= Kitchen =- You are in a kitchen. Action 12: go west -> -= Pantry =- You've just shown up in a pantry. Action 13: go east -> -= Kitchen =- You are in a kitchen. Action 14: go west -> -= Pantry =- You've just shown up in a pantry. Action 15: go east -> -= Kitchen =- You are in a kitchen. Action 16: go west -> -= Pantry =- You've just shown up in a pantry. Action 17: go east -> -= Kitchen =- You are in a kitchen. Action 18: go west -> -= Pantry =- You've just shown up in a pantry. 
+Inventory: You are carrying nothing.
+Current environment: Pantry[shelf(empty), plain door(opened, east)]
+Action templates:
+* inventory
+* examine <object>
+* open <object>
+* take <object> from <object>
+* cook <object> with <stove | oven>
+* drop <object>
+* <slice | dice | chop> <object> with knife
+* prepare meal
+* eat meal
+* go <direction>
+Next action (answer with the command directly):
+
+go east
+

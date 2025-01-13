@@ -1,0 +1,304 @@
+Task: Your task is to find and examine the recipe, then prepare the ingredients as required, prepare the meal and eat it.
+
+Action history: No action was taken now.
+Inventory: You are carrying: a lettuce a red apple a fried red onion
+Current environment: Livingroom[sofa(empty), exit(east), exit(north), exit(south)]
+Action templates:
+* inventory
+* examine <object>
+* open <object>
+* take <object> from <object>
+* cook <object> with <stove | oven>
+* drop <object>
+* <slice | dice | chop> <object> with knife
+* prepare meal
+* eat meal
+* go <direction>
+Next action (answer with the command directly):
+
+inventory
+
+Task: Your task is to find and examine the recipe, then prepare the ingredients as required, prepare the meal and eat it.
+
+Action history: Action 0: inventory -> You are carrying: a lettuce a red apple a fried red onion 
+Inventory: You are carrying: a lettuce a red apple a fried red onion
+Current environment: Livingroom[sofa(empty), exit(east), exit(north), exit(south)]
+Action templates:
+* inventory
+* examine <object>
+* open <object>
+* take <object> from <object>
+* cook <object> with <stove | oven>
+* drop <object>
+* <slice | dice | chop> <object> with knife
+* prepare meal
+* eat meal
+* go <direction>
+Next action (answer with the command directly):
+
+go north
+
+Task: Your task is to find and examine the recipe, then prepare the ingredients as required, prepare the meal and eat it.
+
+Action history: Action 0: inventory -> You are carrying: a lettuce a red apple a fried red onion Action 1: go north -> -= Kitchen =- You are in a kitchen. 
+Inventory: You are carrying: a lettuce a red apple a fried red onion
+Current environment: Kitchen[fridge(open)[block of cheese], oven(closed), table[cookbook], counter[vast, raw red potato, knife], wall(secret button pressed, opens to stove), frosted-glass door(opened, east), exit(south)]
+Action templates:
+* inventory
+* examine <object>
+* open <object>
+* take <object> from <object>
+* cook <object> with <stove | oven>
+* drop <object>
+* <slice | dice | chop> <object> with knife
+* prepare meal
+* eat meal
+* go <direction>
+Next action (answer with the command directly):
+
+examine cookbook
+
+Task: Your task is to find and examine the recipe, then prepare the ingredients as required, prepare the meal and eat it.
+
+Action history: Action 0: inventory -> You are carrying: a lettuce a red apple a fried red onion Action 1: go north -> -= Kitchen =- You are in a kitchen. Action 2: examine cookbook -> You open the copy of "Cooking: A Modern Approach (3rd Ed.)" and start reading: Recipe #1 --------- Gather all following ingredients and follow the directions to prepare this tasty meal. Ingredients: lettuce red apple red onion Directions: dice the lettuce chop the red apple chop the red onion fry the red onion prepare meal 
+Inventory: You are carrying: a lettuce a red apple a fried red onion
+Current environment: Kitchen[fridge(open)[block of cheese], oven(closed), table[cookbook], counter[vast, raw red potato, knife], wall(secret button pressed, opens to stove), frosted-glass door(opened, east), exit(south)]
+Action templates:
+* inventory
+* examine <object>
+* open <object>
+* take <object> from <object>
+* cook <object> with <stove | oven>
+* drop <object>
+* <slice | dice | chop> <object> with knife
+* prepare meal
+* eat meal
+* go <direction>
+Next action (answer with the command directly):
+
+drop red onion
+
+Task: Your task is to find and examine the recipe, then prepare the ingredients as required, prepare the meal and eat it.
+
+Action history: Action 0: inventory -> You are carrying: a lettuce a red apple a fried red onion Action 1: go north -> -= Kitchen =- You are in a kitchen. Action 2: examine cookbook -> You open the copy of "Cooking: A Modern Approach (3rd Ed.)" and start reading: Recipe #1 --------- Gather all following ingredients and follow the directions to prepare this tasty meal. Ingredients: lettuce red apple red onion Directions: dice the lettuce chop the red apple chop the red onion fry the red onion prepare meal Action 3: drop red onion -> You drop the red onion on the ground. 
+Inventory: You are carrying: a lettuce a red apple
+Current environment: Kitchen[fridge(open)[block of cheese], oven(closed), table[ cookbook], counter[vast, raw red potato, knife], wall(closed)[stove(closed)], frosted-glass door(opened, east), exit(south), floor[fried red onion]]
+Action templates:
+* inventory
+* examine <object>
+* open <object>
+* take <object> from <object>
+* cook <object> with <stove | oven>
+* drop <object>
+* <slice | dice | chop> <object> with knife
+* prepare meal
+* eat meal
+* go <direction>
+Next action (answer with the command directly):
+
+take knife from counter
+
+Task: Your task is to find and examine the recipe, then prepare the ingredients as required, prepare the meal and eat it.
+
+Action history: Action 0: inventory -> You are carrying: a lettuce a red apple a fried red onion Action 1: go north -> -= Kitchen =- You are in a kitchen. Action 2: examine cookbook -> You open the copy of "Cooking: A Modern Approach (3rd Ed.)" and start reading: Recipe #1 --------- Gather all following ingredients and follow the directions to prepare this tasty meal. Ingredients: lettuce red apple red onion Directions: dice the lettuce chop the red apple chop the red onion fry the red onion prepare meal Action 3: drop red onion -> You drop the red onion on the ground. Action 4: take knife from counter -> You take the knife from the counter. 
+Inventory: You are carrying: a knife a lettuce a red apple
+Current environment: Kitchen[fridge(opened)[block of cheese], oven(closed), table[cookbook], counter[vast, raw red potato], wall(pressed)[stove(closed)], frosted-glass door(opened, east), exit(south), floor[fried red onion]]
+Action templates:
+* inventory
+* examine <object>
+* open <object>
+* take <object> from <object>
+* cook <object> with <stove | oven>
+* drop <object>
+* <slice | dice | chop> <object> with knife
+* prepare meal
+* eat meal
+* go <direction>
+Next action (answer with the command directly):
+
+dice lettuce with knife
+
+Task: Your task is to find and examine the recipe, then prepare the ingredients as required, prepare the meal and eat it.
+
+Action history: Action 0: inventory -> You are carrying: a lettuce a red apple a fried red onion Action 1: go north -> -= Kitchen =- You are in a kitchen. Action 2: examine cookbook -> You open the copy of "Cooking: A Modern Approach (3rd Ed.)" and start reading: Recipe #1 --------- Gather all following ingredients and follow the directions to prepare this tasty meal. Ingredients: lettuce red apple red onion Directions: dice the lettuce chop the red apple chop the red onion fry the red onion prepare meal Action 3: drop red onion -> You drop the red onion on the ground. Action 4: take knife from counter -> You take the knife from the counter. Action 5: dice lettuce with knife -> You dice the lettuce. Your score has just gone up by one point. 
+Inventory: You are carrying: a knife a diced lettuce a red apple
+Current environment: Kitchen[fridge(opened)[block of cheese], oven(closed), table[cookbook], counter[vast, raw red potato], wall(pressed)[stove(closed)], frosted-glass door(opened, east), exit(south), floor[fried red onion]]
+Action templates:
+* inventory
+* examine <object>
+* open <object>
+* take <object> from <object>
+* cook <object> with <stove | oven>
+* drop <object>
+* <slice | dice | chop> <object> with knife
+* prepare meal
+* eat meal
+* go <direction>
+Next action (answer with the command directly):
+
+drop knife
+
+Task: Your task is to find and examine the recipe, then prepare the ingredients as required, prepare the meal and eat it.
+
+Action history: Action 0: inventory -> You are carrying: a lettuce a red apple a fried red onion Action 1: go north -> -= Kitchen =- You are in a kitchen. Action 2: examine cookbook -> You open the copy of "Cooking: A Modern Approach (3rd Ed.)" and start reading: Recipe #1 --------- Gather all following ingredients and follow the directions to prepare this tasty meal. Ingredients: lettuce red apple red onion Directions: dice the lettuce chop the red apple chop the red onion fry the red onion prepare meal Action 3: drop red onion -> You drop the red onion on the ground. Action 4: take knife from counter -> You take the knife from the counter. Action 5: dice lettuce with knife -> You dice the lettuce. Your score has just gone up by one point. Action 6: drop knife -> You drop the knife on the ground. 
+Inventory: You are carrying: a diced lettuce a red apple
+Current environment: Kitchen[fridge(open)[block of cheese], oven(closed), table[cookbook], counter[vast, raw red potato], wall(pressed)[stove(closed)], frosted-glass door(opened, east), exit(south), floor[knife, fried red onion]]
+Action templates:
+* inventory
+* examine <object>
+* open <object>
+* take <object> from <object>
+* cook <object> with <stove | oven>
+* drop <object>
+* <slice | dice | chop> <object> with knife
+* prepare meal
+* eat meal
+* go <direction>
+Next action (answer with the command directly):
+
+take red onion
+
+Task: Your task is to find and examine the recipe, then prepare the ingredients as required, prepare the meal and eat it.
+
+Action history: Action 0: inventory -> You are carrying: a lettuce a red apple a fried red onion Action 1: go north -> -= Kitchen =- You are in a kitchen. Action 2: examine cookbook -> You open the copy of "Cooking: A Modern Approach (3rd Ed.)" and start reading: Recipe #1 --------- Gather all following ingredients and follow the directions to prepare this tasty meal. Ingredients: lettuce red apple red onion Directions: dice the lettuce chop the red apple chop the red onion fry the red onion prepare meal Action 3: drop red onion -> You drop the red onion on the ground. Action 4: take knife from counter -> You take the knife from the counter. Action 5: dice lettuce with knife -> You dice the lettuce. Your score has just gone up by one point. Action 6: drop knife -> You drop the knife on the ground. Action 7: take red onion -> You pick up the red onion from the ground. 
+Inventory: You are carrying: a fried red onion a diced lettuce a red apple
+Current environment: Kitchen[fridge(open)[block of cheese], oven(unknown), table[ cookbook], counter[vast, raw red potato], wall(pressed)[stove(emptied)], frosted-glass door(opened, east), exit(south), knife(on floor)]
+Action templates:
+* inventory
+* examine <object>
+* open <object>
+* take <object> from <object>
+* cook <object> with <stove | oven>
+* drop <object>
+* <slice | dice | chop> <object> with knife
+* prepare meal
+* eat meal
+* go <direction>
+Next action (answer with the command directly):
+
+drop lettuce
+
+Task: Your task is to find and examine the recipe, then prepare the ingredients as required, prepare the meal and eat it.
+
+Action history: Action 0: inventory -> You are carrying: a lettuce a red apple a fried red onion Action 1: go north -> -= Kitchen =- You are in a kitchen. Action 2: examine cookbook -> You open the copy of "Cooking: A Modern Approach (3rd Ed.)" and start reading: Recipe #1 --------- Gather all following ingredients and follow the directions to prepare this tasty meal. Ingredients: lettuce red apple red onion Directions: dice the lettuce chop the red apple chop the red onion fry the red onion prepare meal Action 3: drop red onion -> You drop the red onion on the ground. Action 4: take knife from counter -> You take the knife from the counter. Action 5: dice lettuce with knife -> You dice the lettuce. Your score has just gone up by one point. Action 6: drop knife -> You drop the knife on the ground. Action 7: take red onion -> You pick up the red onion from the ground. Action 8: drop lettuce -> You drop the lettuce on the ground. 
+Inventory: You are carrying: a fried red onion a red apple
+Current environment: Kitchen[fridge(open)[block of cheese], oven(closed), table[ cookbook], counter[vast, raw red potato], wall(pressed)[stove(closed)], frosted-glass door(opened, east), exit(south), floor[diced lettuce, knife]]
+Action templates:
+* inventory
+* examine <object>
+* open <object>
+* take <object> from <object>
+* cook <object> with <stove | oven>
+* drop <object>
+* <slice | dice | chop> <object> with knife
+* prepare meal
+* eat meal
+* go <direction>
+Next action (answer with the command directly):
+
+take knife
+
+Task: Your task is to find and examine the recipe, then prepare the ingredients as required, prepare the meal and eat it.
+
+Action history: Action 0: inventory -> You are carrying: a lettuce a red apple a fried red onion Action 1: go north -> -= Kitchen =- You are in a kitchen. Action 2: examine cookbook -> You open the copy of "Cooking: A Modern Approach (3rd Ed.)" and start reading: Recipe #1 --------- Gather all following ingredients and follow the directions to prepare this tasty meal. Ingredients: lettuce red apple red onion Directions: dice the lettuce chop the red apple chop the red onion fry the red onion prepare meal Action 3: drop red onion -> You drop the red onion on the ground. Action 4: take knife from counter -> You take the knife from the counter. Action 5: dice lettuce with knife -> You dice the lettuce. Your score has just gone up by one point. Action 6: drop knife -> You drop the knife on the ground. Action 7: take red onion -> You pick up the red onion from the ground. Action 8: drop lettuce -> You drop the lettuce on the ground. Action 9: take knife -> You pick up the knife from the ground. 
+Inventory: You are carrying: a knife a fried red onion a red apple
+Current environment: Kitchen[fridge(open)[block of cheese], oven(closed), table[ cookbook], counter[raw red potato], wall(pressed)[stove(closed)], frosted-glass door(opened, east), exit(south), floor[diced lettuce]]
+Action templates:
+* inventory
+* examine <object>
+* open <object>
+* take <object> from <object>
+* cook <object> with <stove | oven>
+* drop <object>
+* <slice | dice | chop> <object> with knife
+* prepare meal
+* eat meal
+* go <direction>
+Next action (answer with the command directly):
+
+chop red apple with knife
+
+Task: Your task is to find and examine the recipe, then prepare the ingredients as required, prepare the meal and eat it.
+
+Action history: Action 0: inventory -> You are carrying: a lettuce a red apple a fried red onion Action 1: go north -> -= Kitchen =- You are in a kitchen. Action 2: examine cookbook -> You open the copy of "Cooking: A Modern Approach (3rd Ed.)" and start reading: Recipe #1 --------- Gather all following ingredients and follow the directions to prepare this tasty meal. Ingredients: lettuce red apple red onion Directions: dice the lettuce chop the red apple chop the red onion fry the red onion prepare meal Action 3: drop red onion -> You drop the red onion on the ground. Action 4: take knife from counter -> You take the knife from the counter. Action 5: dice lettuce with knife -> You dice the lettuce. Your score has just gone up by one point. Action 6: drop knife -> You drop the knife on the ground. Action 7: take red onion -> You pick up the red onion from the ground. Action 8: drop lettuce -> You drop the lettuce on the ground. Action 9: take knife -> You pick up the knife from the ground. Action 10: chop red apple with knife -> You chop the red apple. Your score has just gone up by one point. 
+Inventory: You are carrying: a knife a fried red onion a chopped red apple
+Current environment: Kitchen[fridge(open)[block of cheese], oven(closed), table[ cookbook], counter[raw red potato], wall(pressed)[stove(closed)], frosted-glass door(opened, east), exit(south), floor[diced lettuce]]
+Action templates:
+* inventory
+* examine <object>
+* open <object>
+* take <object> from <object>
+* cook <object> with <stove | oven>
+* drop <object>
+* <slice | dice | chop> <object> with knife
+* prepare meal
+* eat meal
+* go <direction>
+Next action (answer with the command directly):
+
+drop knife
+
+Task: Your task is to find and examine the recipe, then prepare the ingredients as required, prepare the meal and eat it.
+
+Action history: Action 0: inventory -> You are carrying: a lettuce a red apple a fried red onion Action 1: go north -> -= Kitchen =- You are in a kitchen. Action 2: examine cookbook -> You open the copy of "Cooking: A Modern Approach (3rd Ed.)" and start reading: Recipe #1 --------- Gather all following ingredients and follow the directions to prepare this tasty meal. Ingredients: lettuce red apple red onion Directions: dice the lettuce chop the red apple chop the red onion fry the red onion prepare meal Action 3: drop red onion -> You drop the red onion on the ground. Action 4: take knife from counter -> You take the knife from the counter. Action 5: dice lettuce with knife -> You dice the lettuce. Your score has just gone up by one point. Action 6: drop knife -> You drop the knife on the ground. Action 7: take red onion -> You pick up the red onion from the ground. Action 8: drop lettuce -> You drop the lettuce on the ground. Action 9: take knife -> You pick up the knife from the ground. Action 10: chop red apple with knife -> You chop the red apple. Your score has just gone up by one point. Action 11: drop knife -> You drop the knife on the ground. 
+Inventory: You are carrying: a fried red onion a chopped red apple
+Current environment: Kitchen[fridge(open)[block of cheese], oven(closed), table[ cookbook], counter[raw red potato], wall(open)[stove], frosted-glass door(opened, east), exit(south), floor[knife, diced lettuce]]
+Action templates:
+* inventory
+* examine <object>
+* open <object>
+* take <object> from <object>
+* cook <object> with <stove | oven>
+* drop <object>
+* <slice | dice | chop> <object> with knife
+* prepare meal
+* eat meal
+* go <direction>
+Next action (answer with the command directly):
+
+take lettuce
+
+Task: Your task is to find and examine the recipe, then prepare the ingredients as required, prepare the meal and eat it.
+
+Action history: Action 0: inventory -> You are carrying: a lettuce a red apple a fried red onion Action 1: go north -> -= Kitchen =- You are in a kitchen. Action 2: examine cookbook -> You open the copy of "Cooking: A Modern Approach (3rd Ed.)" and start reading: Recipe #1 --------- Gather all following ingredients and follow the directions to prepare this tasty meal. Ingredients: lettuce red apple red onion Directions: dice the lettuce chop the red apple chop the red onion fry the red onion prepare meal Action 3: drop red onion -> You drop the red onion on the ground. Action 4: take knife from counter -> You take the knife from the counter. Action 5: dice lettuce with knife -> You dice the lettuce. Your score has just gone up by one point. Action 6: drop knife -> You drop the knife on the ground. Action 7: take red onion -> You pick up the red onion from the ground. Action 8: drop lettuce -> You drop the lettuce on the ground. Action 9: take knife -> You pick up the knife from the ground. Action 10: chop red apple with knife -> You chop the red apple. Your score has just gone up by one point. Action 11: drop knife -> You drop the knife on the ground. Action 12: take lettuce -> You pick up the lettuce from the ground. 
+Inventory: You are carrying: a diced lettuce a fried red onion a chopped red apple
+Current environment: Kitchen[fridge(open)[block of cheese], oven(closed), table[cookbook], counter[vast, raw red potato], wall(opened)[stove], frosted-glass door(opened, east), exit(south), knife(on floor)]
+Action templates:
+* inventory
+* examine <object>
+* open <object>
+* take <object> from <object>
+* cook <object> with <stove | oven>
+* drop <object>
+* <slice | dice | chop> <object> with knife
+* prepare meal
+* eat meal
+* go <direction>
+Next action (answer with the command directly):
+
+prepare meal
+
+Task: Your task is to find and examine the recipe, then prepare the ingredients as required, prepare the meal and eat it.
+
+Action history: Action 0: inventory -> You are carrying: a lettuce a red apple a fried red onion Action 1: go north -> -= Kitchen =- You are in a kitchen. Action 2: examine cookbook -> You open the copy of "Cooking: A Modern Approach (3rd Ed.)" and start reading: Recipe #1 --------- Gather all following ingredients and follow the directions to prepare this tasty meal. Ingredients: lettuce red apple red onion Directions: dice the lettuce chop the red apple chop the red onion fry the red onion prepare meal Action 3: drop red onion -> You drop the red onion on the ground. Action 4: take knife from counter -> You take the knife from the counter. Action 5: dice lettuce with knife -> You dice the lettuce. Your score has just gone up by one point. Action 6: drop knife -> You drop the knife on the ground. Action 7: take red onion -> You pick up the red onion from the ground. Action 8: drop lettuce -> You drop the lettuce on the ground. Action 9: take knife -> You pick up the knife from the ground. Action 10: chop red apple with knife -> You chop the red apple. Your score has just gone up by one point. Action 11: drop knife -> You drop the knife on the ground. Action 12: take lettuce -> You pick up the lettuce from the ground. Action 13: prepare meal -> The recipe requires a chopped fried red onion. 
+Inventory: You are carrying: a diced lettuce a fried red onion a chopped red apple
+Current environment: Kitchen[fridge(open)[block of cheese], oven(closed), table[cookbook], counter[vast, raw red potato], wall(opened)[stove], frosted-glass door(opened, east), exit(south), knife(on floor)]
+Action templates:
+* inventory
+* examine <object>
+* open <object>
+* take <object> from <object>
+* cook <object> with <stove | oven>
+* drop <object>
+* <slice | dice | chop> <object> with knife
+* prepare meal
+* eat meal
+* go <direction>
+Next action (answer with the command directly):
+
+eat meal
+
+ACTION SELCTOR
+ACTION SELCTOR
+eat meal->eat lettuce
+

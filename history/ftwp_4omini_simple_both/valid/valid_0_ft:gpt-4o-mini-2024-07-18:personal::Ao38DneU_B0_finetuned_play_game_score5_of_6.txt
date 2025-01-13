@@ -1,0 +1,440 @@
+Task: Your task is to find and examine the recipe, then prepare the ingredients as required, prepare the meal and eat it.
+
+Action history: No action was taken now.
+Inventory: You are carrying nothing.
+Current environment: Kitchen[fridge(closed)[sliced red bell pepper, red onion, red apple, red hot pepper, white onion, raw chicken leg, raw chicken breast], oven(closed), table(emptied), counter[cookbook, knife], stove(empty)]
+Action templates:
+* inventory
+* examine <object>
+* open <object>
+* take <object> from <object>
+* cook <object> with <stove | oven>
+* drop <object>
+* <slice | dice | chop> <object> with knife
+* prepare meal
+* eat meal
+* go <direction>
+Next action (answer with the command directly):
+
+inventory
+
+Task: Your task is to find and examine the recipe, then prepare the ingredients as required, prepare the meal and eat it.
+
+Action history: Action 0: inventory -> You are carrying nothing. 
+Inventory: You are carrying nothing.
+Current environment: Kitchen[fridge(closed)[sliced red bell pepper, red onion, red apple, red hot pepper, white onion, raw chicken leg, raw chicken breast], oven(closed), table(emptied), counter[cookbook, knife], stove(empty)]
+Action templates:
+* inventory
+* examine <object>
+* open <object>
+* take <object> from <object>
+* cook <object> with <stove | oven>
+* drop <object>
+* <slice | dice | chop> <object> with knife
+* prepare meal
+* eat meal
+* go <direction>
+Next action (answer with the command directly):
+
+examine cookbook
+
+Task: Your task is to find and examine the recipe, then prepare the ingredients as required, prepare the meal and eat it.
+
+Action history: Action 0: inventory -> You are carrying nothing. Action 1: examine cookbook -> You open the copy of "Cooking: A Modern Approach (3rd Ed.)" and start reading: Recipe #1 --------- Gather all following ingredients and follow the directions to prepare this tasty meal. Ingredients: red bell pepper red onion Directions: slice the red bell pepper roast the red bell pepper fry the red onion prepare meal 
+Inventory: You are carrying nothing.
+Current environment: Kitchen[fridge(closed)[sliced red bell pepper, red onion, red apple, red hot pepper, white onion, raw chicken leg, raw chicken breast], oven(closed), table(emptied), counter[cookbook, knife], stove(empty)]
+Action templates:
+* inventory
+* examine <object>
+* open <object>
+* take <object> from <object>
+* cook <object> with <stove | oven>
+* drop <object>
+* <slice | dice | chop> <object> with knife
+* prepare meal
+* eat meal
+* go <direction>
+Next action (answer with the command directly):
+
+take red bell pepper from fridge
+
+Task: Your task is to find and examine the recipe, then prepare the ingredients as required, prepare the meal and eat it.
+
+Action history: Action 0: inventory -> You are carrying nothing. Action 1: examine cookbook -> You open the copy of "Cooking: A Modern Approach (3rd Ed.)" and start reading: Recipe #1 --------- Gather all following ingredients and follow the directions to prepare this tasty meal. Ingredients: red bell pepper red onion Directions: slice the red bell pepper roast the red bell pepper fry the red onion prepare meal Action 2: take red bell pepper from fridge -> You take the red bell pepper from the fridge. Your score has just gone up by one point. 
+Inventory: You are carrying: a sliced red bell pepper
+Current environment: Kitchen[fridge(closed)[red onion, red apple, red hot pepper, white onion, raw chicken leg, raw chicken breast], oven(closed), table(emptied), counter[cookbook, knife], stove(empty)]
+Action templates:
+* inventory
+* examine <object>
+* open <object>
+* take <object> from <object>
+* cook <object> with <stove | oven>
+* drop <object>
+* <slice | dice | chop> <object> with knife
+* prepare meal
+* eat meal
+* go <direction>
+Next action (answer with the command directly):
+
+take red onion from fridge
+
+Task: Your task is to find and examine the recipe, then prepare the ingredients as required, prepare the meal and eat it.
+
+Action history: Action 0: inventory -> You are carrying nothing. Action 1: examine cookbook -> You open the copy of "Cooking: A Modern Approach (3rd Ed.)" and start reading: Recipe #1 --------- Gather all following ingredients and follow the directions to prepare this tasty meal. Ingredients: red bell pepper red onion Directions: slice the red bell pepper roast the red bell pepper fry the red onion prepare meal Action 2: take red bell pepper from fridge -> You take the red bell pepper from the fridge. Your score has just gone up by one point. Action 3: take red onion from fridge -> You take the red onion from the fridge. Your score has just gone up by one point. 
+Inventory: You are carrying: a red onion a sliced red bell pepper
+Current environment: Kitchen[fridge(closed)[red apple, red hot pepper, white onion, raw chicken leg, raw chicken breast], oven(closed), table(emptied), counter[cookbook, knife], stove(empty)]
+Action templates:
+* inventory
+* examine <object>
+* open <object>
+* take <object> from <object>
+* cook <object> with <stove | oven>
+* drop <object>
+* <slice | dice | chop> <object> with knife
+* prepare meal
+* eat meal
+* go <direction>
+Next action (answer with the command directly):
+
+cook red bell pepper with oven
+
+Task: Your task is to find and examine the recipe, then prepare the ingredients as required, prepare the meal and eat it.
+
+Action history: Action 0: inventory -> You are carrying nothing. Action 1: examine cookbook -> You open the copy of "Cooking: A Modern Approach (3rd Ed.)" and start reading: Recipe #1 --------- Gather all following ingredients and follow the directions to prepare this tasty meal. Ingredients: red bell pepper red onion Directions: slice the red bell pepper roast the red bell pepper fry the red onion prepare meal Action 2: take red bell pepper from fridge -> You take the red bell pepper from the fridge. Your score has just gone up by one point. Action 3: take red onion from fridge -> You take the red onion from the fridge. Your score has just gone up by one point. Action 4: cook red bell pepper with oven -> You roasted the red bell pepper. Your score has just gone up by one point. 
+Inventory: You are carrying: a red onion a sliced roasted red bell pepper
+Current environment: Kitchen[fridge(closed)[red apple, red hot pepper, white onion, raw chicken leg, raw chicken breast], oven(closed), table(emptied), counter[cookbook, knife], stove(empty)]
+Action templates:
+* inventory
+* examine <object>
+* open <object>
+* take <object> from <object>
+* cook <object> with <stove | oven>
+* drop <object>
+* <slice | dice | chop> <object> with knife
+* prepare meal
+* eat meal
+* go <direction>
+Next action (answer with the command directly):
+
+drop red onion
+
+Task: Your task is to find and examine the recipe, then prepare the ingredients as required, prepare the meal and eat it.
+
+Action history: Action 0: inventory -> You are carrying nothing. Action 1: examine cookbook -> You open the copy of "Cooking: A Modern Approach (3rd Ed.)" and start reading: Recipe #1 --------- Gather all following ingredients and follow the directions to prepare this tasty meal. Ingredients: red bell pepper red onion Directions: slice the red bell pepper roast the red bell pepper fry the red onion prepare meal Action 2: take red bell pepper from fridge -> You take the red bell pepper from the fridge. Your score has just gone up by one point. Action 3: take red onion from fridge -> You take the red onion from the fridge. Your score has just gone up by one point. Action 4: cook red bell pepper with oven -> You roasted the red bell pepper. Your score has just gone up by one point. Action 5: drop red onion -> You drop the red onion on the ground. 
+Inventory: You are carrying: a sliced roasted red bell pepper
+Current environment: Kitchen[fridge(closed)[red apple, red hot pepper, white onion, raw chicken leg, raw chicken breast], oven(standing), table(large, empty), counter(vast)[cookbook, knife], stove(conventional, empty), floor[red onion]]
+Action templates:
+* inventory
+* examine <object>
+* open <object>
+* take <object> from <object>
+* cook <object> with <stove | oven>
+* drop <object>
+* <slice | dice | chop> <object> with knife
+* prepare meal
+* eat meal
+* go <direction>
+Next action (answer with the command directly):
+
+take knife from counter
+
+Task: Your task is to find and examine the recipe, then prepare the ingredients as required, prepare the meal and eat it.
+
+Action history: Action 0: inventory -> You are carrying nothing. Action 1: examine cookbook -> You open the copy of "Cooking: A Modern Approach (3rd Ed.)" and start reading: Recipe #1 --------- Gather all following ingredients and follow the directions to prepare this tasty meal. Ingredients: red bell pepper red onion Directions: slice the red bell pepper roast the red bell pepper fry the red onion prepare meal Action 2: take red bell pepper from fridge -> You take the red bell pepper from the fridge. Your score has just gone up by one point. Action 3: take red onion from fridge -> You take the red onion from the fridge. Your score has just gone up by one point. Action 4: cook red bell pepper with oven -> You roasted the red bell pepper. Your score has just gone up by one point. Action 5: drop red onion -> You drop the red onion on the ground. Action 6: take knife from counter -> You take the knife from the counter. 
+Inventory: You are carrying: a knife a sliced roasted red bell pepper
+Current environment: Kitchen[fridge(closed)[red apple, red hot pepper, white onion, raw chicken leg, raw chicken breast], oven(closed), table(emptied), counter(open)[cookbook], stove(empty), floor[red onion]]
+Action templates:
+* inventory
+* examine <object>
+* open <object>
+* take <object> from <object>
+* cook <object> with <stove | oven>
+* drop <object>
+* <slice | dice | chop> <object> with knife
+* prepare meal
+* eat meal
+* go <direction>
+Next action (answer with the command directly):
+
+slice red bell pepper with knife
+
+ACTION SELCTOR
+ACTION SELCTOR
+slice red bell pepper with knife->put red bell pepper on counter
+
+Task: Your task is to find and examine the recipe, then prepare the ingredients as required, prepare the meal and eat it.
+
+Action history: Action 0: inventory -> You are carrying nothing. Action 1: examine cookbook -> You open the copy of "Cooking: A Modern Approach (3rd Ed.)" and start reading: Recipe #1 --------- Gather all following ingredients and follow the directions to prepare this tasty meal. Ingredients: red bell pepper red onion Directions: slice the red bell pepper roast the red bell pepper fry the red onion prepare meal Action 2: take red bell pepper from fridge -> You take the red bell pepper from the fridge. Your score has just gone up by one point. Action 3: take red onion from fridge -> You take the red onion from the fridge. Your score has just gone up by one point. Action 4: cook red bell pepper with oven -> You roasted the red bell pepper. Your score has just gone up by one point. Action 5: drop red onion -> You drop the red onion on the ground. Action 6: take knife from counter -> You take the knife from the counter. Action 7: put red bell pepper on counter -> You put the red bell pepper on the counter. 
+Inventory: You are carrying: a knife
+Current environment: Kitchen[fridge(closed)[red apple, red hot pepper, white onion, raw chicken leg, raw chicken breast], oven(closed), table(emptied), counter[roasted red bell pepper, cookbook], stove(empty), floor[red onion]]
+Action templates:
+* inventory
+* examine <object>
+* open <object>
+* take <object> from <object>
+* cook <object> with <stove | oven>
+* drop <object>
+* <slice | dice | chop> <object> with knife
+* prepare meal
+* eat meal
+* go <direction>
+Next action (answer with the command directly):
+
+slice red bell pepper with knife
+
+ACTION SELCTOR
+ACTION SELCTOR
+slice red bell pepper with knife->examine red bell pepper
+
+Task: Your task is to find and examine the recipe, then prepare the ingredients as required, prepare the meal and eat it.
+
+Action history: Action 0: inventory -> You are carrying nothing. Action 1: examine cookbook -> You open the copy of "Cooking: A Modern Approach (3rd Ed.)" and start reading: Recipe #1 --------- Gather all following ingredients and follow the directions to prepare this tasty meal. Ingredients: red bell pepper red onion Directions: slice the red bell pepper roast the red bell pepper fry the red onion prepare meal Action 2: take red bell pepper from fridge -> You take the red bell pepper from the fridge. Your score has just gone up by one point. Action 3: take red onion from fridge -> You take the red onion from the fridge. Your score has just gone up by one point. Action 4: cook red bell pepper with oven -> You roasted the red bell pepper. Your score has just gone up by one point. Action 5: drop red onion -> You drop the red onion on the ground. Action 6: take knife from counter -> You take the knife from the counter. Action 7: put red bell pepper on counter -> You put the red bell pepper on the counter. Action 8: examine red bell pepper -> You couldn't pay me to eat that sliced roasted red bell pepper. 
+Inventory: You are carrying: a knife
+Current environment: Kitchen[fridge(closed)[red apple, red hot pepper, white onion, raw chicken leg, raw chicken breast], oven(closed), table(emptied), counter[roasted red bell pepper, cookbook], stove(empty), floor[red onion]]
+Action templates:
+* inventory
+* examine <object>
+* open <object>
+* take <object> from <object>
+* cook <object> with <stove | oven>
+* drop <object>
+* <slice | dice | chop> <object> with knife
+* prepare meal
+* eat meal
+* go <direction>
+Next action (answer with the command directly):
+
+slice red bell pepper with knife
+
+ACTION SELCTOR
+ACTION SELCTOR
+slice red bell pepper with knife->take red bell pepper from counter
+
+Task: Your task is to find and examine the recipe, then prepare the ingredients as required, prepare the meal and eat it.
+
+Action history: Action 0: inventory -> You are carrying nothing. Action 1: examine cookbook -> You open the copy of "Cooking: A Modern Approach (3rd Ed.)" and start reading: Recipe #1 --------- Gather all following ingredients and follow the directions to prepare this tasty meal. Ingredients: red bell pepper red onion Directions: slice the red bell pepper roast the red bell pepper fry the red onion prepare meal Action 2: take red bell pepper from fridge -> You take the red bell pepper from the fridge. Your score has just gone up by one point. Action 3: take red onion from fridge -> You take the red onion from the fridge. Your score has just gone up by one point. Action 4: cook red bell pepper with oven -> You roasted the red bell pepper. Your score has just gone up by one point. Action 5: drop red onion -> You drop the red onion on the ground. Action 6: take knife from counter -> You take the knife from the counter. Action 7: put red bell pepper on counter -> You put the red bell pepper on the counter. Action 8: examine red bell pepper -> You couldn't pay me to eat that sliced roasted red bell pepper. Action 9: take red bell pepper from counter -> You take the red bell pepper from the counter. 
+Inventory: You are carrying: a sliced roasted red bell pepper a knife
+Current environment: Kitchen[fridge(closed)[red apple, red hot pepper, white onion, raw chicken leg, raw chicken breast], oven(closed), table(emptied), counter(open)[cookbook], stove(empty), floor[red onion]]
+Action templates:
+* inventory
+* examine <object>
+* open <object>
+* take <object> from <object>
+* cook <object> with <stove | oven>
+* drop <object>
+* <slice | dice | chop> <object> with knife
+* prepare meal
+* eat meal
+* go <direction>
+Next action (answer with the command directly):
+
+slice red bell pepper with knife
+
+ACTION SELCTOR
+ACTION SELCTOR
+slice red bell pepper with knife->put red bell pepper on counter
+
+Task: Your task is to find and examine the recipe, then prepare the ingredients as required, prepare the meal and eat it.
+
+Action history: Action 0: inventory -> You are carrying nothing. Action 1: examine cookbook -> You open the copy of "Cooking: A Modern Approach (3rd Ed.)" and start reading: Recipe #1 --------- Gather all following ingredients and follow the directions to prepare this tasty meal. Ingredients: red bell pepper red onion Directions: slice the red bell pepper roast the red bell pepper fry the red onion prepare meal Action 2: take red bell pepper from fridge -> You take the red bell pepper from the fridge. Your score has just gone up by one point. Action 3: take red onion from fridge -> You take the red onion from the fridge. Your score has just gone up by one point. Action 4: cook red bell pepper with oven -> You roasted the red bell pepper. Your score has just gone up by one point. Action 5: drop red onion -> You drop the red onion on the ground. Action 6: take knife from counter -> You take the knife from the counter. Action 7: put red bell pepper on counter -> You put the red bell pepper on the counter. Action 8: examine red bell pepper -> You couldn't pay me to eat that sliced roasted red bell pepper. Action 9: take red bell pepper from counter -> You take the red bell pepper from the counter. Action 10: put red bell pepper on counter -> You put the red bell pepper on the counter. 
+Inventory: You are carrying: a knife
+Current environment: Kitchen[fridge(closed)[red apple, red hot pepper, white onion, raw chicken leg, raw chicken breast], oven(closed), table(emptied), counter[roasted red bell pepper, cookbook], stove(empty), floor[red onion]]
+Action templates:
+* inventory
+* examine <object>
+* open <object>
+* take <object> from <object>
+* cook <object> with <stove | oven>
+* drop <object>
+* <slice | dice | chop> <object> with knife
+* prepare meal
+* eat meal
+* go <direction>
+Next action (answer with the command directly):
+
+slice red bell pepper with knife
+
+ACTION SELCTOR
+ACTION SELCTOR
+slice red bell pepper with knife->take red bell pepper from counter
+
+Task: Your task is to find and examine the recipe, then prepare the ingredients as required, prepare the meal and eat it.
+
+Action history: Action 0: inventory -> You are carrying nothing. Action 1: examine cookbook -> You open the copy of "Cooking: A Modern Approach (3rd Ed.)" and start reading: Recipe #1 --------- Gather all following ingredients and follow the directions to prepare this tasty meal. Ingredients: red bell pepper red onion Directions: slice the red bell pepper roast the red bell pepper fry the red onion prepare meal Action 2: take red bell pepper from fridge -> You take the red bell pepper from the fridge. Your score has just gone up by one point. Action 3: take red onion from fridge -> You take the red onion from the fridge. Your score has just gone up by one point. Action 4: cook red bell pepper with oven -> You roasted the red bell pepper. Your score has just gone up by one point. Action 5: drop red onion -> You drop the red onion on the ground. Action 6: take knife from counter -> You take the knife from the counter. Action 7: put red bell pepper on counter -> You put the red bell pepper on the counter. Action 8: examine red bell pepper -> You couldn't pay me to eat that sliced roasted red bell pepper. Action 9: take red bell pepper from counter -> You take the red bell pepper from the counter. Action 10: put red bell pepper on counter -> You put the red bell pepper on the counter. Action 11: take red bell pepper from counter -> You take the red bell pepper from the counter. 
+Inventory: You are carrying: a sliced roasted red bell pepper a knife
+Current environment: Kitchen[fridge(closed)[red apple, red hot pepper, white onion, raw chicken leg, raw chicken breast], oven(closed), table(emptied), counter(open)[cookbook], stove(empty), floor[red onion]]
+Action templates:
+* inventory
+* examine <object>
+* open <object>
+* take <object> from <object>
+* cook <object> with <stove | oven>
+* drop <object>
+* <slice | dice | chop> <object> with knife
+* prepare meal
+* eat meal
+* go <direction>
+Next action (answer with the command directly):
+
+slice red bell pepper with knife
+
+ACTION SELCTOR
+ACTION SELCTOR
+slice red bell pepper with knife->put red bell pepper on counter
+
+Task: Your task is to find and examine the recipe, then prepare the ingredients as required, prepare the meal and eat it.
+
+Action history: Action 0: inventory -> You are carrying nothing. Action 1: examine cookbook -> You open the copy of "Cooking: A Modern Approach (3rd Ed.)" and start reading: Recipe #1 --------- Gather all following ingredients and follow the directions to prepare this tasty meal. Ingredients: red bell pepper red onion Directions: slice the red bell pepper roast the red bell pepper fry the red onion prepare meal Action 2: take red bell pepper from fridge -> You take the red bell pepper from the fridge. Your score has just gone up by one point. Action 3: take red onion from fridge -> You take the red onion from the fridge. Your score has just gone up by one point. Action 4: cook red bell pepper with oven -> You roasted the red bell pepper. Your score has just gone up by one point. Action 5: drop red onion -> You drop the red onion on the ground. Action 6: take knife from counter -> You take the knife from the counter. Action 7: put red bell pepper on counter -> You put the red bell pepper on the counter. Action 8: examine red bell pepper -> You couldn't pay me to eat that sliced roasted red bell pepper. Action 9: take red bell pepper from counter -> You take the red bell pepper from the counter. Action 10: put red bell pepper on counter -> You put the red bell pepper on the counter. Action 11: take red bell pepper from counter -> You take the red bell pepper from the counter. Action 12: put red bell pepper on counter -> You put the red bell pepper on the counter. 
+Inventory: You are carrying: a knife
+Current environment: Kitchen[fridge(closed)[red apple, red hot pepper, white onion, raw chicken leg, raw chicken breast], oven(closed), table(emptied), counter(emptied)[sliced roasted red bell pepper, cookbook], stove(empty), floor[red onion]]
+Action templates:
+* inventory
+* examine <object>
+* open <object>
+* take <object> from <object>
+* cook <object> with <stove | oven>
+* drop <object>
+* <slice | dice | chop> <object> with knife
+* prepare meal
+* eat meal
+* go <direction>
+Next action (answer with the command directly):
+
+take red bell pepper from counter
+
+Task: Your task is to find and examine the recipe, then prepare the ingredients as required, prepare the meal and eat it.
+
+Action history: Action 0: inventory -> You are carrying nothing. Action 1: examine cookbook -> You open the copy of "Cooking: A Modern Approach (3rd Ed.)" and start reading: Recipe #1 --------- Gather all following ingredients and follow the directions to prepare this tasty meal. Ingredients: red bell pepper red onion Directions: slice the red bell pepper roast the red bell pepper fry the red onion prepare meal Action 2: take red bell pepper from fridge -> You take the red bell pepper from the fridge. Your score has just gone up by one point. Action 3: take red onion from fridge -> You take the red onion from the fridge. Your score has just gone up by one point. Action 4: cook red bell pepper with oven -> You roasted the red bell pepper. Your score has just gone up by one point. Action 5: drop red onion -> You drop the red onion on the ground. Action 6: take knife from counter -> You take the knife from the counter. Action 7: put red bell pepper on counter -> You put the red bell pepper on the counter. Action 8: examine red bell pepper -> You couldn't pay me to eat that sliced roasted red bell pepper. Action 9: take red bell pepper from counter -> You take the red bell pepper from the counter. Action 10: put red bell pepper on counter -> You put the red bell pepper on the counter. Action 11: take red bell pepper from counter -> You take the red bell pepper from the counter. Action 12: put red bell pepper on counter -> You put the red bell pepper on the counter. Action 13: take red bell pepper from counter -> You take the red bell pepper from the counter. 
+Inventory: You are carrying: a sliced roasted red bell pepper a knife
+Current environment: Kitchen[fridge(closed)[red apple, red hot pepper, white onion, raw chicken leg, raw chicken breast], oven(standing), table(large, empty), counter(vast)[cookbook], stove(conventional, empty), floor[red onion]]
+Action templates:
+* inventory
+* examine <object>
+* open <object>
+* take <object> from <object>
+* cook <object> with <stove | oven>
+* drop <object>
+* <slice | dice | chop> <object> with knife
+* prepare meal
+* eat meal
+* go <direction>
+Next action (answer with the command directly):
+
+slice red bell pepper with knife
+
+ACTION SELCTOR
+ACTION SELCTOR
+slice red bell pepper with knife->put red bell pepper on counter
+
+Task: Your task is to find and examine the recipe, then prepare the ingredients as required, prepare the meal and eat it.
+
+Action history: Action 0: inventory -> You are carrying nothing. Action 1: examine cookbook -> You open the copy of "Cooking: A Modern Approach (3rd Ed.)" and start reading: Recipe #1 --------- Gather all following ingredients and follow the directions to prepare this tasty meal. Ingredients: red bell pepper red onion Directions: slice the red bell pepper roast the red bell pepper fry the red onion prepare meal Action 2: take red bell pepper from fridge -> You take the red bell pepper from the fridge. Your score has just gone up by one point. Action 3: take red onion from fridge -> You take the red onion from the fridge. Your score has just gone up by one point. Action 4: cook red bell pepper with oven -> You roasted the red bell pepper. Your score has just gone up by one point. Action 5: drop red onion -> You drop the red onion on the ground. Action 6: take knife from counter -> You take the knife from the counter. Action 7: put red bell pepper on counter -> You put the red bell pepper on the counter. Action 8: examine red bell pepper -> You couldn't pay me to eat that sliced roasted red bell pepper. Action 9: take red bell pepper from counter -> You take the red bell pepper from the counter. Action 10: put red bell pepper on counter -> You put the red bell pepper on the counter. Action 11: take red bell pepper from counter -> You take the red bell pepper from the counter. Action 12: put red bell pepper on counter -> You put the red bell pepper on the counter. Action 13: take red bell pepper from counter -> You take the red bell pepper from the counter. Action 14: put red bell pepper on counter -> You put the red bell pepper on the counter. 
+Inventory: You are carrying: a knife
+Current environment: Kitchen[fridge(closed)[red apple, red hot pepper, white onion, raw chicken leg, raw chicken breast], oven(closed), table(emptied), counter(emptied)[sliced roasted red bell pepper, cookbook], stove(emptied), floor[red onion]]
+Action templates:
+* inventory
+* examine <object>
+* open <object>
+* take <object> from <object>
+* cook <object> with <stove | oven>
+* drop <object>
+* <slice | dice | chop> <object> with knife
+* prepare meal
+* eat meal
+* go <direction>
+Next action (answer with the command directly):
+
+take knife
+
+ACTION SELCTOR
+ACTION SELCTOR
+take knife->drop knife
+
+Task: Your task is to find and examine the recipe, then prepare the ingredients as required, prepare the meal and eat it.
+
+Action history: Action 0: inventory -> You are carrying nothing. Action 1: examine cookbook -> You open the copy of "Cooking: A Modern Approach (3rd Ed.)" and start reading: Recipe #1 --------- Gather all following ingredients and follow the directions to prepare this tasty meal. Ingredients: red bell pepper red onion Directions: slice the red bell pepper roast the red bell pepper fry the red onion prepare meal Action 2: take red bell pepper from fridge -> You take the red bell pepper from the fridge. Your score has just gone up by one point. Action 3: take red onion from fridge -> You take the red onion from the fridge. Your score has just gone up by one point. Action 4: cook red bell pepper with oven -> You roasted the red bell pepper. Your score has just gone up by one point. Action 5: drop red onion -> You drop the red onion on the ground. Action 6: take knife from counter -> You take the knife from the counter. Action 7: put red bell pepper on counter -> You put the red bell pepper on the counter. Action 8: examine red bell pepper -> You couldn't pay me to eat that sliced roasted red bell pepper. Action 9: take red bell pepper from counter -> You take the red bell pepper from the counter. Action 10: put red bell pepper on counter -> You put the red bell pepper on the counter. Action 11: take red bell pepper from counter -> You take the red bell pepper from the counter. Action 12: put red bell pepper on counter -> You put the red bell pepper on the counter. Action 13: take red bell pepper from counter -> You take the red bell pepper from the counter. Action 14: put red bell pepper on counter -> You put the red bell pepper on the counter. Action 15: drop knife -> You drop the knife on the ground. 
+Inventory: You are carrying nothing.
+Current environment: Kitchen[fridge(closed)[red apple, red hot pepper, white onion, raw chicken leg, raw chicken breast], oven(closed), table(emptied), counter[roasted red bell pepper, cookbook], stove(empty), floor[knife, red onion]]
+Action templates:
+* inventory
+* examine <object>
+* open <object>
+* take <object> from <object>
+* cook <object> with <stove | oven>
+* drop <object>
+* <slice | dice | chop> <object> with knife
+* prepare meal
+* eat meal
+* go <direction>
+Next action (answer with the command directly):
+
+take red onion
+
+Task: Your task is to find and examine the recipe, then prepare the ingredients as required, prepare the meal and eat it.
+
+Action history: Action 0: inventory -> You are carrying nothing. Action 1: examine cookbook -> You open the copy of "Cooking: A Modern Approach (3rd Ed.)" and start reading: Recipe #1 --------- Gather all following ingredients and follow the directions to prepare this tasty meal. Ingredients: red bell pepper red onion Directions: slice the red bell pepper roast the red bell pepper fry the red onion prepare meal Action 2: take red bell pepper from fridge -> You take the red bell pepper from the fridge. Your score has just gone up by one point. Action 3: take red onion from fridge -> You take the red onion from the fridge. Your score has just gone up by one point. Action 4: cook red bell pepper with oven -> You roasted the red bell pepper. Your score has just gone up by one point. Action 5: drop red onion -> You drop the red onion on the ground. Action 6: take knife from counter -> You take the knife from the counter. Action 7: put red bell pepper on counter -> You put the red bell pepper on the counter. Action 8: examine red bell pepper -> You couldn't pay me to eat that sliced roasted red bell pepper. Action 9: take red bell pepper from counter -> You take the red bell pepper from the counter. Action 10: put red bell pepper on counter -> You put the red bell pepper on the counter. Action 11: take red bell pepper from counter -> You take the red bell pepper from the counter. Action 12: put red bell pepper on counter -> You put the red bell pepper on the counter. Action 13: take red bell pepper from counter -> You take the red bell pepper from the counter. Action 14: put red bell pepper on counter -> You put the red bell pepper on the counter. Action 15: drop knife -> You drop the knife on the ground. Action 16: take red onion -> You pick up the red onion from the ground. 
+Inventory: You are carrying: a red onion
+Current environment: Kitchen[fridge(closed)[red apple, red hot pepper, white onion, raw chicken leg, raw chicken breast], oven(closed), table(emptied), counter[vast][sliced roasted red bell pepper, cookbook], stove(empty), knife(on floor)]
+Action templates:
+* inventory
+* examine <object>
+* open <object>
+* take <object> from <object>
+* cook <object> with <stove | oven>
+* drop <object>
+* <slice | dice | chop> <object> with knife
+* prepare meal
+* eat meal
+* go <direction>
+Next action (answer with the command directly):
+
+prepare meal
+
+ACTION SELCTOR
+ACTION SELCTOR
+prepare meal->cook red onion with stove
+
+Task: Your task is to find and examine the recipe, then prepare the ingredients as required, prepare the meal and eat it.
+
+Action history: Action 0: inventory -> You are carrying nothing. Action 1: examine cookbook -> You open the copy of "Cooking: A Modern Approach (3rd Ed.)" and start reading: Recipe #1 --------- Gather all following ingredients and follow the directions to prepare this tasty meal. Ingredients: red bell pepper red onion Directions: slice the red bell pepper roast the red bell pepper fry the red onion prepare meal Action 2: take red bell pepper from fridge -> You take the red bell pepper from the fridge. Your score has just gone up by one point. Action 3: take red onion from fridge -> You take the red onion from the fridge. Your score has just gone up by one point. Action 4: cook red bell pepper with oven -> You roasted the red bell pepper. Your score has just gone up by one point. Action 5: drop red onion -> You drop the red onion on the ground. Action 6: take knife from counter -> You take the knife from the counter. Action 7: put red bell pepper on counter -> You put the red bell pepper on the counter. Action 8: examine red bell pepper -> You couldn't pay me to eat that sliced roasted red bell pepper. Action 9: take red bell pepper from counter -> You take the red bell pepper from the counter. Action 10: put red bell pepper on counter -> You put the red bell pepper on the counter. Action 11: take red bell pepper from counter -> You take the red bell pepper from the counter. Action 12: put red bell pepper on counter -> You put the red bell pepper on the counter. Action 13: take red bell pepper from counter -> You take the red bell pepper from the counter. Action 14: put red bell pepper on counter -> You put the red bell pepper on the counter. Action 15: drop knife -> You drop the knife on the ground. Action 16: take red onion -> You pick up the red onion from the ground. Action 17: cook red onion with stove -> You fried the red onion. Your score has just gone up by one point. 
+Inventory: You are carrying: a fried red onion
+Current environment: Kitchen[fridge(closed)[red apple, red hot pepper, white onion, raw chicken leg, raw chicken breast], oven(closed), table(emptied), counter[vast][sliced roasted red bell pepper, cookbook], stove(empty), knife(on floor)]
+Action templates:
+* inventory
+* examine <object>
+* open <object>
+* take <object> from <object>
+* cook <object> with <stove | oven>
+* drop <object>
+* <slice | dice | chop> <object> with knife
+* prepare meal
+* eat meal
+* go <direction>
+Next action (answer with the command directly):
+
+take red bell pepper
+
+ACTION SELCTOR
+ACTION SELCTOR
+take red bell pepper->take red bell pepper from counter
+
+Task: Your task is to find and examine the recipe, then prepare the ingredients as required, prepare the meal and eat it.
+
+Action history: Action 0: inventory -> You are carrying nothing. Action 1: examine cookbook -> You open the copy of "Cooking: A Modern Approach (3rd Ed.)" and start reading: Recipe #1 --------- Gather all following ingredients and follow the directions to prepare this tasty meal. Ingredients: red bell pepper red onion Directions: slice the red bell pepper roast the red bell pepper fry the red onion prepare meal Action 2: take red bell pepper from fridge -> You take the red bell pepper from the fridge. Your score has just gone up by one point. Action 3: take red onion from fridge -> You take the red onion from the fridge. Your score has just gone up by one point. Action 4: cook red bell pepper with oven -> You roasted the red bell pepper. Your score has just gone up by one point. Action 5: drop red onion -> You drop the red onion on the ground. Action 6: take knife from counter -> You take the knife from the counter. Action 7: put red bell pepper on counter -> You put the red bell pepper on the counter. Action 8: examine red bell pepper -> You couldn't pay me to eat that sliced roasted red bell pepper. Action 9: take red bell pepper from counter -> You take the red bell pepper from the counter. Action 10: put red bell pepper on counter -> You put the red bell pepper on the counter. Action 11: take red bell pepper from counter -> You take the red bell pepper from the counter. Action 12: put red bell pepper on counter -> You put the red bell pepper on the counter. Action 13: take red bell pepper from counter -> You take the red bell pepper from the counter. Action 14: put red bell pepper on counter -> You put the red bell pepper on the counter. Action 15: drop knife -> You drop the knife on the ground. Action 16: take red onion -> You pick up the red onion from the ground. Action 17: cook red onion with stove -> You fried the red onion. Your score has just gone up by one point. Action 18: take red bell pepper from counter -> You take the red bell pepper from the counter. 
+Inventory: You are carrying: a sliced roasted red bell pepper a fried red onion
+Current environment: Kitchen[fridge(closed)[red apple, red hot pepper, white onion, raw chicken leg, raw chicken breast], oven(closed), table(emptied), counter(open)[cookbook], stove(empty), knife(on floor)]
+Action templates:
+* inventory
+* examine <object>
+* open <object>
+* take <object> from <object>
+* cook <object> with <stove | oven>
+* drop <object>
+* <slice | dice | chop> <object> with knife
+* prepare meal
+* eat meal
+* go <direction>
+Next action (answer with the command directly):
+
+prepare meal
+

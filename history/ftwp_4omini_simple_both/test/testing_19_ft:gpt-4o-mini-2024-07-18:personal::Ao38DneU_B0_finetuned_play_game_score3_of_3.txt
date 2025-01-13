@@ -1,0 +1,180 @@
+Task: Your task is to find and examine the recipe, then prepare the ingredients as required, prepare the meal and eat it.
+
+Action history: No action was taken now.
+Inventory: You are carrying: a roasted red tuna a red hot pepper a roasted pork chop
+Current environment: Kitchen[fridge(empty), oven(off), table[cookbook, knife], counter(empty), stove(conventional), plain door(opened, south), patio door(opened, west), exit(opened, north)]
+Action templates:
+* inventory
+* examine <object>
+* open <object>
+* take <object> from <object>
+* cook <object> with <stove | oven>
+* drop <object>
+* <slice | dice | chop> <object> with knife
+* prepare meal
+* eat meal
+* go <direction>
+Next action (answer with the command directly):
+
+inventory
+
+Task: Your task is to find and examine the recipe, then prepare the ingredients as required, prepare the meal and eat it.
+
+Action history: Action 0: inventory -> You are carrying: a roasted red tuna a red hot pepper a roasted pork chop 
+Inventory: You are carrying: a roasted red tuna a red hot pepper a roasted pork chop
+Current environment: Kitchen[fridge(empty), oven(off), table[cookbook, knife], counter(empty), stove(conventional), plain door(opened, south), patio door(opened, west), exit(opened, north)]
+Action templates:
+* inventory
+* examine <object>
+* open <object>
+* take <object> from <object>
+* cook <object> with <stove | oven>
+* drop <object>
+* <slice | dice | chop> <object> with knife
+* prepare meal
+* eat meal
+* go <direction>
+Next action (answer with the command directly):
+
+examine cookbook
+
+Task: Your task is to find and examine the recipe, then prepare the ingredients as required, prepare the meal and eat it.
+
+Action history: Action 0: inventory -> You are carrying: a roasted red tuna a red hot pepper a roasted pork chop Action 1: examine cookbook -> You open the copy of "Cooking: A Modern Approach (3rd Ed.)" and start reading: Recipe #1 --------- Gather all following ingredients and follow the directions to prepare this tasty meal. Ingredients: pork chop red hot pepper red tuna Directions: roast the pork chop dice the red hot pepper roast the red tuna prepare meal 
+Inventory: You are carrying: a roasted red tuna a red hot pepper a roasted pork chop
+Current environment: Kitchen[fridge(empty), oven(off), table[cookbook, knife], counter(empty), stove(conventional), plain door(opened, south), patio door(opened, west), exit(opened, north)]
+Action templates:
+* inventory
+* examine <object>
+* open <object>
+* take <object> from <object>
+* cook <object> with <stove | oven>
+* drop <object>
+* <slice | dice | chop> <object> with knife
+* prepare meal
+* eat meal
+* go <direction>
+Next action (answer with the command directly):
+
+drop red tuna
+
+Task: Your task is to find and examine the recipe, then prepare the ingredients as required, prepare the meal and eat it.
+
+Action history: Action 0: inventory -> You are carrying: a roasted red tuna a red hot pepper a roasted pork chop Action 1: examine cookbook -> You open the copy of "Cooking: A Modern Approach (3rd Ed.)" and start reading: Recipe #1 --------- Gather all following ingredients and follow the directions to prepare this tasty meal. Ingredients: pork chop red hot pepper red tuna Directions: roast the pork chop dice the red hot pepper roast the red tuna prepare meal Action 2: drop red tuna -> You drop the red tuna on the ground. 
+Inventory: You are carrying: a red hot pepper a roasted pork chop
+Current environment: Kitchen[fridge(empty), oven(off), table[cookbook, knife], counter(empty), stove(conventional), patio door(opened, west), plain door(opened, south), exit(opened, north)][roasted red tuna]
+Action templates:
+* inventory
+* examine <object>
+* open <object>
+* take <object> from <object>
+* cook <object> with <stove | oven>
+* drop <object>
+* <slice | dice | chop> <object> with knife
+* prepare meal
+* eat meal
+* go <direction>
+Next action (answer with the command directly):
+
+take knife from table
+
+Task: Your task is to find and examine the recipe, then prepare the ingredients as required, prepare the meal and eat it.
+
+Action history: Action 0: inventory -> You are carrying: a roasted red tuna a red hot pepper a roasted pork chop Action 1: examine cookbook -> You open the copy of "Cooking: A Modern Approach (3rd Ed.)" and start reading: Recipe #1 --------- Gather all following ingredients and follow the directions to prepare this tasty meal. Ingredients: pork chop red hot pepper red tuna Directions: roast the pork chop dice the red hot pepper roast the red tuna prepare meal Action 2: drop red tuna -> You drop the red tuna on the ground. Action 3: take knife from table -> You take the knife from the table. 
+Inventory: You are carrying: a knife a red hot pepper a roasted pork chop
+Current environment: Kitchen[fridge(empty), oven(off), table[cookbook], counter(empty), stove(conventional), patio door(opened, west), plain door(opened, south), exit(opened, north)][roasted red tuna]
+Action templates:
+* inventory
+* examine <object>
+* open <object>
+* take <object> from <object>
+* cook <object> with <stove | oven>
+* drop <object>
+* <slice | dice | chop> <object> with knife
+* prepare meal
+* eat meal
+* go <direction>
+Next action (answer with the command directly):
+
+dice red hot pepper with knife
+
+Task: Your task is to find and examine the recipe, then prepare the ingredients as required, prepare the meal and eat it.
+
+Action history: Action 0: inventory -> You are carrying: a roasted red tuna a red hot pepper a roasted pork chop Action 1: examine cookbook -> You open the copy of "Cooking: A Modern Approach (3rd Ed.)" and start reading: Recipe #1 --------- Gather all following ingredients and follow the directions to prepare this tasty meal. Ingredients: pork chop red hot pepper red tuna Directions: roast the pork chop dice the red hot pepper roast the red tuna prepare meal Action 2: drop red tuna -> You drop the red tuna on the ground. Action 3: take knife from table -> You take the knife from the table. Action 4: dice red hot pepper with knife -> You dice the red hot pepper. Your score has just gone up by one point. 
+Inventory: You are carrying: a knife a diced red hot pepper a roasted pork chop
+Current environment: Kitchen[fridge(empty), oven(off), table[cookbook], counter(empty), stove(conventional), patio door(opened, west), plain door(opened, south), exit(opened, north)][roasted red tuna]
+Action templates:
+* inventory
+* examine <object>
+* open <object>
+* take <object> from <object>
+* cook <object> with <stove | oven>
+* drop <object>
+* <slice | dice | chop> <object> with knife
+* prepare meal
+* eat meal
+* go <direction>
+Next action (answer with the command directly):
+
+drop knife
+
+Task: Your task is to find and examine the recipe, then prepare the ingredients as required, prepare the meal and eat it.
+
+Action history: Action 0: inventory -> You are carrying: a roasted red tuna a red hot pepper a roasted pork chop Action 1: examine cookbook -> You open the copy of "Cooking: A Modern Approach (3rd Ed.)" and start reading: Recipe #1 --------- Gather all following ingredients and follow the directions to prepare this tasty meal. Ingredients: pork chop red hot pepper red tuna Directions: roast the pork chop dice the red hot pepper roast the red tuna prepare meal Action 2: drop red tuna -> You drop the red tuna on the ground. Action 3: take knife from table -> You take the knife from the table. Action 4: dice red hot pepper with knife -> You dice the red hot pepper. Your score has just gone up by one point. Action 5: drop knife -> You drop the knife on the ground. 
+Inventory: You are carrying: a diced red hot pepper a roasted pork chop
+Current environment: Kitchen[fridge(empty), oven(off), table[cookbook], counter(empty), stove(conventional), knife(on floor), roasted red tuna(on floor), plain door(opened, south), patio door(opened, west), exit(opened, north)]
+Action templates:
+* inventory
+* examine <object>
+* open <object>
+* take <object> from <object>
+* cook <object> with <stove | oven>
+* drop <object>
+* <slice | dice | chop> <object> with knife
+* prepare meal
+* eat meal
+* go <direction>
+Next action (answer with the command directly):
+
+take red tuna
+
+Task: Your task is to find and examine the recipe, then prepare the ingredients as required, prepare the meal and eat it.
+
+Action history: Action 0: inventory -> You are carrying: a roasted red tuna a red hot pepper a roasted pork chop Action 1: examine cookbook -> You open the copy of "Cooking: A Modern Approach (3rd Ed.)" and start reading: Recipe #1 --------- Gather all following ingredients and follow the directions to prepare this tasty meal. Ingredients: pork chop red hot pepper red tuna Directions: roast the pork chop dice the red hot pepper roast the red tuna prepare meal Action 2: drop red tuna -> You drop the red tuna on the ground. Action 3: take knife from table -> You take the knife from the table. Action 4: dice red hot pepper with knife -> You dice the red hot pepper. Your score has just gone up by one point. Action 5: drop knife -> You drop the knife on the ground. Action 6: take red tuna -> You pick up the red tuna from the ground. 
+Inventory: You are carrying: a roasted red tuna a diced red hot pepper a roasted pork chop
+Current environment: Kitchen[fridge(empty), oven(off), table[cookbook], counter(empty), stove(conventional), knife(on floor), plain door(opened, south), patio door(opened, west), exit(opened, north)]
+Action templates:
+* inventory
+* examine <object>
+* open <object>
+* take <object> from <object>
+* cook <object> with <stove | oven>
+* drop <object>
+* <slice | dice | chop> <object> with knife
+* prepare meal
+* eat meal
+* go <direction>
+Next action (answer with the command directly):
+
+prepare meal
+
+Task: Your task is to find and examine the recipe, then prepare the ingredients as required, prepare the meal and eat it.
+
+Action history: Action 0: inventory -> You are carrying: a roasted red tuna a red hot pepper a roasted pork chop Action 1: examine cookbook -> You open the copy of "Cooking: A Modern Approach (3rd Ed.)" and start reading: Recipe #1 --------- Gather all following ingredients and follow the directions to prepare this tasty meal. Ingredients: pork chop red hot pepper red tuna Directions: roast the pork chop dice the red hot pepper roast the red tuna prepare meal Action 2: drop red tuna -> You drop the red tuna on the ground. Action 3: take knife from table -> You take the knife from the table. Action 4: dice red hot pepper with knife -> You dice the red hot pepper. Your score has just gone up by one point. Action 5: drop knife -> You drop the knife on the ground. Action 6: take red tuna -> You pick up the red tuna from the ground. Action 7: prepare meal -> Adding the meal to your inventory. Your score has just gone up by one point. 
+Inventory: You are carrying: a meal
+Current environment: Kitchen[fridge(empty), oven(off), table[cookbook], counter(empty), stove(conventional), knife(on floor), plain door(opened, south), patio door(opened, west), exit(opened, north)]
+Action templates:
+* inventory
+* examine <object>
+* open <object>
+* take <object> from <object>
+* cook <object> with <stove | oven>
+* drop <object>
+* <slice | dice | chop> <object> with knife
+* prepare meal
+* eat meal
+* go <direction>
+Next action (answer with the command directly):
+
+eat meal
+

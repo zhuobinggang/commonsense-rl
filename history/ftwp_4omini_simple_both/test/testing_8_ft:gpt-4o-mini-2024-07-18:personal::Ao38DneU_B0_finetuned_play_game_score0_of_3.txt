@@ -1,0 +1,100 @@
+Task: Your task is to find and examine the recipe, then prepare the ingredients as required, prepare the meal and eat it.
+
+Action history: No action was taken now.
+Inventory: You are carrying: a roasted red potato a red hot pepper a raw purple potato
+Current environment: Kitchen[fridge(empty), oven, table(massive)[knife], counter[cookbook], stove(empty), plain door(opened, north), sliding patio door(opened, south), exit(opened, east)]
+Action templates:
+* inventory
+* examine <object>
+* open <object>
+* take <object> from <object>
+* cook <object> with <stove | oven>
+* drop <object>
+* <slice | dice | chop> <object> with knife
+* prepare meal
+* eat meal
+* go <direction>
+Next action (answer with the command directly):
+
+inventory
+
+Task: Your task is to find and examine the recipe, then prepare the ingredients as required, prepare the meal and eat it.
+
+Action history: Action 0: inventory -> You are carrying: a roasted red potato a red hot pepper a raw purple potato 
+Inventory: You are carrying: a roasted red potato a red hot pepper a raw purple potato
+Current environment: Kitchen[fridge(empty), oven, table(massive)[knife], counter[cookbook], stove(empty), plain door(opened, north), sliding patio door(opened, south), exit(opened, east)]
+Action templates:
+* inventory
+* examine <object>
+* open <object>
+* take <object> from <object>
+* cook <object> with <stove | oven>
+* drop <object>
+* <slice | dice | chop> <object> with knife
+* prepare meal
+* eat meal
+* go <direction>
+Next action (answer with the command directly):
+
+examine cookbook
+
+Task: Your task is to find and examine the recipe, then prepare the ingredients as required, prepare the meal and eat it.
+
+Action history: Action 0: inventory -> You are carrying: a roasted red potato a red hot pepper a raw purple potato Action 1: examine cookbook -> You open the copy of "Cooking: A Modern Approach (3rd Ed.)" and start reading: Recipe #1 --------- Gather all following ingredients and follow the directions to prepare this tasty meal. Ingredients: red potato Directions: chop the red potato roast the red potato prepare meal 
+Inventory: You are carrying: a roasted red potato a red hot pepper a raw purple potato
+Current environment: Kitchen[fridge(empty), oven, table(massive)[knife], counter[cookbook], stove(empty), plain door(opened, north), sliding patio door(opened, south), exit(opened, east)]
+Action templates:
+* inventory
+* examine <object>
+* open <object>
+* take <object> from <object>
+* cook <object> with <stove | oven>
+* drop <object>
+* <slice | dice | chop> <object> with knife
+* prepare meal
+* eat meal
+* go <direction>
+Next action (answer with the command directly):
+
+drop red hot pepper
+
+Task: Your task is to find and examine the recipe, then prepare the ingredients as required, prepare the meal and eat it.
+
+Action history: Action 0: inventory -> You are carrying: a roasted red potato a red hot pepper a raw purple potato Action 1: examine cookbook -> You open the copy of "Cooking: A Modern Approach (3rd Ed.)" and start reading: Recipe #1 --------- Gather all following ingredients and follow the directions to prepare this tasty meal. Ingredients: red potato Directions: chop the red potato roast the red potato prepare meal Action 2: drop red hot pepper -> You drop the red hot pepper on the ground. 
+Inventory: You are carrying: a roasted red potato a raw purple potato
+Current environment: Kitchen[fridge(empty), oven, table(massive)[knife], counter[cookbook], stove, plain door(opened, north), sliding patio door(opened, south), exit(opened, east), floor[red hot pepper]]
+Action templates:
+* inventory
+* examine <object>
+* open <object>
+* take <object> from <object>
+* cook <object> with <stove | oven>
+* drop <object>
+* <slice | dice | chop> <object> with knife
+* prepare meal
+* eat meal
+* go <direction>
+Next action (answer with the command directly):
+
+drop purple potato
+
+Task: Your task is to find and examine the recipe, then prepare the ingredients as required, prepare the meal and eat it.
+
+Action history: Action 0: inventory -> You are carrying: a roasted red potato a red hot pepper a raw purple potato Action 1: examine cookbook -> You open the copy of "Cooking: A Modern Approach (3rd Ed.)" and start reading: Recipe #1 --------- Gather all following ingredients and follow the directions to prepare this tasty meal. Ingredients: red potato Directions: chop the red potato roast the red potato prepare meal Action 2: drop red hot pepper -> You drop the red hot pepper on the ground. Action 3: drop purple potato -> You drop the purple potato on the ground. 
+Inventory: You are carrying: a roasted red potato
+Current environment: Kitchen[fridge(empty), oven, table(massive)[knife], counter[ cookbook], stove(empty), plain door(opened, north), sliding patio door(opened, south), exit(open, east), floor[raw purple potato, red hot pepper]]
+Action templates:
+* inventory
+* examine <object>
+* open <object>
+* take <object> from <object>
+* cook <object> with <stove | oven>
+* drop <object>
+* <slice | dice | chop> <object> with knife
+* prepare meal
+* eat meal
+* go <direction>
+Next action (answer with the command directly):
+
+cook red potato with oven
+

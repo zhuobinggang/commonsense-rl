@@ -1,0 +1,408 @@
+Task: Your task is to find and examine the recipe, then prepare the ingredients as required, prepare the meal and eat it.
+
+Action history: No action was taken now.
+Inventory: You are carrying nothing.
+Current environment: Bathroom[toilet(empty)[none], exit(north)]
+Action templates:
+* inventory
+* examine <object>
+* open <object>
+* take <object> from <object>
+* cook <object> with <stove | oven>
+* drop <object>
+* <slice | dice | chop> <object> with knife
+* prepare meal
+* eat meal
+* go <direction>
+Next action (answer with the command directly):
+
+inventory
+
+Task: Your task is to find and examine the recipe, then prepare the ingredients as required, prepare the meal and eat it.
+
+Action history: Action 0: inventory -> You are carrying nothing. 
+Inventory: You are carrying nothing.
+Current environment: Bathroom[toilet(empty)[none], exit(north)]
+Action templates:
+* inventory
+* examine <object>
+* open <object>
+* take <object> from <object>
+* cook <object> with <stove | oven>
+* drop <object>
+* <slice | dice | chop> <object> with knife
+* prepare meal
+* eat meal
+* go <direction>
+Next action (answer with the command directly):
+
+go north
+
+Task: Your task is to find and examine the recipe, then prepare the ingredients as required, prepare the meal and eat it.
+
+Action history: Action 0: inventory -> You are carrying nothing. Action 1: go north -> -= Corridor =- You find yourself in a corridor. 
+Inventory: You are carrying nothing.
+Current environment: Corridor[door(opened, west), exit(east), exit(south)]
+Action templates:
+* inventory
+* examine <object>
+* open <object>
+* take <object> from <object>
+* cook <object> with <stove | oven>
+* drop <object>
+* <slice | dice | chop> <object> with knife
+* prepare meal
+* eat meal
+* go <direction>
+Next action (answer with the command directly):
+
+go south
+
+Task: Your task is to find and examine the recipe, then prepare the ingredients as required, prepare the meal and eat it.
+
+Action history: Action 0: inventory -> You are carrying nothing. Action 1: go north -> -= Corridor =- You find yourself in a corridor. Action 2: go south -> -= Bathroom =- You've just sauntered into a bathroom. 
+Inventory: You are carrying nothing.
+Current environment: Bathroom[toilet(empty)[none], exit(north)]
+Action templates:
+* inventory
+* examine <object>
+* open <object>
+* take <object> from <object>
+* cook <object> with <stove | oven>
+* drop <object>
+* <slice | dice | chop> <object> with knife
+* prepare meal
+* eat meal
+* go <direction>
+Next action (answer with the command directly):
+
+go north
+
+Task: Your task is to find and examine the recipe, then prepare the ingredients as required, prepare the meal and eat it.
+
+Action history: Action 0: inventory -> You are carrying nothing. Action 1: go north -> -= Corridor =- You find yourself in a corridor. Action 2: go south -> -= Bathroom =- You've just sauntered into a bathroom. Action 3: go north -> -= Corridor =- You find yourself in a corridor. 
+Inventory: You are carrying nothing.
+Current environment: Corridor[door(opened, west), exit(east), exit(south)]
+Action templates:
+* inventory
+* examine <object>
+* open <object>
+* take <object> from <object>
+* cook <object> with <stove | oven>
+* drop <object>
+* <slice | dice | chop> <object> with knife
+* prepare meal
+* eat meal
+* go <direction>
+Next action (answer with the command directly):
+
+go west
+
+Task: Your task is to find and examine the recipe, then prepare the ingredients as required, prepare the meal and eat it.
+
+Action history: Action 0: inventory -> You are carrying nothing. Action 1: go north -> -= Corridor =- You find yourself in a corridor. Action 2: go south -> -= Bathroom =- You've just sauntered into a bathroom. Action 3: go north -> -= Corridor =- You find yourself in a corridor. Action 4: go west -> -= Driveway =- You have entered a driveway. 
+Inventory: You are carrying nothing.
+Current environment: Driveway[fiberglass door(opened, east)]
+Action templates:
+* inventory
+* examine <object>
+* open <object>
+* take <object> from <object>
+* cook <object> with <stove | oven>
+* drop <object>
+* <slice | dice | chop> <object> with knife
+* prepare meal
+* eat meal
+* go <direction>
+Next action (answer with the command directly):
+
+open fiberglass door
+
+ACTION SELCTOR
+ACTION SELCTOR
+open fiberglass door->close fiberglass door
+
+Task: Your task is to find and examine the recipe, then prepare the ingredients as required, prepare the meal and eat it.
+
+Action history: Action 0: inventory -> You are carrying nothing. Action 1: go north -> -= Corridor =- You find yourself in a corridor. Action 2: go south -> -= Bathroom =- You've just sauntered into a bathroom. Action 3: go north -> -= Corridor =- You find yourself in a corridor. Action 4: go west -> -= Driveway =- You have entered a driveway. Action 5: close fiberglass door -> You close fiberglass door. 
+Inventory: You are carrying nothing.
+Current environment: Driveway[door(closed, fiberglass)[east], exit(opened)[south]]
+Action templates:
+* inventory
+* examine <object>
+* open <object>
+* take <object> from <object>
+* cook <object> with <stove | oven>
+* drop <object>
+* <slice | dice | chop> <object> with knife
+* prepare meal
+* eat meal
+* go <direction>
+Next action (answer with the command directly):
+
+go south
+
+Task: Your task is to find and examine the recipe, then prepare the ingredients as required, prepare the meal and eat it.
+
+Action history: Action 0: inventory -> You are carrying nothing. Action 1: go north -> -= Corridor =- You find yourself in a corridor. Action 2: go south -> -= Bathroom =- You've just sauntered into a bathroom. Action 3: go north -> -= Corridor =- You find yourself in a corridor. Action 4: go west -> -= Driveway =- You have entered a driveway. Action 5: close fiberglass door -> You close fiberglass door. Action 6: go south -> -= Street =- I am pleased to announce that you are now in the street. 
+Inventory: You are carrying nothing.
+Current environment: Street[sliding door(opened, west), exit(north)]
+Action templates:
+* inventory
+* examine <object>
+* open <object>
+* take <object> from <object>
+* cook <object> with <stove | oven>
+* drop <object>
+* <slice | dice | chop> <object> with knife
+* prepare meal
+* eat meal
+* go <direction>
+Next action (answer with the command directly):
+
+go north
+
+Task: Your task is to find and examine the recipe, then prepare the ingredients as required, prepare the meal and eat it.
+
+Action history: Action 0: inventory -> You are carrying nothing. Action 1: go north -> -= Corridor =- You find yourself in a corridor. Action 2: go south -> -= Bathroom =- You've just sauntered into a bathroom. Action 3: go north -> -= Corridor =- You find yourself in a corridor. Action 4: go west -> -= Driveway =- You have entered a driveway. Action 5: close fiberglass door -> You close fiberglass door. Action 6: go south -> -= Street =- I am pleased to announce that you are now in the street. Action 7: go north -> -= Driveway =- You have entered a driveway. 
+Inventory: You are carrying nothing.
+Current environment: Driveway[door(closed, fiberglass)[east], exit(opened)[south]]
+Action templates:
+* inventory
+* examine <object>
+* open <object>
+* take <object> from <object>
+* cook <object> with <stove | oven>
+* drop <object>
+* <slice | dice | chop> <object> with knife
+* prepare meal
+* eat meal
+* go <direction>
+Next action (answer with the command directly):
+
+open fiberglass door
+
+Task: Your task is to find and examine the recipe, then prepare the ingredients as required, prepare the meal and eat it.
+
+Action history: Action 0: inventory -> You are carrying nothing. Action 1: go north -> -= Corridor =- You find yourself in a corridor. Action 2: go south -> -= Bathroom =- You've just sauntered into a bathroom. Action 3: go north -> -= Corridor =- You find yourself in a corridor. Action 4: go west -> -= Driveway =- You have entered a driveway. Action 5: close fiberglass door -> You close fiberglass door. Action 6: go south -> -= Street =- I am pleased to announce that you are now in the street. Action 7: go north -> -= Driveway =- You have entered a driveway. Action 8: open fiberglass door -> You open fiberglass door. 
+Inventory: You are carrying nothing.
+Current environment: Driveway[fiberglass door(opened, east)]
+Action templates:
+* inventory
+* examine <object>
+* open <object>
+* take <object> from <object>
+* cook <object> with <stove | oven>
+* drop <object>
+* <slice | dice | chop> <object> with knife
+* prepare meal
+* eat meal
+* go <direction>
+Next action (answer with the command directly):
+
+go east
+
+Task: Your task is to find and examine the recipe, then prepare the ingredients as required, prepare the meal and eat it.
+
+Action history: Action 0: inventory -> You are carrying nothing. Action 1: go north -> -= Corridor =- You find yourself in a corridor. Action 2: go south -> -= Bathroom =- You've just sauntered into a bathroom. Action 3: go north -> -= Corridor =- You find yourself in a corridor. Action 4: go west -> -= Driveway =- You have entered a driveway. Action 5: close fiberglass door -> You close fiberglass door. Action 6: go south -> -= Street =- I am pleased to announce that you are now in the street. Action 7: go north -> -= Driveway =- You have entered a driveway. Action 8: open fiberglass door -> You open fiberglass door. Action 9: go east -> -= Corridor =- You find yourself in a corridor. 
+Inventory: You are carrying nothing.
+Current environment: Corridor[door(opened, west), exit(east), exit(south)]
+Action templates:
+* inventory
+* examine <object>
+* open <object>
+* take <object> from <object>
+* cook <object> with <stove | oven>
+* drop <object>
+* <slice | dice | chop> <object> with knife
+* prepare meal
+* eat meal
+* go <direction>
+Next action (answer with the command directly):
+
+go south
+
+Task: Your task is to find and examine the recipe, then prepare the ingredients as required, prepare the meal and eat it.
+
+Action history: Action 0: inventory -> You are carrying nothing. Action 1: go north -> -= Corridor =- You find yourself in a corridor. Action 2: go south -> -= Bathroom =- You've just sauntered into a bathroom. Action 3: go north -> -= Corridor =- You find yourself in a corridor. Action 4: go west -> -= Driveway =- You have entered a driveway. Action 5: close fiberglass door -> You close fiberglass door. Action 6: go south -> -= Street =- I am pleased to announce that you are now in the street. Action 7: go north -> -= Driveway =- You have entered a driveway. Action 8: open fiberglass door -> You open fiberglass door. Action 9: go east -> -= Corridor =- You find yourself in a corridor. Action 10: go south -> -= Bathroom =- You've just sauntered into a bathroom. 
+Inventory: You are carrying nothing.
+Current environment: Bathroom[toilet(empty)[none], exit(north)]
+Action templates:
+* inventory
+* examine <object>
+* open <object>
+* take <object> from <object>
+* cook <object> with <stove | oven>
+* drop <object>
+* <slice | dice | chop> <object> with knife
+* prepare meal
+* eat meal
+* go <direction>
+Next action (answer with the command directly):
+
+go north
+
+Task: Your task is to find and examine the recipe, then prepare the ingredients as required, prepare the meal and eat it.
+
+Action history: Action 0: inventory -> You are carrying nothing. Action 1: go north -> -= Corridor =- You find yourself in a corridor. Action 2: go south -> -= Bathroom =- You've just sauntered into a bathroom. Action 3: go north -> -= Corridor =- You find yourself in a corridor. Action 4: go west -> -= Driveway =- You have entered a driveway. Action 5: close fiberglass door -> You close fiberglass door. Action 6: go south -> -= Street =- I am pleased to announce that you are now in the street. Action 7: go north -> -= Driveway =- You have entered a driveway. Action 8: open fiberglass door -> You open fiberglass door. Action 9: go east -> -= Corridor =- You find yourself in a corridor. Action 10: go south -> -= Bathroom =- You've just sauntered into a bathroom. Action 11: go north -> -= Corridor =- You find yourself in a corridor. 
+Inventory: You are carrying nothing.
+Current environment: Corridor[door(opened, west), exit(east), exit(south)]
+Action templates:
+* inventory
+* examine <object>
+* open <object>
+* take <object> from <object>
+* cook <object> with <stove | oven>
+* drop <object>
+* <slice | dice | chop> <object> with knife
+* prepare meal
+* eat meal
+* go <direction>
+Next action (answer with the command directly):
+
+go west
+
+Task: Your task is to find and examine the recipe, then prepare the ingredients as required, prepare the meal and eat it.
+
+Action history: Action 0: inventory -> You are carrying nothing. Action 1: go north -> -= Corridor =- You find yourself in a corridor. Action 2: go south -> -= Bathroom =- You've just sauntered into a bathroom. Action 3: go north -> -= Corridor =- You find yourself in a corridor. Action 4: go west -> -= Driveway =- You have entered a driveway. Action 5: close fiberglass door -> You close fiberglass door. Action 6: go south -> -= Street =- I am pleased to announce that you are now in the street. Action 7: go north -> -= Driveway =- You have entered a driveway. Action 8: open fiberglass door -> You open fiberglass door. Action 9: go east -> -= Corridor =- You find yourself in a corridor. Action 10: go south -> -= Bathroom =- You've just sauntered into a bathroom. Action 11: go north -> -= Corridor =- You find yourself in a corridor. Action 12: go west -> -= Driveway =- You have entered a driveway. 
+Inventory: You are carrying nothing.
+Current environment: Driveway[fiberglass door(opened, east)]
+Action templates:
+* inventory
+* examine <object>
+* open <object>
+* take <object> from <object>
+* cook <object> with <stove | oven>
+* drop <object>
+* <slice | dice | chop> <object> with knife
+* prepare meal
+* eat meal
+* go <direction>
+Next action (answer with the command directly):
+
+open fiberglass door
+
+ACTION SELCTOR
+ACTION SELCTOR
+open fiberglass door->close fiberglass door
+
+Task: Your task is to find and examine the recipe, then prepare the ingredients as required, prepare the meal and eat it.
+
+Action history: Action 0: inventory -> You are carrying nothing. Action 1: go north -> -= Corridor =- You find yourself in a corridor. Action 2: go south -> -= Bathroom =- You've just sauntered into a bathroom. Action 3: go north -> -= Corridor =- You find yourself in a corridor. Action 4: go west -> -= Driveway =- You have entered a driveway. Action 5: close fiberglass door -> You close fiberglass door. Action 6: go south -> -= Street =- I am pleased to announce that you are now in the street. Action 7: go north -> -= Driveway =- You have entered a driveway. Action 8: open fiberglass door -> You open fiberglass door. Action 9: go east -> -= Corridor =- You find yourself in a corridor. Action 10: go south -> -= Bathroom =- You've just sauntered into a bathroom. Action 11: go north -> -= Corridor =- You find yourself in a corridor. Action 12: go west -> -= Driveway =- You have entered a driveway. Action 13: close fiberglass door -> You close fiberglass door. 
+Inventory: You are carrying nothing.
+Current environment: Driveway[door(closed, fiberglass)[east], exit(opened, south)]
+Action templates:
+* inventory
+* examine <object>
+* open <object>
+* take <object> from <object>
+* cook <object> with <stove | oven>
+* drop <object>
+* <slice | dice | chop> <object> with knife
+* prepare meal
+* eat meal
+* go <direction>
+Next action (answer with the command directly):
+
+go south
+
+Task: Your task is to find and examine the recipe, then prepare the ingredients as required, prepare the meal and eat it.
+
+Action history: Action 0: inventory -> You are carrying nothing. Action 1: go north -> -= Corridor =- You find yourself in a corridor. Action 2: go south -> -= Bathroom =- You've just sauntered into a bathroom. Action 3: go north -> -= Corridor =- You find yourself in a corridor. Action 4: go west -> -= Driveway =- You have entered a driveway. Action 5: close fiberglass door -> You close fiberglass door. Action 6: go south -> -= Street =- I am pleased to announce that you are now in the street. Action 7: go north -> -= Driveway =- You have entered a driveway. Action 8: open fiberglass door -> You open fiberglass door. Action 9: go east -> -= Corridor =- You find yourself in a corridor. Action 10: go south -> -= Bathroom =- You've just sauntered into a bathroom. Action 11: go north -> -= Corridor =- You find yourself in a corridor. Action 12: go west -> -= Driveway =- You have entered a driveway. Action 13: close fiberglass door -> You close fiberglass door. Action 14: go south -> -= Street =- I am pleased to announce that you are now in the street. 
+Inventory: You are carrying nothing.
+Current environment: Street[sliding door(opened, west), exit(north)]
+Action templates:
+* inventory
+* examine <object>
+* open <object>
+* take <object> from <object>
+* cook <object> with <stove | oven>
+* drop <object>
+* <slice | dice | chop> <object> with knife
+* prepare meal
+* eat meal
+* go <direction>
+Next action (answer with the command directly):
+
+go north
+
+Task: Your task is to find and examine the recipe, then prepare the ingredients as required, prepare the meal and eat it.
+
+Action history: Action 0: inventory -> You are carrying nothing. Action 1: go north -> -= Corridor =- You find yourself in a corridor. Action 2: go south -> -= Bathroom =- You've just sauntered into a bathroom. Action 3: go north -> -= Corridor =- You find yourself in a corridor. Action 4: go west -> -= Driveway =- You have entered a driveway. Action 5: close fiberglass door -> You close fiberglass door. Action 6: go south -> -= Street =- I am pleased to announce that you are now in the street. Action 7: go north -> -= Driveway =- You have entered a driveway. Action 8: open fiberglass door -> You open fiberglass door. Action 9: go east -> -= Corridor =- You find yourself in a corridor. Action 10: go south -> -= Bathroom =- You've just sauntered into a bathroom. Action 11: go north -> -= Corridor =- You find yourself in a corridor. Action 12: go west -> -= Driveway =- You have entered a driveway. Action 13: close fiberglass door -> You close fiberglass door. Action 14: go south -> -= Street =- I am pleased to announce that you are now in the street. Action 15: go north -> -= Driveway =- You have entered a driveway. 
+Inventory: You are carrying nothing.
+Current environment: Driveway[door(closed, fiberglass)[east], exit(opened, south)]
+Action templates:
+* inventory
+* examine <object>
+* open <object>
+* take <object> from <object>
+* cook <object> with <stove | oven>
+* drop <object>
+* <slice | dice | chop> <object> with knife
+* prepare meal
+* eat meal
+* go <direction>
+Next action (answer with the command directly):
+
+open fiberglass door
+
+Task: Your task is to find and examine the recipe, then prepare the ingredients as required, prepare the meal and eat it.
+
+Action history: Action 0: inventory -> You are carrying nothing. Action 1: go north -> -= Corridor =- You find yourself in a corridor. Action 2: go south -> -= Bathroom =- You've just sauntered into a bathroom. Action 3: go north -> -= Corridor =- You find yourself in a corridor. Action 4: go west -> -= Driveway =- You have entered a driveway. Action 5: close fiberglass door -> You close fiberglass door. Action 6: go south -> -= Street =- I am pleased to announce that you are now in the street. Action 7: go north -> -= Driveway =- You have entered a driveway. Action 8: open fiberglass door -> You open fiberglass door. Action 9: go east -> -= Corridor =- You find yourself in a corridor. Action 10: go south -> -= Bathroom =- You've just sauntered into a bathroom. Action 11: go north -> -= Corridor =- You find yourself in a corridor. Action 12: go west -> -= Driveway =- You have entered a driveway. Action 13: close fiberglass door -> You close fiberglass door. Action 14: go south -> -= Street =- I am pleased to announce that you are now in the street. Action 15: go north -> -= Driveway =- You have entered a driveway. Action 16: open fiberglass door -> You open fiberglass door. 
+Inventory: You are carrying nothing.
+Current environment: Driveway[fiberglass door(opened, east)]
+Action templates:
+* inventory
+* examine <object>
+* open <object>
+* take <object> from <object>
+* cook <object> with <stove | oven>
+* drop <object>
+* <slice | dice | chop> <object> with knife
+* prepare meal
+* eat meal
+* go <direction>
+Next action (answer with the command directly):
+
+go east
+
+Task: Your task is to find and examine the recipe, then prepare the ingredients as required, prepare the meal and eat it.
+
+Action history: Action 0: inventory -> You are carrying nothing. Action 1: go north -> -= Corridor =- You find yourself in a corridor. Action 2: go south -> -= Bathroom =- You've just sauntered into a bathroom. Action 3: go north -> -= Corridor =- You find yourself in a corridor. Action 4: go west -> -= Driveway =- You have entered a driveway. Action 5: close fiberglass door -> You close fiberglass door. Action 6: go south -> -= Street =- I am pleased to announce that you are now in the street. Action 7: go north -> -= Driveway =- You have entered a driveway. Action 8: open fiberglass door -> You open fiberglass door. Action 9: go east -> -= Corridor =- You find yourself in a corridor. Action 10: go south -> -= Bathroom =- You've just sauntered into a bathroom. Action 11: go north -> -= Corridor =- You find yourself in a corridor. Action 12: go west -> -= Driveway =- You have entered a driveway. Action 13: close fiberglass door -> You close fiberglass door. Action 14: go south -> -= Street =- I am pleased to announce that you are now in the street. Action 15: go north -> -= Driveway =- You have entered a driveway. Action 16: open fiberglass door -> You open fiberglass door. Action 17: go east -> -= Corridor =- You find yourself in a corridor. 
+Inventory: You are carrying nothing.
+Current environment: Corridor[door(opened, west), exit(east), exit(south)]
+Action templates:
+* inventory
+* examine <object>
+* open <object>
+* take <object> from <object>
+* cook <object> with <stove | oven>
+* drop <object>
+* <slice | dice | chop> <object> with knife
+* prepare meal
+* eat meal
+* go <direction>
+Next action (answer with the command directly):
+
+go south
+
+Task: Your task is to find and examine the recipe, then prepare the ingredients as required, prepare the meal and eat it.
+
+Action history: Action 0: inventory -> You are carrying nothing. Action 1: go north -> -= Corridor =- You find yourself in a corridor. Action 2: go south -> -= Bathroom =- You've just sauntered into a bathroom. Action 3: go north -> -= Corridor =- You find yourself in a corridor. Action 4: go west -> -= Driveway =- You have entered a driveway. Action 5: close fiberglass door -> You close fiberglass door. Action 6: go south -> -= Street =- I am pleased to announce that you are now in the street. Action 7: go north -> -= Driveway =- You have entered a driveway. Action 8: open fiberglass door -> You open fiberglass door. Action 9: go east -> -= Corridor =- You find yourself in a corridor. Action 10: go south -> -= Bathroom =- You've just sauntered into a bathroom. Action 11: go north -> -= Corridor =- You find yourself in a corridor. Action 12: go west -> -= Driveway =- You have entered a driveway. Action 13: close fiberglass door -> You close fiberglass door. Action 14: go south -> -= Street =- I am pleased to announce that you are now in the street. Action 15: go north -> -= Driveway =- You have entered a driveway. Action 16: open fiberglass door -> You open fiberglass door. Action 17: go east -> -= Corridor =- You find yourself in a corridor. Action 18: go south -> -= Bathroom =- You've just sauntered into a bathroom. 
+Inventory: You are carrying nothing.
+Current environment: Bathroom[toilet(empty)[none], exit(north)]
+Action templates:
+* inventory
+* examine <object>
+* open <object>
+* take <object> from <object>
+* cook <object> with <stove | oven>
+* drop <object>
+* <slice | dice | chop> <object> with knife
+* prepare meal
+* eat meal
+* go <direction>
+Next action (answer with the command directly):
+
+go north
+

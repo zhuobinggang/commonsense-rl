@@ -1,0 +1,164 @@
+Task: Your task is to find and examine the recipe, then prepare the ingredients as required, prepare the meal and eat it.
+
+Action history: No action was taken now.
+Inventory: You are carrying: a diced red apple a red onion a green apple
+Current environment: Kitchen[fridge(empty), oven(closed), table[knife], counter[ cookbook], stove(empty), frosted-glass door(opened, south), entranceway(opened, north), exit(opened, west)]
+Action templates:
+* inventory
+* examine <object>
+* open <object>
+* take <object> from <object>
+* cook <object> with <stove | oven>
+* drop <object>
+* <slice | dice | chop> <object> with knife
+* prepare meal
+* eat meal
+* go <direction>
+Next action (answer with the command directly):
+
+inventory
+
+Task: Your task is to find and examine the recipe, then prepare the ingredients as required, prepare the meal and eat it.
+
+Action history: Action 0: inventory -> You are carrying: a diced red apple a red onion a green apple 
+Inventory: You are carrying: a diced red apple a red onion a green apple
+Current environment: Kitchen[fridge(empty), oven(closed), table[knife], counter[ cookbook], stove(empty), frosted-glass door(opened, south), entranceway(opened, north), exit(opened, west)]
+Action templates:
+* inventory
+* examine <object>
+* open <object>
+* take <object> from <object>
+* cook <object> with <stove | oven>
+* drop <object>
+* <slice | dice | chop> <object> with knife
+* prepare meal
+* eat meal
+* go <direction>
+Next action (answer with the command directly):
+
+examine cookbook
+
+Task: Your task is to find and examine the recipe, then prepare the ingredients as required, prepare the meal and eat it.
+
+Action history: Action 0: inventory -> You are carrying: a diced red apple a red onion a green apple Action 1: examine cookbook -> You open the copy of "Cooking: A Modern Approach (3rd Ed.)" and start reading: Recipe #1 --------- Gather all following ingredients and follow the directions to prepare this tasty meal. Ingredients: red apple Directions: dice the red apple roast the red apple prepare meal 
+Inventory: You are carrying: a diced red apple a red onion a green apple
+Current environment: Kitchen[fridge(empty), oven(closed), table[knife], counter[ cookbook], stove(empty), frosted-glass door(opened, south), entranceway(opened, north), exit(opened, west)]
+Action templates:
+* inventory
+* examine <object>
+* open <object>
+* take <object> from <object>
+* cook <object> with <stove | oven>
+* drop <object>
+* <slice | dice | chop> <object> with knife
+* prepare meal
+* eat meal
+* go <direction>
+Next action (answer with the command directly):
+
+drop red onion
+
+Task: Your task is to find and examine the recipe, then prepare the ingredients as required, prepare the meal and eat it.
+
+Action history: Action 0: inventory -> You are carrying: a diced red apple a red onion a green apple Action 1: examine cookbook -> You open the copy of "Cooking: A Modern Approach (3rd Ed.)" and start reading: Recipe #1 --------- Gather all following ingredients and follow the directions to prepare this tasty meal. Ingredients: red apple Directions: dice the red apple roast the red apple prepare meal Action 2: drop red onion -> You drop the red onion on the ground. 
+Inventory: You are carrying: a diced red apple a green apple
+Current environment: Kitchen[fridge(empty), oven(closed), table[knife], counter[cookbook], stove(empty), frosted-glass door(opened, south), entranceway(north), exit(west), floor[red onion]]
+Action templates:
+* inventory
+* examine <object>
+* open <object>
+* take <object> from <object>
+* cook <object> with <stove | oven>
+* drop <object>
+* <slice | dice | chop> <object> with knife
+* prepare meal
+* eat meal
+* go <direction>
+Next action (answer with the command directly):
+
+drop green apple
+
+Task: Your task is to find and examine the recipe, then prepare the ingredients as required, prepare the meal and eat it.
+
+Action history: Action 0: inventory -> You are carrying: a diced red apple a red onion a green apple Action 1: examine cookbook -> You open the copy of "Cooking: A Modern Approach (3rd Ed.)" and start reading: Recipe #1 --------- Gather all following ingredients and follow the directions to prepare this tasty meal. Ingredients: red apple Directions: dice the red apple roast the red apple prepare meal Action 2: drop red onion -> You drop the red onion on the ground. Action 3: drop green apple -> You drop the green apple on the ground. 
+Inventory: You are carrying: a diced red apple
+Current environment: Kitchen[fridge(empty), oven(closed), table[knife], counter[cookbook], stove(empty), frosted-glass door(opened, south), entranceway(north), exit(west), floor[green apple, red onion]]
+Action templates:
+* inventory
+* examine <object>
+* open <object>
+* take <object> from <object>
+* cook <object> with <stove | oven>
+* drop <object>
+* <slice | dice | chop> <object> with knife
+* prepare meal
+* eat meal
+* go <direction>
+Next action (answer with the command directly):
+
+cook red apple with oven
+
+Task: Your task is to find and examine the recipe, then prepare the ingredients as required, prepare the meal and eat it.
+
+Action history: Action 0: inventory -> You are carrying: a diced red apple a red onion a green apple Action 1: examine cookbook -> You open the copy of "Cooking: A Modern Approach (3rd Ed.)" and start reading: Recipe #1 --------- Gather all following ingredients and follow the directions to prepare this tasty meal. Ingredients: red apple Directions: dice the red apple roast the red apple prepare meal Action 2: drop red onion -> You drop the red onion on the ground. Action 3: drop green apple -> You drop the green apple on the ground. Action 4: cook red apple with oven -> You roasted the red apple. Your score has just gone up by one point. 
+Inventory: You are carrying: a diced roasted red apple
+Current environment: Kitchen[fridge(empty), oven(closed), table[knife], counter[cookbook], stove(empty), frosted-glass door(opened, south), entranceway(north), exit(west), floor[green apple, red onion]]
+Action templates:
+* inventory
+* examine <object>
+* open <object>
+* take <object> from <object>
+* cook <object> with <stove | oven>
+* drop <object>
+* <slice | dice | chop> <object> with knife
+* prepare meal
+* eat meal
+* go <direction>
+Next action (answer with the command directly):
+
+take knife from table
+
+Task: Your task is to find and examine the recipe, then prepare the ingredients as required, prepare the meal and eat it.
+
+Action history: Action 0: inventory -> You are carrying: a diced red apple a red onion a green apple Action 1: examine cookbook -> You open the copy of "Cooking: A Modern Approach (3rd Ed.)" and start reading: Recipe #1 --------- Gather all following ingredients and follow the directions to prepare this tasty meal. Ingredients: red apple Directions: dice the red apple roast the red apple prepare meal Action 2: drop red onion -> You drop the red onion on the ground. Action 3: drop green apple -> You drop the green apple on the ground. Action 4: cook red apple with oven -> You roasted the red apple. Your score has just gone up by one point. Action 5: take knife from table -> You take the knife from the table. 
+Inventory: You are carrying: a knife a diced roasted red apple
+Current environment: Kitchen[fridge(empty), oven(closed), table(empty), counter[cookbook], stove(empty), frosted-glass door(opened, south), entranceway(north), exit(west), floor[green apple, red onion]]
+Action templates:
+* inventory
+* examine <object>
+* open <object>
+* take <object> from <object>
+* cook <object> with <stove | oven>
+* drop <object>
+* <slice | dice | chop> <object> with knife
+* prepare meal
+* eat meal
+* go <direction>
+Next action (answer with the command directly):
+
+dice red apple with knife
+
+ACTION SELCTOR
+ACTION SELCTOR
+dice red apple with knife->prepare meal
+
+Task: Your task is to find and examine the recipe, then prepare the ingredients as required, prepare the meal and eat it.
+
+Action history: Action 0: inventory -> You are carrying: a diced red apple a red onion a green apple Action 1: examine cookbook -> You open the copy of "Cooking: A Modern Approach (3rd Ed.)" and start reading: Recipe #1 --------- Gather all following ingredients and follow the directions to prepare this tasty meal. Ingredients: red apple Directions: dice the red apple roast the red apple prepare meal Action 2: drop red onion -> You drop the red onion on the ground. Action 3: drop green apple -> You drop the green apple on the ground. Action 4: cook red apple with oven -> You roasted the red apple. Your score has just gone up by one point. Action 5: take knife from table -> You take the knife from the table. Action 6: prepare meal -> Adding the meal to your inventory. Your score has just gone up by one point. 
+Inventory: You are carrying: a meal a knife
+Current environment: Kitchen[fridge(empty), oven(closed), table(empty), counter[cookbook], stove(empty), frosted-glass door(opened, south), entranceway(north), exit(west), floor[green apple, red onion]]
+Action templates:
+* inventory
+* examine <object>
+* open <object>
+* take <object> from <object>
+* cook <object> with <stove | oven>
+* drop <object>
+* <slice | dice | chop> <object> with knife
+* prepare meal
+* eat meal
+* go <direction>
+Next action (answer with the command directly):
+
+eat meal
+

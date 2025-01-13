@@ -1,0 +1,440 @@
+Task: Your task is to find and examine the recipe, then prepare the ingredients as required, prepare the meal and eat it.
+
+Action history: No action was taken now.
+Inventory: You are carrying: a lettuce a red apple a fried red onion
+Current environment: Livingroom[sofa(empty), exit(east), exit(north), exit(south)]
+Action templates:
+* inventory
+* examine <object>
+* open <object>
+* take <object> from <object>
+* cook <object> with <stove | oven>
+* drop <object>
+* <slice | dice | chop> <object> with knife
+* prepare meal
+* eat meal
+* go <direction>
+Next action (answer with the command directly):
+
+inventory
+
+Task: Your task is to find and examine the recipe, then prepare the ingredients as required, prepare the meal and eat it.
+
+Action history: Action 0: inventory -> You are carrying: a lettuce a red apple a fried red onion 
+Inventory: You are carrying: a lettuce a red apple a fried red onion
+Current environment: Livingroom[sofa(empty), exit(east), exit(north), exit(south)]
+Action templates:
+* inventory
+* examine <object>
+* open <object>
+* take <object> from <object>
+* cook <object> with <stove | oven>
+* drop <object>
+* <slice | dice | chop> <object> with knife
+* prepare meal
+* eat meal
+* go <direction>
+Next action (answer with the command directly):
+
+prepare meal
+
+ACTION SELCTOR
+ACTION SELCTOR
+prepare meal->put lettuce on sofa
+
+Task: Your task is to find and examine the recipe, then prepare the ingredients as required, prepare the meal and eat it.
+
+Action history: Action 0: inventory -> You are carrying: a lettuce a red apple a fried red onion Action 1: put lettuce on sofa -> You put the lettuce on the sofa. 
+Inventory: You are carrying: a red apple a fried red onion
+Current environment: Livingroom[sofa[lettuce], exit(east), exit(north), exit(south)]
+Action templates:
+* inventory
+* examine <object>
+* open <object>
+* take <object> from <object>
+* cook <object> with <stove | oven>
+* drop <object>
+* <slice | dice | chop> <object> with knife
+* prepare meal
+* eat meal
+* go <direction>
+Next action (answer with the command directly):
+
+drop red apple
+
+Task: Your task is to find and examine the recipe, then prepare the ingredients as required, prepare the meal and eat it.
+
+Action history: Action 0: inventory -> You are carrying: a lettuce a red apple a fried red onion Action 1: put lettuce on sofa -> You put the lettuce on the sofa. Action 2: drop red apple -> You drop the red apple on the ground. 
+Inventory: You are carrying: a fried red onion
+Current environment: Livingroom[sofa[lettuce], exit(east), exit(north), exit(south), floor[red apple]]
+Action templates:
+* inventory
+* examine <object>
+* open <object>
+* take <object> from <object>
+* cook <object> with <stove | oven>
+* drop <object>
+* <slice | dice | chop> <object> with knife
+* prepare meal
+* eat meal
+* go <direction>
+Next action (answer with the command directly):
+
+prepare meal
+
+ACTION SELCTOR
+ACTION SELCTOR
+prepare meal->take lettuce from sofa
+
+Task: Your task is to find and examine the recipe, then prepare the ingredients as required, prepare the meal and eat it.
+
+Action history: Action 0: inventory -> You are carrying: a lettuce a red apple a fried red onion Action 1: put lettuce on sofa -> You put the lettuce on the sofa. Action 2: drop red apple -> You drop the red apple on the ground. Action 3: take lettuce from sofa -> You take the lettuce from the sofa. 
+Inventory: You are carrying: a lettuce a fried red onion
+Current environment: Livingroom[sofa(empty), exit(east), exit(north), exit(south), floor[red apple]]
+Action templates:
+* inventory
+* examine <object>
+* open <object>
+* take <object> from <object>
+* cook <object> with <stove | oven>
+* drop <object>
+* <slice | dice | chop> <object> with knife
+* prepare meal
+* eat meal
+* go <direction>
+Next action (answer with the command directly):
+
+cook lettuce with stove
+
+ACTION SELCTOR
+ACTION SELCTOR
+cook lettuce with stove->put lettuce on sofa
+
+Task: Your task is to find and examine the recipe, then prepare the ingredients as required, prepare the meal and eat it.
+
+Action history: Action 0: inventory -> You are carrying: a lettuce a red apple a fried red onion Action 1: put lettuce on sofa -> You put the lettuce on the sofa. Action 2: drop red apple -> You drop the red apple on the ground. Action 3: take lettuce from sofa -> You take the lettuce from the sofa. Action 4: put lettuce on sofa -> You put the lettuce on the sofa. 
+Inventory: You are carrying: a fried red onion
+Current environment: Livingroom[sofa[lettuce], exit(east), exit(north), exit(south), floor[red apple]]
+Action templates:
+* inventory
+* examine <object>
+* open <object>
+* take <object> from <object>
+* cook <object> with <stove | oven>
+* drop <object>
+* <slice | dice | chop> <object> with knife
+* prepare meal
+* eat meal
+* go <direction>
+Next action (answer with the command directly):
+
+take red apple
+
+Task: Your task is to find and examine the recipe, then prepare the ingredients as required, prepare the meal and eat it.
+
+Action history: Action 0: inventory -> You are carrying: a lettuce a red apple a fried red onion Action 1: put lettuce on sofa -> You put the lettuce on the sofa. Action 2: drop red apple -> You drop the red apple on the ground. Action 3: take lettuce from sofa -> You take the lettuce from the sofa. Action 4: put lettuce on sofa -> You put the lettuce on the sofa. Action 5: take red apple -> You pick up the red apple from the ground. 
+Inventory: You are carrying: a red apple a fried red onion
+Current environment: Livingroom[sofa[lettuce], exit(east), exit(north), exit(south)]
+Action templates:
+* inventory
+* examine <object>
+* open <object>
+* take <object> from <object>
+* cook <object> with <stove | oven>
+* drop <object>
+* <slice | dice | chop> <object> with knife
+* prepare meal
+* eat meal
+* go <direction>
+Next action (answer with the command directly):
+
+take fried red onion
+
+ACTION SELCTOR
+ACTION SELCTOR
+take fried red onion->take red onion
+
+Task: Your task is to find and examine the recipe, then prepare the ingredients as required, prepare the meal and eat it.
+
+Action history: Action 0: inventory -> You are carrying: a lettuce a red apple a fried red onion Action 1: put lettuce on sofa -> You put the lettuce on the sofa. Action 2: drop red apple -> You drop the red apple on the ground. Action 3: take lettuce from sofa -> You take the lettuce from the sofa. Action 4: put lettuce on sofa -> You put the lettuce on the sofa. Action 5: take red apple -> You pick up the red apple from the ground. Action 6: take red onion -> You already have that. 
+Inventory: You are carrying: a red apple a fried red onion
+Current environment: Livingroom[sofa[lettuce], exit(east), exit(north), exit(south)]
+Action templates:
+* inventory
+* examine <object>
+* open <object>
+* take <object> from <object>
+* cook <object> with <stove | oven>
+* drop <object>
+* <slice | dice | chop> <object> with knife
+* prepare meal
+* eat meal
+* go <direction>
+Next action (answer with the command directly):
+
+prepare meal
+
+ACTION SELCTOR
+ACTION SELCTOR
+prepare meal->put red onion on sofa
+
+Task: Your task is to find and examine the recipe, then prepare the ingredients as required, prepare the meal and eat it.
+
+Action history: Action 0: inventory -> You are carrying: a lettuce a red apple a fried red onion Action 1: put lettuce on sofa -> You put the lettuce on the sofa. Action 2: drop red apple -> You drop the red apple on the ground. Action 3: take lettuce from sofa -> You take the lettuce from the sofa. Action 4: put lettuce on sofa -> You put the lettuce on the sofa. Action 5: take red apple -> You pick up the red apple from the ground. Action 6: take red onion -> You already have that. Action 7: put red onion on sofa -> You put the red onion on the sofa. 
+Inventory: You are carrying: a red apple
+Current environment: Livingroom[sofa[fried red onion, lettuce], exit(east), exit(north), exit(south)]
+Action templates:
+* inventory
+* examine <object>
+* open <object>
+* take <object> from <object>
+* cook <object> with <stove | oven>
+* drop <object>
+* <slice | dice | chop> <object> with knife
+* prepare meal
+* eat meal
+* go <direction>
+Next action (answer with the command directly):
+
+take lettuce from sofa
+
+Task: Your task is to find and examine the recipe, then prepare the ingredients as required, prepare the meal and eat it.
+
+Action history: Action 0: inventory -> You are carrying: a lettuce a red apple a fried red onion Action 1: put lettuce on sofa -> You put the lettuce on the sofa. Action 2: drop red apple -> You drop the red apple on the ground. Action 3: take lettuce from sofa -> You take the lettuce from the sofa. Action 4: put lettuce on sofa -> You put the lettuce on the sofa. Action 5: take red apple -> You pick up the red apple from the ground. Action 6: take red onion -> You already have that. Action 7: put red onion on sofa -> You put the red onion on the sofa. Action 8: take lettuce from sofa -> You take the lettuce from the sofa. 
+Inventory: You are carrying: a lettuce a red apple
+Current environment: Livingroom[sofa[fried red onion], exit(east), exit(north), exit(south)]
+Action templates:
+* inventory
+* examine <object>
+* open <object>
+* take <object> from <object>
+* cook <object> with <stove | oven>
+* drop <object>
+* <slice | dice | chop> <object> with knife
+* prepare meal
+* eat meal
+* go <direction>
+Next action (answer with the command directly):
+
+put red apple on sofa
+
+Task: Your task is to find and examine the recipe, then prepare the ingredients as required, prepare the meal and eat it.
+
+Action history: Action 0: inventory -> You are carrying: a lettuce a red apple a fried red onion Action 1: put lettuce on sofa -> You put the lettuce on the sofa. Action 2: drop red apple -> You drop the red apple on the ground. Action 3: take lettuce from sofa -> You take the lettuce from the sofa. Action 4: put lettuce on sofa -> You put the lettuce on the sofa. Action 5: take red apple -> You pick up the red apple from the ground. Action 6: take red onion -> You already have that. Action 7: put red onion on sofa -> You put the red onion on the sofa. Action 8: take lettuce from sofa -> You take the lettuce from the sofa. Action 9: put red apple on sofa -> You put the red apple on the sofa. 
+Inventory: You are carrying: a lettuce
+Current environment: Livingroom[sofa[red apple, fried red onion], exit(east), exit(north), exit(south)]
+Action templates:
+* inventory
+* examine <object>
+* open <object>
+* take <object> from <object>
+* cook <object> with <stove | oven>
+* drop <object>
+* <slice | dice | chop> <object> with knife
+* prepare meal
+* eat meal
+* go <direction>
+Next action (answer with the command directly):
+
+take red onion
+
+ACTION SELCTOR
+ACTION SELCTOR
+take red onion->take red onion from sofa
+
+Task: Your task is to find and examine the recipe, then prepare the ingredients as required, prepare the meal and eat it.
+
+Action history: Action 0: inventory -> You are carrying: a lettuce a red apple a fried red onion Action 1: put lettuce on sofa -> You put the lettuce on the sofa. Action 2: drop red apple -> You drop the red apple on the ground. Action 3: take lettuce from sofa -> You take the lettuce from the sofa. Action 4: put lettuce on sofa -> You put the lettuce on the sofa. Action 5: take red apple -> You pick up the red apple from the ground. Action 6: take red onion -> You already have that. Action 7: put red onion on sofa -> You put the red onion on the sofa. Action 8: take lettuce from sofa -> You take the lettuce from the sofa. Action 9: put red apple on sofa -> You put the red apple on the sofa. Action 10: take red onion from sofa -> You take the red onion from the sofa. 
+Inventory: You are carrying: a fried red onion a lettuce
+Current environment: Livingroom[sofa[red apple], exit(east), exit(north), exit(south)]
+Action templates:
+* inventory
+* examine <object>
+* open <object>
+* take <object> from <object>
+* cook <object> with <stove | oven>
+* drop <object>
+* <slice | dice | chop> <object> with knife
+* prepare meal
+* eat meal
+* go <direction>
+Next action (answer with the command directly):
+
+prepare meal
+
+ACTION SELCTOR
+ACTION SELCTOR
+prepare meal->put lettuce on sofa
+
+Task: Your task is to find and examine the recipe, then prepare the ingredients as required, prepare the meal and eat it.
+
+Action history: Action 0: inventory -> You are carrying: a lettuce a red apple a fried red onion Action 1: put lettuce on sofa -> You put the lettuce on the sofa. Action 2: drop red apple -> You drop the red apple on the ground. Action 3: take lettuce from sofa -> You take the lettuce from the sofa. Action 4: put lettuce on sofa -> You put the lettuce on the sofa. Action 5: take red apple -> You pick up the red apple from the ground. Action 6: take red onion -> You already have that. Action 7: put red onion on sofa -> You put the red onion on the sofa. Action 8: take lettuce from sofa -> You take the lettuce from the sofa. Action 9: put red apple on sofa -> You put the red apple on the sofa. Action 10: take red onion from sofa -> You take the red onion from the sofa. Action 11: put lettuce on sofa -> You put the lettuce on the sofa. 
+Inventory: You are carrying: a fried red onion
+Current environment: Livingroom[sofa[lettuce, red apple], exit(east), exit(north), exit(south)]
+Action templates:
+* inventory
+* examine <object>
+* open <object>
+* take <object> from <object>
+* cook <object> with <stove | oven>
+* drop <object>
+* <slice | dice | chop> <object> with knife
+* prepare meal
+* eat meal
+* go <direction>
+Next action (answer with the command directly):
+
+take red apple from sofa
+
+Task: Your task is to find and examine the recipe, then prepare the ingredients as required, prepare the meal and eat it.
+
+Action history: Action 0: inventory -> You are carrying: a lettuce a red apple a fried red onion Action 1: put lettuce on sofa -> You put the lettuce on the sofa. Action 2: drop red apple -> You drop the red apple on the ground. Action 3: take lettuce from sofa -> You take the lettuce from the sofa. Action 4: put lettuce on sofa -> You put the lettuce on the sofa. Action 5: take red apple -> You pick up the red apple from the ground. Action 6: take red onion -> You already have that. Action 7: put red onion on sofa -> You put the red onion on the sofa. Action 8: take lettuce from sofa -> You take the lettuce from the sofa. Action 9: put red apple on sofa -> You put the red apple on the sofa. Action 10: take red onion from sofa -> You take the red onion from the sofa. Action 11: put lettuce on sofa -> You put the lettuce on the sofa. Action 12: take red apple from sofa -> You take the red apple from the sofa. 
+Inventory: You are carrying: a red apple a fried red onion
+Current environment: Livingroom[sofa[lettuce], exit(east), exit(north), exit(south)]
+Action templates:
+* inventory
+* examine <object>
+* open <object>
+* take <object> from <object>
+* cook <object> with <stove | oven>
+* drop <object>
+* <slice | dice | chop> <object> with knife
+* prepare meal
+* eat meal
+* go <direction>
+Next action (answer with the command directly):
+
+prepare meal
+
+ACTION SELCTOR
+ACTION SELCTOR
+prepare meal->put red onion on sofa
+
+Task: Your task is to find and examine the recipe, then prepare the ingredients as required, prepare the meal and eat it.
+
+Action history: Action 0: inventory -> You are carrying: a lettuce a red apple a fried red onion Action 1: put lettuce on sofa -> You put the lettuce on the sofa. Action 2: drop red apple -> You drop the red apple on the ground. Action 3: take lettuce from sofa -> You take the lettuce from the sofa. Action 4: put lettuce on sofa -> You put the lettuce on the sofa. Action 5: take red apple -> You pick up the red apple from the ground. Action 6: take red onion -> You already have that. Action 7: put red onion on sofa -> You put the red onion on the sofa. Action 8: take lettuce from sofa -> You take the lettuce from the sofa. Action 9: put red apple on sofa -> You put the red apple on the sofa. Action 10: take red onion from sofa -> You take the red onion from the sofa. Action 11: put lettuce on sofa -> You put the lettuce on the sofa. Action 12: take red apple from sofa -> You take the red apple from the sofa. Action 13: put red onion on sofa -> You put the red onion on the sofa. 
+Inventory: You are carrying: a red apple
+Current environment: Livingroom[sofa[fried red onion, lettuce], exit(east), exit(north), exit(south)]
+Action templates:
+* inventory
+* examine <object>
+* open <object>
+* take <object> from <object>
+* cook <object> with <stove | oven>
+* drop <object>
+* <slice | dice | chop> <object> with knife
+* prepare meal
+* eat meal
+* go <direction>
+Next action (answer with the command directly):
+
+take lettuce from sofa
+
+Task: Your task is to find and examine the recipe, then prepare the ingredients as required, prepare the meal and eat it.
+
+Action history: Action 0: inventory -> You are carrying: a lettuce a red apple a fried red onion Action 1: put lettuce on sofa -> You put the lettuce on the sofa. Action 2: drop red apple -> You drop the red apple on the ground. Action 3: take lettuce from sofa -> You take the lettuce from the sofa. Action 4: put lettuce on sofa -> You put the lettuce on the sofa. Action 5: take red apple -> You pick up the red apple from the ground. Action 6: take red onion -> You already have that. Action 7: put red onion on sofa -> You put the red onion on the sofa. Action 8: take lettuce from sofa -> You take the lettuce from the sofa. Action 9: put red apple on sofa -> You put the red apple on the sofa. Action 10: take red onion from sofa -> You take the red onion from the sofa. Action 11: put lettuce on sofa -> You put the lettuce on the sofa. Action 12: take red apple from sofa -> You take the red apple from the sofa. Action 13: put red onion on sofa -> You put the red onion on the sofa. Action 14: take lettuce from sofa -> You take the lettuce from the sofa. 
+Inventory: You are carrying: a lettuce a red apple
+Current environment: Livingroom[sofa[fried red onion], exit(east), exit(north), exit(south)]
+Action templates:
+* inventory
+* examine <object>
+* open <object>
+* take <object> from <object>
+* cook <object> with <stove | oven>
+* drop <object>
+* <slice | dice | chop> <object> with knife
+* prepare meal
+* eat meal
+* go <direction>
+Next action (answer with the command directly):
+
+prepare meal
+
+ACTION SELCTOR
+ACTION SELCTOR
+prepare meal->put lettuce on sofa
+
+Task: Your task is to find and examine the recipe, then prepare the ingredients as required, prepare the meal and eat it.
+
+Action history: Action 0: inventory -> You are carrying: a lettuce a red apple a fried red onion Action 1: put lettuce on sofa -> You put the lettuce on the sofa. Action 2: drop red apple -> You drop the red apple on the ground. Action 3: take lettuce from sofa -> You take the lettuce from the sofa. Action 4: put lettuce on sofa -> You put the lettuce on the sofa. Action 5: take red apple -> You pick up the red apple from the ground. Action 6: take red onion -> You already have that. Action 7: put red onion on sofa -> You put the red onion on the sofa. Action 8: take lettuce from sofa -> You take the lettuce from the sofa. Action 9: put red apple on sofa -> You put the red apple on the sofa. Action 10: take red onion from sofa -> You take the red onion from the sofa. Action 11: put lettuce on sofa -> You put the lettuce on the sofa. Action 12: take red apple from sofa -> You take the red apple from the sofa. Action 13: put red onion on sofa -> You put the red onion on the sofa. Action 14: take lettuce from sofa -> You take the lettuce from the sofa. Action 15: put lettuce on sofa -> You put the lettuce on the sofa. 
+Inventory: You are carrying: a red apple
+Current environment: Livingroom[sofa[lettuce, fried red onion], exit(east), exit(north), exit(south)]
+Action templates:
+* inventory
+* examine <object>
+* open <object>
+* take <object> from <object>
+* cook <object> with <stove | oven>
+* drop <object>
+* <slice | dice | chop> <object> with knife
+* prepare meal
+* eat meal
+* go <direction>
+Next action (answer with the command directly):
+
+take red onion from sofa
+
+Task: Your task is to find and examine the recipe, then prepare the ingredients as required, prepare the meal and eat it.
+
+Action history: Action 0: inventory -> You are carrying: a lettuce a red apple a fried red onion Action 1: put lettuce on sofa -> You put the lettuce on the sofa. Action 2: drop red apple -> You drop the red apple on the ground. Action 3: take lettuce from sofa -> You take the lettuce from the sofa. Action 4: put lettuce on sofa -> You put the lettuce on the sofa. Action 5: take red apple -> You pick up the red apple from the ground. Action 6: take red onion -> You already have that. Action 7: put red onion on sofa -> You put the red onion on the sofa. Action 8: take lettuce from sofa -> You take the lettuce from the sofa. Action 9: put red apple on sofa -> You put the red apple on the sofa. Action 10: take red onion from sofa -> You take the red onion from the sofa. Action 11: put lettuce on sofa -> You put the lettuce on the sofa. Action 12: take red apple from sofa -> You take the red apple from the sofa. Action 13: put red onion on sofa -> You put the red onion on the sofa. Action 14: take lettuce from sofa -> You take the lettuce from the sofa. Action 15: put lettuce on sofa -> You put the lettuce on the sofa. Action 16: take red onion from sofa -> You take the red onion from the sofa. 
+Inventory: You are carrying: a fried red onion a red apple
+Current environment: Livingroom[sofa[lettuce], exit(east), exit(north), exit(south)]
+Action templates:
+* inventory
+* examine <object>
+* open <object>
+* take <object> from <object>
+* cook <object> with <stove | oven>
+* drop <object>
+* <slice | dice | chop> <object> with knife
+* prepare meal
+* eat meal
+* go <direction>
+Next action (answer with the command directly):
+
+put red apple on sofa
+
+Task: Your task is to find and examine the recipe, then prepare the ingredients as required, prepare the meal and eat it.
+
+Action history: Action 0: inventory -> You are carrying: a lettuce a red apple a fried red onion Action 1: put lettuce on sofa -> You put the lettuce on the sofa. Action 2: drop red apple -> You drop the red apple on the ground. Action 3: take lettuce from sofa -> You take the lettuce from the sofa. Action 4: put lettuce on sofa -> You put the lettuce on the sofa. Action 5: take red apple -> You pick up the red apple from the ground. Action 6: take red onion -> You already have that. Action 7: put red onion on sofa -> You put the red onion on the sofa. Action 8: take lettuce from sofa -> You take the lettuce from the sofa. Action 9: put red apple on sofa -> You put the red apple on the sofa. Action 10: take red onion from sofa -> You take the red onion from the sofa. Action 11: put lettuce on sofa -> You put the lettuce on the sofa. Action 12: take red apple from sofa -> You take the red apple from the sofa. Action 13: put red onion on sofa -> You put the red onion on the sofa. Action 14: take lettuce from sofa -> You take the lettuce from the sofa. Action 15: put lettuce on sofa -> You put the lettuce on the sofa. Action 16: take red onion from sofa -> You take the red onion from the sofa. Action 17: put red apple on sofa -> You put the red apple on the sofa. 
+Inventory: You are carrying: a fried red onion
+Current environment: Livingroom[sofa[red apple, lettuce], exit(east), exit(north), exit(south)]
+Action templates:
+* inventory
+* examine <object>
+* open <object>
+* take <object> from <object>
+* cook <object> with <stove | oven>
+* drop <object>
+* <slice | dice | chop> <object> with knife
+* prepare meal
+* eat meal
+* go <direction>
+Next action (answer with the command directly):
+
+take fried red onion from inventory
+
+ACTION SELCTOR
+ACTION SELCTOR
+take fried red onion from inventory->put red onion on sofa
+
+Task: Your task is to find and examine the recipe, then prepare the ingredients as required, prepare the meal and eat it.
+
+Action history: Action 0: inventory -> You are carrying: a lettuce a red apple a fried red onion Action 1: put lettuce on sofa -> You put the lettuce on the sofa. Action 2: drop red apple -> You drop the red apple on the ground. Action 3: take lettuce from sofa -> You take the lettuce from the sofa. Action 4: put lettuce on sofa -> You put the lettuce on the sofa. Action 5: take red apple -> You pick up the red apple from the ground. Action 6: take red onion -> You already have that. Action 7: put red onion on sofa -> You put the red onion on the sofa. Action 8: take lettuce from sofa -> You take the lettuce from the sofa. Action 9: put red apple on sofa -> You put the red apple on the sofa. Action 10: take red onion from sofa -> You take the red onion from the sofa. Action 11: put lettuce on sofa -> You put the lettuce on the sofa. Action 12: take red apple from sofa -> You take the red apple from the sofa. Action 13: put red onion on sofa -> You put the red onion on the sofa. Action 14: take lettuce from sofa -> You take the lettuce from the sofa. Action 15: put lettuce on sofa -> You put the lettuce on the sofa. Action 16: take red onion from sofa -> You take the red onion from the sofa. Action 17: put red apple on sofa -> You put the red apple on the sofa. Action 18: put red onion on sofa -> You put the red onion on the sofa. 
+Inventory: You are carrying nothing.
+Current environment: Livingroom[sofa[fried red onion, red apple, lettuce], exit(east), exit(north), exit(south)]
+Action templates:
+* inventory
+* examine <object>
+* open <object>
+* take <object> from <object>
+* cook <object> with <stove | oven>
+* drop <object>
+* <slice | dice | chop> <object> with knife
+* prepare meal
+* eat meal
+* go <direction>
+Next action (answer with the command directly):
+
+take lettuce from sofa
+
