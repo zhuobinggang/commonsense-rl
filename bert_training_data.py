@@ -33,7 +33,7 @@ class MyDataLoader:
         return item
     
 
-def get_loss(model, tokenizer, x, y):
+def get_loss(model, tokenizer, x, y , device = 'cpu'):
     inputs = tokenizer(x, return_tensors="pt")
     # logits = model(**inputs).logits
     # mask_token_index = (inputs.input_ids == tokenizer.mask_token_id)[0].nonzero(as_tuple=True)[0]
@@ -41,7 +41,7 @@ def get_loss(model, tokenizer, x, y):
     labels = x.replace('[MASK]', str(y.item()))
     labels = tokenizer(labels, return_tensors="pt")["input_ids"]
     labels = torch.where(inputs.input_ids == tokenizer.mask_token_id, labels, -100)
-    outputs = model(**inputs, labels=labels)
+    outputs = model(**inputs.to(device), labels=labels.to(device))
     return outputs.loss
 
 def get_optimizer(model):
@@ -83,10 +83,10 @@ def train_loop(model, tokenizer, batch = 4):
         model, optimizer, dataloader
     )
     logger = Logger(batch_size=batch)
-    for xs, ys in next(iter(dataloader)):
+    for xs, ys in iter(dataloader):
         optimizer.zero_grad()
         for x,y in zip(xs, ys):
-            loss = get_loss(model, tokenizer, x, y)
+            loss = get_loss(model, tokenizer, x, y, device = device)
             logger.add(loss.item())
             accelerator.backward(loss)
         optimizer.step()

@@ -124,3 +124,31 @@ def random_and_out_as_one():
     from finetune_simplify_desc import lines_random_train_file_prepare
     lines_random_train_file_prepare(directory_path = '/home/taku/Downloads/cog2019_ftwp/procceeded_training_files/bert_trains', out_path='/home/taku/Downloads/cog2019_ftwp/procceeded_training_files/bert_trains.jsonl')
 
+# ==== auto play ========
+
+def trained_model_autoplay(game, model, tokenizer):
+    game.reset()
+    counter = 0
+    while not any([counter >= 30, game.won, game.lost]):
+        command = get_next_command(game, tokenizer, model)
+        game.input(command)
+    return game
+    # logits = model(**inputs).logits
+    # mask_token_index = (inputs.input_ids == tokenizer.mask_token_id)[0].nonzero(as_tuple=True)[0]
+    # predicted_token_id = logits[0, mask_token_index].argmax(axis=-1)
+
+def get_next_command(game, tokenizer, model):
+    import torch
+    device = model.device
+    x = bert_prompt_from_game(game)
+    inputs = tokenizer(x, return_tensors="pt")
+    with torch.no_grad():
+        logits = model(**inputs.to(device)).logits
+    mask_token_index = (inputs.input_ids == tokenizer.mask_token_id)[0].nonzero(as_tuple=True)[0]
+    predicted_token_id = logits[0, mask_token_index].argmax(axis=-1)
+    command_str = tokenizer.decode(predicted_token_id).strip()
+    print(f'Command IDX: {command_str}')
+    command_index = int(command_str)
+    command = game.available_actions[command_index]
+    print(f'Command: {command}')
+    return command
