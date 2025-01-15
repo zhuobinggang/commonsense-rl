@@ -63,6 +63,7 @@ class Game_interface:
         self.verbose = False
         self.visited_dict = {} # 2024.12.21 用于存储访问过的地点次数
         self.desc_update_cache = {} # 2025.1.7 储存desc更新
+        self.recipe = '' # 2025.1.13 储存菜谱
     def init_env(self, hard_level_index, game_index, dataset_index):
         from env import Env_extra_info
         return Env_extra_info(hard_level_index, game_index, dataset_index=dataset_index)
@@ -112,8 +113,37 @@ class Game_interface:
         # NOTE: Do not change obs as default behavior. Only save info into visited dict.
         # obs = obs + f' Visited {self.visited_dict[room_name]} times.'
         return action, obs
+    def save_if_checking_recipe(self, act_obs):
+        if not act_obs or len(act_obs) < 1:
+            return
+        if self.recipe != '': # 说明已经保存过了
+            return
+        action, obs = act_obs[-1]
+        if action != 'examine cookbook':
+            return
+        if not common.is_recipe_feedback(obs):
+            return
+        print('检查菜谱成功，抽取菜谱内容')
+        act_obs[-1] = (action, 'Recipe got!')
+        self.recipe = common.extract_recipe(obs)
+    def available_actions_filter(self, commands):
+        if not commands:
+            return
+        word_list = ['examine', 'put', 'close', 'insert', 'eat', 'look']
+        filtered_commands = []
+        for command in commands:
+            if not any(command.startswith(word) for word in word_list):
+                filtered_commands.append(command)
+        specific_commands = ['examine cookbook', 'eat meal']
+        for command in specific_commands:
+            if command in commands:
+                filtered_commands.append(command)
+        filtered_commands = ['inventory'] + filtered_commands
+        return filtered_commands
     def act_and_output(self, command = None):
         description, inventory, available_actions, action_obs_pairs = self.env.act(command)
+        available_actions = self.available_actions_filter(available_actions)
+        self.save_if_checking_recipe(action_obs_pairs)
         self.available_actions_got_callback(available_actions)
         if description is not None:
             if self.is_move_command(command):

@@ -50,13 +50,20 @@ def actions_to_list(actions):
         available_action_text += f'* {act}\n'
     return available_action_text.strip()
 
+def actions_to_list_number(actions, start_index = 0):
+    available_action_text = ''
+    count = start_index
+    for act in actions:
+        available_action_text += f'{count} {act}\n'
+        count += 1
+    return available_action_text.strip()
 
-def action_obs_pairs_to_history(action_obs_pairs):
+def action_obs_pairs_to_history(action_obs_pairs, seperator = '->'):
     # print(action_obs_pairs)
     action_history = ''
     if len(action_obs_pairs) > 0:
         for idx, (act, obs) in enumerate(action_obs_pairs):
-            action_history += f'Action {idx}: {act} -> {obs} '
+            action_history += f'Action {idx}: {act} {seperator} {obs} '
     else:
         action_history = 'No action was taken now.'
     return action_history
@@ -143,3 +150,30 @@ def extract_room_name(description):
     if match:
         return match.group(1)
     return None
+
+
+def is_recipe_feedback(feedback):
+    return feedback.startswith('You open the copy of')
+
+
+def extract_recipe(text):
+    """
+    从给定的文本中提取 'Ingredients:' 后面的内容。
+    
+    参数:
+    text (str): 包含完整配方的字符串。
+
+    返回:
+    str: 从 'Ingredients:' 开始到末尾的部分。如果未找到 'Ingredients:'，返回空字符串。
+    """
+    # 找到 "Ingredients:" 的位置
+    marker = "Ingredients:"
+    index = text.find(marker)
+    
+    # 如果找到了 "Ingredients:"
+    if index != -1:
+        # 返回从 "Ingredients:" 后面开始的内容
+        return text[index:].strip()
+    else:
+        # 如果没有找到，返回空字符串
+        return ""

@@ -110,6 +110,7 @@ class Ftwp_interface_by_path(human_play.Game_interface):
         self.verbose = False
         self.visited_dict = {} # 2024.12.21 用于存储访问过的地点次数
         self.desc_update_cache = {} # 2025.1.7 储存desc更新
+        self.recipe = '' # 2025.1.13 储存菜谱
         self.init_hook()
     def init_hook(self):
         pass

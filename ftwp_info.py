@@ -31,6 +31,13 @@ def read_json_files_in_directory(directory_path):
     
     return json_data_list
 
+def read_walkthroughs_from_path(path):
+    import json
+    with open(path, 'r', encoding='utf-8') as json_file:
+        data = json.load(json_file)
+    return data['extras']['walkthrough']
+    
+
 def walkthroughs_from_json_list(json_list):
     return [obj['extras']['walkthrough'] for obj in json_list]
 
@@ -118,12 +125,17 @@ def train_set_v0(size = 10):
     return file_paths
 
 @lru_cache(maxsize=None)
+def all_train_game_paths():
+    return all_test_game_paths(test_path = TRAIN_PATH)
+
+
+@lru_cache(maxsize=None)
 def all_test_game_paths(test_path = TEST_PATH):
     import os
     results = []
     # 遍历文件夹中的所有文件
     for filename in os.listdir(test_path):
-        if filename.endswith('.z8'):  # 只处理 .json 文件
+        if filename.endswith('.z8'):  # 只处理 .z8 文件
             file_path = os.path.join(test_path, filename)
             results.append(file_path)
     return results
@@ -179,7 +191,8 @@ def valid_set_v0():
 # ===================== 使用nltk来获取命令模板 ========================
 
 # @result: 2025.1.8 确认了所有训练集中的命令以wold_list开头
-def filter_commands(commands, word_list = ['inventory', 'examine', 'open', 'take', 'drop', 'cook', 'slice', 'chop', 'dice', 'prepare', 'eat', 'go']):
+# def filter_commands(commands, word_list = ['inventory', 'examine', 'open', 'take', 'drop', 'cook', 'slice', 'chop', 'dice', 'prepare', 'eat', 'go']):
+def filter_commands(commands, word_list = ['inventory', 'open', 'take', 'drop', 'cook', 'slice', 'chop', 'dice', 'prepare', 'go']):
     """
     过滤出不以单词列表中的单词开头的指令。
 
@@ -197,3 +210,11 @@ def filter_commands(commands, word_list = ['inventory', 'examine', 'open', 'take
     return filtered_commands
 
 
+def test_filter_commands(walkthroughs = None):
+    if not walkthroughs:
+        json_data_list = read_json_files_in_directory(TRAIN_PATH)
+        walkthroughs = walkthroughs_from_json_list(json_data_list)
+    commands = []
+    for dd in walkthroughs:
+        commands += dd
+    return filter_commands(commands)
