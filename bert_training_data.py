@@ -116,5 +116,6 @@ def train():
     model_id = "answerdotai/ModernBERT-base"
     tokenizer = AutoTokenizer.from_pretrained(model_id)
     model = ModernBertForMaskedLM.from_pretrained(model_id)
+    model = model.train()
     train_loop(model, tokenizer)
     return model, tokenizer

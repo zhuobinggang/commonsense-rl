@@ -127,6 +127,7 @@ def random_and_out_as_one():
 # ==== auto play ========
 
 def trained_model_autoplay(game, model, tokenizer):
+    model.eval()
     game.reset()
     counter = 0
     while not any([counter >= 30, game.won, game.lost]):
