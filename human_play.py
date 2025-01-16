@@ -183,6 +183,10 @@ class Game_interface:
         self.reset()
         for action in action_list:
             self.input(action)
+    def get_score(self):
+        return self.env.info['score']
+    def get_max_score(self):
+        return self.env.info['max_score']
 
 
 def auto_play(game_index, action_list):

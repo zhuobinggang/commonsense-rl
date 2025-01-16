@@ -49,12 +49,33 @@ def get_optimizer(model):
 
 
 class Logger:
-    def __init__(self,batch_size = 4, log_step = 36):
+    def __init__(self, model, batch_size = 4, log_step = 100):
         self.batch_size = batch_size
         self.losses = []
         self.temp_losses = []
         self.counter = 0
         self.log_step = log_step
+        self.model = model
+        self.valid_scores = []
+        self.max_score = -1
+    def cal_valid_score_and_save_checkpoint(self):
+        from bert_rl import batch_valid
+        self.model.eval() # 进入校验模式
+        norm_score = batch_valid(self.model, save_readable=False)
+        self.model.train() # 返回训练模式
+        if norm_score > self.max_score:
+            self.save_checkpoint()
+            self.max_score = norm_score
+        scalar = 10
+        return norm_score * scalar
+    def last_valid_score(self):
+        if len(self.valid_scores) > 0:
+            return self.valid_scores[-1]
+        else:
+            return 0
+    def save_checkpoint(self):
+        print('CHECK POINT SAVED!')
+        self.model.save_pretrained('exp/auto_filename/dd.tch')
     def add(self, loss):
         self.temp_losses.append(loss)
         self.counter += 1
@@ -63,14 +84,16 @@ class Logger:
             self.losses.append(sum(self.temp_losses) / len(self.temp_losses))
             self.temp_losses = []
             if len(self.losses) % self.log_step == 0:
+                self.valid_scores.append(self.cal_valid_score_and_save_checkpoint())
                 self.draw()
+            else:
+                self.valid_scores.append(self.last_valid_score())
     def get_losses(self):
         return self.losses
     def draw(self):
         # draw
-        datas = self.get_losses()
-        draw_line_chart(list(range(len(datas))), [datas], ['losses'])
-    
+        losses = self.get_losses()
+        draw_line_chart(list(range(len(losses))), [losses, self.valid_scores], ['losses', 'valid_scores'])
 
 def train_loop(model, tokenizer, batch = 4):
     # Accelerator
@@ -82,7 +105,7 @@ def train_loop(model, tokenizer, batch = 4):
     model, optimizer, dataloader = accelerator.prepare(
         model, optimizer, dataloader
     )
-    logger = Logger(batch_size=batch)
+    logger = Logger(model, batch_size=batch)
     for xs, ys in iter(dataloader):
         optimizer.zero_grad()
         for x,y in zip(xs, ys):
@@ -119,3 +142,13 @@ def train():
     model = model.train()
     train_loop(model, tokenizer)
     return model, tokenizer
+
+def train_and_shutdown():
+    try:
+        train()
+    except Exception as ex:
+        f = open('exp/auto_filename/error.txt', 'w')
+        f.write(str(ex))
+        f.close()
+    import os
+    os.system('shutdown -s')

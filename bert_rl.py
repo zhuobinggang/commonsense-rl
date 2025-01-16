@@ -2,7 +2,7 @@
 # 先这样：只保留房间名，行动历史，菜谱，命令列表，然后用4000多个游戏进行行为克隆
 import common
 from interface_ftwp import game_for_test, Ftwp_interface_by_path
-
+from functools import lru_cache
 
 
 def game_for_test():
@@ -68,9 +68,11 @@ class Game_for_bert(Ftwp_interface_by_path):
         actions = [y for x, y in self.finetune_triples]
         return actions
     def save_readable(self):
-        f = open(f'exp/auto_filename/{self.filename}.txt', 'w')
-        for sys, usr, command in self.finetune_triples:
-            f.write(sys + usr + '\n' + command + '\n\n')
+        filename = self.filename + f'{self.get_score()}_of_{self.get_max_score()}'
+        f = open(f'exp/auto_filename/{filename}.txt', 'w')
+        for x, y in self.finetune_triples:
+            f.write(f'{x}\n\n{y}\n\n')
+        f.write(f'{self.get_score()}/{self.get_max_score()}')
         f.close()
     def auto_play(self, action_list):
         self.reset()
@@ -89,12 +91,6 @@ def test_get_recipe():
     print(bert_prompt_from_game(game))
     return game
 
-
-def prepare_bert():
-    import torch
-    from transformers import AutoTokenizer, AutoModelForMaskedLM
-    model_id = "answerdotai/ModernBERT-base"
-    tokenizer = AutoTokenizer.from_pretrained(model_id)
 
 def game_played_and_save_training_file(game, output_file_path):
     import json
@@ -126,14 +122,38 @@ def random_and_out_as_one():
 
 # ==== auto play ========
 
-def trained_model_autoplay(game, model, tokenizer):
+def load_trained_model(path):
+    from transformers import AutoTokenizer, ModernBertForMaskedLM
+    model_id = "answerdotai/ModernBERT-base"
+    tokenizer = AutoTokenizer.from_pretrained(model_id)
+    model = ModernBertForMaskedLM.from_pretrained(path)
+    return model, tokenizer
+
+@lru_cache(maxsize=None)
+def default_tokenizer():
+    from transformers import AutoTokenizer
+    model_id = "answerdotai/ModernBERT-base"
+    tokenizer = AutoTokenizer.from_pretrained(model_id)
+    return tokenizer
+
+def model_for_test():
+    return load_trained_model('/home/taku/Downloads/cog2019_ftwp/procceeded_training_files/bert_trained_0115.tch')
+
+def trained_model_autoplay(game, model, tokenizer, save_readable = True):
     model.eval()
     game.reset()
     counter = 0
     while not any([counter >= 30, game.won, game.lost]):
-        command = get_next_command(game, tokenizer, model)
-        game.input(command)
-    return game
+        try:
+            command = get_next_command(game, tokenizer, model)
+            game.input(command)
+            counter += 1
+        except:
+            print(f'根据BERT获取指令出问题了，返回分数0即可')
+            return 0
+    if save_readable:
+        game.save_readable()
+    return game.get_score(), game.get_max_score()
     # logits = model(**inputs).logits
     # mask_token_index = (inputs.input_ids == tokenizer.mask_token_id)[0].nonzero(as_tuple=True)[0]
     # predicted_token_id = logits[0, mask_token_index].argmax(axis=-1)
@@ -148,8 +168,26 @@ def get_next_command(game, tokenizer, model):
     mask_token_index = (inputs.input_ids == tokenizer.mask_token_id)[0].nonzero(as_tuple=True)[0]
     predicted_token_id = logits[0, mask_token_index].argmax(axis=-1)
     command_str = tokenizer.decode(predicted_token_id).strip()
-    print(f'Command IDX: {command_str}')
+    # print(f'Command IDX: {command_str}')
     command_index = int(command_str)
     command = game.available_actions[command_index]
-    print(f'Command: {command}')
+    # print(f'Command: {command}')
     return command
+
+def valid_paths():
+    from ftwp_info import all_valid_game_paths
+    return all_valid_game_paths(shuffle = True)[:20]
+
+def batch_valid(model, tokenizer = None, save_readable = True):
+    if not tokenizer:
+        tokenizer = default_tokenizer()
+    scores = []
+    max_scores = []
+    for path in valid_paths():
+        game = Game_for_bert(path)
+        game.verbose = False
+        score, max_score = trained_model_autoplay(game, model, tokenizer, save_readable)
+        scores.append(score)
+        max_scores.append(max_score)
+    return sum(scores) / sum(max_scores)
+    

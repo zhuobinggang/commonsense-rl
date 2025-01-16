@@ -128,6 +128,14 @@ def train_set_v0(size = 10):
 def all_train_game_paths():
     return all_test_game_paths(test_path = TRAIN_PATH)
 
+@lru_cache(maxsize=None)
+def all_valid_game_paths(shuffle = True):
+    import numpy as np
+    paths = all_test_game_paths(test_path = VALID_PATH)
+    if shuffle:
+        np.random.seed(0)
+        np.random.shuffle(paths)
+    return paths
 
 @lru_cache(maxsize=None)
 def all_test_game_paths(test_path = TEST_PATH):
