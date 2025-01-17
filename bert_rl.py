@@ -68,7 +68,7 @@ class Game_for_bert(Ftwp_interface_by_path):
         actions = [y for x, y in self.finetune_triples]
         return actions
     def save_readable(self):
-        filename = self.filename + f'{self.get_score()}_of_{self.get_max_score()}'
+        filename = self.filename + f'score{self.get_score()}_of_{self.get_max_score()}'
         f = open(f'exp/auto_filename/{filename}.txt', 'w')
         for x, y in self.finetune_triples:
             f.write(f'{x}\n\n{y}\n\n')
@@ -136,8 +136,6 @@ def default_tokenizer():
     tokenizer = AutoTokenizer.from_pretrained(model_id)
     return tokenizer
 
-def model_for_test():
-    return load_trained_model('/home/taku/Downloads/cog2019_ftwp/procceeded_training_files/bert_trained_0115.tch')
 
 def trained_model_autoplay(game, model, tokenizer, save_readable = True):
     model.eval()
@@ -174,20 +172,44 @@ def get_next_command(game, tokenizer, model):
     # print(f'Command: {command}')
     return command
 
+# @history: 1.17: 需要分开彻底分开
 def valid_paths():
     from ftwp_info import all_valid_game_paths
-    return all_valid_game_paths(shuffle = True)[:20]
+    return all_valid_game_paths(shuffle = True)[-30:]
 
-def batch_valid(model, tokenizer = None, save_readable = True):
+def batch_test(model, tokenizer = None, save_readable = True, test_game_paths = []):
     if not tokenizer:
         tokenizer = default_tokenizer()
+    if len(test_game_paths) < 1:
+        test_game_paths = valid_paths()
     scores = []
     max_scores = []
-    for path in valid_paths():
+    for path in test_game_paths:
         game = Game_for_bert(path)
         game.verbose = False
         score, max_score = trained_model_autoplay(game, model, tokenizer, save_readable)
         scores.append(score)
         max_scores.append(max_score)
     return sum(scores) / sum(max_scores)
+
+def batch_valid(model, tokenizer = None, save_readable = True):
+    return batch_test(model, tokenizer, save_readable, test_game_paths=valid_paths())
     
+# ================= compare llm performance ===================
+
+def model_for_test():
+    return load_trained_model('exp/auto_filename/r0/baseline_restart0.tch')
+
+# @history: 2024.1.17
+def run_test_temp():
+    from ftwp_info import temp_test_valid_set
+    test_game_paths, _ = temp_test_valid_set()
+    model, toker = model_for_test()
+    return batch_test(model, toker, save_readable=True, test_game_paths=test_game_paths)
+
+
+def run_test():
+    from ftwp_info import test_set_v0
+    test_game_paths = test_set_v0()
+    model, toker = model_for_test()
+    return batch_test(model, toker, save_readable=True, test_game_paths=test_game_paths)

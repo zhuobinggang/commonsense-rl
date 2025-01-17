@@ -99,7 +99,7 @@ class Env:
         info['taku_info'] = {}
         if old_moves == new_moves:  # Add 2024.8.17 需要判断行动是否成功，如果不成功返回None
             info['taku_info'] = {'status': 2, 'desc': '步数不增加，需要小心'}
-            print(f'TAKU: env._step WARNING, {cmd} 步数不增加，需要小心!但是返回环境反馈')
+            # print(f'TAKU: env._step WARNING, {cmd} 步数不增加，需要小心!但是返回环境反馈')
             self.err = {'obs': obs, 'info': info}
             self.env.err = {'obs': obs, 'info': info}
             return obs, info
