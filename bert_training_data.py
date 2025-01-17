@@ -151,4 +151,4 @@ def train_and_shutdown():
         f.write(str(ex))
         f.close()
     import os
-    os.system('shutdown -s')
+    os.system('shutdown')

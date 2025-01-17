@@ -150,7 +150,7 @@ def trained_model_autoplay(game, model, tokenizer, save_readable = True):
             counter += 1
         except:
             print(f'根据BERT获取指令出问题了，返回分数0即可')
-            return 0
+            return 0, 0
     if save_readable:
         game.save_readable()
     return game.get_score(), game.get_max_score()
