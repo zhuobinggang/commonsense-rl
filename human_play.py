@@ -123,7 +123,7 @@ class Game_interface:
             return
         if not common.is_recipe_feedback(obs):
             return
-        print('检查菜谱成功，抽取菜谱内容')
+        # print('检查菜谱成功，抽取菜谱内容')
         act_obs[-1] = (action, 'Recipe got!')
         self.recipe = common.extract_recipe(obs)
     def available_actions_filter(self, commands):
@@ -156,7 +156,6 @@ class Game_interface:
             self.won = self.env.is_won(self.env.info)
             self.lost = self.env.is_lost(self.env.info)
         else:
-            print('？？？？？？？？？？？？')
             self.won = self.env.is_won(self.env.info)
             self.lost = self.env.is_lost(self.env.info)
         if self.verbose:

@@ -163,19 +163,21 @@ def train(filename = '', epoch = 1):
     train_loop(model, tokenizer, file_name=filename, epoch = epoch)
     return model, tokenizer
 
+# 实验结果已经出来了, 查看docs/ftwp_bert_baseline，epoch设定为2即可
 def early_stop_exp():
     train(filename='early_stop_exp', epoch = 3)
 
 
+# @hitory: 2025.1.20 将epoch从1更改为2
 def train_several_models(count = 3):
     for i in range(count):
         filename = f'baseline_restart{i}'
-        _ = train(filename, epoch=1)
+        _ = train(filename, epoch=2)
 
 
 def exp_and_shutdown():
     try:
-        early_stop_exp()
+        # early_stop_exp()
         train_several_models(count = 3)
     except Exception as ex:
         f = open('exp/auto_filename/error.txt', 'w')

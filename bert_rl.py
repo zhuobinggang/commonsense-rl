@@ -201,15 +201,13 @@ def model_for_test():
     return load_trained_model('exp/auto_filename/r0/baseline_restart0.tch')
 
 # @history: 2024.1.17
-def run_test_temp():
+def run_test_temp(model):
     from ftwp_info import temp_test_valid_set
     test_game_paths, _ = temp_test_valid_set()
-    model, toker = model_for_test()
-    return batch_test(model, toker, save_readable=True, test_game_paths=test_game_paths)
+    return batch_test(model, save_readable=True, test_game_paths=test_game_paths)
 
 
-def run_test():
+def run_test(model):
     from ftwp_info import test_set_v0
     test_game_paths = test_set_v0()
-    model, toker = model_for_test()
-    return batch_test(model, toker, save_readable=True, test_game_paths=test_game_paths)
+    return batch_test(model, save_readable=True, test_game_paths=test_game_paths)
