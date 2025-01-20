@@ -164,7 +164,7 @@ def get_next_command(game, tokenizer, model):
     with torch.no_grad():
         logits = model(**inputs.to(device)).logits
     mask_token_index = (inputs.input_ids == tokenizer.mask_token_id)[0].nonzero(as_tuple=True)[0]
-    predicted_token_id = logits[0, mask_token_index].argmax(axis=-1)
+    predicted_token_id = logits[0, mask_token_index].argmax(axis=-1) # TODO: 2025.1.20 为了能够对应强化学习，应该将argmax改为sampling
     command_str = tokenizer.decode(predicted_token_id).strip()
     # print(f'Command IDX: {command_str}')
     command_index = int(command_str)
