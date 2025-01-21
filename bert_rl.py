@@ -197,9 +197,6 @@ def batch_valid(model, tokenizer = None, save_readable = True):
     
 # ================= compare llm performance ===================
 
-def model_for_test():
-    return load_trained_model('exp/auto_filename/r0/baseline_restart0.tch')
-
 # @history: 2024.1.17
 def run_test_temp(model):
     from ftwp_info import temp_test_valid_set
@@ -211,3 +208,15 @@ def run_test(model):
     from ftwp_info import test_set_v0
     test_game_paths = test_set_v0()
     return batch_test(model, save_readable=True, test_game_paths=test_game_paths)
+
+def final_test():
+    model_paths = ['/home/taku/Downloads/cog2019_ftwp/trained_models/behavior_clone_0121/baseline_restart0.tch', 
+              '/home/taku/Downloads/cog2019_ftwp/trained_models/behavior_clone_0121/baseline_restart1.tch', 
+              '/home/taku/Downloads/cog2019_ftwp/trained_models/behavior_clone_0121/baseline_restart2.tch']
+    results = [] # 3 models, 2 test methods
+    for model_path in model_paths:
+        model, toker = load_trained_model(model_path)
+        temp_score = run_test_temp(model)
+        real_score = run_test(model)
+        results.append((temp_score, real_score))
+    return results
