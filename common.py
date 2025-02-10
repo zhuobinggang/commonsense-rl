@@ -177,3 +177,17 @@ def extract_recipe(text):
     else:
         # 如果没有找到，返回空字符串
         return ""
+    
+
+class Logger_simple:
+    def __init__(self, file_name = 'default_text_log'):
+        self.file_name = file_name
+        self.text_log_path = f'exp/auto_filename/{self.file_name}.txt'
+        self.text_log = ''
+    def add(self, text):
+        self.text_log += f'\n{get_time_str()}: {text}'
+    def write_txt_log(self):
+        self.text_log += f'\n{get_time_str()}: END'
+        f = open(self.text_log_path, 'w')
+        f.write(self.text_log)
+        f.close()

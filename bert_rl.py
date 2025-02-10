@@ -47,6 +47,8 @@ def get_input_text(game):
 
 
 class Game_for_bert(Ftwp_interface_by_path):
+    def init_hook(self):
+        pass
     def input(self, command):
         self.command = command
         try:
@@ -177,7 +179,7 @@ def valid_paths():
     from ftwp_info import all_valid_game_paths
     return all_valid_game_paths(shuffle = True)[-30:]
 
-def batch_test(model, tokenizer = None, save_readable = True, test_game_paths = []):
+def batch_test(model, tokenizer = None, save_readable = True, test_game_paths = [], file_prefix = ''):
     if not tokenizer:
         tokenizer = default_tokenizer()
     if len(test_game_paths) < 1:
@@ -187,6 +189,7 @@ def batch_test(model, tokenizer = None, save_readable = True, test_game_paths = 
     for path in test_game_paths:
         game = Game_for_bert(path)
         game.verbose = False
+        game.filename = file_prefix + game.filename # Added 2025.2.8
         score, max_score = trained_model_autoplay(game, model, tokenizer, save_readable)
         scores.append(score)
         max_scores.append(max_score)
@@ -219,4 +222,27 @@ def final_test():
         temp_score = run_test_temp(model)
         real_score = run_test(model)
         results.append((temp_score, real_score))
+    return results
+
+def run_test_full(model, file_prefix = ''):
+    from ftwp_info import all_test_game_paths
+    test_game_paths=  all_test_game_paths()
+    return batch_test(model, save_readable=True, test_game_paths=test_game_paths, file_prefix=file_prefix)
+
+def run_test_full_with_model():
+    import numpy as np
+    model_paths = ['/home/taku/Downloads/cog2019_ftwp/trained_models/behavior_clone_0121/baseline_restart0.tch', 
+              '/home/taku/Downloads/cog2019_ftwp/trained_models/behavior_clone_0121/baseline_restart1.tch', 
+              '/home/taku/Downloads/cog2019_ftwp/trained_models/behavior_clone_0121/baseline_restart2.tch']
+    results = [] # 3 models, 2 test methods
+    logger = common.Logger_simple(file_name='run_test_full_with_model_log')
+    for model_idx, model_path in enumerate(model_paths):
+        model, toker = load_trained_model(model_path)
+        logger.add(f'Model {model_idx} testing...')
+        score = run_test_full(model, file_prefix=f'M{model_idx}')
+        logger.add(f'Model {model_idx} tested! Score = {score}.')
+        logger.write_txt_log()
+        results.append(score)
+    logger.add(f'All model tested! Average score = {np.mean(results)}')
+    logger.write_txt_log()
     return results
