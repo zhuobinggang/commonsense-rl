@@ -18,6 +18,7 @@ class Env:
         self.WRONG_POSITION_HINT = 'Wrong position, you should put it somewhere else, maybe the other room.'
         # 反馈强化
         self.no_augment = no_augment
+        self.info = None
 
     def initiate_env(self, env):
         if not hasattr(env, 'action_obs_pairs'):
@@ -123,10 +124,15 @@ class Env:
     def append_command_obs_pair(self, command, obs):
         self.env.action_obs_pairs.append((command, obs))
 
-    def is_won(self, info):
+    def is_won(self, info = None):
+        if info is None and self.info is None:
+            return False
+        info = info or self.info
         return info['won'][0]
     
     def is_lost(self, info):
+        if info is None and self.info is None:
+            return False
         return info['lost'][0]
 
     def get_desc(self, info):
@@ -266,5 +272,6 @@ class Env_extra_info(Env):
         if lost or won:
             env.end = True
             print(f"YOU WIN, score at {info['score']}/{info['max_score']}, steps {info['moves']}") if won else print(f"YOU LOST, score at {info['score']}/{info['max_score']}, steps {info['moves']}")
-            return None, None, None, None
+            # return None, None, None, None
+            return description, inventory, env.available_actions, env.action_obs_pairs # NOTE: 2025.2.11 即便是结束也要返回反馈
         return description, inventory, env.available_actions, env.action_obs_pairs

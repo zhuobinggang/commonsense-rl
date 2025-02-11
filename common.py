@@ -1,8 +1,16 @@
 def load_dataset(filename):
+    return load_pickle_file(filename)
+
+def load_pickle_file(filepath):
     import pickle
-    with open(filename, 'rb') as handle:
+    with open(filepath, 'rb') as handle:
         dic = pickle.load(handle)
     return dic
+
+def save_pickle_file(filepath, dic):
+    import pickle
+    with open(filepath, 'wb') as outp:  # Overwrites any existing file.
+        pickle.dump(dic, outp, pickle.HIGHEST_PROTOCOL)
 
 def get_time_str():
     from datetime import datetime

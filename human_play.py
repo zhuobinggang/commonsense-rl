@@ -1,6 +1,7 @@
 # 我会玩耍5个测试游戏以创建训练集，目标是微调gpt4omini，看看效果如何。如果这个还不行，那可能就要放弃这个研究了。
 import global_variable as G
 import common
+import abstract_game_interface
 
 class Prompt_builder_for_finetune:
     def __init__(self):
@@ -44,7 +45,7 @@ def prompt_from_env_feedback(description, inventory, available_actions, action_o
     promptor.build()
     return promptor.system_msg, promptor.user_msg
 
-class Game_interface:
+class Game_interface(abstract_game_interface.Game_interface):
     def __init__(self, game_index, dataset_index = 0, hard_level_index = 2): # datset_index = 0 for training, hard_level_index = 2 for hard-level.
          # train set
         self.env = self.init_env(hard_level_index, game_index, dataset_index)
@@ -64,55 +65,13 @@ class Game_interface:
         self.visited_dict = {} # 2024.12.21 用于存储访问过的地点次数
         self.desc_update_cache = {} # 2025.1.7 储存desc更新
         self.recipe = '' # 2025.1.13 储存菜谱
+        self.filter_startword_list = ['examine', 'put', 'close', 'insert', 'eat', 'look']
     def init_env(self, hard_level_index, game_index, dataset_index):
         from env import Env_extra_info
         return Env_extra_info(hard_level_index, game_index, dataset_index=dataset_index)
-    def reset(self):
-        self.act_and_output(None)
-    def update_desciption(self, desc):
-        return desc
-    def desc_from_cache_or_update_desc(self, description):
-        room_name = common.extract_room_name(description)
-        # new key
-        if room_name not in self.desc_update_cache:
-            self.desc_update_cache[room_name] = {'desc': '', 'desc_updated': ''}
-        # main logic
-        if self.desc_update_cache[room_name]['desc'] == description: # 说明已经请求过了，直接返回cache
-            updated_description = self.desc_update_cache[room_name]['desc_updated']
-        else:
-            updated_description = self.update_desciption(description)
-            self.desc_update_cache[room_name]['desc_updated'] = updated_description
-            self.desc_update_cache[room_name]['desc'] = description # 记得记录desc
-        self.updated_description = updated_description
-        return updated_description
-    def is_move_command(self, command):
-        if not command:
-            return False
-        return command.startswith('go ')
-    def set_to_body(self, description, inventory, available_actions, action_obs_pairs):
-        self.description = description
-        self.inventory = inventory
-        self.available_actions = available_actions
-        self.action_obs_pairs = action_obs_pairs
     def construct_sys_usr(self, description, inventory, available_actions, action_obs_pairs):
         sys, usr = prompt_from_env_feedback(description, inventory, available_actions, action_obs_pairs, self.another_room_info)
         return sys, usr
-    def get_updated_description_before_description_update(self):
-        return self.updated_description
-    def available_actions_got_callback(self, available_actions):
-        pass
-    def move_command_succeeded_callback(self, action_obs):
-        action, obs = action_obs
-        room_name = common.extract_room_name(obs)
-        if not room_name:
-            print('XXXXXXXXXXXXXXX WRONG SITUATION XXXXXXXXXXXXXX')
-            return obs
-        if room_name not in self.visited_dict:
-            self.visited_dict[room_name] = 0
-        self.visited_dict[room_name] += 1
-        # NOTE: Do not change obs as default behavior. Only save info into visited dict.
-        # obs = obs + f' Visited {self.visited_dict[room_name]} times.'
-        return action, obs
     def save_if_checking_recipe(self, act_obs):
         if not act_obs or len(act_obs) < 1:
             return
@@ -126,66 +85,8 @@ class Game_interface:
         # print('检查菜谱成功，抽取菜谱内容')
         act_obs[-1] = (action, 'Recipe got!')
         self.recipe = common.extract_recipe(obs)
-    def available_actions_filter(self, commands):
-        if not commands:
-            return
-        word_list = ['examine', 'put', 'close', 'insert', 'eat', 'look']
-        filtered_commands = []
-        for command in commands:
-            if not any(command.startswith(word) for word in word_list):
-                filtered_commands.append(command)
-        specific_commands = ['examine cookbook', 'eat meal']
-        for command in specific_commands:
-            if command in commands:
-                filtered_commands.append(command)
-        filtered_commands = ['inventory'] + filtered_commands
-        return filtered_commands
-    def act_and_output(self, command = None):
-        description, inventory, available_actions, action_obs_pairs = self.env.act(command)
-        available_actions = self.available_actions_filter(available_actions)
-        self.save_if_checking_recipe(action_obs_pairs)
-        self.available_actions_got_callback(available_actions)
-        if description is not None:
-            if self.is_move_command(command):
-                action_obs_pairs[-1] = self.move_command_succeeded_callback(action_obs_pairs[-1])
-            description = self.desc_from_cache_or_update_desc(description)
-            self.set_to_body(description, inventory, available_actions, action_obs_pairs)
-            sys, usr = self.construct_sys_usr(self.description, self.inventory, self.available_actions, self.action_obs_pairs)
-            self.current_sys = sys
-            self.current_usr = usr
-            self.won = self.env.is_won(self.env.info)
-            self.lost = self.env.is_lost(self.env.info)
-        else:
-            self.won = self.env.is_won(self.env.info)
-            self.lost = self.env.is_lost(self.env.info)
-        if self.verbose:
-            print(self.current_sys + self.current_usr)
-    def input(self, command):
-        self.command = command
-        self.finetune_triples.append((self.current_sys, self.current_usr, self.command))
-        self.act_and_output(command)
-    def save_as_json(self):
-        f = open(f'exp/auto_filename/{self.filename}', 'w')
-        for sys, usr, command in self.finetune_triples:
-            obj = {'messages': [{"role": "system", "content": sys.strip()}, {"role": "user", "content": usr.strip()}, {"role": "assistant", "content": command.strip()}]}
-            f.write(str(obj) + '\n')
-        f.close()
-    def output_actions(self):
-        actions = [command for sys, usr, command in self.finetune_triples]
-        return actions
-    def save_readable(self):
-        f = open(f'exp/auto_filename/{self.filename}.txt', 'w')
-        for sys, usr, command in self.finetune_triples:
-            f.write(sys + usr + '\n' + command + '\n\n')
-        f.close()
-    def auto_play(self, action_list):
-        self.reset()
-        for action in action_list:
-            self.input(action)
-    def get_score(self):
-        return self.env.info['score']
-    def get_max_score(self):
-        return self.env.info['max_score']
+    def action_obs_pairs_got_callback(self, action_obs_pairs):
+        self.save_if_checking_recipe(action_obs_pairs) 
 
 
 def auto_play(game_index, action_list):
