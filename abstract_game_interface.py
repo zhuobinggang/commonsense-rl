@@ -118,7 +118,7 @@ class Game_interface:
     def is_lost(self):
         return self.env.is_lost(self.env.info)
     def act_and_output(self, command = None):
-        if self.is_won() or self.is_lost():
+        if command and (self.is_won() or self.is_lost()):
             print('不需要继续，请退出')
             return
         description, inventory, available_actions, action_obs_pairs = self.env.act(command)
@@ -150,6 +150,11 @@ class Game_interface:
     def output_actions(self):
         actions = [command for sys, usr, command in self.finetune_triples]
         return actions
+    def back(self):
+        actions = self.output_actions()
+        actions = actions[:-1]
+        self.reset()
+        self.auto_play(actions)
     def print_walkthrough(self):
         return self.output_actions()
     def save_readable(self):

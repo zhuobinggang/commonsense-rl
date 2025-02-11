@@ -2,6 +2,35 @@ from typing import Any
 from env import Env_extra_info
 import common
 import abstract_game_interface
+from functools import lru_cache
+
+@lru_cache(maxsize=None)
+def get_all_train_paths(root_dir = 'games/twc'):
+    import os
+    """
+    获取 root_dir 目录下所有 train 文件夹中的 .ulx 文件的绝对路径。
+
+    :param root_dir: 根目录，包含 easy, medium, hard 目录
+    :return: 以 .ulx 结尾的所有训练集文件的绝对路径列表
+    """
+    ulx_files = []
+    
+    # 遍历 easy, medium, hard 目录
+    for difficulty in ["easy", "medium", "hard"]:
+        train_dir = os.path.join(root_dir, difficulty, "train")
+        
+        # 确保 train 目录存在
+        if os.path.exists(train_dir) and os.path.isdir(train_dir):
+            # 遍历 train 目录下的所有文件
+            for file in os.listdir(train_dir):
+                if file.endswith(".ulx"):
+                    ulx_files.append(os.path.abspath(os.path.join(train_dir, file)))
+    
+    return ulx_files
+
+def load_train_game(idx):
+    paths = get_all_train_paths()
+    return Game_interface(paths[idx])
 
 class Env_twc_by_path(Env_extra_info):
     def __init__(self, game_path, no_augment = True) -> None:
@@ -47,6 +76,9 @@ class Game_interface(abstract_game_interface.Game_interface):
         self.desc_update_cache = {} # 2025.1.7 储存desc更新
         self.recipe = '' # 2025.1.13 储存菜谱
         self.init_hook()
+    def reset(self):
+        self.walkthrough_with_meta_datas = []
+        self.act_and_output(None)
     def init_hook(self):
         self.filter_startword_list = ['examine', 'close', 'eat', 'look', 'drop', 'inventory']
         self.walkthrough_with_meta_datas = [] # 2025.2.11 用于记录walkthrough
@@ -63,7 +95,7 @@ class Game_interface(abstract_game_interface.Game_interface):
         room_name = common.extract_room_name(description)
         action_history = common.action_obs_pairs_to_history(action_obs_pairs, seperator='>')
         action_list = common.actions_to_list_number(available_actions)
-        usr = final_prompt_twc(room_name, action_history, action_list)
+        usr = self.final_prompt_twc(room_name, action_history, action_list)
         self.x = usr
         sys = ''
         return sys, usr
@@ -87,8 +119,60 @@ class Game_interface(abstract_game_interface.Game_interface):
         self.finetune_triples.append((self.x, command_idx))
         self.act_and_output(command)
     def save_as_json(self):
+        import json
         f = open(f'exp/auto_filename/{self.game_name}.jsonl', 'w')
         for x, y in self.finetune_triples:
             obj = {'x': x.strip(), 'y': str(y).strip()}
-            f.write(str(obj) + '\n')
+            line = json.dumps(obj)
+            f.write(line + '\n')
         f.close()
+    def back(self):
+        actions = self.get_walkthrough()
+        actions = actions[:-1]
+        self.reset()
+        self.auto_play(actions)
+    def get_x(self):
+        return self.x
+
+
+# ================ 准备训练文件 ===================
+
+def training_files_prepare():
+    paths = get_all_train_paths()
+    for path in paths:
+        game = Game_interface(path)
+        walkthrough = game.get_walkthrough()
+        game.auto_play(walkthrough)
+        game.save_as_json()
+
+def final_training_file_prepare():
+    from finetune_simplify_desc import lines_random_train_file_prepare
+    lines_random_train_file_prepare(directory_path = 'exp/auto_filename', out_path='exp/auto_filename/twc_for_bert.jsonl')
+
+# =============== 正式训练 =====================
+
+
+def twc_dataloader(batch = 4):
+    from torch.utils.data import DataLoader
+    from bert_training_data import CustomDatasetTWC
+    dl = DataLoader(CustomDatasetTWC(), batch_size = batch)
+    return dl
+
+def train(log_filename = '', epoch = 1):
+    from transformers import AutoTokenizer, ModernBertForMaskedLM
+    model_id = "answerdotai/ModernBERT-base"
+    tokenizer = AutoTokenizer.from_pretrained(model_id)
+    model = ModernBertForMaskedLM.from_pretrained(model_id)
+    model = model.train()
+    from bert_training_data import train_loop
+    BATCH = 4
+    dataLoader = twc_dataloader(batch = BATCH)
+    train_loop(model, tokenizer, log_filename=log_filename, batch = BATCH, epoch = epoch, dataloader=dataLoader)
+    return model, tokenizer
+
+# 实验结果已经出来了, 查看docs/ftwp_bert_baseline，epoch设定为2即可
+def early_stop_exp():
+    train(log_filename='early_stop_exp', epoch = 10)
+
+
+# =================== 测试 ===========================

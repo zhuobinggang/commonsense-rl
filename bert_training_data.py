@@ -5,15 +5,20 @@ import common
 
 class CustomDataset(Dataset):
     def __init__(self):
+        self.init_dataframe()
+    def init_dataframe(self):
         import pandas as pd
         self.dataframe = pd.read_json(path_or_buf='/home/taku/Downloads/cog2019_ftwp/procceeded_training_files/bert_trains.jsonl' ,lines=True)
-
     def __len__(self):
         return len(self.dataframe)
-
     def __getitem__(self, idx):
         return self.dataframe.x.iloc[idx], self.dataframe.y.iloc[idx]
     
+class CustomDatasetTWC(CustomDataset):
+    def init_dataframe(self):
+        import pandas as pd
+        self.dataframe = pd.read_json(path_or_buf='exp/train_files/twc_for_bert.jsonl' ,lines=True)
+
 def get_dataloader(batch = 4):
     from torch.utils.data import DataLoader
     ds = CustomDataset()
@@ -114,17 +119,18 @@ class Logger:
         losses = self.get_losses()
         draw_line_chart(list(range(len(losses))), [losses, self.valid_scores], ['losses', 'valid_scores'], path=self.image_path)
 
-def train_loop(model, tokenizer, batch = 4, file_name = '', epoch = 1):
+def train_loop(model, tokenizer, batch = 4, log_filename = '', epoch = 1, dataloader = None):
     # Accelerator
     from accelerate import Accelerator
     accelerator = Accelerator()
     device = accelerator.device
     optimizer = get_optimizer(model)
-    dataloader = get_dataloader(batch=batch)
+    if not dataloader:
+        dataloader = get_dataloader(batch=batch)
     model, optimizer, dataloader = accelerator.prepare(
         model, optimizer, dataloader
     )
-    logger = Logger(model, batch_size=batch, file_name=file_name)
+    logger = Logger(model, batch_size=batch, file_name=log_filename)
     for e in range(epoch):
         for xs, ys in iter(dataloader):
             optimizer.zero_grad()
@@ -154,25 +160,25 @@ def draw_line_chart(x, ys, legends, path = 'exp/auto_filename/dd.png', colors = 
 # ======================= 训练 =============================
 
 
-def train(filename = '', epoch = 1):
+def train(log_filename = '', epoch = 1):
     from transformers import AutoTokenizer, ModernBertForMaskedLM
     model_id = "answerdotai/ModernBERT-base"
     tokenizer = AutoTokenizer.from_pretrained(model_id)
     model = ModernBertForMaskedLM.from_pretrained(model_id)
     model = model.train()
-    train_loop(model, tokenizer, file_name=filename, epoch = epoch)
+    train_loop(model, tokenizer, log_filename=log_filename, epoch = epoch)
     return model, tokenizer
 
 # 实验结果已经出来了, 查看docs/ftwp_bert_baseline，epoch设定为2即可
 def early_stop_exp():
-    train(filename='early_stop_exp', epoch = 3)
+    train(log_filename='early_stop_exp', epoch = 3)
 
 
 # @hitory: 2025.1.20 将epoch从1更改为2
 def train_several_models(count = 3):
     for i in range(count):
         filename = f'baseline_restart{i}'
-        _ = train(filename, epoch=2)
+        _ = train(log_filename=filename, epoch=2)
 
 
 def exp_and_shutdown():

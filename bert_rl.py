@@ -80,6 +80,8 @@ class Game_for_bert(Ftwp_interface_by_path):
         self.reset()
         for action in action_list:
             self.input(action)
+    def get_x(self):
+        return bert_prompt_from_game(self)
 
 # DONE: TEST
 def test_get_recipe():
@@ -161,7 +163,7 @@ def trained_model_autoplay(game, model, tokenizer, save_readable = True):
 def get_next_command(game, tokenizer, model):
     import torch
     device = model.device
-    x = bert_prompt_from_game(game)
+    x = game.get_x()
     inputs = tokenizer(x, return_tensors="pt")
     with torch.no_grad():
         logits = model(**inputs.to(device)).logits
