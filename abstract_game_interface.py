@@ -167,6 +167,6 @@ class Game_interface:
         for action in action_list:
             self.input(action)
     def get_score(self):
-        return self.env.info['score']
+        return self.env.info['score'][0]
     def get_max_score(self):
-        return self.env.info['max_score']
+        return self.env.info['max_score'][0]

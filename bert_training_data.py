@@ -119,7 +119,7 @@ class Logger:
         losses = self.get_losses()
         draw_line_chart(list(range(len(losses))), [losses, self.valid_scores], ['losses', 'valid_scores'], path=self.image_path)
 
-def train_loop(model, tokenizer, batch = 4, log_filename = '', epoch = 1, dataloader = None):
+def train_loop(model, tokenizer, batch = 4, log_filename = '', epoch = 1, dataloader = None, logger = None):
     # Accelerator
     from accelerate import Accelerator
     accelerator = Accelerator()
@@ -130,7 +130,8 @@ def train_loop(model, tokenizer, batch = 4, log_filename = '', epoch = 1, datalo
     model, optimizer, dataloader = accelerator.prepare(
         model, optimizer, dataloader
     )
-    logger = Logger(model, batch_size=batch, file_name=log_filename)
+    if not logger:
+        logger = Logger(model, batch_size=batch, file_name=log_filename)
     for e in range(epoch):
         for xs, ys in iter(dataloader):
             optimizer.zero_grad()

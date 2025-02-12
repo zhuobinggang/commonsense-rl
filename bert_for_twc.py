@@ -3,9 +3,10 @@ from env import Env_extra_info
 import common
 import abstract_game_interface
 from functools import lru_cache
+import bert_training_data
 
 @lru_cache(maxsize=None)
-def get_all_train_paths(root_dir = 'games/twc'):
+def get_all_game_paths(root_dir = 'games/twc', dataset_type = 'train'):
     import os
     """
     获取 root_dir 目录下所有 train 文件夹中的 .ulx 文件的绝对路径。
@@ -17,7 +18,7 @@ def get_all_train_paths(root_dir = 'games/twc'):
     
     # 遍历 easy, medium, hard 目录
     for difficulty in ["easy", "medium", "hard"]:
-        train_dir = os.path.join(root_dir, difficulty, "train")
+        train_dir = os.path.join(root_dir, difficulty, dataset_type)
         
         # 确保 train 目录存在
         if os.path.exists(train_dir) and os.path.isdir(train_dir):
@@ -27,6 +28,15 @@ def get_all_train_paths(root_dir = 'games/twc'):
                     ulx_files.append(os.path.abspath(os.path.join(train_dir, file)))
     
     return ulx_files
+
+def get_all_train_paths():
+    return get_all_game_paths(dataset_type = 'train')
+
+def get_all_valid_paths():
+    return get_all_game_paths(dataset_type = 'valid')
+
+def get_all_test_paths():
+    return get_all_game_paths(dataset_type = 'test')
 
 def load_train_game(idx):
     paths = get_all_train_paths()
@@ -95,7 +105,7 @@ class Game_interface(abstract_game_interface.Game_interface):
         room_name = common.extract_room_name(description)
         action_history = common.action_obs_pairs_to_history(action_obs_pairs, seperator='>')
         action_list = common.actions_to_list_number(available_actions)
-        usr = self.final_prompt_twc(room_name, action_history, action_list)
+        usr = final_prompt_twc(room_name, action_history, action_list)
         self.x = usr
         sys = ''
         return sys, usr
@@ -133,6 +143,11 @@ class Game_interface(abstract_game_interface.Game_interface):
         self.auto_play(actions)
     def get_x(self):
         return self.x
+    def save_readable(self):
+        f = open(f'exp/auto_filename/{self.filename}.txt', 'w')
+        for x, y in self.finetune_triples:
+            f.write(f'{x}\n{y}\n\n')
+        f.close()
 
 
 # ================ 准备训练文件 ===================
@@ -151,6 +166,37 @@ def final_training_file_prepare():
 
 # =============== 正式训练 =====================
 
+def batch_valid(model, tokenizer = None, save_readable = True, test_game_paths = [], file_prefix = ''):
+    import bert_rl
+    if not tokenizer:
+        tokenizer = bert_rl.default_tokenizer()
+    if len(test_game_paths) < 1:
+        test_game_paths = get_all_valid_paths()
+    scores = []
+    max_scores = []
+    for path in test_game_paths:
+        game = Game_interface(path)
+        game.verbose = False
+        game.filename = file_prefix + game.filename # Added 2025.2.8
+        score, max_score = bert_rl.trained_model_autoplay(game, model, tokenizer, save_readable)
+        scores.append(score)
+        max_scores.append(max_score)
+    return sum(scores) / sum(max_scores)
+
+class LoggerTWC(bert_training_data.Logger):
+    def cal_valid_score_and_save_checkpoint(self):
+        self.model.eval() # 进入校验模式
+        norm_score = batch_valid(self.model, save_readable=False)
+        self.model.train() # 返回训练模式
+        if norm_score > self.max_score + self.min_delta:
+            self.text_log += f'更新max score = {norm_score}\n'
+            self.save_checkpoint()
+            self.max_score = norm_score
+            self.update_checkpoint_timestep = self.global_counter
+        elif norm_score > self.max_score:
+            self.text_log += f'没有超过阈值{self.min_delta}！{norm_score} ~= {self.max_score}\n'
+        scalar = 10
+        return norm_score * scalar
 
 def twc_dataloader(batch = 4):
     from torch.utils.data import DataLoader
@@ -167,12 +213,19 @@ def train(log_filename = '', epoch = 1):
     from bert_training_data import train_loop
     BATCH = 4
     dataLoader = twc_dataloader(batch = BATCH)
-    train_loop(model, tokenizer, log_filename=log_filename, batch = BATCH, epoch = epoch, dataloader=dataLoader)
+    logger = LoggerTWC(model, batch_size=BATCH, log_step=50)
+    train_loop(model, tokenizer, log_filename=log_filename, batch = BATCH, epoch = epoch, dataloader=dataLoader, logger=logger)
     return model, tokenizer
 
 # 实验结果已经出来了, 查看docs/ftwp_bert_baseline，epoch设定为2即可
-def early_stop_exp():
-    train(log_filename='early_stop_exp', epoch = 10)
+def early_stop_exp(epoch = 10):
+    return train(log_filename='early_stop_exp', epoch = epoch)
 
 
 # =================== 测试 ===========================
+
+def batch_test():
+    import bert_rl
+    model, toker = bert_rl.load_trained_model('/home/taku/Downloads/TWC_exp/exp_0211/default.tch')
+    test_game_paths = get_all_test_paths()
+    return batch_valid(model, toker, test_game_paths=test_game_paths)

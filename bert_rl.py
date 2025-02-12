@@ -145,7 +145,7 @@ def trained_model_autoplay(game, model, tokenizer, save_readable = True):
     model.eval()
     game.reset()
     counter = 0
-    while not any([counter >= 30, game.won, game.lost]):
+    while not any([counter >= 30, game.is_won(), game.is_lost()]):
         try:
             command = get_next_command(game, tokenizer, model)
             game.input(command)
@@ -171,9 +171,14 @@ def get_next_command(game, tokenizer, model):
     predicted_token_id = logits[0, mask_token_index].argmax(axis=-1) # TODO: 2025.1.20 为了能够对应强化学习，应该将argmax改为sampling
     command_str = tokenizer.decode(predicted_token_id).strip()
     # print(f'Command IDX: {command_str}')
-    command_index = int(command_str)
-    command = game.available_actions[command_index]
-    # print(f'Command: {command}')
+    try:
+        command_index = int(command_str)
+        command = game.available_actions[command_index]
+    except Exception as ex:
+        print(f'错误解析command: {command_str}\n in {game.available_actions}')
+        print(ex)
+        raise ex
+        # print(f'Command: {command}')
     return command
 
 # @history: 1.17: 需要分开彻底分开
