@@ -296,3 +296,18 @@ def run_test_full_with_model():
     logger.add(f'All model tested! Average score = {np.mean(results)}')
     logger.write_txt_log()
     return results
+
+
+# ======================== 为policy gradient准备的 ==========================
+# TODO: 完善
+class Model_policy_gradient:
+    def next_action(self, state):
+        return 'look'
+    def update_policy(self, state, action, reward_scalar):
+        pass
+# TODO: 完善
+class Game_policy_gradient(Game_for_bert):
+    def get_state(self):
+        return self.get_x()
+    def act(self, action):
+        return self.input(action)

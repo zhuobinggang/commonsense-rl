@@ -167,9 +167,9 @@ def final_training_file_prepare():
 # =============== 正式训练 =====================
 
 def batch_valid(model, tokenizer = None, save_readable = True, test_game_paths = [], file_prefix = ''):
-    import bert_rl
+    import bert_for_ftwp
     if not tokenizer:
-        tokenizer = bert_rl.default_tokenizer()
+        tokenizer = bert_for_ftwp.default_tokenizer()
     if len(test_game_paths) < 1:
         test_game_paths = get_all_valid_paths()
     scores = []
@@ -178,7 +178,7 @@ def batch_valid(model, tokenizer = None, save_readable = True, test_game_paths =
         game = Game_interface(path)
         game.verbose = False
         game.filename = file_prefix + game.filename # Added 2025.2.8
-        score, max_score = bert_rl.trained_model_autoplay(game, model, tokenizer, save_readable)
+        score, max_score = bert_for_ftwp.trained_model_autoplay(game, model, tokenizer, save_readable)
         scores.append(score)
         max_scores.append(max_score)
     return sum(scores) / sum(max_scores)
@@ -225,16 +225,16 @@ def early_stop_exp(epoch = 10):
 # =================== 测试 ===========================
 
 def batch_test():
-    import bert_rl
-    model, toker = bert_rl.load_trained_model('/home/taku/Downloads/TWC_exp/exp_0211/default.tch')
+    import bert_for_ftwp
+    model, toker = bert_for_ftwp.load_trained_model('/home/taku/Downloads/TWC_exp/exp_0211/default.tch')
     test_game_paths = get_all_test_paths()
     return batch_valid(model, toker, test_game_paths=test_game_paths)
 
 def test_test():
-    import bert_rl
-    model, toker = bert_rl.load_trained_model('/home/taku/Downloads/TWC_exp/exp_0211/default.tch')
+    import bert_for_ftwp
+    model, toker = bert_for_ftwp.load_trained_model('/home/taku/Downloads/TWC_exp/exp_0211/default.tch')
     valid_paths = get_all_valid_paths()
     game = Game_interface(valid_paths[0])
     game.reset()
     model.eval()
-    return bert_rl.get_command_probs(game, toker, model)
+    return bert_for_ftwp.get_command_probs(game, toker, model)

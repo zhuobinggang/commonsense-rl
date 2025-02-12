@@ -72,7 +72,7 @@ class Logger:
         self.text_log_path = f'exp/auto_filename/{self.file_name}.txt'
         self.text_log = ''
     def cal_valid_score_and_save_checkpoint(self):
-        from bert_rl import batch_valid
+        from bert_for_ftwp import batch_valid
         self.model.eval() # 进入校验模式
         norm_score = batch_valid(self.model, save_readable=False)
         self.model.train() # 返回训练模式
