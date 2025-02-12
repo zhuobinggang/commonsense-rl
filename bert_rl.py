@@ -287,6 +287,7 @@ def run_test_full_with_model():
     logger = common.Logger_simple(file_name='run_test_full_with_model_log')
     for model_idx, model_path in enumerate(model_paths):
         model, toker = load_trained_model(model_path)
+        model.cuda()
         logger.add(f'Model {model_idx} testing...')
         score = run_test_full(model, file_prefix=f'M{model_idx}')
         logger.add(f'Model {model_idx} tested! Score = {score}.')
