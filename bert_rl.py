@@ -140,6 +140,11 @@ def default_tokenizer():
     tokenizer = AutoTokenizer.from_pretrained(model_id)
     return tokenizer
 
+@lru_cache(maxsize=None)
+def command_indexs_tokenized(command_length = 100):
+    tokenizer = default_tokenizer()
+    command_index_string = ' '.join([str(item) for item in list(range(command_length))])
+    return tokenizer.encode(command_index_string, add_special_tokens = False)
 
 def trained_model_autoplay(game, model, tokenizer, save_readable = True):
     model.eval()
@@ -147,11 +152,14 @@ def trained_model_autoplay(game, model, tokenizer, save_readable = True):
     counter = 0
     while not any([counter >= 30, game.is_won(), game.is_lost()]):
         try:
-            command = get_next_command(game, tokenizer, model)
+            # command = get_next_command(game, tokenizer, model)
+            # command = get_next_command_by_distribution(game, tokenizer, model) # NOTE: 2025.2.12 用sample取代原来的argmax
+            command = get_next_command_by_command_logits_argmax(game, tokenizer, model) # NOTE: 2025.2.12 用sample取代原来的argmax
             game.input(command)
             counter += 1
-        except:
+        except Exception as ex:
             print(f'根据BERT获取指令出问题了，返回分数0即可')
+            print(ex)
             return 0, 0
     if save_readable:
         game.save_readable()
@@ -160,7 +168,7 @@ def trained_model_autoplay(game, model, tokenizer, save_readable = True):
     # mask_token_index = (inputs.input_ids == tokenizer.mask_token_id)[0].nonzero(as_tuple=True)[0]
     # predicted_token_id = logits[0, mask_token_index].argmax(axis=-1)
 
-def get_next_command(game, tokenizer, model):
+def get_mask_logits(game, tokenizer, model):
     import torch
     device = model.device
     x = game.get_x()
@@ -168,17 +176,50 @@ def get_next_command(game, tokenizer, model):
     with torch.no_grad():
         logits = model(**inputs.to(device)).logits
     mask_token_index = (inputs.input_ids == tokenizer.mask_token_id)[0].nonzero(as_tuple=True)[0]
-    predicted_token_id = logits[0, mask_token_index].argmax(axis=-1) # TODO: 2025.1.20 为了能够对应强化学习，应该将argmax改为sampling
+    return logits[0, mask_token_index]
+
+def get_command_logits(game, tokenizer, model):
+    mask_logits = get_mask_logits(game, tokenizer, model) # (1, 50368)
+    command_length = len(game.filtered_commands)
+    command_indexs = command_indexs_tokenized()[:command_length]
+    command_logits = mask_logits[0, command_indexs] # (command_length)
+    return command_logits # (command_length)
+
+def get_command_distribution(game, tokenizer, model):
+    command_logits = get_command_logits(game, tokenizer, model)
+    command_logits[command_logits < 0] = 0 # 出现负数无法用于建构distribution，会报错，因此直接设置为0即可
+    # print('=========')
+    # print(command_logits) # NOTE: need test
+    # print('=========')
+    import torch
+    dist = torch.distributions.categorical.Categorical(probs = command_logits)
+    return dist
+
+def get_next_command(game, tokenizer, model):
+    mask_logits = get_mask_logits(game, tokenizer, model)
+    predicted_token_id = mask_logits.argmax(axis=-1) # TODO: 2025.1.20 为了能够对应强化学习，应该将argmax改为sampling
     command_str = tokenizer.decode(predicted_token_id).strip()
-    # print(f'Command IDX: {command_str}')
     try:
         command_index = int(command_str)
-        command = game.available_actions[command_index]
+        command = game.filtered_commands[command_index]
     except Exception as ex:
         print(f'错误解析command: {command_str}\n in {game.available_actions}')
         print(ex)
         raise ex
-        # print(f'Command: {command}')
+    return command
+
+# NOTE: Added 2025.2.12 理论上可以根绝错误输出的问题
+def get_next_command_by_distribution(game, tokenizer, model):
+    dist = get_command_distribution(game, tokenizer, model)
+    command_index = dist.sample().item()
+    command = game.filtered_commands[command_index]
+    return command
+
+# Added 2025.2.12 限定版的argmax
+def get_next_command_by_command_logits_argmax(game, tokenizer, model):
+    command_logits = get_command_logits(game, tokenizer, model) # (command_length)
+    command_index = command_logits.argmax().item()
+    command = game.filtered_commands[command_index]
     return command
 
 # @history: 1.17: 需要分开彻底分开
@@ -226,6 +267,7 @@ def final_test():
     results = [] # 3 models, 2 test methods
     for model_path in model_paths:
         model, toker = load_trained_model(model_path)
+        model.cuda()
         temp_score = run_test_temp(model)
         real_score = run_test(model)
         results.append((temp_score, real_score))

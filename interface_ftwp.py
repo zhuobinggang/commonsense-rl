@@ -111,7 +111,9 @@ class Ftwp_interface_by_path(human_play.Game_interface):
         self.visited_dict = {} # 2024.12.21 用于存储访问过的地点次数
         self.desc_update_cache = {} # 2025.1.7 储存desc更新
         self.recipe = '' # 2025.1.13 储存菜谱
+        self.filtered_commands = [] # 2025.2.11 用于使用指令代号来选择行动
         self.init_hook()
+        self.filter_startword_list = ['examine', 'put', 'close', 'insert', 'eat', 'look']
     def init_hook(self):
         pass
     def construct_sys_usr(self, description, inventory, available_actions, action_obs_pairs):
@@ -120,6 +122,12 @@ class Ftwp_interface_by_path(human_play.Game_interface):
     def get_walkthrough(self):
         from ftwp_info import walkthrougn_by_game_path
         return walkthrougn_by_game_path(self.game_path)
+    def get_score(self):
+        return self.env.info['score']
+    def get_max_score(self):
+        return self.env.info['max_score']
+    def available_actions_filtered_callback(self, filtered_commands):
+        return ['inventory'] + filtered_commands # NOTE: 这个会导致性能大幅下降
 
 def game_for_test():
     from ftwp_info import train_set_v0

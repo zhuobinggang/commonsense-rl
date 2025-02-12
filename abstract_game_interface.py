@@ -96,6 +96,8 @@ class Game_interface:
             return ''
         action, obs = act_obs[-1]
         return obs
+    def available_actions_filtered_callback(self, filtered_commands):
+        return filtered_commands
     def available_actions_filter(self, commands):
         if not commands:
             return
@@ -109,12 +111,13 @@ class Game_interface:
             if command in commands:
                 filtered_commands.append(command)
         # filtered_commands = ['inventory'] + filtered_commands
+        filtered_commands = self.available_actions_filtered_callback(filtered_commands)
         self.filtered_commands = filtered_commands
         return filtered_commands
     def action_obs_pairs_got_callback(self, action_obs_pairs):
         pass
     def is_won(self):
-        return self.env.is_won()
+        return self.env.is_won(self.env.info)
     def is_lost(self):
         return self.env.is_lost(self.env.info)
     def act_and_output(self, command = None):

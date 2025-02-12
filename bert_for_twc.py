@@ -229,3 +229,12 @@ def batch_test():
     model, toker = bert_rl.load_trained_model('/home/taku/Downloads/TWC_exp/exp_0211/default.tch')
     test_game_paths = get_all_test_paths()
     return batch_valid(model, toker, test_game_paths=test_game_paths)
+
+def test_test():
+    import bert_rl
+    model, toker = bert_rl.load_trained_model('/home/taku/Downloads/TWC_exp/exp_0211/default.tch')
+    valid_paths = get_all_valid_paths()
+    game = Game_interface(valid_paths[0])
+    game.reset()
+    model.eval()
+    return bert_rl.get_command_probs(game, toker, model)
