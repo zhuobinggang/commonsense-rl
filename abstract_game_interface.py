@@ -173,3 +173,10 @@ class Game_interface:
         return self.env.info['score'][0]
     def get_max_score(self):
         return self.env.info['max_score'][0]
+    
+
+
+class Game_state:
+    def __init__(self) -> None:
+        self.x = ''
+        self.action_list = []

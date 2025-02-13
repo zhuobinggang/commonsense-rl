@@ -3,7 +3,7 @@
 import common
 from interface_ftwp import game_for_test, Ftwp_interface_by_path
 from functools import lru_cache
-
+from abstract_game_interface import Game_state
 
 def game_for_test():
     from ftwp_info import train_set_v0
@@ -146,6 +146,13 @@ def command_indexs_tokenized(command_length = 100):
     command_index_string = ' '.join([str(item) for item in list(range(command_length))])
     return tokenizer.encode(command_index_string, add_special_tokens = False)
 
+
+def construct_game_state(game: Game_for_bert):
+    game_state = Game_state()
+    game_state.x = game.get_x()
+    game_state.action_list = game.filtered_commands
+    return game_state
+
 def trained_model_autoplay(game, model, tokenizer, save_readable = True):
     model.eval()
     game.reset()
@@ -154,7 +161,9 @@ def trained_model_autoplay(game, model, tokenizer, save_readable = True):
         try:
             # command = get_next_command(game, tokenizer, model)
             # command = get_next_command_by_distribution(game, tokenizer, model) # NOTE: 2025.2.12 用sample取代原来的argmax
-            command = get_next_command_by_command_logits_argmax(game, tokenizer, model) # NOTE: 2025.2.12 用sample取代原来的argmax
+            # command = get_next_command_by_command_logits_argmax(game, tokenizer, model) # NOTE: 2025.2.12 用sample取代原来的argmax
+            game_state = construct_game_state(game)
+            command = get_next_command_by_command_logits_argmax_simple(model, game_state)
             game.input(command)
             counter += 1
         except Exception as ex:
@@ -168,7 +177,8 @@ def trained_model_autoplay(game, model, tokenizer, save_readable = True):
     # mask_token_index = (inputs.input_ids == tokenizer.mask_token_id)[0].nonzero(as_tuple=True)[0]
     # predicted_token_id = logits[0, mask_token_index].argmax(axis=-1)
 
-def get_mask_logits(game, tokenizer, model):
+# 首先要获得x, 然后通过model获得logits输出，然后获得mask对应的logits
+""" def get_mask_logits(game, tokenizer, model):
     import torch
     device = model.device
     x = game.get_x()
@@ -176,21 +186,48 @@ def get_mask_logits(game, tokenizer, model):
     with torch.no_grad():
         logits = model(**inputs.to(device)).logits
     mask_token_index = (inputs.input_ids == tokenizer.mask_token_id)[0].nonzero(as_tuple=True)[0]
-    return logits[0, mask_token_index]
+    return logits[0, mask_token_index] # (1, 50368) """
 
-def get_command_logits(game, tokenizer, model):
+# TODO: 代换掉原来的函数
+# @parameter: x是包含[MASK]标记的prompt
+def get_mask_logits_simple(model, x):
+    import torch
+    device = model.device
+    tokenizer = default_tokenizer()
+    inputs = tokenizer(x, return_tensors="pt")
+    with torch.no_grad():
+        logits = model(**inputs.to(device)).logits
+    mask_token_index = (inputs.input_ids == tokenizer.mask_token_id)[0].nonzero(as_tuple=True)[0]
+    return logits[0, mask_token_index] # (1, 50368)
+
+# 需要从game处获得filtered_commands，那可以让他直接传入
+""" def get_command_logits(game, tokenizer, model):
     mask_logits = get_mask_logits(game, tokenizer, model) # (1, 50368)
     command_length = len(game.filtered_commands)
     command_indexs = command_indexs_tokenized()[:command_length]
     command_logits = mask_logits[0, command_indexs] # (command_length)
     return command_logits # (command_length)
+ """
+def get_command_logits_simple(model, state: Game_state):
+    mask_logits = get_mask_logits_simple(model, state.x) # (1, 50368)
+    command_length = len(state.action_list)
+    command_indexs = command_indexs_tokenized()[:command_length]
+    command_logits = mask_logits[0, command_indexs] # (command_length)
+    return command_logits # (command_length)
 
-def get_command_distribution(game, tokenizer, model):
+""" def get_command_distribution(game, tokenizer, model):
     command_logits = get_command_logits(game, tokenizer, model)
     command_logits[command_logits < 0] = 0 # 出现负数无法用于建构distribution，会报错，因此直接设置为0即可
     # print('=========')
     # print(command_logits) # NOTE: need test
     # print('=========')
+    import torch
+    dist = torch.distributions.categorical.Categorical(probs = command_logits)
+    return dist """
+
+def get_command_distribution_simple(model, state: Game_state):
+    command_logits = get_command_logits_simple(model, state)
+    command_logits[command_logits < 0] = 0 # 出现负数无法用于建构distribution，会报错，因此直接设置为0即可
     import torch
     dist = torch.distributions.categorical.Categorical(probs = command_logits)
     return dist
@@ -209,17 +246,30 @@ def get_next_command(game, tokenizer, model):
     return command
 
 # NOTE: Added 2025.2.12 理论上可以根绝错误输出的问题
-def get_next_command_by_distribution(game, tokenizer, model):
+""" def get_next_command_by_distribution(game, tokenizer, model):
     dist = get_command_distribution(game, tokenizer, model)
     command_index = dist.sample().item()
     command = game.filtered_commands[command_index]
+    return command """
+
+def get_next_command_by_distribution_simple(model, state: Game_state):
+    dist = get_command_distribution_simple(model, state)
+    command_index = dist.sample().item()
+    command = state.action_list[command_index]
     return command
 
 # Added 2025.2.12 限定版的argmax
-def get_next_command_by_command_logits_argmax(game, tokenizer, model):
+""" def get_next_command_by_command_logits_argmax(game, tokenizer, model):
     command_logits = get_command_logits(game, tokenizer, model) # (command_length)
     command_index = command_logits.argmax().item()
     command = game.filtered_commands[command_index]
+    return command """
+
+# TODO: 测试
+def get_next_command_by_command_logits_argmax_simple(model, state: Game_state):
+    command_logits = get_command_logits_simple(model, state) # (command_length)
+    command_index = command_logits.argmax().item()
+    command = state.action_list[command_index]
     return command
 
 # @history: 1.17: 需要分开彻底分开
@@ -268,7 +318,8 @@ def final_test():
     for model_path in model_paths:
         model, toker = load_trained_model(model_path)
         model.cuda()
-        temp_score = run_test_temp(model)
+        # temp_score = run_test_temp(model)
+        temp_score = 0
         real_score = run_test(model)
         results.append((temp_score, real_score))
     return results
@@ -302,6 +353,7 @@ def run_test_full_with_model():
 # TODO: 完善
 class Model_policy_gradient:
     def next_action(self, state):
+        command = get_next_command_by_distribution()
         return 'look'
     def update_policy(self, state, action, reward_scalar):
         pass
