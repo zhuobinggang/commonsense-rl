@@ -1,7 +1,8 @@
 import torch
 from torch.utils.data import Dataset
 import common
-
+from bert_common import get_loss, get_optimizer
+from common import draw_line_chart
 
 class CustomDataset(Dataset):
     def __init__(self):
@@ -37,20 +38,6 @@ class MyDataLoader:
             self.counter = 0
         return item
     
-
-def get_loss(model, tokenizer, x, y , device = 'cpu'):
-    inputs = tokenizer(x, return_tensors="pt")
-    # logits = model(**inputs).logits
-    # mask_token_index = (inputs.input_ids == tokenizer.mask_token_id)[0].nonzero(as_tuple=True)[0]
-    # predicted_token_id = logits[0, mask_token_index].argmax(axis=-1)
-    labels = x.replace('[MASK]', str(y.item()))
-    labels = tokenizer(labels, return_tensors="pt")["input_ids"]
-    labels = torch.where(inputs.input_ids == tokenizer.mask_token_id, labels, -100)
-    outputs = model(**inputs.to(device), labels=labels.to(device))
-    return outputs.loss
-
-def get_optimizer(model):
-    return torch.optim.AdamW(model.parameters(), 2e-5)
 
 
 class Logger:
@@ -136,26 +123,10 @@ def train_loop(model, tokenizer, batch = 4, log_filename = '', epoch = 1, datalo
         for xs, ys in iter(dataloader):
             optimizer.zero_grad()
             for x,y in zip(xs, ys):
-                loss = get_loss(model, tokenizer, x, y, device = device)
+                loss = get_loss(model, x, y.item(), device = device)
                 logger.add(loss.item())
-                accelerator.backward(loss)
-            optimizer.step()
-
-
-def draw_line_chart(x, ys, legends, path = 'exp/auto_filename/dd.png', colors = None, xlabel = None, ylabel = None):
-    import matplotlib.pyplot as plt
-    plt.clf()
-    for i, (y, l) in enumerate(zip(ys, legends)):
-        if colors is not None:
-            plt.plot(x[:len(y)], y, colors[i], label = l)
-        else:
-            plt.plot(x[:len(y)], y, label = l)
-    plt.legend()
-    if xlabel:
-        plt.xlabel(xlabel)
-    if ylabel:
-        plt.ylabel(ylabel)
-    plt.savefig(path)
+                accelerator.backward(loss) # backward可以在每一小步进行，梯度累计
+            optimizer.step() # step在累计之后进行
 
 
 # ======================= 训练 =============================

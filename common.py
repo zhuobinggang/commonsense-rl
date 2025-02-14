@@ -199,3 +199,24 @@ class Logger_simple:
         f = open(self.text_log_path, 'w')
         f.write(self.text_log)
         f.close()
+
+class Fake_text_logger(Logger_simple):
+    def add(self, text):
+        pass
+    def write_txt_log(self):
+        pass
+
+def draw_line_chart(x, ys, legends, path = 'exp/auto_filename/dd.png', colors = None, xlabel = None, ylabel = None):
+    import matplotlib.pyplot as plt
+    plt.clf()
+    for i, (y, l) in enumerate(zip(ys, legends)):
+        if colors is not None:
+            plt.plot(x[:len(y)], y, colors[i], label = l)
+        else:
+            plt.plot(x[:len(y)], y, label = l)
+    plt.legend()
+    if xlabel:
+        plt.xlabel(xlabel)
+    if ylabel:
+        plt.ylabel(ylabel)
+    plt.savefig(path)

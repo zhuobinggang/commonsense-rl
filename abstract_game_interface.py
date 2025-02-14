@@ -35,6 +35,9 @@ class Game_interface:
         pass
     def reset(self):
         self.act_and_output(None)
+        self.finetune_triples = []
+        self.visited_dict = {} # 2024.12.21 用于存储访问过的地点次数
+        self.desc_update_cache = {} # 2025.1.7 储存desc更新
     def update_desciption(self, desc):
         return desc
     def desc_from_cache_or_update_desc(self, description):
@@ -174,9 +177,3 @@ class Game_interface:
     def get_max_score(self):
         return self.env.info['max_score'][0]
     
-
-
-class Game_state:
-    def __init__(self) -> None:
-        self.x = ''
-        self.action_list = []
