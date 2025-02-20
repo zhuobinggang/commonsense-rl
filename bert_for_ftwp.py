@@ -8,7 +8,7 @@ from bert_common import Game_state, get_loss, get_optimizer, Abs_model_policy_gr
 def game_for_test():
     from ftwp_info import train_set_v0
     file_paths = train_set_v0()
-    game = Game_for_bert(file_paths[1])
+    game = Game_policy_gradient(file_paths[1])
     game.verbose = True
     return game
 
@@ -207,6 +207,19 @@ def get_mask_logits_simple(model, x):
     mask_token_index = (inputs.input_ids == tokenizer.mask_token_id)[0].nonzero(as_tuple=True)[0]
     return logits[0, mask_token_index] # (1, 50368)
 
+# 用于critic
+# @parameter: x是包含[MASK]标记的prompt
+def get_cls_output(model, x):
+    import torch
+    device = model.device
+    tokenizer = default_tokenizer()
+    inputs = tokenizer(x, return_tensors="pt")
+    out = model(**inputs.to(device), output_hidden_states=True) # 23 layers tuple
+    last_layer = out[-1] # (1, 52, 768)
+    cls_out = last_layer[:, 0] # (1, 768)
+    return cls_out
+
+
 # 需要从game处获得filtered_commands，那可以让他直接传入
 """ def get_command_logits(game, tokenizer, model):
     mask_logits = get_mask_logits(game, tokenizer, model) # (1, 50368)
@@ -382,7 +395,7 @@ class Model_policy_gradient(Abs_model_policy_gradient):
     def update_policy(self):
         # 需要观察之前的梯度下降是怎样和训练库联动的
         self.optimizer.step()
-    def stack_loss(self, state: Game_state, action, reward_scalar):
+    def action_select_loss(self, state: Game_state, action, reward_scalar):
         # 直接用MLM损失来让模型最大化对某个token的输出
         try:
             action_idx = state.action_list.index(action) # 如果不存在，不需要计算loss

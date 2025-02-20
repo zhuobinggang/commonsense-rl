@@ -16,8 +16,14 @@ class Abs_model_policy_gradient:
     def update_policy(self, state: Game_state, action, reward_scalar):
         # 需要观察之前的梯度下降是怎样和训练库联动的
         pass
-    def stack_loss(self, state: Game_state, action, reward_scalar):
+    def action_select_loss(self, state: Game_state, action, reward_scalar, ):
         return 0
+    
+class Abs_critic:
+    def expect_return(self, state: Game_state, action: str):
+        return -1
+    def update_critic(self, loss):
+        pass
 
 def get_optimizer(model):
     return torch.optim.AdamW(model.parameters(), 2e-5)
@@ -36,10 +42,14 @@ def initiate_bert():
     model = model.train()
     return model
 
+def replace_mask(x: str, action_index: int):
+    return x.replace('[MASK]', str(action_index))
+
 def get_loss(model, x: str, y : int , device = 'cpu'):
     tokenizer = default_tokenizer()
     inputs = tokenizer(x, return_tensors="pt")
-    labels = x.replace('[MASK]', str(y))
+    # labels = x.replace('[MASK]', str(y))
+    labels = replace_mask(x, y)
     labels = tokenizer(labels, return_tensors="pt")["input_ids"]
     labels = torch.where(inputs.input_ids == tokenizer.mask_token_id, labels, -100)
     outputs = model(**inputs.to(device), labels=labels.to(device))

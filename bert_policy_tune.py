@@ -54,7 +54,7 @@ def train_one_episode(model: Abs_model_policy_gradient, game, walkthrough = None
         reward_scalar = instant_reward + decended_final_reward
         decended_final_reward = decend_coefficient * decended_final_reward # 最终奖励递减
         # txtLogger.add(f'{action} 对应的reward_scalar为 {reward_scalar}')
-        loss_number = model.stack_loss(state, action, reward_scalar)
+        loss_number = model.action_select_loss(state, action, reward_scalar)
         chartLogger.add_loss(loss_number)
         chartLogger.add_reward(instant_reward)
     txtLogger.add('===== 训练完成 =====')
