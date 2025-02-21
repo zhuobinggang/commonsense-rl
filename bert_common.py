@@ -1,5 +1,6 @@
 from functools import lru_cache
 import torch
+from torch import nn
 from common import draw_line_chart
 import numpy as np
 
@@ -25,8 +26,11 @@ class Abs_critic:
     def update_critic(self, loss):
         pass
 
-def get_optimizer(model):
-    return torch.optim.AdamW(model.parameters(), 2e-5)
+def get_optimizer(model_or_paras):
+    if getattr(model_or_paras, "parameters", None):
+        return torch.optim.AdamW(model_or_paras.parameters(), lr=2e-5)
+    else:
+        return torch.optim.AdamW(model_or_paras, lr=2e-5)
 
 @lru_cache(maxsize=None)
 def default_tokenizer():
@@ -34,6 +38,10 @@ def default_tokenizer():
     model_id = "answerdotai/ModernBERT-base"
     tokenizer = AutoTokenizer.from_pretrained(model_id)
     return tokenizer
+
+@lru_cache(maxsize=None)
+def default_mse_loss():
+    return nn.MSELoss()
 
 def initiate_bert():
     from transformers import ModernBertForMaskedLM

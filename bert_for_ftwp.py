@@ -76,6 +76,19 @@ class Game_for_bert(Ftwp_interface_by_path):
             f.write(f'{x}\n\n{y}\n\n')
         f.write(f'{self.get_score()}/{self.get_max_score()}')
         f.close()
+    def filter_walkthroughs(self, walkthroughs = None):
+        walkthroughs = walkthroughs or self.get_walkthrough()
+        self.verbose = False;
+        self.reset()
+        filtered_walkthroughs = []
+        for action in walkthroughs:
+            if action in self.filtered_commands:
+                filtered_walkthroughs.append(action)
+                self.input(action)
+            else:
+                print(f'filtered action: {action}')
+        self.reset()
+        return filtered_walkthroughs
     def auto_play(self, action_list):
         self.reset()
         for action in action_list:
@@ -215,7 +228,7 @@ def get_cls_output(model, x):
     tokenizer = default_tokenizer()
     inputs = tokenizer(x, return_tensors="pt")
     out = model(**inputs.to(device), output_hidden_states=True) # 23 layers tuple
-    last_layer = out[-1] # (1, 52, 768)
+    last_layer = out.hidden_states[-1] # (1, 52, 768)
     cls_out = last_layer[:, 0] # (1, 768)
     return cls_out
 
@@ -247,6 +260,7 @@ def get_command_logits_simple(model, state: Game_state):
 
 def get_command_distribution_simple(model, state: Game_state):
     command_logits = get_command_logits_simple(model, state)
+    print(command_logits) # NOTE: TESTING
     command_logits[command_logits < 0] = 0 # 出现负数无法用于建构distribution，会报错，因此直接设置为0即可
     import torch
     dist = torch.distributions.categorical.Categorical(probs = command_logits)
@@ -392,8 +406,10 @@ class Model_policy_gradient(Abs_model_policy_gradient):
         self.optimizer.zero_grad()
     def next_action(self, state: Game_state):
         return get_next_command_by_distribution_simple(self.bert, state)
-    def update_policy(self):
+    def update_policy(self, loss):
         # 需要观察之前的梯度下降是怎样和训练库联动的
+        self.clean_gradient()
+        self.accelerator.backward(loss)
         self.optimizer.step()
     def action_select_loss(self, state: Game_state, action, reward_scalar):
         # 直接用MLM损失来让模型最大化对某个token的输出
@@ -403,10 +419,9 @@ class Model_policy_gradient(Abs_model_policy_gradient):
             return 0
         y = action_idx
         loss = get_loss(self.bert, state.x, y, device=self.device)
-        raw_loss = loss.item() # 在被放大之前输出
+        # raw_loss = loss.item() # 在被放大之前输出
         loss = reward_scalar * loss
-        self.accelerator.backward(loss)
-        return raw_loss
+        return loss
     def eval(self):
         self.bert.eval()
     def train(self):

@@ -1,6 +1,7 @@
 # 2025.2.12 policy gradient算法
 from bert_common import Abs_model_policy_gradient, Logger_loss_and_score
 from common import Logger_simple, Fake_text_logger
+import torch
 
 class FakeChartLogger:
     def __init__(self, filename) -> None:
@@ -50,15 +51,19 @@ def train_one_episode(model: Abs_model_policy_gradient, game, walkthrough = None
     decend_coefficient = 0.95
     decended_final_reward = final_reward
     model.clean_gradient()
+    losses = []
     for state, action, instant_reward in reversed(episode_sars):
         reward_scalar = instant_reward + decended_final_reward
         decended_final_reward = decend_coefficient * decended_final_reward # 最终奖励递减
         # txtLogger.add(f'{action} 对应的reward_scalar为 {reward_scalar}')
-        loss_number = model.action_select_loss(state, action, reward_scalar)
+        loss = model.action_select_loss(state, action, reward_scalar)
+        losses.append(loss)
+        loss_number = loss.item()
         chartLogger.add_loss(loss_number)
         chartLogger.add_reward(instant_reward)
+    total_loss = torch.sum(torch.stack(losses)) # NOTE: 改版后未测试
     txtLogger.add('===== 训练完成 =====')
     txtLogger.write_txt_log()
     chartLogger.episode_log()
-    model.update_policy()
+    model.update_policy(total_loss)
 
