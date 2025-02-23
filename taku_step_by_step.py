@@ -159,7 +159,7 @@ def act_step_by_step(env, command = None, caller = printer_step_by_step4):
         if env.instant_reward != 0:
             print(f'RECORDED REWARD: {env.instant_reward}')
     else: # 重新开始的情况
-        print('RESTAR\n\n')
+        # print('RESTAR\n\n')
         _, info = env.reset()
         description = info['description']
         description = description[0].strip().replace('\n','')
@@ -172,7 +172,7 @@ def act_step_by_step(env, command = None, caller = printer_step_by_step4):
     env.available_actions = available_actions
     if info['won'][0]:
         # 打引结束信息
-        print(f"YOU WIN, score at {info['score']}/{info['max_score']}, steps {info['moves']}")
+        # print(f"YOU WIN, score at {info['score']}/{info['max_score']}, steps {info['moves']}")
         action_history = ''
         if len(action_obs_pairs) > 0:
             for idx, (act, obs) in enumerate(action_obs_pairs):
@@ -221,7 +221,7 @@ def act_step_by_step_obs_augment(env, command = None, no_augment = False):
                         obs += WRONG_POSITION
         action_obs_pairs.append((command, obs))
     else: # 重新开始的情况
-        print('RESTAR\n\n')
+        # print('RESTAR\n\n')
         _, info = env.reset()
         enviroment = info['description']
         enviroment = enviroment[0].strip().replace('\n','')
@@ -234,7 +234,7 @@ def act_step_by_step_obs_augment(env, command = None, no_augment = False):
     if info['won'][0]:
         env.end = True
         # 打引结束信息
-        print(f"YOU WIN, score at {info['score']}/{info['max_score']}, steps {info['moves']}")
+        # print(f"YOU WIN, score at {info['score']}/{info['max_score']}, steps {info['moves']}")
     return enviroment, inventory, available_actions, action_obs_pairs
 
 def act_step_by_step_obs_augment_manually(env, command = None):
@@ -273,7 +273,7 @@ def act_step_by_step_simple(env, command = None):
         if env.instant_reward != 0:
             print(f'RECORDED REWARD: {env.instant_reward}')
     else: # 重新开始的情况
-        print('RESTAR\n\n')
+        # print('RESTAR\n\n')
         _, info = env.reset()
         enviroment = info['description']
         enviroment = enviroment[0].strip().replace('\n','')
@@ -285,7 +285,8 @@ def act_step_by_step_simple(env, command = None):
     env.available_actions = available_actions
     if info['won'][0]:
         # 打引结束信息
-        print(f"YOU WIN, score at {info['score']}/{info['max_score']}, steps {info['moves']}")
+        # print(f"YOU WIN, score at {info['score']}/{info['max_score']}, steps {info['moves']}")
+        pass
     return enviroment, inventory, available_actions, action_obs_pairs
 
 

@@ -192,7 +192,7 @@ class Env:
             # 记录历史
             self.append_command_obs_pair(command, obs);
         else:  # 重新开始的情况
-            print('RESTAR\n\n')
+            # print('RESTAR\n\n')
             _, info = self.reset(env)
             env.info = info  # Add 2024.8.17
             description = self.get_desc(info)
@@ -204,9 +204,7 @@ class Env:
         if self.is_won(info):
             env.end = True
             # 打引结束信息
-            print(
-                f"YOU WIN, score at {info['score']}/{info['max_score']}, steps {info['moves']}"
-            )
+            # print(f"YOU WIN, score at {info['score']}/{info['max_score']}, steps {info['moves']}")
             return None, None, None, None
         return description, inventory, env.available_actions, env.action_obs_pairs
 
@@ -254,7 +252,7 @@ class Env_extra_info(Env):
             # 记录历史
             self.append_command_obs_pair(command, obs);
         else:  # 重新开始的情况
-            print('RESTAR\n\n')
+            # print('RESTAR\n\n')
             _, info = self.reset(env)
             info['taku_info']['desc'] = '重新启动游戏'
             env.info = info  # Add 2024.8.17
@@ -271,7 +269,7 @@ class Env_extra_info(Env):
         lost = self.is_lost(info)
         if lost or won:
             env.end = True
-            print(f"YOU WIN, score at {info['score']}/{info['max_score']}, steps {info['moves']}") if won else print(f"YOU LOST, score at {info['score']}/{info['max_score']}, steps {info['moves']}")
+            # print(f"YOU WIN, score at {info['score']}/{info['max_score']}, steps {info['moves']}") if won else print(f"YOU LOST, score at {info['score']}/{info['max_score']}, steps {info['moves']}")
             # return None, None, None, None
             return description, inventory, env.available_actions, env.action_obs_pairs # NOTE: 2025.2.11 即便是结束也要返回反馈
         return description, inventory, env.available_actions, env.action_obs_pairs

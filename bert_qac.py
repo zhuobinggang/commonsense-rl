@@ -1,11 +1,12 @@
-from bert_common import Abs_critic, Game_state, replace_mask, initiate_bert, get_optimizer, default_mse_loss
-from bert_for_ftwp import get_cls_output, game_for_test
+from bert_common import Abs_critic, Game_state, replace_mask, initiate_bert, get_optimizer, default_mse_loss, batch_valid, load_trained_model
+from bert_common import get_cls_output
 import torch.nn as nn
 from common import draw_line_chart
 import torch
+from bert_for_ftwp import Model_policy_gradient
 
 def squared_loss(a, b):
-    print(f'{a.item()} {b.item()}')
+    # print(f'{a.item()} {b.item()}')
     mse_func = default_mse_loss()
     return mse_func(a, b)
 
@@ -21,7 +22,7 @@ class MLP_scorer(nn.Module):
             nn.Linear(hidden_dim, hidden_dim),
             nn.ReLU(),
             nn.Linear(hidden_dim, 1),  # 只输出一个值
-            nn.ReLU() # 增加在最后一层确保期待值大于0
+            # nn.ReLU() # 增加在最后一层确保期待值大于0
         )
     def forward(self, x):
         return self.network(x)  # 输出一个标量
@@ -66,9 +67,13 @@ class Critic(Abs_critic):
         self.optimizer.zero_grad()
         self.accelerator.backward(loss)
         self.optimizer.step()
+    def eval(self):
+        self.bert.eval()
+    def train(self):
+        self.bert.train()
 
 # 实现最简单的QAC算法
-def qac_step(game, actor, critic, a0=None, a1=None, gamma=0.99):
+def qac_step(game, actor, critic, a0=None, a1=None, gamma=0.95):
     s0 = game.get_state()
     
     if a0 is None:
@@ -89,6 +94,8 @@ def qac_step(game, actor, critic, a0=None, a1=None, gamma=0.99):
     # Update actor
     with torch.no_grad():
         q = critic.expect_return(s0, a0).item()
+        # 打印出来看看
+        print(f'Critic对{a0}的评分是{q}, 该行动的实际回报为{r}')
     actor_loss = actor.action_select_loss(s0, a0, q)
     actor.update_policy(actor_loss)
 
@@ -96,16 +103,19 @@ def qac_step(game, actor, critic, a0=None, a1=None, gamma=0.99):
     return r, actor_loss.item(), critic_loss.item()
  
 def qac_one_episode(game, actor, critic, training = False):
-    game.reset()
     steps = 0;
     critic_loss = 0;
     actor_loss = 0;
     episode_return = 0;
-    walkthrough = game.filter_walkthroughs()
+    walkthrough = game.filter_walkthroughs_with_input_test()
+    game.reset()
+    actor.train()
+    critic.train()
     while not any([steps >= 30, game.is_won(), game.is_lost()]):
         if training:
             if steps > len(walkthrough) - 2:
-                print('最后一步不用训练')
+                # print('最后一步不用训练')
+                break
             else:
                 r, a_loss, c_loss = qac_step(game, actor, critic, walkthrough[steps], walkthrough[steps + 1])
         else:
@@ -116,17 +126,63 @@ def qac_one_episode(game, actor, critic, training = False):
         critic_loss += c_loss
     return episode_return, actor_loss / steps, critic_loss / steps
 
-class Tester:
+class QAC_container:
     def __init__(self) -> None:
+        self.critic = None
+        self.actor = None
+    def init_QA(self):
         critic = Critic()
         critic.init_model()
-        game = game_for_test()
         self.critic = critic
-        self.game = game
         # actor
-        from bert_for_ftwp import Model_policy_gradient
         actor = Model_policy_gradient(initiate_bert())
         self.actor = actor
+    def save_checkpoint(self):
+        self.actor.bert.save_pretrained(f'exp/auto_filename/QAC_Actor.tch')
+        self.critic.bert.save_pretrained(f'exp/auto_filename/QAC_Critic.tch')
+    def load_checkpoint(self, path):
+        actor_bert = load_trained_model(f'{path}/QAC_Actor.tch')
+        self.actor = Model_policy_gradient(actor_bert)
+        self.critic = Critic()
+        critic_bert = load_trained_model(f'{path}/QAC_Critic.tch')
+        self.critic.bert = critic_bert
+        print('Actor和critic都加载完毕')
+
+class Tester(QAC_container):
+    def __init__(self) -> None:
+        super().__init__()
+        self.init_QA()
+        self.init_params_for_log()
+    def init_params_for_log(self):
+        # for valid
+        self.counter = 0;
+        self.last_valid_score = 0;
+        self.max_valid_score = 0;
+        self.valid_scores = [];
+        self.episode_rewards = [];
+        self.actor_losses = [];
+        self.critic_losses = [];
+    def save_checkpoint(self):
+        self.actor.bert.save_pretrained(f'exp/auto_filename/QAC_Actor.tch')
+        self.critic.bert.save_pretrained(f'exp/auto_filename/QAC_Critic.tch')
+    def load_checkpoint(self, path):
+        actor_bert = load_trained_model(f'{path}/QAC_Actor.tch')
+        self.actor = Model_policy_gradient(actor_bert)
+        self.critic = Critic()
+        critic_bert = load_trained_model(f'{path}/QAC_Critic.tch')
+        self.critic.bert = critic_bert
+        print('Actor和critic都加载完毕')
+    def maybe_valid_and_save(self):
+        self.counter += 1
+        need_valid_and_update = self.counter % 100 == 0
+        if need_valid_and_update: # valid然后更新max_valid_score和last_valid_score，如果分数更大，保存checkpoint
+            self.last_valid_score = batch_valid(self.actor.bert, save_readable = False)
+            if self.last_valid_score > self.max_valid_score:
+                self.max_valid_score = self.last_valid_score
+                self.save_checkpoint()
+        self.valid_scores.append(self.last_valid_score)
+        if need_valid_and_update: # 绘制中间图像
+            draw_line_chart(list(range(len(self.episode_rewards))), [self.valid_scores, self.actor_losses, self.critic_losses], ['r', 'a', 'c'])
     def test(self):
         self.episode_rewards = [];
         self.actor_losses = [];
@@ -139,4 +195,18 @@ class Tester:
             self.actor_losses.append(a)
             self.critic_losses.append(c)
         draw_line_chart(list(range(200)), [self.episode_rewards, self.actor_losses, self.critic_losses], ['r', 'a', 'c'])
+    def traing_and_save(self):
+        self.init_params_for_log()
+        from ftwp_info import all_train_game_paths
+        from bert_for_ftwp import Game_for_rl
+        paths = all_train_game_paths()
+        game_count = len(paths)
+        for index, path in enumerate(paths):
+            print(f'{index}/{game_count}')
+            game = Game_for_rl(path)
+            r,a,c =qac_one_episode(game, self.actor, self.critic, training=True)
+            self.episode_rewards.append(r)
+            self.actor_losses.append(a)
+            self.critic_losses.append(c)
+            self.maybe_valid_and_save()
     
