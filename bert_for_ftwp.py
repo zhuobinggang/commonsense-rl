@@ -1,7 +1,7 @@
 # BERT + reinforcement learning for FTWP dataset.
 # 先这样：只保留房间名，行动历史，菜谱，命令列表，然后用4000多个游戏进行行为克隆
 import common
-from functools import lru_cache
+from common import draw_line_chart
 from bert_common import Game_state, get_loss, get_optimizer, Abs_model_policy_gradient, initiate_bert, default_tokenizer
 from bert_common import bert_prompt_from_game, Game_for_bert, get_next_command_by_command_logits_argmax_simple
 from bert_common import get_next_command_by_distribution_simple, load_trained_model, construct_game_state, Game_for_rl
@@ -137,10 +137,20 @@ class Model_policy_gradient(Abs_model_policy_gradient):
         self.optimizer.zero_grad()
     def next_action(self, state: Game_state):
         return get_next_command_by_distribution_simple(self.bert, state)
+    def backward_loss(self, loss):
+        self.accelerator.backward(loss)
     def update_policy(self, loss):
         # 需要观察之前的梯度下降是怎样和训练库联动的
         self.clean_gradient()
-        self.accelerator.backward(loss)
+        self.backward_loss(loss)
+        self.optimizer_step()
+    def optimizer_step(self):
+        self.optimizer.step()
+    def update_policy_with_multiple_losses(self, losses):
+        # 需要观察之前的梯度下降是怎样和训练库联动的
+        self.clean_gradient()
+        for loss in losses:
+            self.accelerator.backward(loss)
         self.optimizer.step()
     def action_select_loss(self, state: Game_state, action, reward_scalar):
         # 直接用MLM损失来让模型最大化对某个token的输出
@@ -170,19 +180,31 @@ class Policy_gradient_tester:
         self.last_valid_score = 0
         self.valid_scores = []
         self.max_valid_score = 0
+        self.init_params_for_log() # 2025.2.24
 
-    def maybe_valid(self):
+    def init_params_for_log(self):
+        # for valid
+        self.counter = 0;
+        self.last_valid_score = 0;
+        self.max_valid_score = 0;
+        self.valid_scores = [];
+        self.episode_rewards = [];
+        self.actor_losses = [];
+        self.critic_losses = [];
+
+    def draw_line_chart(self):
+        draw_line_chart(list(range(len(self.episode_rewards))), [self.valid_scores, self.actor_losses], ['r', 'a'])
+    def maybe_valid_and_save(self):
         self.counter += 1
-        if self.counter % 100 == 0:
-            self.last_valid_score = batch_valid(self.model.bert, save_readable= False)
+        need_valid_and_update = self.counter % 100 == 0
+        if need_valid_and_update: # valid然后更新max_valid_score和last_valid_score，如果分数更大，保存checkpoint
+            self.last_valid_score = batch_valid(self.model.bert, save_readable = False)
             if self.last_valid_score > self.max_valid_score:
                 self.max_valid_score = self.last_valid_score
                 self.save_checkpoint()
         self.valid_scores.append(self.last_valid_score)
-        if self.counter % 100 == 0:
-            self.imageLogger.rewards_per_episode = self.valid_scores
-            self.imageLogger.losses_per_episode = [0] * len(self.valid_scores) # fake loss as 0
-            self.imageLogger.episode_log()
+        if need_valid_and_update: # 绘制中间图像
+            self.draw_line_chart()
 
     def save_checkpoint(self):
         checkpoint_path = f'exp/auto_filename/dd.tch'
@@ -264,3 +286,19 @@ class Policy_gradient_tester:
                 self.txtLogger.add(f'测试结果: {norm_score}')
             train_one_episode(self.model, game, walkthrough=game.get_walkthrough(), txtLogger=self.txtLogger, chartLogger=self.imageLogger)
 
+    def train_only_20250224(self):
+        # 区别仅在于每一步训练，或是整个游戏训练
+        from bert_policy_tune import train_one_episode
+        from ftwp_info import all_train_game_paths
+        paths = all_train_game_paths()
+        game_count = len(paths)
+        for game_index, path in enumerate(paths):
+            print(f'{game_index}/{game_count}')
+            game = Game_for_rl(path)
+            # self.txtLogger.add(f'训练中: {game_index}/{game_count}')
+            # 监督学习，不需要任何记录
+            norm_score, mean_actor_loss = train_one_episode(self.model, game, walkthrough=game.filter_walkthroughs_with_input_test()) 
+            self.episode_rewards.append(norm_score)
+            self.actor_losses.append(mean_actor_loss)
+            self.maybe_valid_and_save() # 同时保存检查点
+        self.draw_line_chart()

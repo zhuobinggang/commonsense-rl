@@ -101,6 +101,29 @@ def qac_step(game, actor, critic, a0=None, a1=None, gamma=0.95):
 
     # Logging
     return r, actor_loss.item(), critic_loss.item()
+
+
+# 实现最简单的QAC算法
+def qac_simple(game, actor, critic, gamma=0.95):
+    s0 = game.get_state()
+    a0 = actor.next_action(s0)
+    r = game.act(a0)
+    s1 = game.get_state()
+    a1 = actor.next_action(s1)
+    # Update critic
+    with torch.no_grad():
+        target = critic.expect_return(s1, a1).detach() * gamma + r  # 避免梯度传播
+    critic_loss = squared_loss(critic.expect_return(s0, a0), target)
+    critic.update_critic(critic_loss) # 问题： 每一步更新critic参数，是否会导致无法DQN中描述的难以收敛的问题？DQN使用两个神经网络来异步更新critic。
+    # Update actor
+    with torch.no_grad():
+        q = critic.expect_return(s0, a0).item()
+        # 打印出来看看
+        print(f'Critic对{a0}的评分是{q}, 该行动的实际回报为{r}')
+    actor_loss = actor.action_select_loss(s0, a0, q)
+    actor.update_policy(actor_loss)
+    # Logging
+    return r, actor_loss.item(), critic_loss.item()
  
 def qac_one_episode(game, actor, critic, training = False):
     steps = 0;

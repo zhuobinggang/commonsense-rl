@@ -15,13 +15,9 @@ class FakeChartLogger:
 
 # TODO: 测试
 # TODO: 爆改logger记录每一步的损失值？最好能够记录这次优化的是哪个action，并且记录对应的损失值，瞬时reward也记录一下
-def train_one_episode(model: Abs_model_policy_gradient, game, walkthrough = None, txtLogger = None, chartLogger = None):
+def train_one_episode(model: Abs_model_policy_gradient, game, walkthrough = None, txtLogger = None):
     if not txtLogger:
-        # txtLogger = Logger_simple('测试用文字logger')
         txtLogger = Fake_text_logger('')
-    if not chartLogger:
-        # chartLogger = Logger_loss_and_score('测试用图像logger')
-        chartLogger = FakeChartLogger('')
     # 先使用walkthrough训练一次，然后自主探索3次
     episode_sars = [] # state, action, reward
     game.reset()
@@ -31,39 +27,37 @@ def train_one_episode(model: Abs_model_policy_gradient, game, walkthrough = None
     txtLogger.add('===== 探索中 =====')
     while not any([counter >= 30, game.is_won(), game.is_lost()]):
         state = game.get_state()
-        try:
-            action = walkthrough[counter] if walkthrough else model.next_action(state)
-        except:
-            txtLogger.add('重大问题，counter大于walkthrougn长度，这是怎么回事？')
-            txtLogger.add(walkthrough)
-            txtLogger.add(counter)
-            txtLogger.add('在遇到不存在的action时候应该跳过才对，不需要执行')
+        if walkthrough:
+            if counter < len(walkthrough):
+                action = walkthrough[counter]
+            else:
+                print('到头了，但是游戏没有结束，说明walkthrough可能有问题，打印看看')
+                print(walkthrough)
+                break # 跳出循环
+        else:
+            action = model.next_action(state)
         counter += 1
         reward = game.act(action)
         final_reward += reward
-        if reward:
-            # txtLogger.add(f'{state.x}\n')
-            # txtLogger.add(f'{"[+1]" if reward else ""} {action}')
-            pass
         episode_sars.append((state, action, reward))
     txtLogger.add('===== 调整参数中 =====')
     model.train()
     decend_coefficient = 0.95
     decended_final_reward = final_reward
-    model.clean_gradient()
     losses = []
+    # 20250224 NOTE: 注意这里的逻辑必须是先clean_gradient，然后每一步backward_loss，最后来一个optimizer_step。如果将所有loss保留在数组里会导致内存不足。
+    model.clean_gradient()
     for state, action, instant_reward in reversed(episode_sars):
         reward_scalar = instant_reward + decended_final_reward
         decended_final_reward = decend_coefficient * decended_final_reward # 最终奖励递减
-        # txtLogger.add(f'{action} 对应的reward_scalar为 {reward_scalar}')
         loss = model.action_select_loss(state, action, reward_scalar)
-        losses.append(loss)
-        loss_number = loss.item()
-        chartLogger.add_loss(loss_number)
-        chartLogger.add_reward(instant_reward)
-    total_loss = torch.sum(torch.stack(losses)) # NOTE: 改版后未测试
-    txtLogger.add('===== 训练完成 =====')
+        model.backward_loss(loss)
+        losses.append(loss.item())
+    model.optimizer_step()
+    total_loss = sum((losses)) # NOTE: 改版后未测试
+    txtLogger.add('===== 一个episode训练完成 =====')
     txtLogger.write_txt_log()
-    chartLogger.episode_log()
-    model.update_policy(total_loss)
+    episode_mean_actor_loss = total_loss / len(episode_sars)
+    norm_score = game.get_score() / game.get_max_score()
+    return norm_score, episode_mean_actor_loss
 

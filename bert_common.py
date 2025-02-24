@@ -172,6 +172,7 @@ def get_command_distribution_simple(model, state: Game_state):
     command = game.filtered_commands[command_index]
     return command """
 
+# 拥有探索性
 def get_next_command_by_distribution_simple(model, state: Game_state):
     dist = get_command_distribution_simple(model, state)
     command_index = dist.sample().item()
