@@ -7,6 +7,9 @@ from bert_common import bert_prompt_from_game, Game_for_bert, get_next_command_b
 from bert_common import get_next_command_by_distribution_simple, load_trained_model, construct_game_state, Game_for_rl
 from bert_common import trained_model_autoplay, batch_test, batch_valid
 from interface_ftwp import game_for_test
+import torch
+from torch import nn
+from torch import optim
 
 def game_for_test():
     from ftwp_info import train_set_v0
@@ -165,6 +168,39 @@ class Model_policy_gradient(Abs_model_policy_gradient):
     def train(self):
         self.bert.train()
 
+# 简单的神经网络基线，chatgpt生成的，需要用BERT来重新实现
+
+class SimpleBaseline(nn.Module):
+    def __init__(self, state_dim, lr=1e-3):
+        super(SimpleBaseline, self).__init__()
+        self.net = nn.Sequential(
+            nn.Linear(state_dim, 32),  # 隐藏层 1
+            nn.ReLU(),
+            nn.Linear(32, 16),  # 隐藏层 2
+            nn.ReLU(),
+            nn.Linear(16, 1)  # 输出层 (V(s))
+        )
+        self.optimizer = optim.Adam(self.parameters(), lr=lr)
+        self.loss_fn = nn.MSELoss()  # 使用均方误差损失函数
+
+    def forward(self, state):
+        if isinstance(state, list) or isinstance(state, tuple):
+            state = torch.tensor(state, dtype=torch.float32)
+        return self.net(state).squeeze(-1)  # 输出 V(s)，去掉不必要的维度
+
+    def get_value(self, state):
+        """返回状态值 V(s)，但不进行梯度计算"""
+        with torch.no_grad():
+            return self.forward(state).item()
+
+    def update(self, state, G):
+        """用 G 来更新 V(s)"""
+        self.optimizer.zero_grad()
+        pred_value = self.forward(state)  # 预测 V(s)
+        target = torch.tensor(G, dtype=torch.float32)  # 目标 G
+        loss = self.loss_fn(pred_value, target)  # 计算 MSE 损失
+        loss.backward()  # 反向传播
+        self.optimizer.step()  # 梯度更新
 
     
 class Policy_gradient_tester:
@@ -173,7 +209,7 @@ class Policy_gradient_tester:
         from ftwp_info import all_valid_game_paths
         self.game = Game_for_rl(all_valid_game_paths()[0])
         from common import Logger_simple
-        self.txtLogger= Logger_simple('测试用logger')
+        self.txtLogger= Logger_simple('文字logger')
         from bert_common import Logger_loss_and_score
         self.imageLogger = Logger_loss_and_score('图像用logger')
         self.counter = 99
@@ -190,13 +226,16 @@ class Policy_gradient_tester:
         self.valid_scores = [];
         self.episode_rewards = [];
         self.actor_losses = [];
-        self.critic_losses = [];
+        self.critic_losses = []
+        self.log_steps = 100;
 
     def draw_line_chart(self):
-        draw_line_chart(list(range(len(self.episode_rewards))), [self.valid_scores, self.actor_losses], ['r', 'a'])
+        scaled_losses = [loss * 0.1 for loss in self.actor_losses]
+        draw_line_chart(list(range(len(self.episode_rewards))), [self.valid_scores, scaled_losses], ['r', 'a'])
+
     def maybe_valid_and_save(self):
         self.counter += 1
-        need_valid_and_update = self.counter % 100 == 0
+        need_valid_and_update = self.counter % self.log_steps == 0
         if need_valid_and_update: # valid然后更新max_valid_score和last_valid_score，如果分数更大，保存checkpoint
             self.last_valid_score = batch_valid(self.model.bert, save_readable = False)
             if self.last_valid_score > self.max_valid_score:
@@ -204,7 +243,7 @@ class Policy_gradient_tester:
                 self.save_checkpoint()
         self.valid_scores.append(self.last_valid_score)
         if need_valid_and_update: # 绘制中间图像
-            self.draw_line_chart()
+            pass
 
     def save_checkpoint(self):
         checkpoint_path = f'exp/auto_filename/dd.tch'
@@ -213,78 +252,6 @@ class Policy_gradient_tester:
     def test_policy_gradient(self):
         from bert_policy_tune import train_one_episode
         train_one_episode(self.model, self.game, txtLogger=self.txtLogger)
-
-    def test_policy_gradient_200_episode(self):
-        from bert_policy_tune import train_one_episode
-        for i in range(200):
-            train_one_episode(self.model, self.game, txtLogger=self.txtLogger, chartLogger=self.imageLogger)
-        checkpoint_path = f'exp/auto_filename/dd.tch'
-        self.model.bert.save_pretrained(checkpoint_path)
-
-    def test_policy_gradient_with_walkthrough(self):
-        from bert_policy_tune import train_one_episode
-        train_one_episode(self.model, self.game, walkthrough=self.game.get_walkthrough(), txtLogger=self.txtLogger)
-
-    def test_policy_gradient_200_episode_with_startup(self):
-        from bert_policy_tune import train_one_episode
-        # NOTE: 先用walkthrough初始化一下
-        train_one_episode(self.model, self.game, walkthrough=self.game.get_walkthrough(), txtLogger=self.txtLogger, chartLogger=self.imageLogger)
-        for i in range(200):
-            train_one_episode(self.model, self.game, txtLogger=self.txtLogger, chartLogger=self.imageLogger)
-        checkpoint_path = f'exp/auto_filename/dd.tch'
-        self.model.bert.save_pretrained(checkpoint_path)
-    
-    def train_explore_1v1(self):
-        from bert_policy_tune import train_one_episode
-        from ftwp_info import all_train_game_paths
-        paths = all_train_game_paths()
-        game_count = len(paths)
-        for game_index, path in enumerate(paths):
-            self.txtLogger.add(f'训练中: {game_index}/{game_count}')
-            game = Game_for_rl(path)
-            # 探索
-            train_one_episode(self.model, game, txtLogger=self.txtLogger, chartLogger=None)
-            # 监督学习，不需要任何记录
-            train_one_episode(self.model, game, walkthrough=game.get_walkthrough()) 
-            self.maybe_valid() # 同时保存检查点
-        self.imageLogger.episode_log()
-
-    def train_only(self):
-        # 区别仅在于每一步训练，或是整个游戏训练
-        from bert_policy_tune import train_one_episode
-        from ftwp_info import all_train_game_paths
-        paths = all_train_game_paths()
-        game_count = len(paths)
-        for game_index, path in enumerate(paths):
-            self.txtLogger.add(f'训练中: {game_index}/{game_count}')
-            game = Game_for_rl(path)
-            # 监督学习，不需要任何记录
-            train_one_episode(self.model, game, walkthrough=game.get_walkthrough()) 
-            self.maybe_valid() # 同时保存检查点
-        self.imageLogger.episode_log()
-
-    def train_explore_1v1_test(self):
-        from bert_policy_tune import train_one_episode
-        for _ in range(200):
-            game = self.game
-            # 探索
-            train_one_episode(self.model, game, txtLogger=self.txtLogger, chartLogger=self.imageLogger)
-            # 监督学习，不需要任何记录
-            train_one_episode(self.model, game, walkthrough=game.get_walkthrough()) 
-        self.save_checkpoint()
-
-    def train_just_walkthrough_test(self):
-        from bert_policy_tune import train_one_episode
-        from ftwp_info import all_train_game_paths
-        game = self.game
-        counter = 0
-        for _ in range(200):
-            counter += 1
-            if counter % 10 == 0:
-                score, max_score = trained_model_autoplay(self.game, self.model.bert)
-                norm_score = score / max_score
-                self.txtLogger.add(f'测试结果: {norm_score}')
-            train_one_episode(self.model, game, walkthrough=game.get_walkthrough(), txtLogger=self.txtLogger, chartLogger=self.imageLogger)
 
     def train_only_20250224(self):
         # 区别仅在于每一步训练，或是整个游戏训练
@@ -302,3 +269,39 @@ class Policy_gradient_tester:
             self.actor_losses.append(mean_actor_loss)
             self.maybe_valid_and_save() # 同时保存检查点
         self.draw_line_chart()
+    
+    def train_only_2_epoch_20250224(self):
+        for e in range(3):
+            self.train_only_20250224()
+
+    def test_fixed_algorithm_explore_only(self):
+        from bert_policy_tune import train_one_episode
+        for index in range(200):
+            game = self.game
+            norm_score, mean_actor_loss = train_one_episode(self.model, game) 
+            self.episode_rewards.append(norm_score)
+            self.valid_scores = self.episode_rewards # use the same score to log
+            self.actor_losses.append(mean_actor_loss)
+            if index % 10 == 0:
+                self.draw_line_chart()
+        self.draw_line_chart()
+
+    def train_explore1v1_20250224(self):
+        # 更新算法之后重新实验
+        from bert_policy_tune import train_one_episode
+        from ftwp_info import all_train_game_paths
+        paths = all_train_game_paths()
+        game_count = len(paths)
+        for game_index, path in enumerate(paths):
+            print(f'{game_index}/{game_count}')
+            game = Game_for_rl(path)
+            # 探索
+            explore_norm_score, mean_actor_loss = train_one_episode(self.model, game)
+            # 监督学习，不需要任何记录
+            _, _ = train_one_episode(self.model, game, walkthrough=game.filter_walkthroughs_with_input_test()) 
+            self.episode_rewards.append(explore_norm_score)
+            self.actor_losses.append(mean_actor_loss * 0.1)
+            self.maybe_valid_and_save() # 同时保存检查点
+            if self.counter % self.log_steps == 0:
+                draw_line_chart(list(range(len(self.episode_rewards))), [self.episode_rewards, self.valid_scores, self.actor_losses], ['explore_score', 'valid_score', 'a_loss'])
+        draw_line_chart(list(range(len(self.episode_rewards))), [self.episode_rewards, self.valid_scores, self.actor_losses], ['explore_score', 'valid_score', 'a_loss'])

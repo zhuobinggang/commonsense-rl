@@ -159,7 +159,7 @@ def get_command_logits_simple(model, state: Game_state):
 
 def get_command_distribution_simple(model, state: Game_state):
     command_logits = get_command_logits_simple(model, state)
-    print(command_logits) # NOTE: TESTING
+    # print(command_logits) # NOTE: TESTING
     command_logits[command_logits < 0] = 0 # 出现负数无法用于建构distribution，会报错，因此直接设置为0即可
     import torch
     dist = torch.distributions.categorical.Categorical(probs = command_logits)

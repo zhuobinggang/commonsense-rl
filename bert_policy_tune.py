@@ -42,15 +42,14 @@ def train_one_episode(model: Abs_model_policy_gradient, game, walkthrough = None
         episode_sars.append((state, action, reward))
     txtLogger.add('===== 调整参数中 =====')
     model.train()
-    decend_coefficient = 0.95
-    decended_final_reward = final_reward
+    G = 0  # 未来累计折扣奖励
+    gamma = 0.95  # 折扣因子
     losses = []
     # 20250224 NOTE: 注意这里的逻辑必须是先clean_gradient，然后每一步backward_loss，最后来一个optimizer_step。如果将所有loss保留在数组里会导致内存不足。
     model.clean_gradient()
     for state, action, instant_reward in reversed(episode_sars):
-        reward_scalar = instant_reward + decended_final_reward
-        decended_final_reward = decend_coefficient * decended_final_reward # 最终奖励递减
-        loss = model.action_select_loss(state, action, reward_scalar)
+        G = instant_reward + gamma * G  # 计算回报
+        loss = model.action_select_loss(state, action, G)
         model.backward_loss(loss)
         losses.append(loss.item())
     model.optimizer_step()
