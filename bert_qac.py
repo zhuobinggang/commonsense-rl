@@ -205,7 +205,7 @@ class Tester(QAC_container):
                 self.save_checkpoint()
         self.valid_scores.append(self.last_valid_score)
         if need_valid_and_update: # 绘制中间图像
-            draw_line_chart(list(range(len(self.episode_rewards))), [self.valid_scores, self.actor_losses, self.critic_losses], ['r', 'a', 'c'])
+            draw_line_chart(list(range(len(self.episode_rewards))), [self.actor_losses, self.critic_losses, self.valid_scores], ['a', 'c', 'r'])
     def test(self):
         self.episode_rewards = [];
         self.actor_losses = [];

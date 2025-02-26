@@ -52,6 +52,7 @@ def initiate_bert():
     model = model.train()
     return model
 
+
 def replace_mask(x: str, action_index: int):
     return x.replace('[MASK]', str(action_index))
 
@@ -173,11 +174,14 @@ def get_command_distribution_simple(model, state: Game_state):
     return command """
 
 # 拥有探索性
-def get_next_command_by_distribution_simple(model, state: Game_state):
+def get_next_command_by_distribution_simple(model, state: Game_state, need_dist = False):
     dist = get_command_distribution_simple(model, state)
     command_index = dist.sample().item()
     command = state.action_list[command_index]
-    return command
+    if need_dist:
+        return command, dist
+    else:
+        return command
 
 # Added 2025.2.12 限定版的argmax
 """ def get_next_command_by_command_logits_argmax(game, tokenizer, model):
@@ -186,7 +190,7 @@ def get_next_command_by_distribution_simple(model, state: Game_state):
     command = game.filtered_commands[command_index]
     return command """
 
-# TODO: 测试
+# 贪婪
 def get_next_command_by_command_logits_argmax_simple(model, state: Game_state):
     command_logits = get_command_logits_simple(model, state) # (command_length)
     command_index = command_logits.argmax().item()
@@ -383,3 +387,54 @@ def batch_test(model, save_readable = True, test_game_paths = [], file_prefix = 
 
 def batch_valid(model, save_readable = True):
     return batch_test(model, save_readable = save_readable, test_game_paths=valid_paths())
+
+
+# ================== For Command probabilty analysis ================
+
+def game_play_analysis(bert, game, txtLogger = common.Logger_simple()):
+    bert.eval()
+    game.reset()
+    counter = 0
+    while not any([counter >= 30, game.is_won(), game.is_lost()]):
+        # command = get_next_command(game, tokenizer, model)
+        # command = get_next_command_by_distribution(game, tokenizer, model) # NOTE: 2025.2.12 用sample取代原来的argmax
+        # command = get_next_command_by_command_logits_argmax(game, tokenizer, model) # NOTE: 2025.2.12 用sample取代原来的argmax
+        game_state = construct_game_state(game)
+        txtLogger.add(game_state.x)
+        dist = get_command_distribution_simple(bert, game_state)
+        command_probs = dist.probs
+        common.beutiful_print_command_and_probs(game_state.action_list, command_probs, txtLogger.add)
+        command = game_state.action_list[dist.probs.argmax().item()]
+        game.input(command)
+        counter += 1
+    txtLogger.write_txt_log()
+    return game.get_score(), game.get_max_score()
+
+
+# ============== Lora ================
+
+def initiate_lora_bert():
+    from peft import LoraConfig, get_peft_model
+    peft_config = LoraConfig(inference_mode=False, r=8, lora_alpha=32, lora_dropout=0, target_modules=["Wqkv"])
+    bert = initiate_bert()
+    lora_bert = get_peft_model(bert, peft_config)
+    print('初始化lora模型！')
+    lora_bert.print_trainable_parameters()
+    return lora_bert
+
+def save_lora_bert(lora_bert, output_dir = 'exp/auto_filename/dd.tch'):
+    lora_bert.save_pretrained(output_dir)
+
+def mark_lora_require_grad(model):
+    for name, param in model.named_parameters():
+        if 'lora' in name or 'Lora' in name:
+            param.requires_grad = True
+
+def load_lora_bert(output_dir = 'exp/auto_filename/dd.tch', training = False):
+    from peft import AutoPeftModel
+    model = AutoPeftModel.from_pretrained(output_dir)
+    print('加载训练好的lora模型！')
+    if training:
+        mark_lora_require_grad(model)
+    model.print_trainable_parameters()
+    return model

@@ -6,14 +6,15 @@ from bert_common import Game_state, get_loss, get_optimizer, Abs_model_policy_gr
 from bert_common import bert_prompt_from_game, Game_for_bert, get_next_command_by_command_logits_argmax_simple
 from bert_common import get_next_command_by_distribution_simple, load_trained_model, construct_game_state, Game_for_rl
 from bert_common import trained_model_autoplay, batch_test, batch_valid
+from bert_common import initiate_lora_bert
 from interface_ftwp import game_for_test
 import torch
 from torch import nn
 from torch import optim
 
 def game_for_test():
-    from ftwp_info import train_set_v0
-    file_paths = train_set_v0()
+    from ftwp_info import all_test_game_paths
+    file_paths = all_test_game_paths()
     game = Game_for_rl(file_paths[1])
     game.verbose = True
     return game
@@ -86,7 +87,7 @@ def final_test():
     for model_path in model_paths:
         model, toker = load_trained_model(model_path)
         model.cuda()
-        # temp_score = run_test_temp(model)
+        temp_score = run_test_temp(model)
         temp_score = 0
         real_score = run_test(model)
         results.append((temp_score, real_score))
@@ -115,6 +116,14 @@ def run_test_full_with_model():
     logger.add(f'All model tested! Average score = {np.mean(results)}')
     logger.write_txt_log()
     return results
+
+def run_test_policy_gradient_20250225():
+    model, _ = load_trained_model('exp/auto_filename/dd.tch')
+    model.cuda()
+    temp_score = run_test_temp(model)
+    real_score = run_test(model)
+    return temp_score, real_score
+
 
 
 # ======================== 为policy gradient准备的 ==========================
@@ -204,8 +213,13 @@ class SimpleBaseline(nn.Module):
 
     
 class Policy_gradient_tester:
-    def __init__(self) -> None:
-        self.model = Model_policy_gradient(initiate_bert())
+    def __init__(self, trained_bert = None) -> None:
+        if trained_bert:
+            self.actor = Model_policy_gradient(trained_bert)
+            self.trained_bert_provided = True
+        else:
+            self.actor = Model_policy_gradient(initiate_lora_bert())
+            self.trained_bert_provided = False
         from ftwp_info import all_valid_game_paths
         self.game = Game_for_rl(all_valid_game_paths()[0])
         from common import Logger_simple
@@ -237,7 +251,10 @@ class Policy_gradient_tester:
         self.counter += 1
         need_valid_and_update = self.counter % self.log_steps == 0
         if need_valid_and_update: # valid然后更新max_valid_score和last_valid_score，如果分数更大，保存checkpoint
-            self.last_valid_score = batch_valid(self.model.bert, save_readable = False)
+            self.txtLogger.add(f'Valid中……')
+            self.last_valid_score = batch_valid(self.actor.bert, save_readable = False)
+            self.txtLogger.add(f'Valid分数为{self.last_valid_score}')
+            self.txtLogger.write_txt_log()
             if self.last_valid_score > self.max_valid_score:
                 self.max_valid_score = self.last_valid_score
                 self.save_checkpoint()
@@ -247,28 +264,37 @@ class Policy_gradient_tester:
 
     def save_checkpoint(self):
         checkpoint_path = f'exp/auto_filename/dd.tch'
-        self.model.bert.save_pretrained(checkpoint_path)
+        self.actor.bert.save_pretrained(checkpoint_path)
 
     def test_policy_gradient(self):
         from bert_policy_tune import train_one_episode
-        train_one_episode(self.model, self.game, txtLogger=self.txtLogger)
+        train_one_episode(self.actor, self.game, txtLogger=self.txtLogger)
 
     def train_only_20250224(self):
         # 区别仅在于每一步训练，或是整个游戏训练
+        self.counter = -1
         from bert_policy_tune import train_one_episode
         from ftwp_info import all_train_game_paths
         paths = all_train_game_paths()
         game_count = len(paths)
+        self.txtLogger.add('Lora训练开始！')
         for game_index, path in enumerate(paths):
-            print(f'{game_index}/{game_count}')
+            log_txt = f'{game_index}/{game_count}'
+            print(log_txt)
+            self.txtLogger.add(log_txt)
             game = Game_for_rl(path)
             # self.txtLogger.add(f'训练中: {game_index}/{game_count}')
             # 监督学习，不需要任何记录
-            norm_score, mean_actor_loss = train_one_episode(self.model, game, walkthrough=game.filter_walkthroughs_with_input_test()) 
+            norm_score, mean_actor_loss = train_one_episode(self.actor, game, walkthrough=game.filter_walkthroughs_with_input_test()) 
             self.episode_rewards.append(norm_score)
-            self.actor_losses.append(mean_actor_loss)
+            self.actor_losses.append(mean_actor_loss * 0.1) # NOTE: scale for image ouput
             self.maybe_valid_and_save() # 同时保存检查点
-        self.draw_line_chart()
+            if self.counter % self.log_steps == 0:
+                draw_line_chart(list(range(len(self.episode_rewards))), [self.valid_scores, self.actor_losses], ['valid_score', 'a_loss'])
+        draw_line_chart(list(range(len(self.episode_rewards))), [self.valid_scores, self.actor_losses], ['valid_score', 'a_loss'])
+        self.txtLogger.add('Lora训练结束，耗时自己算！')
+        self.txtLogger.write_txt_log()
+
     
     def train_only_2_epoch_20250224(self):
         for e in range(3):
@@ -278,7 +304,7 @@ class Policy_gradient_tester:
         from bert_policy_tune import train_one_episode
         for index in range(200):
             game = self.game
-            norm_score, mean_actor_loss = train_one_episode(self.model, game) 
+            norm_score, mean_actor_loss = train_one_episode(self.actor, game) 
             self.episode_rewards.append(norm_score)
             self.valid_scores = self.episode_rewards # use the same score to log
             self.actor_losses.append(mean_actor_loss)
@@ -296,12 +322,36 @@ class Policy_gradient_tester:
             print(f'{game_index}/{game_count}')
             game = Game_for_rl(path)
             # 探索
-            explore_norm_score, mean_actor_loss = train_one_episode(self.model, game)
+            explore_norm_score, mean_actor_loss = train_one_episode(self.actor, game)
             # 监督学习，不需要任何记录
-            _, _ = train_one_episode(self.model, game, walkthrough=game.filter_walkthroughs_with_input_test()) 
+            _, _ = train_one_episode(self.actor, game, walkthrough=game.filter_walkthroughs_with_input_test()) 
             self.episode_rewards.append(explore_norm_score)
             self.actor_losses.append(mean_actor_loss * 0.1)
             self.maybe_valid_and_save() # 同时保存检查点
             if self.counter % self.log_steps == 0:
                 draw_line_chart(list(range(len(self.episode_rewards))), [self.episode_rewards, self.valid_scores, self.actor_losses], ['explore_score', 'valid_score', 'a_loss'])
         draw_line_chart(list(range(len(self.episode_rewards))), [self.episode_rewards, self.valid_scores, self.actor_losses], ['explore_score', 'valid_score', 'a_loss'])
+
+    def explore_augment(self):
+        if not self.trained_bert_provided:
+            raise Exception('该探索强化必须对于已经训练的模型使用,对于完全没有训练的模型基本上不会有效果!除非实装了baseline!')
+        # 更新算法之后重新实验
+        self.counter = -1 # 用于在一开始进行打印
+        from bert_policy_tune import train_one_episode
+        from ftwp_info import all_train_game_paths
+        paths = all_train_game_paths()
+        game_count = len(paths)
+        for game_index, path in enumerate(paths):
+            print(f'{game_index}/{game_count}')
+            game = Game_for_rl(path)
+            # 探索
+            explore_norm_score, mean_actor_loss = train_one_episode(self.actor, game)
+            self.episode_rewards.append(explore_norm_score)
+            self.actor_losses.append(mean_actor_loss * 0.1)
+            self.maybe_valid_and_save() # 同时保存检查点
+            if self.counter % self.log_steps == 0:
+                draw_line_chart(list(range(len(self.episode_rewards))), [self.episode_rewards, self.valid_scores], ['explore_score', 'valid_score'])
+        draw_line_chart(list(range(len(self.episode_rewards))), [self.episode_rewards, self.valid_scores], ['explore_score', 'valid_score'])
+
+
+

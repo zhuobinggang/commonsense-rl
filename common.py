@@ -220,3 +220,9 @@ def draw_line_chart(x, ys, legends, path = 'exp/auto_filename/dd.png', colors = 
     if ylabel:
         plt.ylabel(ylabel)
     plt.savefig(path)
+
+def beutiful_print_command_and_probs(commands, probs, log_func = print):
+    txt = '\n'
+    for command, prob in zip(commands, probs):
+        txt += f'{prob * 100:.2f}% {command}\n'
+    log_func(txt)
