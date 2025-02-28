@@ -195,7 +195,7 @@ class Logger_simple:
     def add(self, text):
         self.text_log += f'\n{get_time_str()}: {text}'
     def write_txt_log(self):
-        self.text_log += f'\n{get_time_str()}: END'
+        # self.text_log += f'\n{get_time_str()}: END'
         f = open(self.text_log_path, 'w')
         f.write(self.text_log)
         f.close()

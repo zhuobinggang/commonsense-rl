@@ -6,7 +6,7 @@ from bert_common import Game_state, get_loss, get_optimizer, Abs_model_policy_gr
 from bert_common import bert_prompt_from_game, Game_for_bert, get_next_command_by_command_logits_argmax_simple
 from bert_common import get_next_command_by_distribution_simple, load_trained_model, construct_game_state, Game_for_rl
 from bert_common import trained_model_autoplay, batch_test, batch_valid
-from bert_common import initiate_lora_bert
+from bert_common import initiate_lora_bert, run_test_full
 from interface_ftwp import game_for_test
 import torch
 from torch import nn
@@ -93,11 +93,6 @@ def final_test():
         results.append((temp_score, real_score))
     return results
 
-def run_test_full(model, file_prefix = ''):
-    from ftwp_info import all_test_game_paths
-    test_game_paths=  all_test_game_paths()
-    return batch_test(model, save_readable=True, test_game_paths=test_game_paths, file_prefix=file_prefix)
-
 def run_test_full_with_model():
     import numpy as np
     model_paths = ['/home/taku/Downloads/cog2019_ftwp/trained_models/behavior_clone_0121/baseline_restart0.tch', 
@@ -124,12 +119,12 @@ def run_test_policy_gradient_20250225():
     real_score = run_test(model)
     return temp_score, real_score
 
-
-
 # ======================== 为policy gradient准备的 ==========================
 # TODO: 测试
 class Model_policy_gradient(Abs_model_policy_gradient):
-    def __init__(self, bert) -> None:
+    def __init__(self, bert = None) -> None:
+        if not bert:
+            bert = initiate_bert()
         bert.cuda()
         self.bert = bert
         self.init_accelerate()
@@ -354,4 +349,9 @@ class Policy_gradient_tester:
         draw_line_chart(list(range(len(self.episode_rewards))), [self.episode_rewards, self.valid_scores], ['explore_score', 'valid_score'])
 
 
+# ==== 2025.2.28 计算厨房访问对分数的影响 ====
 
+def test_kitchen_visit_rate():
+    model, _ = load_trained_model('/home/taku/Downloads/cog2019_ftwp/trained_models/behavior_clone_0121/baseline_restart0.tch')
+    model.cuda()
+    return run_test_full(model)

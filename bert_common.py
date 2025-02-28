@@ -325,6 +325,7 @@ def load_trained_model(path):
     model_id = "answerdotai/ModernBERT-base"
     tokenizer = AutoTokenizer.from_pretrained(model_id)
     model = ModernBertForMaskedLM.from_pretrained(path)
+    _ = model.cuda()
     return model, tokenizer
 
 def construct_game_state(game: Game_for_bert):
@@ -370,23 +371,46 @@ def valid_paths():
     from ftwp_info import all_valid_game_paths
     return all_valid_game_paths(shuffle = True)[-30:]
 
-def batch_test(model, save_readable = True, test_game_paths = [], file_prefix = ''):
+def batch_test(model, save_readable = True, test_game_paths = [], file_prefix = '', need_kitchen_visit_rate = False, txtLogger = common.Fake_text_logger()):
     tokenizer = default_tokenizer()
     if len(test_game_paths) < 1:
         test_game_paths = valid_paths()
     scores = []
     max_scores = []
+    # 排除没有访问到kitchen的scores和max_scores并计算该情况的得分
+    scores_without_kitchen = []
+    max_scores_without_kitchen = []
+    kitchen_visited_counter = 0
     for path in test_game_paths:
         game = Game_for_bert(path)
         game.verbose = False
         game.filename = file_prefix + game.filename # Added 2025.2.8
         score, max_score = trained_model_autoplay(game, model, save_readable)
+        if not game.kitchen_visited:
+            txtLogger.add(f'Score at {score} & kitchen not visited: {game.filename}')
+            txtLogger.write_txt_log()
+        else:
+            scores_without_kitchen.append(score)
+            max_scores_without_kitchen.append(max_score)
+        kitchen_visited_counter += game.kitchen_visited
         scores.append(score)
         max_scores.append(max_score)
-    return sum(scores) / sum(max_scores)
+    if not need_kitchen_visit_rate:
+        return sum(scores) / sum(max_scores)
+    else:
+        kitchen_visited_rate = kitchen_visited_counter / len(test_game_paths)
+        scores_without_kitchen = sum(scores_without_kitchen) / sum(max_scores_without_kitchen)
+        return sum(scores) / sum(max_scores), scores_without_kitchen, kitchen_visited_rate
 
 def batch_valid(model, save_readable = True):
     return batch_test(model, save_readable = save_readable, test_game_paths=valid_paths())
+
+
+def run_test_full(model, file_prefix = ''):
+    from ftwp_info import all_test_game_paths
+    txtLogger = common.Logger_simple(file_name=f'run_test_full_{file_prefix}_log')
+    test_game_paths=  all_test_game_paths()
+    return batch_test(model, save_readable=False, test_game_paths=test_game_paths, need_kitchen_visit_rate = True, txtLogger=txtLogger)
 
 
 # ================== For Command probabilty analysis ================

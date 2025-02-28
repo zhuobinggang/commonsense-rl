@@ -45,6 +45,10 @@ class Game_interface:
         # new key
         if room_name not in self.desc_update_cache:
             self.desc_update_cache[room_name] = {'desc': '', 'desc_updated': ''}
+            # DONE: 判断厨房来过
+            if room_name == 'Kitchen':
+                self.kitchen_visited = True
+                print('Kitchen visited')
         # main logic
         if self.desc_update_cache[room_name]['desc'] == description: # 说明已经请求过了，直接返回cache
             updated_description = self.desc_update_cache[room_name]['desc_updated']

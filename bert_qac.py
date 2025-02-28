@@ -6,7 +6,7 @@ import torch
 from bert_for_ftwp import Model_policy_gradient
 
 def squared_loss(a, b):
-    # print(f'{a.item()} {b.item()}')
+    print(f'{a.item()} {b.item()}')
     mse_func = default_mse_loss()
     return mse_func(a, b)
 
@@ -28,29 +28,34 @@ class MLP_scorer(nn.Module):
         return self.network(x)  # 输出一个标量
     def expect_score(self, cls_token):
         return self.forward(cls_token) # 期待输入为(768)，输出为(1)
+    def save(self, path = 'exp/auto_filename/default_mlp_scorer.tch'):
+        torch.save(self.network.state_dict(), path)
+    def load(self, path = 'exp/auto_filename/default_mlp_scorer.tch'):
+        self.network.load_state_dict(torch.load(path, weights_only=True))
 
 class Critic(Abs_critic):
-    def __init__(self) -> None:
-        self.mlp_scorer = None
-        self.bert = None
+    def __init__(self, bert = None, mlp_scorer = None) -> None:
+        self.mlp_scorer = mlp_scorer
+        self.bert = bert
         self.accelerator = None
         self.optimizer = None
+        self.init_model()
     def init_model(self):
-        bert = initiate_bert()
-        bert.cuda()
-        mlp_scorer = MLP_scorer(768, 512)
-        mlp_scorer.cuda()
+        if not self.bert:
+            self.bert = initiate_bert()
+        self.bert.cuda()
+        if not self.mlp_scorer:
+            self.mlp_scorer = MLP_scorer(768, 512)
+        self.mlp_scorer.cuda()
         from accelerate import Accelerator
         accelerator = Accelerator()
         device = accelerator.device
-        params = list(bert.parameters()) + list(mlp_scorer.parameters())
+        params = list(self.bert.parameters()) + list(self.mlp_scorer.parameters())
         optimizer = get_optimizer(params)
-        bert, mlp_scorer, optimizer = accelerator.prepare(
-            bert, mlp_scorer, optimizer
+        self.bert, self.mlp_scorer, optimizer = accelerator.prepare(
+            self.bert, self.mlp_scorer, optimizer
         )
         self.accelerator = accelerator
-        self.bert = bert
-        self.mlp_scorer = mlp_scorer
         self.optimizer = optimizer
         self.device = device
     def expect_return(self, state: Game_state, action: str):
@@ -153,28 +158,41 @@ class QAC_container:
     def __init__(self) -> None:
         self.critic = None
         self.actor = None
+        print('需要使用init_QA来初始化模型，或者使用load_checkpoint来加载已经训练好的模型！')
+        self.init_hook()
+    def init_hook(self):
+        pass
     def init_QA(self):
-        critic = Critic()
-        critic.init_model()
-        self.critic = critic
+        # critic
+        self.critic = self.init_critic()
         # actor
-        actor = Model_policy_gradient(initiate_bert())
-        self.actor = actor
+        self.actor = Model_policy_gradient()
     def save_checkpoint(self):
         self.actor.bert.save_pretrained(f'exp/auto_filename/QAC_Actor.tch')
         self.critic.bert.save_pretrained(f'exp/auto_filename/QAC_Critic.tch')
-    def load_checkpoint(self, path):
-        actor_bert = load_trained_model(f'{path}/QAC_Actor.tch')
+        self.critic.mlp_scorer.save(f'exp/auto_filename/QAC_Critic_Header.tch')
+    def init_critic(self, bert = None, header = None):
+        return Critic(bert, header)
+    def load_checkpoint(self, path, training = True):
+        actor_bert, _ = load_trained_model(f'{path}/QAC_Actor.tch')
         self.actor = Model_policy_gradient(actor_bert)
-        self.critic = Critic()
-        critic_bert = load_trained_model(f'{path}/QAC_Critic.tch')
-        self.critic.bert = critic_bert
+        # critic
+        critic_bert, _ = load_trained_model(f'{path}/QAC_Critic.tch')
+        critic_header = MLP_scorer(768, 512)
+        critic_header.load(f'{path}/QAC_Critic_Header.tch')
+        self.critic = self.init_critic(critic_bert, critic_header)
+        # 初始化
+        self.actor.bert.cuda()
+        self.critic.bert.cuda()
+        self.critic.mlp_scorer.cuda()
+        if training:
+            self.actor.bert.train()
+            self.critic.bert.train()
+            self.critic.mlp_scorer.requires_grad_(True)
         print('Actor和critic都加载完毕')
 
 class Tester(QAC_container):
-    def __init__(self) -> None:
-        super().__init__()
-        self.init_QA()
+    def init_hook(self):
         self.init_params_for_log()
     def init_params_for_log(self):
         # for valid
@@ -185,16 +203,6 @@ class Tester(QAC_container):
         self.episode_rewards = [];
         self.actor_losses = [];
         self.critic_losses = [];
-    def save_checkpoint(self):
-        self.actor.bert.save_pretrained(f'exp/auto_filename/QAC_Actor.tch')
-        self.critic.bert.save_pretrained(f'exp/auto_filename/QAC_Critic.tch')
-    def load_checkpoint(self, path):
-        actor_bert = load_trained_model(f'{path}/QAC_Actor.tch')
-        self.actor = Model_policy_gradient(actor_bert)
-        self.critic = Critic()
-        critic_bert = load_trained_model(f'{path}/QAC_Critic.tch')
-        self.critic.bert = critic_bert
-        print('Actor和critic都加载完毕')
     def maybe_valid_and_save(self):
         self.counter += 1
         need_valid_and_update = self.counter % 100 == 0

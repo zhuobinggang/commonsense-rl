@@ -114,6 +114,7 @@ class Ftwp_interface_by_path(human_play.Game_interface):
         self.filtered_commands = [] # 2025.2.11 用于使用指令代号来选择行动
         self.init_hook()
         self.filter_startword_list = ['examine', 'put', 'close', 'insert', 'eat', 'look']
+        self.kitchen_visited = False # 2025.2.28 用于判断是否访问过厨房
     def init_hook(self):
         pass
     def construct_sys_usr(self, description, inventory, available_actions, action_obs_pairs):
