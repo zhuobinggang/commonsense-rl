@@ -343,7 +343,7 @@ def trained_model_autoplay(game, bert, save_readable = True, sample_command_func
     bert.eval()
     game.reset()
     counter = 0
-    while not any([counter >= 30, game.is_won(), game.is_lost()]):
+    while not any([counter >= 50, game.is_won(), game.is_lost()]):
         # command = get_next_command(game, tokenizer, model)
         # command = get_next_command_by_distribution(game, tokenizer, model) # NOTE: 2025.2.12 用sample取代原来的argmax
         # command = get_next_command_by_command_logits_argmax(game, tokenizer, model) # NOTE: 2025.2.12 用sample取代原来的argmax
@@ -353,6 +353,8 @@ def trained_model_autoplay(game, bert, save_readable = True, sample_command_func
         counter += 1
     if save_readable:
         game.save_readable()
+    if counter >= 30:
+        print('测试时步数大于30!')
     return game.get_score(), game.get_max_score()
 
 # 首先要获得x, 然后通过model获得logits输出，然后获得mask对应的logits
@@ -372,7 +374,6 @@ def valid_paths():
     return all_valid_game_paths(shuffle = True)[-30:]
 
 def batch_test(model, save_readable = True, test_game_paths = [], file_prefix = '', need_kitchen_visit_rate = False, txtLogger = common.Fake_text_logger()):
-    tokenizer = default_tokenizer()
     if len(test_game_paths) < 1:
         test_game_paths = valid_paths()
     scores = []
@@ -395,12 +396,17 @@ def batch_test(model, save_readable = True, test_game_paths = [], file_prefix = 
         kitchen_visited_counter += game.kitchen_visited
         scores.append(score)
         max_scores.append(max_score)
+    score_final = sum(scores) / sum(max_scores)
     if not need_kitchen_visit_rate:
-        return sum(scores) / sum(max_scores)
+        return score_final
     else:
         kitchen_visited_rate = kitchen_visited_counter / len(test_game_paths)
         scores_without_kitchen = sum(scores_without_kitchen) / sum(max_scores_without_kitchen)
-        return sum(scores) / sum(max_scores), scores_without_kitchen, kitchen_visited_rate
+        txtLogger.add(f'score: {score_final}')
+        txtLogger.add(f'kitchen_rate: {kitchen_visited_rate}')
+        txtLogger.add(f'score_with_kitchen: {scores_without_kitchen}')
+        txtLogger.write_txt_log()
+        return score_final, scores_without_kitchen, kitchen_visited_rate
 
 def batch_valid(model, save_readable = True):
     return batch_test(model, save_readable = save_readable, test_game_paths=valid_paths())
@@ -412,6 +418,19 @@ def run_test_full(model, file_prefix = ''):
     test_game_paths=  all_test_game_paths()
     return batch_test(model, save_readable=False, test_game_paths=test_game_paths, need_kitchen_visit_rate = True, txtLogger=txtLogger)
 
+def run_valid_full(model, file_prefix = ''):
+    from ftwp_info import all_valid_game_paths
+    txtLogger = common.Logger_simple(file_name=f'run_valid_full_{file_prefix}_log')
+    valid_game_paths=  all_valid_game_paths()
+    return batch_test(model, save_readable=False, test_game_paths=valid_game_paths, need_kitchen_visit_rate = True, txtLogger=txtLogger)
+
+# 2025.3.3 
+def game_for_train(game_index = 0):
+    from ftwp_info import all_train_game_paths
+    file_paths = all_train_game_paths()
+    game = Game_for_rl(file_paths[game_index])
+    game.verbose = True
+    return game
 
 # ================== For Command probabilty analysis ================
 
@@ -419,7 +438,7 @@ def game_play_analysis(bert, game, txtLogger = common.Logger_simple()):
     bert.eval()
     game.reset()
     counter = 0
-    while not any([counter >= 30, game.is_won(), game.is_lost()]):
+    while not any([counter >= 50, game.is_won(), game.is_lost()]):
         # command = get_next_command(game, tokenizer, model)
         # command = get_next_command_by_distribution(game, tokenizer, model) # NOTE: 2025.2.12 用sample取代原来的argmax
         # command = get_next_command_by_command_logits_argmax(game, tokenizer, model) # NOTE: 2025.2.12 用sample取代原来的argmax

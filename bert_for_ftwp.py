@@ -208,12 +208,13 @@ class SimpleBaseline(nn.Module):
 
     
 class Policy_gradient_tester:
-    def __init__(self, trained_bert = None) -> None:
+    def __init__(self, trained_bert = None, save_prefix = 'default') -> None:
         if trained_bert:
             self.actor = Model_policy_gradient(trained_bert)
             self.trained_bert_provided = True
         else:
-            self.actor = Model_policy_gradient(initiate_lora_bert())
+            # self.actor = Model_policy_gradient(initiate_lora_bert())
+            self.actor = Model_policy_gradient(initiate_bert())
             self.trained_bert_provided = False
         from ftwp_info import all_valid_game_paths
         self.game = Game_for_rl(all_valid_game_paths()[0])
@@ -226,6 +227,7 @@ class Policy_gradient_tester:
         self.valid_scores = []
         self.max_valid_score = 0
         self.init_params_for_log() # 2025.2.24
+        self.save_prefix = save_prefix # 0303
 
     def init_params_for_log(self):
         # for valid
@@ -239,8 +241,7 @@ class Policy_gradient_tester:
         self.log_steps = 100;
 
     def draw_line_chart(self):
-        scaled_losses = [loss * 0.1 for loss in self.actor_losses]
-        draw_line_chart(list(range(len(self.episode_rewards))), [self.valid_scores, scaled_losses], ['r', 'a'])
+        draw_line_chart(list(range(len(self.episode_rewards))), [self.valid_scores, self.actor_losses], ['valid_score', 'a_loss'], path = f'exp/auto_filename/{self.save_prefix}.png')
 
     def maybe_valid_and_save(self):
         self.counter += 1
@@ -258,21 +259,21 @@ class Policy_gradient_tester:
             pass
 
     def save_checkpoint(self):
-        checkpoint_path = f'exp/auto_filename/dd.tch'
+        checkpoint_path = f'exp/auto_filename/{self.save_prefix}.tch'
         self.actor.bert.save_pretrained(checkpoint_path)
 
     def test_policy_gradient(self):
         from bert_policy_tune import train_one_episode
         train_one_episode(self.actor, self.game, txtLogger=self.txtLogger)
 
-    def train_only_20250224(self):
+    def train_only_20250303(self):
         # 区别仅在于每一步训练，或是整个游戏训练
         self.counter = -1
         from bert_policy_tune import train_one_episode
         from ftwp_info import all_train_game_paths
         paths = all_train_game_paths()
         game_count = len(paths)
-        self.txtLogger.add('Lora训练开始！')
+        self.txtLogger.add('一个epoch训练开始！')
         for game_index, path in enumerate(paths):
             log_txt = f'{game_index}/{game_count}'
             print(log_txt)
@@ -282,18 +283,18 @@ class Policy_gradient_tester:
             # 监督学习，不需要任何记录
             norm_score, mean_actor_loss = train_one_episode(self.actor, game, walkthrough=game.filter_walkthroughs_with_input_test()) 
             self.episode_rewards.append(norm_score)
-            self.actor_losses.append(mean_actor_loss * 0.1) # NOTE: scale for image ouput
+            self.actor_losses.append(min(mean_actor_loss * 0.1, 1.5)) # NOTE: scale for image ouput
             self.maybe_valid_and_save() # 同时保存检查点
             if self.counter % self.log_steps == 0:
-                draw_line_chart(list(range(len(self.episode_rewards))), [self.valid_scores, self.actor_losses], ['valid_score', 'a_loss'])
-        draw_line_chart(list(range(len(self.episode_rewards))), [self.valid_scores, self.actor_losses], ['valid_score', 'a_loss'])
-        self.txtLogger.add('Lora训练结束，耗时自己算！')
+                self.draw_line_chart()
+        self.draw_line_chart()
+        self.txtLogger.add('一个epoch训练结束。')
         self.txtLogger.write_txt_log()
 
     
-    def train_only_2_epoch_20250224(self):
+    def train_only_3_epoch_20250303(self):
         for e in range(3):
-            self.train_only_20250224()
+            self.train_only_20250303()
 
     def test_fixed_algorithm_explore_only(self):
         from bert_policy_tune import train_one_episode
@@ -352,6 +353,15 @@ class Policy_gradient_tester:
 # ==== 2025.2.28 计算厨房访问对分数的影响 ====
 
 def test_kitchen_visit_rate():
+    from bert_common import run_valid_full
     model, _ = load_trained_model('/home/taku/Downloads/cog2019_ftwp/trained_models/behavior_clone_0121/baseline_restart0.tch')
     model.cuda()
-    return run_test_full(model)
+    run_valid_full(model, file_prefix='behavior_clone')
+    model, _ = load_trained_model('/home/taku/Downloads/cog2019_ftwp/trained_models/policy_gradient/policy_gradient20250225.tch')
+    model.cuda()
+    run_valid_full(model, file_prefix='REINFORCE')
+
+def batch_train_pure_REINFORCE():
+    for i in range(3):
+        tester = Policy_gradient_tester(save_prefix=f'pure_REINFORCE_{i}')
+        tester.train_only_3_epoch_20250303()

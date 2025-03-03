@@ -24,15 +24,14 @@ def train_one_episode(model: Abs_model_policy_gradient, game, walkthrough = None
     counter = 0
     final_reward = 0
     model.eval()
-    txtLogger.add('===== 探索中 =====')
-    while not any([counter >= 30, game.is_won(), game.is_lost()]):
+    while not any([counter >= 50, game.is_won(), game.is_lost()]):
         state = game.get_state()
         if walkthrough:
             if counter < len(walkthrough):
                 action = walkthrough[counter]
             else:
-                print('到头了，但是游戏没有结束，说明walkthrough可能有问题，打印看看')
-                print(walkthrough)
+                txtLogger.add('到头了，但是游戏没有结束，说明walkthrough可能有问题，打印看看')
+                txtLogger.add(walkthrough)
                 break # 跳出循环
         else:
             action = model.next_action(state)
@@ -40,7 +39,6 @@ def train_one_episode(model: Abs_model_policy_gradient, game, walkthrough = None
         reward = game.act(action)
         final_reward += reward
         episode_sars.append((state, action, reward))
-    txtLogger.add('===== 调整参数中 =====')
     model.train()
     G = 0  # 未来累计折扣奖励
     gamma = 0.95  # 折扣因子
@@ -54,7 +52,9 @@ def train_one_episode(model: Abs_model_policy_gradient, game, walkthrough = None
         losses.append(loss.item())
     model.optimizer_step()
     total_loss = sum((losses)) # NOTE: 改版后未测试
-    txtLogger.add('===== 一个episode训练完成 =====')
+    # 20250303记录步数超30的情况
+    if counter >= 30:
+        txtLogger.add('训练时步数超过30')
     txtLogger.write_txt_log()
     episode_mean_actor_loss = total_loss / len(episode_sars)
     norm_score = game.get_score() / game.get_max_score()

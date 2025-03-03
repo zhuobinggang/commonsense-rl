@@ -39,7 +39,7 @@ def train_one_episode(model: Abs_model_policy_gradient, baseline, game, walkthro
     final_reward = 0
     model.eval()
     txtLogger.add('===== 探索中 =====')
-    while not any([counter >= 30, game.is_won(), game.is_lost()]):
+    while not any([counter >= 50, game.is_won(), game.is_lost()]):
         state = game.get_state()
         if walkthrough:
             if counter < len(walkthrough):

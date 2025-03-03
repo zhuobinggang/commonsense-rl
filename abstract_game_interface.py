@@ -48,7 +48,7 @@ class Game_interface:
             # DONE: 判断厨房来过
             if room_name == 'Kitchen':
                 self.kitchen_visited = True
-                print('Kitchen visited')
+                # print('Kitchen visited')
         # main logic
         if self.desc_update_cache[room_name]['desc'] == description: # 说明已经请求过了，直接返回cache
             updated_description = self.desc_update_cache[room_name]['desc_updated']

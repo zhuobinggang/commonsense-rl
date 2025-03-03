@@ -202,6 +202,7 @@ class Logger_simple:
 
 class Fake_text_logger(Logger_simple):
     def add(self, text):
+        print(text)
         pass
     def write_txt_log(self):
         pass

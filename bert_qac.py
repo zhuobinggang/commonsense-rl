@@ -139,7 +139,7 @@ def qac_one_episode(game, actor, critic, training = False):
     game.reset()
     actor.train()
     critic.train()
-    while not any([steps >= 30, game.is_won(), game.is_lost()]):
+    while not any([steps >= 50, game.is_won(), game.is_lost()]):
         if training:
             if steps > len(walkthrough) - 2:
                 # print('最后一步不用训练')
