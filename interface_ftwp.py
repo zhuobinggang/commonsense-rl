@@ -3,7 +3,6 @@ import human_play
 from env_for_ftwp import Env_ftwp, Env_ftwp_by_path
 import global_variable as G
 import common
-import finetuned_play
 
 # ============================= Promptor ================================
 
@@ -80,7 +79,8 @@ class Ftwp_interface(human_play.Game_interface):
         self.verbose = False
         self.visited_dict = {} # 2024.12.21 用于存储访问过的地点次数
         self.desc_update_cache = {} # 2025.1.7 储存desc更新
-    def construct_sys_usr(self, description, inventory, available_actions, action_obs_pairs):
+    def construct_sys_usr(self):
+        description, inventory, available_actions, action_obs_pairs = self.description, self.inventory, self.available_actions, self.action_obs_pairs
         sys, usr = prompt_from_env_feedback(description, inventory, available_actions, action_obs_pairs, self.another_room_info)
         return sys, usr
     def move_command_succeeded_callback(self, action_obs):
@@ -96,6 +96,10 @@ class Ftwp_interface_by_path(human_play.Game_interface):
         self.game_path = game_path
         game_name = game_path.split('/')[-1]
         self.game_name = game_name
+        self.filename = f'FTWP_{game_name}.json'
+        self.verbose = False
+        self.init_hook()
+    def init_all_params(self):
         self.dataset_index = 'trainset'
         self.hard_level_index = 'unknown'
         self.finetune_triples = [] # (sys, usr, command_next)
@@ -104,20 +108,18 @@ class Ftwp_interface_by_path(human_play.Game_interface):
         self.command = ''
         self.updated_description = ''
         self.another_room_info = 'Unknown'
-        self.filename = f'FTWP_{game_name}.json'
         self.won = False
         self.lost = False
-        self.verbose = False
         self.visited_dict = {} # 2024.12.21 用于存储访问过的地点次数
         self.desc_update_cache = {} # 2025.1.7 储存desc更新
         self.recipe = '' # 2025.1.13 储存菜谱
         self.filtered_commands = [] # 2025.2.11 用于使用指令代号来选择行动
-        self.init_hook()
         self.filter_startword_list = ['examine', 'put', 'close', 'insert', 'eat', 'look']
         self.kitchen_visited = False # 2025.2.28 用于判断是否访问过厨房
     def init_hook(self):
         pass
-    def construct_sys_usr(self, description, inventory, available_actions, action_obs_pairs):
+    def construct_sys_usr(self):
+        description, inventory, available_actions, action_obs_pairs = self.description, self.inventory, self.available_actions, self.action_obs_pairs
         sys, usr = prompt_from_env_feedback(description, inventory, available_actions, action_obs_pairs, self.another_room_info)
         return sys, usr
     def get_walkthrough(self):
@@ -191,6 +193,7 @@ BEST_20_GAMES_MODEL = TUNED_MODELS_20_GAMES[2]
 # ==================== run valid & test ============================
 
 def llm_auto_play(game, game_index, testing = True, file_prefix = 'B0_', max_try = 20, gpt_type = TUNED_MODELS_20_GAMES[0], sys_usr_from_game_func = prompt_from_game_classic):
+    import finetuned_play
     return finetuned_play.llm_auto_play(game, game_index, testing, file_prefix, max_try, gpt_type, sys_usr_from_game_func)
 
 def batch_valid():

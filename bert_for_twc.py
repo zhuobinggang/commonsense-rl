@@ -3,7 +3,7 @@ from env import Env_extra_info
 import common
 import abstract_game_interface
 from functools import lru_cache
-import bert_training_data
+import bert_behavior_clone
 
 @lru_cache(maxsize=None)
 def get_all_game_paths(root_dir = 'games/twc', dataset_type = 'train'):
@@ -65,11 +65,15 @@ def final_prompt_twc(room_name = '', action_history = '', action_list = ''):
 
 class Game_interface(abstract_game_interface.Game_interface):
     def __init__(self, game_path, no_augment = True): # datset_index = 0 for training, hard_level_index = 2 for hard-level.
-         # train set
-        self.env = Env_twc_by_path(game_path, no_augment)
         self.game_path = game_path
         game_name = game_path.split('/')[-1]
         self.game_name = game_name
+         # train set
+        self.env = Env_twc_by_path(game_path, no_augment)
+        self.init_all_params()
+        self.init_hook()
+        self.verbose = True # NOTE: 注意更改
+    def init_all_params(self):
         self.dataset_index = 'trainset'
         self.hard_level_index = 'unknown'
         self.finetune_triples = [] # (sys, usr, command_next)
@@ -78,17 +82,16 @@ class Game_interface(abstract_game_interface.Game_interface):
         self.command = ''
         self.updated_description = ''
         self.another_room_info = 'Unknown'
-        self.filename = f'TWC_{game_name}.json'
+        self.filename = f'TWC_{self.game_name}.json'
         self.won = False
         self.lost = False
-        self.verbose = True # NOTE: 注意更改
         self.visited_dict = {} # 2024.12.21 用于存储访问过的地点次数
         self.desc_update_cache = {} # 2025.1.7 储存desc更新
         self.recipe = '' # 2025.1.13 储存菜谱
-        self.init_hook()
     def reset(self):
-        self.walkthrough_with_meta_datas = []
         self.act_and_output(None)
+        self.init_all_params()
+        self.init_hook()
     def init_hook(self):
         self.filter_startword_list = ['examine', 'close', 'eat', 'look', 'drop', 'inventory']
         self.walkthrough_with_meta_datas = [] # 2025.2.11 用于记录walkthrough
@@ -101,7 +104,8 @@ class Game_interface(abstract_game_interface.Game_interface):
         if len(self.walkthrough_with_meta_datas) < 1:
             self.walkthrough_with_meta_datas = self.load_walkthrough()
         return [act for act, _ in self.walkthrough_with_meta_datas]
-    def construct_sys_usr(self, description, inventory, available_actions, action_obs_pairs):
+    def construct_sys_usr(self):
+        description, inventory, available_actions, action_obs_pairs = self.description, self.inventory, self.available_actions, self.action_obs_pairs
         room_name = common.extract_room_name(description)
         action_history = common.action_obs_pairs_to_history(action_obs_pairs, seperator='>')
         action_list = common.actions_to_list_number(available_actions)
@@ -183,7 +187,7 @@ def batch_valid(model, tokenizer = None, save_readable = True, test_game_paths =
         max_scores.append(max_score)
     return sum(scores) / sum(max_scores)
 
-class LoggerTWC(bert_training_data.Logger):
+class LoggerTWC(bert_behavior_clone.Logger):
     def cal_valid_score_and_save_checkpoint(self):
         self.model.eval() # 进入校验模式
         norm_score = batch_valid(self.model, save_readable=False)
@@ -200,7 +204,7 @@ class LoggerTWC(bert_training_data.Logger):
 
 def twc_dataloader(batch = 4):
     from torch.utils.data import DataLoader
-    from bert_training_data import CustomDatasetTWC
+    from bert_behavior_clone import CustomDatasetTWC
     dl = DataLoader(CustomDatasetTWC(), batch_size = batch)
     return dl
 
@@ -210,7 +214,7 @@ def train(log_filename = '', epoch = 1):
     tokenizer = AutoTokenizer.from_pretrained(model_id)
     model = ModernBertForMaskedLM.from_pretrained(model_id)
     model = model.train()
-    from bert_training_data import train_loop
+    from bert_behavior_clone import train_loop
     BATCH = 4
     dataLoader = twc_dataloader(batch = BATCH)
     logger = LoggerTWC(model, batch_size=BATCH, log_step=50)

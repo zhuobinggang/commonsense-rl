@@ -48,17 +48,18 @@ def prompt_from_env_feedback(description, inventory, available_actions, action_o
 class Game_interface(abstract_game_interface.Game_interface):
     def __init__(self, game_index, dataset_index = 0, hard_level_index = 2): # datset_index = 0 for training, hard_level_index = 2 for hard-level.
          # train set
-        self.env = self.init_env(hard_level_index, game_index, dataset_index)
         self.game_index = game_index
         self.dataset_index = dataset_index
         self.hard_level_index = hard_level_index
+        self.filename = f'finetune_dataset_{dataset_index}_level_{hard_level_index}_game_{game_index}.json'
+        self.env = self.init_env(hard_level_index, game_index, dataset_index)
+    def init_all_params(self):
         self.finetune_triples = [] # (sys, usr, agent)
         self.current_sys = ''
         self.current_usr = ''
         self.command = ''
         self.updated_description = ''
         self.another_room_info = 'Unknown'
-        self.filename = f'finetune_dataset_{dataset_index}_level_{hard_level_index}_game_{game_index}.json'
         self.won = False
         self.lost = False
         self.verbose = False
@@ -69,7 +70,8 @@ class Game_interface(abstract_game_interface.Game_interface):
     def init_env(self, hard_level_index, game_index, dataset_index):
         from env import Env_extra_info
         return Env_extra_info(hard_level_index, game_index, dataset_index=dataset_index)
-    def construct_sys_usr(self, description, inventory, available_actions, action_obs_pairs):
+    def construct_sys_usr(self):
+        description, inventory, available_actions, action_obs_pairs = self.description, self.inventory, self.available_actions, self.action_obs_pairs
         sys, usr = prompt_from_env_feedback(description, inventory, available_actions, action_obs_pairs, self.another_room_info)
         return sys, usr
     def save_if_checking_recipe(self, act_obs):

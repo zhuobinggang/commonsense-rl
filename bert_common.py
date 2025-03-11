@@ -16,6 +16,8 @@ class Abs_model_policy_gradient:
         pass
     def next_action(self, state: Game_state):
         return 'look'
+    def next_action_with_explore(self, state: Game_state):
+        return 'look'
     def update_policy(self, state: Game_state, action, reward_scalar):
         # 需要观察之前的梯度下降是怎样和训练库联动的
         pass
@@ -45,6 +47,11 @@ def default_tokenizer():
 def default_mse_loss():
     return nn.MSELoss()
 
+def squared_loss(a, b):
+    # print(f'{a.item()} {b.item()}')
+    mse_func = default_mse_loss()
+    return mse_func(a, b)
+
 def initiate_bert():
     from transformers import ModernBertForMaskedLM
     model_id = "answerdotai/ModernBERT-base"
@@ -56,7 +63,7 @@ def initiate_bert():
 def replace_mask(x: str, action_index: int):
     return x.replace('[MASK]', str(action_index))
 
-def get_loss(model, x: str, y : int , device = 'cpu'):
+def get_loss(model, x: str, y : int , device = 'cuda'):
     tokenizer = default_tokenizer()
     inputs = tokenizer(x, return_tensors="pt")
     # labels = x.replace('[MASK]', str(y))
@@ -111,7 +118,6 @@ def command_indexs_tokenized(command_length = 100):
 # TODO: 代换掉原来的函数
 # @parameter: x是包含[MASK]标记的prompt
 def get_mask_logits_simple(model, x):
-    import torch
     device = model.device
     tokenizer = default_tokenizer()
     inputs = tokenizer(x, return_tensors="pt")
@@ -123,7 +129,6 @@ def get_mask_logits_simple(model, x):
 # 用于critic
 # @parameter: x是包含[MASK]标记的prompt
 def get_cls_output(model, x):
-    import torch
     device = model.device
     tokenizer = default_tokenizer()
     inputs = tokenizer(x, return_tensors="pt")
@@ -208,6 +213,7 @@ class Prompt_builder_for_bert:
         # others
         self.recipe = ''
         self.prompt = ''
+        self.prompt_without_final_hint = ''
 
     def build(self):
         user_msg = ''
@@ -215,35 +221,34 @@ class Prompt_builder_for_bert:
         user_msg += f"Recipe: {self.recipe if self.recipe else 'Unknown now'}\n"
         user_msg += f"Action history: {self.action_history if self.action_history else ''}\n" 
         user_msg += f'Available actions:\n{self.action_list}\n' if self.action_list else ''
+        self.prompt_without_final_hint = user_msg
         user_msg += 'Next action: [MASK]'
         self.prompt = user_msg
 
-def prompt_from_env_feedback_action_template(description, action_obs_pairs, available_actions, recipe):
+def prompt_from_env_feedback_action_template(description, action_obs_pairs, available_actions, recipe, with_final_hint = True):
     promptor = Prompt_builder_for_bert()
     promptor.action_history = common.action_obs_pairs_to_history(action_obs_pairs, seperator='>')
     promptor.room_name = common.extract_room_name(description)
     promptor.action_list = common.actions_to_list_number(available_actions)
     promptor.recipe = recipe
     promptor.build()
-    return promptor.prompt
+    if with_final_hint:
+        return promptor.prompt
+    else:
+        return promptor.prompt_without_final_hint
 
-def bert_prompt_from_game(game):
-    return prompt_from_env_feedback_action_template(game.description, game.action_obs_pairs, game.available_actions, game.recipe)
+def bert_prompt_from_game(game, with_final_hint = True):
+    return prompt_from_env_feedback_action_template(game.description, game.action_obs_pairs, game.available_actions, game.recipe, with_final_hint = with_final_hint)
 
 class Game_for_bert(Ftwp_interface_by_path):
     def init_hook(self):
         pass
     def input(self, command):
         self.command = command
-        try:
-            x = bert_prompt_from_game(self)
-            y = self.available_actions.index(command)
-            self.finetune_triples.append((x, y)) # save x and y
-            self.act_and_output(command)
-        except:
-            print(f'指令不存在，不需要执行: {command}')
-            print(self.available_actions)
-            print(self.filename)
+        x = bert_prompt_from_game(self)
+        y = self.available_actions.index(command)
+        self.finetune_triples.append((x, y)) # save x and y
+        self.act_and_output(command)
     def save_as_json(self):
         f = open(f'exp/auto_filename/{self.filename}', 'w')
         for x, y in self.finetune_triples:
@@ -288,6 +293,8 @@ class Game_for_bert(Ftwp_interface_by_path):
             self.input(action)
     def get_x(self):
         return bert_prompt_from_game(self)
+    def get_x_for_glove(self):
+        return bert_prompt_from_game(self, with_final_hint=False)
     def action_obs_pairs_got_callback(self, action_obs_pairs):
         self.save_if_checking_recipe(action_obs_pairs) 
         self.save_instant_reward(action_obs_pairs)
@@ -300,12 +307,20 @@ class Game_for_bert(Ftwp_interface_by_path):
             self.instant_reward = 1
     def get_instant_reward(self):
         return self.instant_reward
+    def construct_sys_usr(self):
+        usr = self.get_x()
+        sys = ''
+        return sys, usr
     
 
 class Game_for_rl(Game_for_bert):
+    def construct_game_state(self):
+        game_state = Game_state()
+        game_state.x = self.get_x()
+        game_state.action_list = self.filtered_commands
+        return game_state
     def get_state(self):
-        state = construct_game_state(self)
-        return state
+        return self.construct_game_state()
     def act(self, action):
         if action not in self.filtered_commands:
             print('???????????????????')
@@ -315,6 +330,7 @@ class Game_for_rl(Game_for_bert):
         self.input(action)
         reward = self.get_instant_reward()
         return reward
+
     
 
 
@@ -328,34 +344,40 @@ def load_trained_model(path):
     _ = model.cuda()
     return model, tokenizer
 
-def construct_game_state(game: Game_for_bert):
-    game_state = Game_state()
-    game_state.x = game.get_x()
-    game_state.action_list = game.filtered_commands
-    return game_state
 
 # ================ For Test & Valid ===================
 
 # ==== auto play ========
 
 
-def trained_model_autoplay(game, bert, save_readable = True, sample_command_func = get_next_command_by_command_logits_argmax_simple):
+def trained_model_autoplay(game, bert, save_readable = True, sample_command_func = get_next_command_by_command_logits_argmax_simple, score_record_steps = [10, 20, 30, 40, 50], steps_limit = 99):
     bert.eval()
     game.reset()
-    counter = 0
-    while not any([counter >= 50, game.is_won(), game.is_lost()]):
-        # command = get_next_command(game, tokenizer, model)
-        # command = get_next_command_by_distribution(game, tokenizer, model) # NOTE: 2025.2.12 用sample取代原来的argmax
-        # command = get_next_command_by_command_logits_argmax(game, tokenizer, model) # NOTE: 2025.2.12 用sample取代原来的argmax
-        game_state = construct_game_state(game)
-        command = sample_command_func(bert, game_state)
+    max_score = game.get_max_score()
+    num_steps = 0
+    middle_scores = []
+    dic = {'score': 0, 'max_score': max_score, 'steps': 0, 'middle_scores': []}
+    while not any([num_steps >= steps_limit, game.is_won(), game.is_lost()]):
+        game_state = game.construct_game_state()
+        if hasattr(bert, 'next_action'):
+            command = bert.next_action(game_state)
+        else:
+            command = sample_command_func(bert, game_state)
         game.input(command)
-        counter += 1
+        # record score
+        if num_steps in score_record_steps:
+            middle_scores.append(game.get_score()) # BUG: 这里不小心用get_score() / max_score了，导致分数很低，需要重新计算
+        num_steps += 1
     if save_readable:
         game.save_readable()
-    if counter >= 30:
-        print('测试时步数大于30!')
-    return game.get_score(), game.get_max_score()
+    if num_steps >= 30:
+        #print('测试时步数大于30!')
+        pass
+    dic['score'] = game.get_score()
+    dic['max_score'] = max_score
+    dic['num_steps'] = num_steps
+    dic['middle_scores'] = middle_scores
+    return dic
 
 # 首先要获得x, 然后通过model获得logits输出，然后获得mask对应的logits
 """ def get_mask_logits(game, tokenizer, model):
@@ -373,64 +395,81 @@ def valid_paths():
     from ftwp_info import all_valid_game_paths
     return all_valid_game_paths(shuffle = True)[-30:]
 
-def batch_test(model, save_readable = True, test_game_paths = [], file_prefix = '', need_kitchen_visit_rate = False, txtLogger = common.Fake_text_logger()):
+def batch_test(model, save_readable = False, test_game_paths = [], file_prefix = '', txtLogger = common.Fake_text_logger(verbose=False), steps_limit = 99):
     if len(test_game_paths) < 1:
         test_game_paths = valid_paths()
     scores = []
     max_scores = []
-    # 排除没有访问到kitchen的scores和max_scores并计算该情况的得分
+    # kitchen info: 排除没有访问到kitchen的scores和max_scores并计算该情况的得分
     scores_without_kitchen = []
     max_scores_without_kitchen = []
     kitchen_visited_counter = 0
+    # steps info
+    scores_at_30 = []
+    # steps per game
+    steps = []
     for path in test_game_paths:
-        game = Game_for_bert(path)
+        game = Game_for_rl(path)
         game.verbose = False
         game.filename = file_prefix + game.filename # Added 2025.2.8
-        score, max_score = trained_model_autoplay(game, model, save_readable)
+        dic = trained_model_autoplay(game, model, save_readable, steps_limit = steps_limit)
+        score, max_score, num_steps = dic['score'], dic['max_score'], dic['num_steps']
+        scores.append(score)
+        max_scores.append(max_score)
+        # steps info
+        steps.append(num_steps)
+        if num_steps > 30: # 如果>=会导致BUG
+            scores_at_30.append(dic['middle_scores'][2])
+            txtLogger.add(f'Steps at {num_steps} & norm score at {score / max_score}: {game.filename}')
+        else:
+            scores_at_30.append(score)
+        # kitchen info
         if not game.kitchen_visited:
             txtLogger.add(f'Score at {score} & kitchen not visited: {game.filename}')
-            txtLogger.write_txt_log()
         else:
             scores_without_kitchen.append(score)
             max_scores_without_kitchen.append(max_score)
         kitchen_visited_counter += game.kitchen_visited
-        scores.append(score)
-        max_scores.append(max_score)
-    score_final = sum(scores) / sum(max_scores)
-    if not need_kitchen_visit_rate:
-        return score_final
-    else:
-        kitchen_visited_rate = kitchen_visited_counter / len(test_game_paths)
-        scores_without_kitchen = sum(scores_without_kitchen) / sum(max_scores_without_kitchen)
-        txtLogger.add(f'score: {score_final}')
-        txtLogger.add(f'kitchen_rate: {kitchen_visited_rate}')
-        txtLogger.add(f'score_with_kitchen: {scores_without_kitchen}')
         txtLogger.write_txt_log()
-        return score_final, scores_without_kitchen, kitchen_visited_rate
+    score_final = sum(scores) / sum(max_scores)
+    # kitchen infos in txt log
+    kitchen_visited_rate = kitchen_visited_counter / len(test_game_paths)
+    scores_without_kitchen = sum(scores_without_kitchen) / sum(max_scores_without_kitchen)
+    txtLogger.add(f'score: {score_final}')
+    txtLogger.add(f'kitchen_rate: {kitchen_visited_rate}')
+    txtLogger.add(f'score_with_kitchen: {scores_without_kitchen}')
+    # log score at 30
+    txtLogger.add(f'score at 30: {sum(scores_at_30) / sum(max_scores)}')
+    txtLogger.write_txt_log()
+    # average steps
+    return score_final
 
-def batch_valid(model, save_readable = True):
-    return batch_test(model, save_readable = save_readable, test_game_paths=valid_paths())
+def batch_valid(model, save_readable = True, steps_limit = 99):
+    return batch_test(model, save_readable = save_readable, test_game_paths=valid_paths(), steps_limit = steps_limit)
 
 
 def run_test_full(model, file_prefix = ''):
     from ftwp_info import all_test_game_paths
     txtLogger = common.Logger_simple(file_name=f'run_test_full_{file_prefix}_log')
     test_game_paths=  all_test_game_paths()
-    return batch_test(model, save_readable=False, test_game_paths=test_game_paths, need_kitchen_visit_rate = True, txtLogger=txtLogger)
+    return batch_test(model, save_readable=False, test_game_paths=test_game_paths, txtLogger=txtLogger)
 
 def run_valid_full(model, file_prefix = ''):
     from ftwp_info import all_valid_game_paths
     txtLogger = common.Logger_simple(file_name=f'run_valid_full_{file_prefix}_log')
     valid_game_paths=  all_valid_game_paths()
-    return batch_test(model, save_readable=False, test_game_paths=valid_game_paths, need_kitchen_visit_rate = True, txtLogger=txtLogger)
+    return batch_test(model, save_readable=False, test_game_paths=valid_game_paths, txtLogger=txtLogger)
 
 # 2025.3.3 
 def game_for_train(game_index = 0):
     from ftwp_info import all_train_game_paths
     file_paths = all_train_game_paths()
     game = Game_for_rl(file_paths[game_index])
-    game.verbose = True
+    game.verbose = False
     return game
+
+def first_train_game():
+    return game_for_train(0)
 
 # ================== For Command probabilty analysis ================
 
@@ -442,7 +481,7 @@ def game_play_analysis(bert, game, txtLogger = common.Logger_simple()):
         # command = get_next_command(game, tokenizer, model)
         # command = get_next_command_by_distribution(game, tokenizer, model) # NOTE: 2025.2.12 用sample取代原来的argmax
         # command = get_next_command_by_command_logits_argmax(game, tokenizer, model) # NOTE: 2025.2.12 用sample取代原来的argmax
-        game_state = construct_game_state(game)
+        game_state = game.construct_game_state()
         txtLogger.add(game_state.x)
         dist = get_command_distribution_simple(bert, game_state)
         command_probs = dist.probs

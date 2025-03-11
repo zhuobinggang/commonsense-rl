@@ -4,9 +4,9 @@ import common
 from common import draw_line_chart
 from bert_common import Game_state, get_loss, get_optimizer, Abs_model_policy_gradient, initiate_bert, default_tokenizer
 from bert_common import bert_prompt_from_game, Game_for_bert, get_next_command_by_command_logits_argmax_simple
-from bert_common import get_next_command_by_distribution_simple, load_trained_model, construct_game_state, Game_for_rl
-from bert_common import trained_model_autoplay, batch_test, batch_valid
-from bert_common import initiate_lora_bert, run_test_full
+from bert_common import get_next_command_by_distribution_simple, load_trained_model, Game_for_rl
+from bert_common import batch_test, batch_valid
+from bert_common import run_test_full, first_train_game
 from interface_ftwp import game_for_test
 import torch
 from torch import nn
@@ -71,13 +71,13 @@ def random_and_out_as_one():
 def run_test_temp(model):
     from ftwp_info import temp_test_valid_set
     test_game_paths, _ = temp_test_valid_set()
-    return batch_test(model, save_readable=True, test_game_paths=test_game_paths)
+    return batch_test(model, test_game_paths=test_game_paths)
 
 
 def run_test(model):
     from ftwp_info import test_set_v0
     test_game_paths = test_set_v0()
-    return batch_test(model, save_readable=True, test_game_paths=test_game_paths)
+    return batch_test(model, test_game_paths=test_game_paths)
 
 def final_test():
     model_paths = ['/home/taku/Downloads/cog2019_ftwp/trained_models/behavior_clone_0121/baseline_restart0.tch', 
@@ -140,10 +140,14 @@ class Model_policy_gradient(Abs_model_policy_gradient):
         self.bert = bert
         self.optimizer = optimizer
         self.device = device
+    def init_optimizer(self):
+        self.init_accelerate()
     def clean_gradient(self):
         self.optimizer.zero_grad()
-    def next_action(self, state: Game_state):
+    def next_action_with_explore(self, state: Game_state):
         return get_next_command_by_distribution_simple(self.bert, state)
+    def next_action(self, state: Game_state):
+        return get_next_command_by_command_logits_argmax_simple(self.bert, state)
     def backward_loss(self, loss):
         self.accelerator.backward(loss)
     def update_policy(self, loss):
@@ -208,7 +212,7 @@ class SimpleBaseline(nn.Module):
 
     
 class Policy_gradient_tester:
-    def __init__(self, trained_bert = None, save_prefix = 'default') -> None:
+    def __init__(self, trained_bert = None, save_prefix = 'policy_gradient') -> None:
         if trained_bert:
             self.actor = Model_policy_gradient(trained_bert)
             self.trained_bert_provided = True
@@ -216,12 +220,11 @@ class Policy_gradient_tester:
             # self.actor = Model_policy_gradient(initiate_lora_bert())
             self.actor = Model_policy_gradient(initiate_bert())
             self.trained_bert_provided = False
-        from ftwp_info import all_valid_game_paths
-        self.game = Game_for_rl(all_valid_game_paths()[0])
+        self.game = first_train_game()
         from common import Logger_simple
-        self.txtLogger= Logger_simple('文字logger')
+        self.txtLogger= Logger_simple(save_prefix)
         from bert_common import Logger_loss_and_score
-        self.imageLogger = Logger_loss_and_score('图像用logger')
+        self.imageLogger = Logger_loss_and_score(save_prefix)
         self.counter = 99
         self.last_valid_score = 0
         self.valid_scores = []
@@ -263,13 +266,13 @@ class Policy_gradient_tester:
         self.actor.bert.save_pretrained(checkpoint_path)
 
     def test_policy_gradient(self):
-        from bert_policy_tune import train_one_episode
+        from policy_algorithms import train_one_episode
         train_one_episode(self.actor, self.game, txtLogger=self.txtLogger)
 
     def train_only_20250303(self):
         # 区别仅在于每一步训练，或是整个游戏训练
         self.counter = -1
-        from bert_policy_tune import train_one_episode
+        from policy_algorithms import train_one_episode
         from ftwp_info import all_train_game_paths
         paths = all_train_game_paths()
         game_count = len(paths)
@@ -297,7 +300,7 @@ class Policy_gradient_tester:
             self.train_only_20250303()
 
     def test_fixed_algorithm_explore_only(self):
-        from bert_policy_tune import train_one_episode
+        from policy_algorithms import train_one_episode
         for index in range(200):
             game = self.game
             norm_score, mean_actor_loss = train_one_episode(self.actor, game) 
@@ -310,7 +313,7 @@ class Policy_gradient_tester:
 
     def train_explore1v1_20250224(self):
         # 更新算法之后重新实验
-        from bert_policy_tune import train_one_episode
+        from policy_algorithms import train_one_episode
         from ftwp_info import all_train_game_paths
         paths = all_train_game_paths()
         game_count = len(paths)
@@ -333,7 +336,7 @@ class Policy_gradient_tester:
             raise Exception('该探索强化必须对于已经训练的模型使用,对于完全没有训练的模型基本上不会有效果!除非实装了baseline!')
         # 更新算法之后重新实验
         self.counter = -1 # 用于在一开始进行打印
-        from bert_policy_tune import train_one_episode
+        from policy_algorithms import train_one_episode
         from ftwp_info import all_train_game_paths
         paths = all_train_game_paths()
         game_count = len(paths)
@@ -365,3 +368,17 @@ def batch_train_pure_REINFORCE():
     for i in range(3):
         tester = Policy_gradient_tester(save_prefix=f'pure_REINFORCE_{i}')
         tester.train_only_3_epoch_20250303()
+
+def batch_test():
+    for i in range(3):
+        model, _ = load_trained_model(f'exp/auto_filename/pure_REINFORCE_{i}.tch')
+        model.cuda()
+        run_test_full(model, file_prefix=f'pure_REINFORCE_{i}')
+
+def batch_test_behavior_clone():
+    for i in range(3):
+        model, _ = load_trained_model(f'/home/taku/Downloads/cog2019_ftwp/trained_models/behavior_clone_0121/baseline_restart{i}.tch')
+        model.cuda()
+        run_test_full(model, file_prefix=f'behavior_clone_{i}')
+    import os
+    os.system('shutdown')

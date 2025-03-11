@@ -201,9 +201,12 @@ class Logger_simple:
         f.close()
 
 class Fake_text_logger(Logger_simple):
+    def __init__(self, file_name='default_text_log', verbose = False):
+        super().__init__(file_name)
+        self.verbose = verbose
     def add(self, text):
-        print(text)
-        pass
+        if self.verbose:
+            print(text)
     def write_txt_log(self):
         pass
 
@@ -227,3 +230,7 @@ def beutiful_print_command_and_probs(commands, probs, log_func = print):
     for command, prob in zip(commands, probs):
         txt += f'{prob * 100:.2f}% {command}\n'
     log_func(txt)
+
+def shutdown():
+    import os
+    os.system('shutdown')

@@ -1,14 +1,10 @@
-from bert_common import Abs_critic, Game_state, replace_mask, initiate_bert, get_optimizer, default_mse_loss, batch_valid, load_trained_model
-from bert_common import get_cls_output
+from bert_common import Abs_critic, Game_state, replace_mask, initiate_bert, get_optimizer, batch_valid, load_trained_model
+from bert_common import get_cls_output, squared_loss
 import torch.nn as nn
 from common import draw_line_chart
 import torch
 from bert_for_ftwp import Model_policy_gradient
 
-def squared_loss(a, b):
-    print(f'{a.item()} {b.item()}')
-    mse_func = default_mse_loss()
-    return mse_func(a, b)
 
 def encode_get_cls(bert, x):
     return get_cls_output(bert, x)
