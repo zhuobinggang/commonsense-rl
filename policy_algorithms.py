@@ -119,7 +119,7 @@ def train_one_episode_simplest_baseline(model: Abs_model_policy_gradient, game, 
         txtLogger = Fake_text_logger('')
     # 先使用walkthrough训练一次，然后自主探索3次
     episode_sars = [] # state, action, reward
-    game.reset()
+    # game.reset() # NOTE: 2025.3.11 需要在传入之前进行手动reset，该改动的目的在于允许从中间阶段开始训练
     counter = 0
     final_reward = 0
     model.eval()

@@ -468,8 +468,11 @@ def game_for_train(game_index = 0):
     game.verbose = False
     return game
 
-def first_train_game():
-    return game_for_train(0)
+def first_train_game(need_reset = True):
+    game = game_for_train(0)
+    if need_reset:
+        game.reset()
+    return game
 
 # ================== For Command probabilty analysis ================
 

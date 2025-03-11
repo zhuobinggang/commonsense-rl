@@ -19,11 +19,17 @@ class Model_speedup(Model):
         alpha = 0.05 if G  > self.average_G else 0.025
         self.average_G = (1 - alpha) * self.average_G + alpha * G
 
+
+def first_train_game_kitchen_recipe_ready():
+    game = first_train_game(need_reset=True)
+    game.input('examine cookbook')
+    return game
+
     
 class Tester(Policy_gradient_tester):
     def __init__(self, trained_bert = None, save_prefix = 'policy_gradient') -> None:
         self.init_actor(trained_bert)
-        self.game = first_train_game()
+        self.game = first_train_game_kitchen_recipe_ready()
         from common import Logger_simple
         self.txtLogger= Logger_simple(save_prefix)
         from bert_common import Logger_loss_and_score
@@ -56,14 +62,13 @@ class Tester(Policy_gradient_tester):
         self.actor.init_optimizer()
         self.log_steps = 10
         def get_G_denominator():
-            game = first_train_game()
-            game.reset()
+            game = first_train_game_kitchen_recipe_ready()
             GAME_MAX_SCORE = game.get_max_score() # I checked it
             G_denominator = GAME_MAX_SCORE / 2 # 用来归一化G
             return G_denominator
         G_denominator = get_G_denominator()
         for i in range(steps):
-            game = first_train_game()
+            game = first_train_game_kitchen_recipe_ready()
             game.verbose = False
             print(f'{i}/{steps}')
             if use_walkthrough:
@@ -95,9 +100,10 @@ class Tester_speedup(Tester):
     def init_train_steps_limit(self):
         return 30
     
-def night_run():
-    tt = Tester_speedup(save_prefix='one_game_speedup')
-    tt.test_self_improve_on_one_game(steps = 10000)
+def day_run():
+    # tt = Tester_speedup(save_prefix='one_game_speedup')
+    # tt.test_self_improve_on_one_game(steps = 1000)
     tt = Tester(save_prefix='one_game_normal')
-    tt.test_self_improve_on_one_game(steps = 10000)
-    common.shutdown()
+    tt.test_self_improve_on_one_game(steps = 1000)
+    # common.shutdown()
+    common.end_report('训练完毕')

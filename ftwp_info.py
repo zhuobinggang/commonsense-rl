@@ -155,13 +155,20 @@ def test_set_v0():
     paths = np.random.choice(paths, 10, False)
     return paths
 
-def walkthrougn_by_game_path(game_path):
+
+def extra_info_by_game_path(game_path):
     import json
     json_path = game_path.replace('.z8', '.json')
     f = open(json_path)
     data = json.load(f)
     f.close()
-    return data['extras']['walkthrough']
+    return data['extras']
+
+def walkthrough_by_game_path(game_path):
+    return extra_info_by_game_path(game_path)['walkthrough']
+
+def recipe_by_game_path(game_path):
+    return extra_info_by_game_path(game_path)['recipe']
 
 # 从valid set中获取临时的test集和valid集
 def temp_test_valid_set():

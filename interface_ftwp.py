@@ -99,6 +99,7 @@ class Ftwp_interface_by_path(human_play.Game_interface):
         self.filename = f'FTWP_{game_name}.json'
         self.verbose = False
         self.init_hook()
+        self.extras = None
     def init_all_params(self):
         self.dataset_index = 'trainset'
         self.hard_level_index = 'unknown'
@@ -123,12 +124,24 @@ class Ftwp_interface_by_path(human_play.Game_interface):
         sys, usr = prompt_from_env_feedback(description, inventory, available_actions, action_obs_pairs, self.another_room_info)
         return sys, usr
     def get_walkthrough(self):
-        from ftwp_info import walkthrougn_by_game_path
-        return walkthrougn_by_game_path(self.game_path)
+        self.fetch_and_set_extras()
+        return self.extras['walkthrough']
+    def fetch_and_set_extras(self):
+        if self.extras:
+            return
+        from ftwp_info import extra_info_by_game_path
+        self.extras = extra_info_by_game_path(self.game_path)
     def get_score(self):
         return self.env.info['score']
     def get_max_score(self):
         return self.env.info['max_score']
+    def get_inventory(self):
+        return self.env.info['inventory']
+    def get_location(self):
+        return common.extract_room_name(self.env.info['description'])
+    def get_recipe(self):
+        self.fetch_and_set_extras()
+        return self.extras['recipe']
     def available_actions_filtered_callback(self, filtered_commands):
         return ['inventory'] + filtered_commands # NOTE: 这个会导致性能大幅下降
 

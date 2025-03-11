@@ -1,3 +1,13 @@
+def end_report(text):
+    from say_chinese import speak
+    import time
+    counter = 0
+    while counter < 100:
+        counter += 1
+        speak(text)
+        time.sleep(5)
+
+
 def load_dataset(filename):
     return load_pickle_file(filename)
 
