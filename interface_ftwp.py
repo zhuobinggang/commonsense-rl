@@ -77,7 +77,7 @@ class Ftwp_interface(human_play.Game_interface):
         self.filename = f'FTWP_{self.dataset_index}_level_{self.hard_level_index}_game_{self.game_index}.json'
         self.won = False
         self.verbose = False
-        self.visited_dict = {} # 2024.12.21 用于存储访问过的地点次数
+        self.world_map = {} # 2024.12.21 用于存储访问过的地点次数
         self.desc_update_cache = {} # 2025.1.7 储存desc更新
     def construct_sys_usr(self):
         description, inventory, available_actions, action_obs_pairs = self.description, self.inventory, self.available_actions, self.action_obs_pairs
@@ -111,7 +111,7 @@ class Ftwp_interface_by_path(human_play.Game_interface):
         self.another_room_info = 'Unknown'
         self.won = False
         self.lost = False
-        self.visited_dict = {} # 2024.12.21 用于存储访问过的地点次数
+        self.world_map = {} # 2024.12.21 用于存储访问过的地点次数
         self.desc_update_cache = {} # 2025.1.7 储存desc更新
         self.recipe = '' # 2025.1.13 储存菜谱
         self.filtered_commands = [] # 2025.2.11 用于使用指令代号来选择行动
@@ -137,6 +137,8 @@ class Ftwp_interface_by_path(human_play.Game_interface):
         return self.env.info['max_score']
     def get_inventory(self):
         return self.env.info['inventory']
+    def get_inventory_as_set(self): # 2025.3.16
+        return common.inventory_text_as_set(self.env.info['inventory'])
     def get_location(self):
         return common.extract_room_name(self.env.info['description'])
     def get_recipe(self):

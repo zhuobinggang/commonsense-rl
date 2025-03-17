@@ -244,3 +244,45 @@ def beutiful_print_command_and_probs(commands, probs, log_func = print):
 def shutdown():
     import os
     os.system('shutdown')
+
+
+def inventory_text_as_set(inventory_text):
+    """
+    从给定的字符串中提取物品清单。
+
+    Args:
+        inventory_text (str): 包含物品清单的字符串。
+
+    Returns:
+        set: 物品清单的集合。
+    """
+    # 从字符串中提取物品清单
+    texts = inventory_text.split('\n')
+    if len(texts) > 1:
+        texts = [text.strip() for text in texts[1:]]
+        inventory = set(texts)
+    else:
+        inventory = set()
+    return inventory
+
+def get_opposite_direction(direction):
+    """
+    获取给定方向的相反方向。
+
+    Args:
+        direction (str): 方向。
+
+    Returns:
+        str: 给定方向的相反方向。
+    """
+    # 定义方向的相反方向
+    opposite_directions = {
+        'north': 'south',
+        'south': 'north',
+        'east': 'west',
+        'west': 'east',
+        'up': 'down',
+        'down': 'up'
+    }
+    # 返回相反方向
+    return opposite_directions.get(direction, None)

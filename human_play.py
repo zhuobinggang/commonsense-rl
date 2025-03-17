@@ -63,7 +63,7 @@ class Game_interface(abstract_game_interface.Game_interface):
         self.won = False
         self.lost = False
         self.verbose = False
-        self.visited_dict = {} # 2024.12.21 用于存储访问过的地点次数
+        self.world_map = {} # 2024.12.21 用于存储访问过的地点次数
         self.desc_update_cache = {} # 2025.1.7 储存desc更新
         self.recipe = '' # 2025.1.13 储存菜谱
         self.filter_startword_list = ['examine', 'put', 'close', 'insert', 'eat', 'look']

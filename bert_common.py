@@ -10,6 +10,12 @@ class Game_state:
     def __init__(self) -> None:
         self.x = ''
         self.action_list = []
+        # 2025.3.16 散装的信息
+        self.location = '' # room name
+        self.recipe = '' # recipe text
+        self.inventory = '' # inventory item string set
+        self.action_obs_pairs = [] # (action, obs)
+        self.world_map = {} # 用于存储地图
 
 class Abs_model_policy_gradient:
     def clean_gradient(self):
@@ -225,9 +231,10 @@ class Prompt_builder_for_bert:
         user_msg += 'Next action: [MASK]'
         self.prompt = user_msg
 
-def prompt_from_env_feedback_action_template(description, action_obs_pairs, available_actions, recipe, with_final_hint = True):
+def prompt_from_env_feedback_action_template(description, action_obs_pairs, available_actions, recipe, with_final_hint = True, need_action_history = True):
     promptor = Prompt_builder_for_bert()
-    promptor.action_history = common.action_obs_pairs_to_history(action_obs_pairs, seperator='>')
+    if need_action_history:
+        promptor.action_history = common.action_obs_pairs_to_history(action_obs_pairs, seperator='>')
     promptor.room_name = common.extract_room_name(description)
     promptor.action_list = common.actions_to_list_number(available_actions)
     promptor.recipe = recipe
@@ -237,8 +244,13 @@ def prompt_from_env_feedback_action_template(description, action_obs_pairs, avai
     else:
         return promptor.prompt_without_final_hint
 
-def bert_prompt_from_game(game, with_final_hint = True):
-    return prompt_from_env_feedback_action_template(game.description, game.action_obs_pairs, game.available_actions, game.recipe, with_final_hint = with_final_hint)
+def bert_prompt_from_game(game, with_final_hint = True, need_action_history = True):
+    return prompt_from_env_feedback_action_template(game.description, 
+                                                    game.action_obs_pairs, 
+                                                    game.available_actions, 
+                                                    game.recipe, 
+                                                    with_final_hint = with_final_hint, 
+                                                    need_action_history=need_action_history)
 
 class Game_for_bert(Ftwp_interface_by_path):
     def init_hook(self):
@@ -318,6 +330,12 @@ class Game_for_rl(Game_for_bert):
         game_state = Game_state()
         game_state.x = self.get_x()
         game_state.action_list = self.filtered_commands
+        # 2025.3.16 散装的信息
+        game_state.location = self.get_location()
+        game_state.recipe = self.recipe # NOTE: 不要调用get_recipe，因为这个函数会作弊
+        game_state.inventory = self.get_inventory_as_set() # NOTE: 为了保证物品的顺序不会影响，这里用string set
+        game_state.action_obs_pairs = self.action_obs_pairs
+        game_state.world_map = self.world_map
         return game_state
     def get_state(self):
         return self.construct_game_state()
@@ -460,18 +478,23 @@ def run_valid_full(model, file_prefix = ''):
     valid_game_paths=  all_valid_game_paths()
     return batch_test(model, save_readable=False, test_game_paths=valid_game_paths, txtLogger=txtLogger)
 
+SOME_GAMES = {
+    'game_easy': 0,
+    'game_need_navigation': 4
+}
+
 # 2025.3.3 
-def game_for_train(game_index = 0):
+def game_for_train(game_index = 0, verbose = False, reset = False):
     from ftwp_info import all_train_game_paths
     file_paths = all_train_game_paths()
     game = Game_for_rl(file_paths[game_index])
-    game.verbose = False
+    game.verbose = verbose
+    if reset:
+        game.reset()
     return game
 
-def first_train_game(need_reset = True):
-    game = game_for_train(0)
-    if need_reset:
-        game.reset()
+def first_train_game(verbose = False, reset = True):
+    game = game_for_train(0, verbose=verbose, reset = reset)
     return game
 
 # ================== For Command probabilty analysis ================

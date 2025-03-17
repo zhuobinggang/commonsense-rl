@@ -6,7 +6,7 @@ class Ftwp_interface_visited_count(Ftwp_interface_by_path):
         # Added 2024.12.21 增加访问次数显示，在action history里面
         action, obs = super().move_command_succeeded_callback(action_obs)
         room_name = common.extract_room_name(obs)
-        obs = obs + f' Visited {self.visited_dict[room_name]} times.'
+        obs = obs + f' Visited {self.world_map[room_name]} times.'
         return action, obs
     
 

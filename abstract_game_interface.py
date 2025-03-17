@@ -19,7 +19,7 @@ class Game_interface:
         self.updated_description = ''
         self.another_room_info = 'Unknown'
         self.filename = f'TWC_{self.game_name}.json'
-        self.visited_dict = {} # 2024.12.21 用于存储访问过的地点次数
+        self.world_map = {} # 2024.12.21 用于存储访问过的地点次数 2025.3.17更新，用于存储地图信息
         self.desc_update_cache = {} # 2025.1.7 储存desc更新
         self.recipe = '' # 2025.1.13 储存菜谱
         self.filtered_commands = [] # 2025.2.11 用于使用指令代号来选择行动
@@ -87,18 +87,33 @@ class Game_interface:
         return self.updated_description
     def available_actions_got_callback(self, available_actions):
         pass
-    def move_command_succeeded_callback(self, action_obs):
+    def move_command_succeeded_callback_old(self, action_obs):
         action, obs = action_obs
         room_name = common.extract_room_name(obs)
         if not room_name:
             print('XXXXXXXXXXXXXXX WRONG SITUATION XXXXXXXXXXXXXX')
             print(action_obs)
             return action, obs
-        if room_name not in self.visited_dict:
-            self.visited_dict[room_name] = 0
-        self.visited_dict[room_name] += 1
+        if room_name not in self.world_map:
+            self.world_map[room_name] = 0
+        self.world_map[room_name] += 1
         # NOTE: Do not change obs as default behavior. Only save info into visited dict.
-        # obs = obs + f' Visited {self.visited_dict[room_name]} times.'
+        # obs = obs + f' Visited {self.world_map[room_name]} times.'
+        return action, obs
+    def move_command_succeeded_callback(self, action_obs):
+        action, obs = action_obs
+        now_room_name = common.extract_room_name(obs)
+        prev_room_name = common.extract_room_name(self.description)
+        if now_room_name not in self.world_map:
+            self.world_map[now_room_name] = {}
+        if prev_room_name not in self.world_map:
+            self.world_map[prev_room_name] = {}
+        direction = action.replace('go ', '')
+        if direction not in self.world_map[prev_room_name]:
+            self.world_map[prev_room_name][direction] = now_room_name
+        con_direction = common.get_opposite_direction(direction)
+        if con_direction not in self.world_map[now_room_name]:
+            self.world_map[now_room_name][con_direction] = prev_room_name
         return action, obs
     def get_obs(self, act_obs):
         if not act_obs or len(act_obs) < 1:

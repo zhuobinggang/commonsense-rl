@@ -99,8 +99,11 @@ class Model_behavior_clone(nn.Module):
                 self.save_checkpoint()
     def save_checkpoint(self):
         self.bert.save_pretrained(f'exp/auto_filename/{self.prefix}.tch')
-    def load_checkpoint(self):
-        self.bert, _ = bert_common.load_trained_model(f'exp/auto_filename/{self.prefix}.tch')
+    def load_checkpoint(self, path = None):
+        if not path:
+            self.bert, _ = bert_common.load_trained_model(f'exp/auto_filename/{self.prefix}.tch')
+        else:
+            self.bert, _ = bert_common.load_trained_model(path)
         self.bert.cuda()
     def valid(self):
         from bert_common import batch_valid
@@ -116,13 +119,13 @@ class Model_behavior_clone(nn.Module):
 
 
 
-def train_loop_neo(model: Model_behavior_clone, game_paths, epoch = 1):
+def train_loop_neo(model: Model_behavior_clone, game_paths, epoch = 1, game_init_func = Game_for_rl):
     model.train()
     for e in range(epoch):
         for game_path in game_paths:
-            game = Game_for_rl(game_path)
+            game = game_init_func(game_path)
             walkthroughs = game.filter_walkthroughs_with_input_test()
-            game = Game_for_rl(game_path)
+            game = game_init_func(game_path)
             game.reset()
             for command in walkthroughs:
                 state = game.get_state()
@@ -132,6 +135,11 @@ def train_loop_neo(model: Model_behavior_clone, game_paths, epoch = 1):
                 model.backward_may_step(loss)
                 model.may_save_checkpoint()
                 game.input(command)
+
+
+class Game_no_history(Game_for_rl):
+    def get_x(self):
+        return bert_common.bert_prompt_from_game(self, need_action_history=False)
 
 @lru_cache(maxsize=None)
 def my_random_train_paths():
@@ -143,14 +151,20 @@ def my_random_train_paths():
     random.shuffle(game_paths)
     return game_paths
 
-def train(repeat = 3, epoch = 4):
+def train(repeat = 3, epoch = 4, need_history = True):
     game_paths = my_random_train_paths()
     # train
     for i in range(repeat):
-        model = Model_behavior_clone(prefix=f'bert_behavior_clone{i}')
+        prefix = f'bert_behavior_clone{i}'
+        if not need_history:
+            prefix += '_no_history'
+        model = Model_behavior_clone(prefix=prefix)
         model.init_optimizer()
         # model.may_save_checkpoint() # NOTE: valid and save checkpoint before training
-        train_loop_neo(model, game_paths, epoch = epoch)
+        if need_history:
+            train_loop_neo(model, game_paths, epoch = epoch)
+        else:
+            train_loop_neo(model, game_paths, epoch = epoch, game_init_func=Game_no_history)
 
 def test_model_after_training(repeat = 3):
     for i in range(repeat):
@@ -161,7 +175,7 @@ def test_model_after_training(repeat = 3):
 
 def night_run():
     RP = 3
-    train(repeat = RP, epoch = 4)
+    train(repeat = RP, epoch = 2, need_history=True)
     test_model_after_training(repeat=RP)
     common.shutdown()
 
