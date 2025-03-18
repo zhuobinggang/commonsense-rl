@@ -413,7 +413,7 @@ def valid_paths():
     from ftwp_info import all_valid_game_paths
     return all_valid_game_paths(shuffle = True)[-30:]
 
-def batch_test(model, save_readable = False, test_game_paths = [], file_prefix = '', txtLogger = common.Fake_text_logger(verbose=False), steps_limit = 99):
+def batch_test(model, save_readable = False, test_game_paths = [], file_prefix = '', txtLogger = common.Fake_text_logger(verbose=False), steps_limit = 99, game_init_func = Game_for_rl):
     if len(test_game_paths) < 1:
         test_game_paths = valid_paths()
     scores = []
@@ -426,8 +426,9 @@ def batch_test(model, save_readable = False, test_game_paths = [], file_prefix =
     scores_at_30 = []
     # steps per game
     steps = []
+    print(f'game_init_func: {game_init_func}')
     for path in test_game_paths:
-        game = Game_for_rl(path)
+        game = game_init_func(path)
         game.verbose = False
         game.filename = file_prefix + game.filename # Added 2025.2.8
         dic = trained_model_autoplay(game, model, save_readable, steps_limit = steps_limit)
@@ -466,11 +467,11 @@ def batch_valid(model, save_readable = True, steps_limit = 99):
     return batch_test(model, save_readable = save_readable, test_game_paths=valid_paths(), steps_limit = steps_limit)
 
 
-def run_test_full(model, file_prefix = ''):
+def run_test_full(model, file_prefix = '', game_init_func = Game_for_rl):
     from ftwp_info import all_test_game_paths
     txtLogger = common.Logger_simple(file_name=f'run_test_full_{file_prefix}_log')
     test_game_paths=  all_test_game_paths()
-    return batch_test(model, save_readable=False, test_game_paths=test_game_paths, txtLogger=txtLogger)
+    return batch_test(model, save_readable=False, test_game_paths=test_game_paths, txtLogger=txtLogger, game_init_func=game_init_func)
 
 def run_valid_full(model, file_prefix = ''):
     from ftwp_info import all_valid_game_paths

@@ -1,7 +1,7 @@
 # 使用ucb1来增强behavior cloning
 # TODO: 将Game继承过来，增加get_state方法，获取游戏的inventory，recipe还有location信息组成一个state文本返回
 # TODO: 将Model继承过来，增加get_command_logits(game_state)和next_action_ucb1(self, logits, state_action_count)方法
-from bert_behavior_clone import Model_behavior_clone
+from bert_behavior_clone import Model_behavior_clone, Game_no_history
 from bert_common import Game_for_rl, get_command_logits_simple, Game_state, game_for_train, SOME_GAMES
 import numpy as np
 import torch
@@ -106,9 +106,9 @@ class Model_ucb1(Model_behavior_clone):
             common.beutiful_print_command_and_probs(commands, action_prob)
         return best_action
     
-    def test_full(self):
+    def test_full(self, game_init_func=Game_for_rl):
         from bert_common import run_test_full
-        run_test_full(self, file_prefix=self.prefix)
+        run_test_full(self, file_prefix=self.prefix, game_init_func=game_init_func)
     
 def convinient_script():
     game =game_for_train(SOME_GAMES['game_need_navigation'], verbose=True, reset=True)
@@ -126,8 +126,27 @@ def batch_test_with_history_and_ucb1():
         model.load_checkpoint(path)
         model.test_full()
 
+def batch_test_with_history_and_ucb1():
+    for i in range(3):
+        model = Model_ucb1()
+        model.prefix = f'bert_behavior_clone{i}_with_history_and_ucb1'
+        path = f'/home/taku/Downloads/cog2019_ftwp/trained_models/behavior_clone_0311/bert_behavior_clone{i}.tch'
+        model.load_checkpoint(path)
+        model.test_full()
+
+def batch_test_wo_history_and_ucb1():
+    for i in range(3):
+        model = Model_ucb1()
+        model.prefix = f'bert_behavior_clone{i}_wo_history_and_ucb1'
+        path = f'/home/taku/Downloads/cog2019_ftwp/trained_models/behavior_clone_no_history_0318/bert_behavior_clone{i}_no_history.tch'
+        model.load_checkpoint(path)
+        model.test_full(game_init_func=Game_no_history)
+
 def night_run():
     batch_test_with_history_and_ucb1()
     from bert_behavior_clone import train
     train(repeat = 3, epoch = 3, need_history=False) # 3.17 不需要历史记录的版本
     common.shutdown()
+
+def day_run():
+    batch_test_wo_history_and_ucb1()

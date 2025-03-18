@@ -113,9 +113,9 @@ class Model_behavior_clone(nn.Module):
         self.logger.add(f'train_step_counter = {self.train_step_counter}, valid_score = {valid_score}')
         self.logger.write_txt_log()
         return valid_score
-    def test_full(self):
+    def test_full(self, game_init_func=Game_for_rl):
         from bert_common import run_test_full
-        run_test_full(self.bert, file_prefix=self.prefix)
+        run_test_full(self.bert, file_prefix=self.prefix, game_init_func=game_init_func)
 
 
 
