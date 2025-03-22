@@ -5,6 +5,7 @@ import common
 from common import draw_line_chart
 import numpy as np
 from interface_ftwp import Ftwp_interface_by_path
+import bert_common_deprecated
 
 class Game_state:
     def __init__(self) -> None:
@@ -121,7 +122,6 @@ def command_indexs_tokenized(command_length = 100):
     command_index_string = ' '.join([str(item) for item in list(range(command_length))])
     return tokenizer.encode(command_index_string, add_special_tokens = False)
 
-# TODO: 代换掉原来的函数
 # @parameter: x是包含[MASK]标记的prompt
 def get_mask_logits_simple(model, x):
     device = model.device
@@ -211,54 +211,13 @@ def get_next_command_by_command_logits_argmax_simple(model, state: Game_state):
 
 # =============== 把Game类般进来 =================
 
-class Prompt_builder_for_bert:
-    def __init__(self):
-        self.room_name = ''
-        self.action_history = ''
-        self.action_list = ''
-        # others
-        self.recipe = ''
-        self.prompt = ''
-        self.prompt_without_final_hint = ''
-
-    def build(self):
-        user_msg = ''
-        user_msg += f"Room: {self.room_name if self.room_name else 'Unknown now'}\n"
-        user_msg += f"Recipe: {self.recipe if self.recipe else 'Unknown now'}\n"
-        user_msg += f"Action history: {self.action_history if self.action_history else ''}\n" 
-        user_msg += f'Available actions:\n{self.action_list}\n' if self.action_list else ''
-        self.prompt_without_final_hint = user_msg
-        user_msg += 'Next action: [MASK]'
-        self.prompt = user_msg
-
-def prompt_from_env_feedback_action_template(description, action_obs_pairs, available_actions, recipe, with_final_hint = True, need_action_history = True):
-    promptor = Prompt_builder_for_bert()
-    if need_action_history:
-        promptor.action_history = common.action_obs_pairs_to_history(action_obs_pairs, seperator='>')
-    promptor.room_name = common.extract_room_name(description)
-    promptor.action_list = common.actions_to_list_number(available_actions)
-    promptor.recipe = recipe
-    promptor.build()
-    if with_final_hint:
-        return promptor.prompt
-    else:
-        return promptor.prompt_without_final_hint
-
-def bert_prompt_from_game(game, with_final_hint = True, need_action_history = True):
-    return prompt_from_env_feedback_action_template(game.description, 
-                                                    game.action_obs_pairs, 
-                                                    game.available_actions, 
-                                                    game.recipe, 
-                                                    with_final_hint = with_final_hint, 
-                                                    need_action_history=need_action_history)
-
 class Game_for_bert(Ftwp_interface_by_path):
     def init_hook(self):
         pass
     def input(self, command):
         self.command = command
         x = bert_prompt_from_game(self)
-        y = self.available_actions.index(command)
+        y = self.filtered_commands.index(command)
         self.finetune_triples.append((x, y)) # save x and y
         self.act_and_output(command)
     def save_as_json(self):
@@ -296,7 +255,8 @@ class Game_for_bert(Ftwp_interface_by_path):
                 filtered_walkthroughs.append(action)
                 self.input(action)
             else:
-                print(f'filtered action: {action}')
+                # print(f'filtered action: {action}')
+                pass
         self.reset()
         return filtered_walkthroughs
     def auto_play(self, action_list):
@@ -349,8 +309,18 @@ class Game_for_rl(Game_for_bert):
         reward = self.get_instant_reward()
         return reward
 
-    
-
+# DONE: 2025.3.18
+def bert_prompt_from_game(game: Game_for_rl, need_action_history = True, history_window = 100):
+    x = ''
+    x += f"Room: {game.get_location()}\n"
+    x += f"Recipe: {common.handle_recipe(game.recipe)}\n"
+    x += f"Inventory: {common.handle_inventory_text(game.get_inventory())}\n" # NOTE: 2025.3.18 增加以平等测试
+    if need_action_history:
+        action_history_text = common.action_obs_pairs_to_history(game.action_obs_pairs, seperator='>', no_action_text='', history_window = history_window)
+        x += f"Action history: {action_history_text}\n" 
+    x += f'Available actions:\n{common.actions_to_list_number(game.filtered_commands)}\n'
+    x += 'Next action: [MASK]'
+    return x
 
 # ================ 通用函数 ==================
 

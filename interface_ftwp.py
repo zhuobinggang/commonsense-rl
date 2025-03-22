@@ -142,10 +142,12 @@ class Ftwp_interface_by_path(human_play.Game_interface):
     def get_location(self):
         return common.extract_room_name(self.env.info['description'])
     def get_recipe(self):
+        print('WARNING: get_recipe() will cheat, use it only if you understand.')
         self.fetch_and_set_extras()
         return self.extras['recipe']
     def available_actions_filtered_callback(self, filtered_commands):
-        return ['inventory'] + filtered_commands # NOTE: 这个会导致性能大幅下降
+        # return ['inventory'] + filtered_commands # NOTE: 这个会导致性能大幅下降
+        return filtered_commands # NOTE: 2025.3.18 使用handicap1之后，不再需要inventory
 
 def game_for_test():
     from ftwp_info import train_set_v0

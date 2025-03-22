@@ -37,8 +37,8 @@ def choose_action_ubc1(logits, action_visited_count, alpha=1):
     return ssc.argmax(), ssc.softmax(dim=0)
 
 class Model_ucb1(Model_behavior_clone):
-    def __init__(self, bert=None):
-        super().__init__(bert)
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
         self.state_action_count = {}
         self.verbose = False
 
@@ -142,11 +142,22 @@ def batch_test_wo_history_and_ucb1():
         model.load_checkpoint(path)
         model.test_full(game_init_func=Game_no_history)
 
-def night_run():
-    batch_test_with_history_and_ucb1()
+def night_run_0():
     from bert_behavior_clone import train
-    train(repeat = 3, epoch = 3, need_history=False) # 3.17 不需要历史记录的版本
-    common.shutdown()
+    train(repeat = 3, epoch = 3, need_history=False, need_test_full=True, suffix='_no_history', model_init_func=Model_ucb1) # 3.18
+    train(repeat = 3, epoch = 3, need_history=True, need_test_full=True, suffix='', model_init_func=Model_ucb1) # 3.18
+
+def night_run_1():
+    from bert_behavior_clone import train
+    train(repeat = 3, epoch = 3, need_history=True, need_test_full=True, suffix='_history_window20', history_20=True, model_init_func=Model_ucb1) # 3.18
+
+# 3.20 说明：昨天跑的时候，windows20只跑了1次，no_history跑了2次，然后就内存不足了，今天补上剩余的。
+def night_run_extra():
+    from bert_behavior_clone import train
+    train(repeat = 1, epoch = 3, need_history=False, need_test_full=True, suffix='_no_history', model_init_func=Model_ucb1) # 3.18
+    train(repeat = 2, epoch = 3, need_history=True, need_test_full=True, suffix='_history_window20', history_20=True, model_init_func=Model_ucb1) # 3.18
+    train(repeat = 3, epoch = 3, need_history=True, need_test_full=True, suffix='', model_init_func=Model_ucb1) # 3.18
+
 
 def day_run():
     batch_test_wo_history_and_ucb1()

@@ -44,15 +44,15 @@ class MyDataLoader:
 
 
 class Model_behavior_clone(nn.Module):
-    def __init__(self, loss_step_interval = 4, valid_step_interval = 5000, prefix = 'bert_behavior_clone'): # NOTE: 大约5万5千步1个epoch
+    def __init__(self, loss_step_interval = 8, valid_step_interval = 5000, prefix = 'bert_behavior_clone'): # NOTE: 大约5万5千步1个epoch
         super(Model_behavior_clone, self).__init__()
         self.bert = bert_common.initiate_bert()
-        self.train_step_counter = 4990
+        self.train_step_counter = 0
         self.loss_step_interval = loss_step_interval
         self.valid_step_interval = valid_step_interval
         self.prefix = prefix
-        self.max_valid_score = -1
-        self.last_valid_score = -1
+        self.max_valid_score = 0
+        self.last_valid_score = 0
         self.logger = common.Logger_simple(self.prefix)
         self.losses = []
         self.temp_loss_accumurated = 0
@@ -76,6 +76,9 @@ class Model_behavior_clone(nn.Module):
         self.bert.train()
     def eval(self):
         self.bert.eval()
+    def write_log(self):
+        self.logger.write_txt_log()
+        self.draw_line_chart()
     def backward_may_step(self, loss):
         self.accelerator.backward(loss)
         self.temp_loss_accumurated += loss.item()
@@ -87,16 +90,15 @@ class Model_behavior_clone(nn.Module):
             self.valid_scores.append(self.last_valid_score)
             self.temp_loss_accumurated = 0
         print(f'train_step_counter = {self.train_step_counter}')
-    def may_save_checkpoint(self):
-        if self.train_step_counter % self.valid_step_interval == 0:
+    def may_save_checkpoint(self, end_flag = False):
+        if end_flag or self.train_step_counter % self.valid_step_interval == 0:
             now_valid_score = self.valid() # will switch back to train mode
             self.last_valid_score = now_valid_score
             if now_valid_score > self.max_valid_score:
                 self.max_valid_score = now_valid_score
                 self.logger.add(f'Checkpoint saved! valid_score = {now_valid_score}')
-                self.logger.write_txt_log()
-                self.draw_line_chart()
                 self.save_checkpoint()
+            self.write_log() # 每次valid都会写入日志
     def save_checkpoint(self):
         self.bert.save_pretrained(f'exp/auto_filename/{self.prefix}.tch')
     def load_checkpoint(self, path = None):
@@ -111,7 +113,6 @@ class Model_behavior_clone(nn.Module):
         valid_score = batch_valid(self.bert, save_readable=False, steps_limit = 50)
         self.train()
         self.logger.add(f'train_step_counter = {self.train_step_counter}, valid_score = {valid_score}')
-        self.logger.write_txt_log()
         return valid_score
     def test_full(self, game_init_func=Game_for_rl):
         from bert_common import run_test_full
@@ -121,6 +122,7 @@ class Model_behavior_clone(nn.Module):
 
 def train_loop_neo(model: Model_behavior_clone, game_paths, epoch = 1, game_init_func = Game_for_rl):
     model.train()
+    print(f'Train for {game_init_func}')
     for e in range(epoch):
         for game_path in game_paths:
             game = game_init_func(game_path)
@@ -135,11 +137,35 @@ def train_loop_neo(model: Model_behavior_clone, game_paths, epoch = 1, game_init
                 model.backward_may_step(loss)
                 model.may_save_checkpoint()
                 game.input(command)
+    model.may_save_checkpoint(end_flag=True) # 在最后检验一次性能
 
 
 class Game_no_history(Game_for_rl):
     def get_x(self):
         return bert_common.bert_prompt_from_game(self, need_action_history=False)
+    
+class Game_history_window_20(Game_for_rl):
+    def __init__(self, game_path, no_augment=True, history_window=20):
+        super().__init__(game_path, no_augment)
+        self.history_window = history_window
+    def get_x(self):
+        return bert_common.bert_prompt_from_game(self, history_window=self.history_window)
+    
+# TESTED: 2025.3.18
+def test_Game_history_window_20():
+    game_paths = my_random_train_paths()
+    game = Game_history_window_20(game_paths[0], history_window=2)
+    game.verbose = True
+    game.reset()
+    return game
+
+# TESTED: 2025.3.18
+def test_Game_no_history():
+    game_paths = my_random_train_paths()
+    game = Game_no_history(game_paths[0])
+    game.verbose = True
+    game.reset()
+    return game
 
 @lru_cache(maxsize=None)
 def my_random_train_paths():
@@ -151,20 +177,36 @@ def my_random_train_paths():
     random.shuffle(game_paths)
     return game_paths
 
-def train(repeat = 3, epoch = 4, need_history = True):
+def randomize_all():
+    import random
+    random.seed()
+    import numpy as np
+    np.random.seed()
+    import torch
+    torch.random.seed()
+
+def train(repeat = 3, epoch = 4, need_history = True, need_test_full = False, suffix = '', history_20 = False, model_init_func = Model_behavior_clone):
     game_paths = my_random_train_paths()
+    randomize_all() # NOTE: 2025.3.20 保证每次训练的结果不同
     # train
     for i in range(repeat):
         prefix = f'bert_behavior_clone{i}'
-        if not need_history:
-            prefix += '_no_history'
-        model = Model_behavior_clone(prefix=prefix)
+        prefix += suffix
+        model = model_init_func(prefix=prefix)
+        print(f'Train for model {model_init_func}, prefix = {prefix}')
         model.init_optimizer()
         # model.may_save_checkpoint() # NOTE: valid and save checkpoint before training
         if need_history:
-            train_loop_neo(model, game_paths, epoch = epoch)
+            if history_20:
+                game_init_func = Game_history_window_20
+            else:
+                game_init_func=Game_for_rl
         else:
-            train_loop_neo(model, game_paths, epoch = epoch, game_init_func=Game_no_history)
+            game_init_func=Game_no_history
+        train_loop_neo(model, game_paths, epoch = epoch, game_init_func=game_init_func)
+        if need_test_full:
+            print('训练完毕，顺便给你测试了')
+            model.test_full(game_init_func=game_init_func)
 
 def test_model_after_training(repeat = 3):
     for i in range(repeat):

@@ -76,14 +76,18 @@ def actions_to_list_number(actions, start_index = 0):
         count += 1
     return available_action_text.strip()
 
-def action_obs_pairs_to_history(action_obs_pairs, seperator = '->'):
+def action_obs_pairs_to_history(action_obs_pairs, seperator = '->', no_action_text = 'No action was taken now.', history_window = 100):
+    if history_window == 0:
+        return ''
     # print(action_obs_pairs)
     action_history = ''
     if len(action_obs_pairs) > 0:
+        text_list = []
         for idx, (act, obs) in enumerate(action_obs_pairs):
-            action_history += f'Action {idx}: {act} {seperator} {obs} '
+            text_list.append(f'Action {idx}: {act} {seperator} {obs}')
+        action_history = ' '.join(text_list[-history_window:])
     else:
-        action_history = 'No action was taken now.'
+        action_history = no_action_text
     return action_history
 
 
@@ -286,3 +290,13 @@ def get_opposite_direction(direction):
     }
     # 返回相反方向
     return opposite_directions.get(direction, None)
+
+def handle_inventory_text(inventory_text):
+    string_set = inventory_text_as_set(inventory_text)
+    return ', '.join(string_set)
+
+def handle_recipe(recipe):
+    if recipe:
+        return recipe
+    else:
+        return ''
