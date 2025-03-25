@@ -7,6 +7,9 @@ import numpy as np
 from interface_ftwp import Ftwp_interface_by_path
 import bert_common_deprecated
 
+MODERN_BERT_MODEL_ID = "answerdotai/ModernBERT-base"
+BERT_BASE_UNCASED_MODEL_ID = "bert-base-uncased"
+
 class Game_state:
     def __init__(self) -> None:
         self.x = ''
@@ -46,7 +49,7 @@ def get_optimizer(model_or_paras):
 @lru_cache(maxsize=None)
 def default_tokenizer():
     from transformers import AutoTokenizer
-    model_id = "answerdotai/ModernBERT-base"
+    model_id = MODERN_BERT_MODEL_ID
     tokenizer = AutoTokenizer.from_pretrained(model_id)
     return tokenizer
 
@@ -61,7 +64,7 @@ def squared_loss(a, b):
 
 def initiate_bert():
     from transformers import ModernBertForMaskedLM
-    model_id = "answerdotai/ModernBERT-base"
+    model_id = MODERN_BERT_MODEL_ID
     model = ModernBertForMaskedLM.from_pretrained(model_id)
     model = model.train()
     return model

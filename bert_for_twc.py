@@ -210,7 +210,8 @@ def twc_dataloader(batch = 4):
 
 def train(log_filename = '', epoch = 1):
     from transformers import AutoTokenizer, ModernBertForMaskedLM
-    model_id = "answerdotai/ModernBERT-base"
+    from bert_common import MODERN_BERT_MODEL_ID
+    model_id = MODERN_BERT_MODEL_ID
     tokenizer = AutoTokenizer.from_pretrained(model_id)
     model = ModernBertForMaskedLM.from_pretrained(model_id)
     model = model.train()

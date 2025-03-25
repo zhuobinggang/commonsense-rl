@@ -80,7 +80,7 @@ class Model_behavior_clone(nn.Module):
         self.logger.write_txt_log()
         self.draw_line_chart()
     def backward_may_step(self, loss):
-        self.accelerator.backward(loss)
+        self.accelerator.backward(loss) # NOTE
         self.temp_loss_accumurated += loss.item()
         self.train_step_counter += 1
         if self.train_step_counter % self.loss_step_interval == 0:
