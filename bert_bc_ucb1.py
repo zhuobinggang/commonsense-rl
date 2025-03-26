@@ -89,13 +89,16 @@ class Model_ucb1(Model_behavior_clone):
             for action in passed_actions:
                 action_visited_count[actions.index(action)] = 0
         return action_visited_count
+    
+    def get_commands_from_game_state(self, game_state):
+        return game_state.action_list
 
     @torch.no_grad()
     def next_action(self, game_state: Game_state):
         if len(game_state.action_obs_pairs) == 0: # 新游戏
             self.reset_state_action_count()
         logits = self.get_command_logits(game_state) # 注意，logits并没有得到softmax处理
-        commands = game_state.action_list
+        commands = self.get_commands_from_game_state(game_state)
         key = game_state_to_ucb1_key(game_state)
         action_visited_count = [self.get_state_action_count(key, command) for command in commands]
         action_visited_count = self.update_move_action_visited_count(game_state.location, commands, action_visited_count, game_state.world_map)

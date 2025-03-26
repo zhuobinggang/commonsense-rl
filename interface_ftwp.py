@@ -115,7 +115,7 @@ class Ftwp_interface_by_path(human_play.Game_interface):
         self.desc_update_cache = {} # 2025.1.7 储存desc更新
         self.recipe = '' # 2025.1.13 储存菜谱
         self.filtered_commands = [] # 2025.2.11 用于使用指令代号来选择行动
-        self.filter_startword_list = ['examine', 'put', 'close', 'insert', 'eat', 'look']
+        self.filter_startword_list = common.FILTER_STARTWORD_LIST
         self.kitchen_visited = False # 2025.2.28 用于判断是否访问过厨房
     def init_hook(self):
         pass

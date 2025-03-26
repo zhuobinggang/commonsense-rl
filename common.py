@@ -1,3 +1,6 @@
+FILTER_STARTWORD_LIST = ['examine', 'close', 'eat', 'look', 'drop', 'inventory', 'drink', 'put', 'insert']
+KNIFE_VERBS = ['slice', 'chop', 'dice']
+
 def end_report(text):
     from say_chinese import speak
     import time

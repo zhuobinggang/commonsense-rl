@@ -32,7 +32,7 @@ class Game_interface:
     def get_env(self):
         raise Exception('需要重新实现这个函数！')
     def init_filter_startword_list(self):
-        self.filter_startword_list = ['examine', 'close', 'eat', 'look', 'drop', 'inventory']
+        self.filter_startword_list = common.FILTER_STARTWORD_LIST
     def init_hook(self):
         pass
     def reset(self):

@@ -20,6 +20,8 @@ class Game_state:
         self.inventory = '' # inventory item string set
         self.action_obs_pairs = [] # (action, obs)
         self.world_map = {} # 用于存储地图
+        self.description = '' # 用于存储游戏描述
+        self.command_templates = [] # 用于存储command_templates
 
 class Abs_model_policy_gradient:
     def clean_gradient(self):
@@ -299,10 +301,14 @@ class Game_for_rl(Game_for_bert):
         game_state.inventory = self.get_inventory_as_set() # NOTE: 为了保证物品的顺序不会影响，这里用string set
         game_state.action_obs_pairs = self.action_obs_pairs
         game_state.world_map = self.world_map
+        game_state.description = self.description
+        game_state.command_templates = self.env.info['command_templates']
         return game_state
     def get_state(self):
         return self.construct_game_state()
     def act(self, action):
+        if isinstance(action, int):
+            action = self.filtered_commands[action]
         if action not in self.filtered_commands:
             print('???????????????????')
             print(action)
@@ -458,10 +464,10 @@ SOME_GAMES = {
 }
 
 # 2025.3.3 
-def game_for_train(game_index = 0, verbose = False, reset = False):
+def game_for_train(game_index = 0, verbose = False, reset = False, game_init_func = Game_for_rl):
     from ftwp_info import all_train_game_paths
     file_paths = all_train_game_paths()
-    game = Game_for_rl(file_paths[game_index])
+    game = game_init_func(file_paths[game_index])
     game.verbose = verbose
     if reset:
         game.reset()

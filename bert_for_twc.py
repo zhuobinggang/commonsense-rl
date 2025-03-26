@@ -93,7 +93,7 @@ class Game_interface(abstract_game_interface.Game_interface):
         self.init_all_params()
         self.init_hook()
     def init_hook(self):
-        self.filter_startword_list = ['examine', 'close', 'eat', 'look', 'drop', 'inventory']
+        self.filter_startword_list = common.FILTER_STARTWORD_LIST
         self.walkthrough_with_meta_datas = [] # 2025.2.11 用于记录walkthrough
         self.walkthrough_path = self.game_path.replace('.ulx', '.walkthrough')
     def save_walkthrough(self):

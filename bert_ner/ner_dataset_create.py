@@ -6,7 +6,7 @@ from tqdm import tqdm
 import textworld.gym
 from textworld import EnvInfos, gym
 import re
-from nerdataset import get_category
+from bert_ner.ner_dataset_create2 import get_category
 
 DEBUG = False
 

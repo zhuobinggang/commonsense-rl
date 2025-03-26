@@ -12,7 +12,20 @@ def get_all_games(target_path, recipe = 1):
     ]
     return matching_files
 
-
+from textworld import EnvInfos
+infos_to_request = EnvInfos(description=True,
+                            inventory=True,
+                            admissible_commands=True,
+                            won=True,
+                            lost=True,
+                            location=True,
+                            last_action=True,
+                            facts=True,
+                            entities=True,
+                            max_score=True,
+                            moves=True,
+                            score=True,
+                            command_templates=True) # 2025.3.26通过command_tempalte和ner模型来生成动作
 
 class Env_ftwp(Env_extra_info):
 
@@ -65,19 +78,6 @@ class Env_ftwp(Env_extra_info):
         files = get_all_games(self.PATH_PREFIX, recipe=recipe_num) # ['tw-cooking-recipe1+take1+cook+cut+open+go6-8MN7Cv1vS2epHEqe.z8']
         file = files[game_index]
         import textworld.gym
-        from textworld import EnvInfos
-        infos_to_request = EnvInfos(description=True,
-                                    inventory=True,
-                                    admissible_commands=True,
-                                    won=True,
-                                    lost=True,
-                                    location=True,
-                                    last_action=True,
-                                    facts=True,
-                                    entities=True,
-                                    max_score=True,
-                                    moves=True,
-                                    score=True)
         env_id = textworld.gym.register_game(self.PATH_PREFIX + file, infos_to_request, max_episode_steps=50)
         env = textworld.gym.make(env_id)
         if need_reset:
@@ -99,19 +99,6 @@ class Env_ftwp_by_path(Env_ftwp):
 
     def get_game_env(self, path, need_reset = True):
         import textworld.gym
-        from textworld import EnvInfos
-        infos_to_request = EnvInfos(description=True,
-                                    inventory=True,
-                                    admissible_commands=True,
-                                    won=True,
-                                    lost=True,
-                                    location=True,
-                                    last_action=True,
-                                    facts=True,
-                                    entities=True,
-                                    max_score=True,
-                                    moves=True,
-                                    score=True)
         env_id = textworld.gym.register_game(path, infos_to_request, max_episode_steps=50)
         env = textworld.gym.make(env_id)
         if need_reset:
