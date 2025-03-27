@@ -11,35 +11,13 @@ def game_for_train(game_index):
 def get_command_generator():
     return CommandGenerator()
 
+
+
 class Game_ner(Game_history_window_20):
-    def available_actions_filtered_callback(self, filtered_commands):
-        return filtered_commands
-    def filter_by_head_word(self, commands, head_words):
-        word_list = head_words
-        filtered_commands = []
-        for command in commands:
-            if not any(command.startswith(word) for word in word_list):
-                filtered_commands.append(command)
-        specific_commands = []
-        if 'examine' in word_list:
-            specific_commands.append('examine cookbook')
-        if 'eat' in word_list:
-            specific_commands.append('eat meal')
-        for command in specific_commands:
-            if command in commands:
-                filtered_commands.append(command)
-        return filtered_commands
-    def available_actions_filter(self, commands, generated = False, inventory = ''): 
-        if not generated: # NOTE: 2025.3.26 do not use available actions from meta data
-            return []
-        commands = self.filter_by_head_word(commands, common.FILTER_STARTWORD_LIST) # 先过滤一次common.FILTER_STARTWORD_LIST
-        # 如果inventory中有knife，检查所有slice和chop指令，将物品名提取出来，检查是否在inventory中，如果不在，过滤掉
-        return commands
-    def get_x(self):
+    def available_actions_filtered_callback(self, available_actions):
+        return available_actions
+    def get_x(self): # 生成x的时候，用ner模型来生成，并提换掉原有的available_actions
         cg = get_command_generator()
-        command_genererted = cg.commands_generate(self.env.info)
-        inventory = common.handle_inventory_text(self.env.info['inventory'])
-        self.filtered_commands = self.available_actions_filter(command_genererted, generated = True, inventory = inventory)
+        command_genererted = cg.commands_generate(self.env.info, need_taku_filter=True)
+        self.available_actions = command_genererted
         return super().get_x()
-
-

@@ -1,15 +1,49 @@
 # 复刻cogni的ner模型
 import os
 import pandas as pd
-from ftwp_info import all_train_game_paths, all_test_game_paths
+# from ftwp_info import all_train_game_paths, all_test_game_paths
 from tqdm import tqdm
 import textworld.gym
 from textworld import EnvInfos, gym
 import re
-from bert_ner.ner_dataset_create2 import get_category
+from ner_dataset_create2 import get_category
+from functools import lru_cache
+
+TRAIN_PATH = '/home/taku/Downloads/cog2019_ftwp/games/train'
+TEST_PATH = '/home/taku/Downloads/cog2019_ftwp/games/test'
+VALID_PATH = '/home/taku/Downloads/cog2019_ftwp/games/valid'
 
 DEBUG = False
 
+
+requested_infos = EnvInfos(description=True, inventory=True,
+                            admissible_commands=True, objective=True,
+                            verbs=True, command_templates=True,
+                            entities=True, max_score=True, won=True,
+                            lost=True, extras=["recipe", "walkthrough"])
+
+@lru_cache(maxsize=None)
+def all_train_game_paths():
+    return all_test_game_paths(test_path = TRAIN_PATH)
+
+@lru_cache(maxsize=None)
+def all_test_game_paths(test_path = TEST_PATH):
+    import os
+    results = []
+    # 遍历文件夹中的所有文件
+    for filename in os.listdir(test_path):
+        if filename.endswith('.z8'):  # 只处理 .z8 文件
+            file_path = os.path.join(test_path, filename)
+            results.append(file_path)
+    return results
+
+def extra_info_by_game_path(game_path):
+    import json
+    json_path = game_path.replace('.z8', '.json')
+    f = open(json_path)
+    data = json.load(f)
+    f.close()
+    return data['extras']
 
 def simplify_command(cmd):
     nc = cmd
@@ -90,25 +124,18 @@ def get_infos(gamefile):
     """ runs a game following the walkthrough and extracts the information """
     if DEBUG:
         print('Game name:', gamefile)
-    requested_infos = EnvInfos(description=True, inventory=True,
-                               admissible_commands=True, objective=True,
-                               verbs=True, command_templates=True,
-                               entities=True, max_score=True, won=True,
-                               lost=True, extras=["recipe", "walkthrough"])
     env_id = textworld.gym.register_games([gamefile], requested_infos)
     env = gym.make(env_id)
     obs, infos = env.reset()
     return infos
 
+def fetch_recipe(gamefile):
+    pass
+
 def run_game(gamefile, walkthrough_ext=None):
     """ runs a game following the walkthrough and extracts the information """
     if DEBUG:
         print('Game name:', gamefile)
-    requested_infos = EnvInfos(description=True, inventory=True,
-                               admissible_commands=True, objective=True,
-                               verbs=True, command_templates=True,
-                               entities=True, max_score=True, won=True,
-                               lost=True, extras=["recipe", "walkthrough"])
     env_id = textworld.gym.register_games([gamefile], requested_infos)
     env = gym.make(env_id)
     obs, infos = env.reset()
@@ -122,6 +149,9 @@ def run_game(gamefile, walkthrough_ext=None):
     gamename = get_game_name(gamefile)
     gamesteps = []
     idx = 0
+    # taku
+    taku_extra = extra_info_by_game_path(gamefile)
+    taku_recipe = taku_extra['recipe']
     while True:
         cmd = walk.get_next_command(infos['description'],
                                     infos['admissible_commands'],
@@ -135,7 +165,7 @@ def run_game(gamefile, walkthrough_ext=None):
             'step': idx,
             'description': infos['description'],
             'inventory': infos['inventory'],
-            'recipe': infos['extra.recipe'], # 这是可以的吗？
+            'recipe': taku_recipe, # NOTE: 不知道为什么现在info取不到recipe，所以用taku_recipe来代替
             'admissible_commands': infos['admissible_commands'], # ?
             'entities': infos['entities'],
             'verbs': infos['verbs'],
@@ -146,7 +176,7 @@ def run_game(gamefile, walkthrough_ext=None):
             'won': infos['won'],
             # 'has_lost': infos['has_lost'],
             'lost': infos['lost'],
-            'walkthrough': infos['extra.walkthrough'],
+            'walkthrough': infos['extra.walkthrough'], # 好像可以直接取到，那就留着他把
             'seen_cookbook': seen_cookbook,
             'command': cmd
         }
@@ -177,6 +207,16 @@ def extract_walkthrough_dataset(games, walkthrough_ext_dict=None):
         gamesteps += run_game(game, walkext)
     return pd.DataFrame(gamesteps)
 
+
+# 修复walkthrough没用函数，直接删掉
+def check_walkthrough_ext_not_equal():
+    wts = []
+    a = pd.read_csv('/home/taku/Downloads/cog2019_ftwp/cogit_agent_ner_dataset/walkthrough_valid_cookbook.csv' )
+    b = pd.read_csv('/home/taku/Downloads/cog2019_ftwp/cogit_agent_ner_dataset/walkthrough_valid_cookbook.csv' )
+    for i in range(len(a)):
+        if a.iloc[i].walkthrough != b.iloc[i].walkthrough:
+            wts.append((a.iloc[i].walkthrough, b.iloc[i].walkthrough))
+    return wts
 
 def extract_datasets(datapath, outputpath, use_walkthrough_ext=False):
     """ runs all games and saves dataframes with state/command """
@@ -269,11 +309,11 @@ def enhanced_walkthrough(basepath):
         wt = ReworkWalkthrough(walk)
         return wt.walkthrough
 
-    gtr['walk_ext'] = gtr.walk_cookbook.apply(make_walk_ext)
-    gtr.to_csv(os.path.join(basepath, 'enhanced_walkthrough.csv'), index=False)
+    gtr['walk_ext'] = gtr.walk_cookbook.apply(make_walk_ext) # 所以walk_ext是一个增强版的walkthrough，需要确认
+    gtr.to_csv(os.path.join(basepath, 'enhanced_walkthrough.csv'), index=False) # 看了发现没什么用，检查了全部都相等的
 
 def postprocess_recipe(wtr):
-    def mark_cookbook(s):
+    def mark_cookbook(s): # 根据examnie cookbook指令是否已经出现来标记recipe seen
         res = []
         seen = False
         for cmd in s.values:
@@ -284,12 +324,12 @@ def postprocess_recipe(wtr):
                 seen = True
             else:
                 res.append(0)
-        return res
+        return res # 长度 = 一个游戏的所有步数，0表示未出现，1表示已出现
 
     wtr['seen_cookbook'] = wtr.groupby('gamename').command\
                               .transform(mark_cookbook)
-    wtr.loc[wtr.seen_cookbook == 0, 'recipe'] = 'missing recipe'
-    wtr = wtr.drop('seen_cookbook', axis=1)
+    wtr.loc[wtr.seen_cookbook == 0, 'recipe'] = 'missing recipe' # 也就是说，默认是读到recipe的，这个函数是清除掉recipe
+    # wtr = wtr.drop('seen_cookbook', axis=1) # 将seen_cookbook这一列删除 NOTE 感觉还有用，先不删
     return wtr
 
 def fix_recipe(basepath):
@@ -419,7 +459,7 @@ def generate_dataset():
     output = 'exp/auto_filename'
     datapath = '/home/taku/Downloads/cog2019_ftwp/games'
     extract_datasets(datapath, output)
-    enhanced_walkthrough(output)
+    enhanced_walkthrough(output) # 没用的，检查过了，前后的walkthrough是一样的
     extract_datasets(datapath, output, use_walkthrough_ext=True)
-    fix_recipe(output)
+    fix_recipe(output) # 将未查看cookbook的步骤的recipe删掉
     generate_datasets_commands(output)

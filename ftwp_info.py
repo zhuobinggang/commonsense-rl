@@ -126,19 +126,19 @@ def train_set_v0(size = 10):
 
 @lru_cache(maxsize=None)
 def all_train_game_paths():
-    return all_test_game_paths(test_path = TRAIN_PATH)
+    return all_game_paths(test_path = TRAIN_PATH)
 
 @lru_cache(maxsize=None)
 def all_valid_game_paths(shuffle = True):
     import numpy as np
-    paths = all_test_game_paths(test_path = VALID_PATH)
+    paths = all_game_paths(test_path = VALID_PATH)
     if shuffle:
         np.random.seed(0)
         np.random.shuffle(paths)
     return paths
 
 @lru_cache(maxsize=None)
-def all_test_game_paths(test_path = TEST_PATH):
+def all_game_paths(test_path = TEST_PATH):
     import os
     results = []
     # 遍历文件夹中的所有文件
@@ -150,7 +150,7 @@ def all_test_game_paths(test_path = TEST_PATH):
 
 def test_set_v0():
     import numpy as np
-    paths = all_test_game_paths()
+    paths = all_game_paths()
     np.random.seed(0)
     paths = np.random.choice(paths, 10, False)
     return paths
@@ -173,7 +173,7 @@ def recipe_by_game_path(game_path):
 # 从valid set中获取临时的test集和valid集
 def temp_test_valid_set():
     import numpy as np
-    paths = all_test_game_paths(VALID_PATH)
+    paths = all_game_paths(VALID_PATH)
     np.random.seed(0)
     paths = np.random.choice(paths, 25, False) # Only 5 games for valid to save money
     valid_paths = paths[:5]
@@ -197,7 +197,7 @@ def kitchen_not_found_games():
 
 def valid_set_v0():
     import numpy as np
-    paths = all_test_game_paths(VALID_PATH)
+    paths = all_game_paths(VALID_PATH)
     np.random.seed(0)
     paths = np.random.choice(paths, 5, False) # Only 5 games for valid to save money
     return paths
@@ -206,7 +206,8 @@ def valid_set_v0():
 # ===================== 使用nltk来获取命令模板 ========================
 
 # @result: 2025.1.8 确认了所有训练集中的命令以wold_list开头
-# def filter_commands(commands, word_list = ['inventory', 'examine', 'open', 'take', 'drop', 'cook', 'slice', 'chop', 'dice', 'prepare', 'eat', 'go']):
+# NOTE: all start words ['inventory', 'examine', 'open', 'take', 'drop', 'cook', 'slice', 'chop', 'dice', 'prepare', 'eat', 'go']):
+# NOTE: examine cookbook and eat meal are only words start with examine and eat
 def filter_commands(commands, word_list = ['inventory', 'open', 'take', 'drop', 'cook', 'slice', 'chop', 'dice', 'prepare', 'go']):
     """
     过滤出不以单词列表中的单词开头的指令。
@@ -218,11 +219,11 @@ def filter_commands(commands, word_list = ['inventory', 'open', 'take', 'drop', 
     返回:
         list: 不以 word_list 中单词开头的指令列表。
     """
-    filtered_commands = []
+    available_actions = []
     for command in commands:
         if not any(command.startswith(word) for word in word_list):
-            filtered_commands.append(command)
-    return filtered_commands
+            available_actions.append(command)
+    return available_actions
 
 
 def test_filter_commands(walkthroughs = None):

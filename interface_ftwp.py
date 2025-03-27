@@ -114,7 +114,7 @@ class Ftwp_interface_by_path(human_play.Game_interface):
         self.world_map = {} # 2024.12.21 用于存储访问过的地点次数
         self.desc_update_cache = {} # 2025.1.7 储存desc更新
         self.recipe = '' # 2025.1.13 储存菜谱
-        self.filtered_commands = [] # 2025.2.11 用于使用指令代号来选择行动
+        self.available_actions = [] # 2025.2.11 用于使用指令代号来选择行动
         self.filter_startword_list = common.FILTER_STARTWORD_LIST
         self.kitchen_visited = False # 2025.2.28 用于判断是否访问过厨房
     def init_hook(self):
@@ -123,9 +123,14 @@ class Ftwp_interface_by_path(human_play.Game_interface):
         description, inventory, available_actions, action_obs_pairs = self.description, self.inventory, self.available_actions, self.action_obs_pairs
         sys, usr = prompt_from_env_feedback(description, inventory, available_actions, action_obs_pairs, self.another_room_info)
         return sys, usr
-    def get_walkthrough(self):
+    def get_walkthrough(self, need_filter = False):
         self.fetch_and_set_extras()
-        return self.extras['walkthrough']
+        wts = self.extras['walkthrough']
+        if need_filter:
+            wts = common.filter_commands_default(wts)
+            # wts = common.walkthrough_fix(wts) # 不扔掉刀子会出问题
+            # wts = common.walkthrough_no_open_door(wts)
+        return wts
     def fetch_and_set_extras(self):
         if self.extras:
             return
@@ -145,9 +150,9 @@ class Ftwp_interface_by_path(human_play.Game_interface):
         print('WARNING: get_recipe() will cheat, use it only if you understand.')
         self.fetch_and_set_extras()
         return self.extras['recipe']
-    def available_actions_filtered_callback(self, filtered_commands):
-        # return ['inventory'] + filtered_commands # NOTE: 这个会导致性能大幅下降
-        return filtered_commands # NOTE: 2025.3.18 使用handicap1之后，不再需要inventory
+    def available_actions_filtered_callback(self, available_actions):
+        # return ['inventory'] + available_actions # NOTE: 这个会导致性能大幅下降
+        return available_actions # NOTE: 2025.3.18 使用handicap1之后，不再需要inventory
 
 def game_for_test():
     from ftwp_info import train_set_v0

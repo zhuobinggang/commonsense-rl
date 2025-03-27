@@ -5,6 +5,7 @@ import torch.nn.functional as F
 from transformers import AutoTokenizer, BertForTokenClassification
 import re
 import common
+from tqdm import tqdm
 
 MODEL = None
 
@@ -300,20 +301,31 @@ class CommandGenerator:
         mobj = self.rgx.search(description)
         if mobj:
             kw = mobj.group(0) # 应该是匹配到的第一个带有-的词 a-b
-            dbg('Found hifen: {}'.format(kw))
+            # dbg('Found hifen: {}'.format(kw))
             target = kw.replace('-', ' ') # a b
             self.hifen_map[kw] = target
             self.hifen_rev_map[target] = kw
             return description.replace(kw, target)
         return description
 
-    def commands_generate(self, infos):
+    def commands_generate(self, infos, need_taku_filter = True):
+        """
+        注意，这里做了一些必要的处理
+        1) 将{oven}, {stove}之类的替换成具体的名字
+        2) 将带有-的词分开
+        3) 将cut chop slice with {o} 替换成 with knife
+        4) 如果物品栏中没有a, 不需要生成verb a with b这样的指令
+        5) 如果物品栏中没有knife, 不需要生成verb a with knife这样的指令
+        如果 need_taku_filter = True, 调用common.filter_commands_default(commands)过滤指令
+        """
         description = self.preprocess_description(infos['description'])
         inventory = infos['inventory']
         entity_types = self.generate_entities(description, inventory) # 通过ner模型，提取实体
         # entities = [e for e,_ in entity_types] 
         templates = infos['command_templates']
         commands = self.generate_commands_by_template(description, templates, entity_types, inventory) # 通过实体和菜单生成指令，为什么要菜单？
+        if need_taku_filter:
+            commands = common.filter_commands_default(commands)
         return commands
 
     def generate_commands_by_template(self, description, command_templates, entities, inventory):
@@ -335,3 +347,26 @@ class CommandGenerator:
             dbg('Adding examine cookbook')
             cmds.append('examine cookbook')
         return cmds
+    
+
+# 确认所有command在ner生成的指令之中
+def test_walkthrough():
+    import pandas as pd
+    import ast
+    cg = CommandGenerator()
+    df = pd.read_csv('exp/auto_filename/walkthrough_valid.csv')
+    counter = 0
+    for index, row in tqdm(df.iterrows()):
+        dict = row.to_dict()
+        dict['command_templates'] = ast.literal_eval(dict['command_templates'])
+        commands = cg.commands_generate(dict, need_taku_filter=True)
+        cmd = row['command']
+        if cmd not in commands:
+            counter += 1
+            dbg(f'Game name: {row["gamename"]}')
+            dbg(f'Missing command: {cmd}')
+            dbg(f'Commands: {commands}')
+            dbg(f'Description: {row["description"]}')
+            dbg(f'Inventory: {row["inventory"]}')
+            dbg('------------------------------------')
+    dbg(f'Total missing commands: {counter}/{len(df)}')

@@ -129,7 +129,7 @@ class Game_interface(abstract_game_interface.Game_interface):
         self.walkthrough_with_meta_datas.append((act, meta))
     def input(self, command):
         self.command = command
-        command_idx = self.filtered_commands.index(command)
+        command_idx = self.available_actions.index(command)
         self.finetune_triples.append((self.x, command_idx))
         self.act_and_output(command)
     def save_as_json(self):

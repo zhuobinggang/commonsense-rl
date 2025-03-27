@@ -22,12 +22,11 @@ class Game_interface:
         self.world_map = {} # 2024.12.21 用于存储访问过的地点次数 2025.3.17更新，用于存储地图信息
         self.desc_update_cache = {} # 2025.1.7 储存desc更新
         self.recipe = '' # 2025.1.13 储存菜谱
-        self.filtered_commands = [] # 2025.2.11 用于使用指令代号来选择行动
     def __call__(self, command_text_or_idx):
         if isinstance(command_text_or_idx, str):
             self.input(command_text_or_idx)
         elif isinstance(command_text_or_idx, int):
-            command = self.filtered_commands[command_text_or_idx]
+            command = self.available_actions[command_text_or_idx]
             self.input(command)
     def get_env(self):
         raise Exception('需要重新实现这个函数！')
@@ -120,24 +119,10 @@ class Game_interface:
             return ''
         action, obs = act_obs[-1]
         return obs
-    def available_actions_filtered_callback(self, filtered_commands):
-        return filtered_commands
+    def available_actions_filtered_callback(self, available_actions):
+        return available_actions
     def available_actions_filter(self, commands):
-        if not commands:
-            return
-        word_list = self.filter_startword_list
-        filtered_commands = []
-        for command in commands:
-            if not any(command.startswith(word) for word in word_list):
-                filtered_commands.append(command)
-        specific_commands = ['examine cookbook', 'eat meal']
-        for command in specific_commands:
-            if command in commands:
-                filtered_commands.append(command)
-        # filtered_commands = ['inventory'] + filtered_commands
-        filtered_commands = self.available_actions_filtered_callback(filtered_commands)
-        self.filtered_commands = filtered_commands
-        return filtered_commands
+        return common.filter_commands_default(commands)
     def action_obs_pairs_got_callback(self, action_obs_pairs):
         pass
     def is_won(self):

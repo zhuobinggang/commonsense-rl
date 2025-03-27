@@ -1,9 +1,8 @@
+from env import infos_to_request
+
 ### 让游戏给出所有可能命令的方式
 def run():
-    from textworld import EnvInfos
     from games import dataset
-    infos_to_request = EnvInfos(description=True, inventory=True, admissible_commands=True,won=True, lost=True,location = True,
-            last_action=True,game=True,facts=True,entities=True)
     game_path = "/home/taku/research/commonsense-rl/games/twc/easy/train/tw-iqa-cleanup-objects1-take1-rooms1-train-M32pu02bS65MUBxV.ulx"
     env, game_file_names = dataset.get_game_env(game_path, infos_to_request, 50)
     obs, infos = env.reset()
@@ -14,10 +13,7 @@ def printer1(obs, infos):
     print(f"{obs[0]} \nNow choose 'one' command from {infos['admissible_commands'][0]}")
 
 def get_default_env(printer = printer1):
-    from textworld import EnvInfos
     from games import dataset
-    infos_to_request = EnvInfos(description=True, inventory=True, admissible_commands=True,won=True, lost=True,location = True,
-            last_action=True,game=True,facts=True,entities=True)
     game_path = "/home/taku/research/commonsense-rl/games/twc/easy/train/tw-iqa-cleanup-objects1-take1-rooms1-train-M32pu02bS65MUBxV.ulx"
     env, game_file_names = dataset.get_game_env(game_path, infos_to_request, 50)
     obs, infos = env.reset()
@@ -51,10 +47,7 @@ def get_game_env(level_index = 0, game_index = 0, dataset_index = 1):
 
 
 def get_game_env_by_path(game_path, need_reset = True):
-    from textworld import EnvInfos
     from games import dataset
-    infos_to_request = EnvInfos(description=True, inventory=True, admissible_commands=True, won=True, lost=True,location = True,
-            last_action=True, facts=True,entities=True, max_score = True, moves = True, score = True)
     env, game_file_names = dataset.get_game_env(game_path, infos_to_request, max_episode_steps = 50, mode = 'test')
     if need_reset:
         obs, infos = env.reset()

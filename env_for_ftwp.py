@@ -1,4 +1,4 @@
-from env import Env_extra_info
+from env import Env_extra_info, infos_to_request
 
 def get_all_games(target_path, recipe = 1):
     import os
@@ -11,21 +11,6 @@ def get_all_games(target_path, recipe = 1):
         if filename.startswith(f"tw-cooking-recipe{recipe}") and filename.endswith(".z8")
     ]
     return matching_files
-
-from textworld import EnvInfos
-infos_to_request = EnvInfos(description=True,
-                            inventory=True,
-                            admissible_commands=True,
-                            won=True,
-                            lost=True,
-                            location=True,
-                            last_action=True,
-                            facts=True,
-                            entities=True,
-                            max_score=True,
-                            moves=True,
-                            score=True,
-                            command_templates=True) # 2025.3.26通过command_tempalte和ner模型来生成动作
 
 class Env_ftwp(Env_extra_info):
 
@@ -59,14 +44,15 @@ class Env_ftwp(Env_extra_info):
     
     def get_available_actions(self, info):
         return info['admissible_commands']
-    
-    def get_moves(self, info):
-        return info['moves']
-    
+
     def origin_env_step(self, cmd):
         obs, reward, is_not_terminal, info = self.env.step(cmd)
-        obs = ' '.join(obs.split())
-        return obs, reward, is_not_terminal, info
+        self.info = info
+        obs = ' '.join(obs.split()) # 去掉换行符
+        return obs, reward, is_not_terminal, info    
+
+    def get_moves(self, info):
+        return info['moves']
     
     def get_score(self, info):
         return info['score']
@@ -103,6 +89,7 @@ class Env_ftwp_by_path(Env_ftwp):
         env = textworld.gym.make(env_id)
         if need_reset:
             obs, infos = env.reset()
+            self.info = infos
         return env
     
 

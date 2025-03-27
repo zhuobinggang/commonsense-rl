@@ -13,8 +13,8 @@ from torch import nn
 from torch import optim
 
 def game_for_test():
-    from ftwp_info import all_test_game_paths
-    file_paths = all_test_game_paths()
+    from ftwp_info import all_game_paths
+    file_paths = all_game_paths()
     game = Game_for_rl(file_paths[1])
     game.verbose = True
     return game

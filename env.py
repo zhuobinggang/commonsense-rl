@@ -1,5 +1,12 @@
 # 重写一切
+from textworld import EnvInfos
 
+infos_to_request = EnvInfos(description=True, inventory=True,
+                               admissible_commands=True, objective=True,
+                               verbs=True, command_templates=True,
+                               entities=True, max_score=True, won=True,
+                               moves = True, score=True,
+                               lost=True, extras=["recipe", "walkthrough"])
 
 class Env:
 
@@ -61,20 +68,7 @@ class Env:
         return env
 
     def get_game_env_by_path(self, game_path, need_reset=True):
-        from textworld import EnvInfos
         from games import dataset
-        infos_to_request = EnvInfos(description=True,
-                                    inventory=True,
-                                    admissible_commands=True,
-                                    won=True,
-                                    lost=True,
-                                    location=True,
-                                    last_action=True,
-                                    facts=True,
-                                    entities=True,
-                                    max_score=True,
-                                    moves=True,
-                                    score=True)
         env, game_file_names = dataset.get_game_env(game_path,
                                                     infos_to_request,
                                                     max_episode_steps=50,
@@ -87,9 +81,12 @@ class Env:
 
     def get_moves(self, info):
         return info['moves'][0]
-    
+
     def origin_env_step(self, cmd):
-        return self.env.step([cmd])
+        obs, reward, is_not_terminal, info = self.env.step([cmd])
+        self.info = info
+        obs = ' '.join(obs.split()) # 去掉换行符
+        return obs, reward, is_not_terminal, info
 
     def _step(self, cmd):
         # Add 2024.8.17 需要判断行动是否成功，如果不成功返回None

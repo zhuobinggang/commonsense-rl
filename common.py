@@ -1,5 +1,47 @@
-FILTER_STARTWORD_LIST = ['examine', 'close', 'eat', 'look', 'drop', 'inventory', 'drink', 'put', 'insert']
+# NOTE: without these commands, we can still get max score
+# BUG: 注意，不能把drop去掉，因为物品栏有限制，如果不drop，会导致物品栏满了，无法继续拿东西
+FILTER_STARTWORD_LIST = ['examine', 'close', 'eat', 'look', 'inventory', 'drink', 'put', 'insert']
 KNIFE_VERBS = ['slice', 'chop', 'dice']
+COMMAND_NEED_KEEP = ['examine cookbook', 'eat meal']
+# NOTE: examine cookbook and eat meal are only words start with examine and eat
+ALL_STARTWORDS = ['inventory', 'examine', 'open', 'take', 'drop', 'cook', 'slice', 'chop', 'dice', 'prepare', 'eat', 'go']
+
+
+# NOTE: inventory是默认过滤的，因为我们使用限制1，可以直接从meta data中获取inventory
+def filter_commands_default(commands, head_words = FILTER_STARTWORD_LIST, command_need_keep = COMMAND_NEED_KEEP):
+    word_list = head_words
+    available_actions = []
+    for command in commands:
+        if not any(command.startswith(word) for word in word_list):
+            available_actions.append(command)
+        else:
+            if command in command_need_keep:
+                available_actions.append(command)
+    return available_actions
+
+# BUG: 现在不能用这个，因为物品数量会超过限制
+def walkthrough_fix(walkthrough):
+    # print('BUG: 现在不能用这个，因为物品数量会超过限制')
+    # 一旦拿起刀子，后续就不需要再扔掉，以及拿起了
+    knife_got = False
+    filtered_walkthrough = []
+    for cmd in walkthrough:
+        if knife_got:
+            if 'drop knife' in cmd or 'take knife' in cmd:
+                pass
+            else:
+                filtered_walkthrough.append(cmd)
+        else:
+            filtered_walkthrough.append(cmd)
+        if 'take knife' in cmd:
+            knife_got = True
+    return filtered_walkthrough
+
+def walkthrough_no_open_door(walkthrough):
+    walkthrough = [cmd for cmd in walkthrough
+                    if not (cmd.startswith('open')
+                            and cmd.endswith('door'))]
+    return walkthrough
 
 def end_report(text):
     from say_chinese import speak

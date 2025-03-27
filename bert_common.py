@@ -6,6 +6,7 @@ from common import draw_line_chart
 import numpy as np
 from interface_ftwp import Ftwp_interface_by_path
 import bert_common_deprecated
+from tqdm import tqdm
 
 MODERN_BERT_MODEL_ID = "answerdotai/ModernBERT-base"
 BERT_BASE_UNCASED_MODEL_ID = "bert-base-uncased"
@@ -149,14 +150,6 @@ def get_cls_output(model, x):
     return cls_out
 
 
-# 需要从game处获得filtered_commands，那可以让他直接传入
-""" def get_command_logits(game, tokenizer, model):
-    mask_logits = get_mask_logits(game, tokenizer, model) # (1, 50368)
-    command_length = len(game.filtered_commands)
-    command_indexs = command_indexs_tokenized()[:command_length]
-    command_logits = mask_logits[0, command_indexs] # (command_length)
-    return command_logits # (command_length)
- """
 def get_command_logits_simple(model, state: Game_state):
     mask_logits = get_mask_logits_simple(model, state.x) # (1, 50368)
     command_length = len(state.action_list)
@@ -164,15 +157,7 @@ def get_command_logits_simple(model, state: Game_state):
     command_logits = mask_logits[0, command_indexs] # (command_length)
     return command_logits # (command_length)
 
-""" def get_command_distribution(game, tokenizer, model):
-    command_logits = get_command_logits(game, tokenizer, model)
-    command_logits[command_logits < 0] = 0 # 出现负数无法用于建构distribution，会报错，因此直接设置为0即可
-    # print('=========')
-    # print(command_logits) # NOTE: need test
-    # print('=========')
-    import torch
-    dist = torch.distributions.categorical.Categorical(probs = command_logits)
-    return dist """
+
 
 def get_command_distribution_simple(model, state: Game_state):
     command_logits = get_command_logits_simple(model, state)
@@ -182,12 +167,6 @@ def get_command_distribution_simple(model, state: Game_state):
     dist = torch.distributions.categorical.Categorical(probs = command_logits)
     return dist
 
-# NOTE: Added 2025.2.12 理论上可以根绝错误输出的问题
-""" def get_next_command_by_distribution(game, tokenizer, model):
-    dist = get_command_distribution(game, tokenizer, model)
-    command_index = dist.sample().item()
-    command = game.filtered_commands[command_index]
-    return command """
 
 # 拥有探索性
 def get_next_command_by_distribution_simple(model, state: Game_state, need_dist = False):
@@ -199,12 +178,6 @@ def get_next_command_by_distribution_simple(model, state: Game_state, need_dist 
     else:
         return command
 
-# Added 2025.2.12 限定版的argmax
-""" def get_next_command_by_command_logits_argmax(game, tokenizer, model):
-    command_logits = get_command_logits(game, tokenizer, model) # (command_length)
-    command_index = command_logits.argmax().item()
-    command = game.filtered_commands[command_index]
-    return command """
 
 # 贪婪
 def get_next_command_by_command_logits_argmax_simple(model, state: Game_state):
@@ -219,10 +192,21 @@ def get_next_command_by_command_logits_argmax_simple(model, state: Game_state):
 class Game_for_bert(Ftwp_interface_by_path):
     def init_hook(self):
         pass
-    def input(self, command):
+    def input(self, command, no_need_valid = False):
         self.command = command
         x = bert_prompt_from_game(self)
-        y = self.filtered_commands.index(command)
+        # print(command)
+        # print(self.available_actions)
+        y = -1
+        if command not in self.available_actions:
+            if not no_need_valid:
+                print(f'game_path: {self.game_path}')
+                print(common.action_obs_pairs_to_history(self.action_obs_pairs))
+                print(f'command: {command}')
+                print(f'available_actions: {self.available_actions}')
+                print(self.get_walkthrough(False))
+                print(self.get_walkthrough(True))
+                raise Exception(f'指令{command}不在列表中!')
         self.finetune_triples.append((x, y)) # save x and y
         self.act_and_output(command)
     def save_as_json(self):
@@ -243,20 +227,14 @@ class Game_for_bert(Ftwp_interface_by_path):
         f.close()
     def filter_walkthroughs(self, walkthroughs = None):
         walkthroughs = walkthroughs or self.get_walkthrough()
-        filtered_walkthroughs = []
-        for action in walkthroughs:
-            if action in self.filtered_commands:
-                filtered_walkthroughs.append(action)
-            else:
-                print(f'Action invalid: {action}')
-        return filtered_walkthroughs
+        return common.filter_commands_default(walkthroughs)
     def filter_walkthroughs_with_input_test(self, walkthroughs = None):
         walkthroughs = walkthroughs or self.get_walkthrough()
         self.verbose = False;
         self.reset()
         filtered_walkthroughs = []
         for action in walkthroughs:
-            if action in self.filtered_commands:
+            if action in self.available_actions:
                 filtered_walkthroughs.append(action)
                 self.input(action)
             else:
@@ -264,10 +242,10 @@ class Game_for_bert(Ftwp_interface_by_path):
                 pass
         self.reset()
         return filtered_walkthroughs
-    def auto_play(self, action_list):
+    def auto_play(self, action_list, no_need_valid = False):
         self.reset()
         for action in action_list:
-            self.input(action)
+            self.input(action, no_need_valid = no_need_valid)
     def get_x(self):
         return bert_prompt_from_game(self)
     def get_x_for_glove(self):
@@ -294,7 +272,7 @@ class Game_for_rl(Game_for_bert):
     def construct_game_state(self):
         game_state = Game_state()
         game_state.x = self.get_x()
-        game_state.action_list = self.filtered_commands
+        game_state.action_list = self.available_actions
         # 2025.3.16 散装的信息
         game_state.location = self.get_location()
         game_state.recipe = self.recipe # NOTE: 不要调用get_recipe，因为这个函数会作弊
@@ -306,13 +284,13 @@ class Game_for_rl(Game_for_bert):
         return game_state
     def get_state(self):
         return self.construct_game_state()
-    def act(self, action):
+    def act(self, action, no_need_valid = False):
         if isinstance(action, int):
-            action = self.filtered_commands[action]
-        if action not in self.filtered_commands:
+            action = self.available_actions[action]
+        if not no_need_valid and action not in self.available_actions:
             print('???????????????????')
             print(action)
-            print(self.filtered_commands)
+            print(self.available_actions)
             return 0
         self.input(action)
         reward = self.get_instant_reward()
@@ -327,7 +305,7 @@ def bert_prompt_from_game(game: Game_for_rl, need_action_history = True, history
     if need_action_history:
         action_history_text = common.action_obs_pairs_to_history(game.action_obs_pairs, seperator='>', no_action_text='', history_window = history_window)
         x += f"Action history: {action_history_text}\n" 
-    x += f'Available actions:\n{common.actions_to_list_number(game.filtered_commands)}\n'
+    x += f'Available actions:\n{common.actions_to_list_number(game.available_actions)}\n'
     x += 'Next action: [MASK]'
     return x
 
@@ -447,9 +425,9 @@ def batch_valid(model, save_readable = True, steps_limit = 99):
 
 
 def run_test_full(model, file_prefix = '', game_init_func = Game_for_rl):
-    from ftwp_info import all_test_game_paths
+    from ftwp_info import all_game_paths
     txtLogger = common.Logger_simple(file_name=f'run_test_full_{file_prefix}_log')
-    test_game_paths=  all_test_game_paths()
+    test_game_paths=  all_game_paths()
     return batch_test(model, save_readable=False, test_game_paths=test_game_paths, txtLogger=txtLogger, game_init_func=game_init_func)
 
 def run_valid_full(model, file_prefix = ''):
@@ -472,6 +450,17 @@ def game_for_train(game_index = 0, verbose = False, reset = False, game_init_fun
     if reset:
         game.reset()
     return game
+
+def game_for_valid(game_index = 0, verbose = False, reset = False, game_init_func = Game_for_rl):
+    from ftwp_info import all_valid_game_paths
+    file_paths = all_valid_game_paths()
+    game = game_init_func(file_paths[game_index])
+    game.verbose = verbose
+    if reset:
+        game.reset()
+    return game
+
+
 
 def first_train_game(verbose = False, reset = True):
     game = game_for_train(0, verbose=verbose, reset = reset)
@@ -526,3 +515,20 @@ def load_lora_bert(output_dir = 'exp/auto_filename/dd.tch', training = False):
         mark_lora_require_grad(model)
     model.print_trainable_parameters()
     return model
+
+
+# 测试用
+
+# DONE: 确定game.get_walkthrough(True)使用该过滤后，游戏仍然能够得到100%分数
+def test_walkthrough_fix():
+    from ftwp_info import all_valid_game_paths
+    for game_path in tqdm(all_valid_game_paths()):
+        game = Game_for_rl(game_path)
+        walkthrough = game.get_walkthrough(need_filter=True)
+        if walkthrough[-1] != 'eat meal':
+            walkthrough.append('eat meal')
+        game.auto_play(walkthrough, no_need_valid=True)
+        if game.get_score() != game.get_max_score():
+            print(f'game: {game_path} has not 100% score')
+            print(f'{game.get_score()} / {game.get_max_score()}')
+            print(walkthrough)
