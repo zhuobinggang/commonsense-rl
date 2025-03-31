@@ -1,13 +1,19 @@
 import re
 
+def dataset_csv_reader(path_csv = 'exp/auto_filename/walkthrough_valid.csv', coloums_to_eval = []):
+    import pandas as pd
+    df = pd.read_csv(path_csv)
+    for c in coloums_to_eval:
+        df[c] = df[c].apply(eval)
+    return df
+
 class CompactPreprocessor:
     """ Preprocessor that tries to reduce the number of tokens by removing punctuation
     """
     def convert(self, description, recipe, inventory, entities):
-        if recipe != '':
-            txt = self.inventory_text(inventory, entities) + ' ' + recipe + ' ' + description
-        else:
-            txt = self.inventory_text(inventory, entities) + ' missing recipe ' + description
+        if not recipe or isinstance(recipe, float): # catch NaN
+            recipe = 'missing recipe'
+        txt = self.inventory_text(inventory, entities) + ' ' + recipe + ' ' + description
         txt = re.sub(r'\n', ' ', txt)
         # convert names with hiffen with space
         txt = re.sub(r'(\w)\-(\w)', r'\1 \2', txt)
@@ -15,6 +21,13 @@ class CompactPreprocessor:
         txt = re.sub(r'([.:\-!=#",?])', r' ', txt)
         txt = re.sub(r'\s{2,}', ' ', txt)
         return txt.strip('.')
+    
+    def convert_datarow(self, row):
+        description = row['description']
+        recipe = row['recipe']
+        inventory = row['inventory']
+        entities = row['entities']
+        return self.convert(description, recipe, inventory, entities)
 
     def inventory_text(self, inventory, entities):
         n_items = self.count_inventory_items(inventory, entities)

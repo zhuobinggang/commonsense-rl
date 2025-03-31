@@ -17,12 +17,15 @@ class Game_state:
         self.action_list = []
         # 2025.3.16 散装的信息
         self.location = '' # room name
+        self.recipe_raw = '' # recipe text
         self.recipe = '' # recipe text
+        self.inventory_raw = '' # inventory item string set
         self.inventory = '' # inventory item string set
         self.action_obs_pairs = [] # (action, obs)
         self.world_map = {} # 用于存储地图
         self.description = '' # 用于存储游戏描述
         self.command_templates = [] # 用于存储command_templates
+        self.entities = []
 
 class Abs_model_policy_gradient:
     def clean_gradient(self):
@@ -276,11 +279,14 @@ class Game_for_rl(Game_for_bert):
         # 2025.3.16 散装的信息
         game_state.location = self.get_location()
         game_state.recipe = self.recipe # NOTE: 不要调用get_recipe，因为这个函数会作弊
+        game_state.recipe_raw = self.recipe_raw if self.recipe else ''
+        game_state.inventory_raw = self.env.info['inventory']
         game_state.inventory = self.get_inventory_as_set() # NOTE: 为了保证物品的顺序不会影响，这里用string set
         game_state.action_obs_pairs = self.action_obs_pairs
         game_state.world_map = self.world_map
         game_state.description = self.description
         game_state.command_templates = self.env.info['command_templates']
+        game_state.entities = self.env.info['entities']
         return game_state
     def get_state(self):
         return self.construct_game_state()
@@ -424,10 +430,12 @@ def batch_valid(model, save_readable = True, steps_limit = 99):
     return batch_test(model, save_readable = save_readable, test_game_paths=valid_paths(), steps_limit = steps_limit)
 
 
-def run_test_full(model, file_prefix = '', game_init_func = Game_for_rl):
+def run_test_full(model, file_prefix = '', game_init_func = Game_for_rl, game_count = -1):
     from ftwp_info import all_game_paths
     txtLogger = common.Logger_simple(file_name=f'run_test_full_{file_prefix}_log')
     test_game_paths=  all_game_paths()
+    if game_count > 0:
+        test_game_paths = test_game_paths[:game_count]
     return batch_test(model, save_readable=False, test_game_paths=test_game_paths, txtLogger=txtLogger, game_init_func=game_init_func)
 
 def run_valid_full(model, file_prefix = ''):

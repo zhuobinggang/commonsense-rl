@@ -86,6 +86,7 @@ class Game_interface(abstract_game_interface.Game_interface):
             return
         # print('检查菜谱成功，抽取菜谱内容')
         act_obs[-1] = (action, 'Recipe got!')
+        self.recipe_raw = common.recipe_raw_from_obs(obs) # NOTE: 2025.3.31
         self.recipe = common.extract_recipe(obs)
     def action_obs_pairs_got_callback(self, action_obs_pairs):
         self.save_if_checking_recipe(action_obs_pairs) 

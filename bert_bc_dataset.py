@@ -5,9 +5,6 @@ from ftwp_info import all_game_paths
 from tqdm import tqdm
 import textworld.gym
 from textworld import EnvInfos, gym
-import re
-from bert_bc_dataset2 import get_category
-from functools import lru_cache
 import common
 
 TRAIN_PATH = '/home/taku/Downloads/cog2019_ftwp/games/train'

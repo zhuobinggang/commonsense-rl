@@ -223,6 +223,9 @@ def is_recipe_feedback(feedback):
     return feedback.startswith('You open the copy of')
 
 
+def recipe_raw_from_obs(obs):
+    return obs.replace('You open the copy of "Cooking: A Modern Approach (3rd Ed.)" and start reading: ', '\n')
+
 def extract_recipe(text):
     """
     从给定的文本中提取 'Ingredients:' 后面的内容。
