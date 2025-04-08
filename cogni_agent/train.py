@@ -17,7 +17,7 @@ from functools import lru_cache
 
 DEBUG = True
 if DEBUG:
-    logging.basicConfig(filename='../exp/auto_filename/qa_model_train.log', filemode='w', level=logging.DEBUG)
+    logging.basicConfig(filename='exp/qa_model_train.log', filemode='w', level=logging.DEBUG)
 else:
     logging.basicConfig(level=logging.WARNING)
 
@@ -87,6 +87,7 @@ def make_dataset(df, sample=5, sample2=0):
         # add wrong commands for state
         for cmd in bad_commands:
             data.append((text, cmd, 0, gamename))
+        # dbg('{} \n{} {} {} {}'.format(text, command, 1, gamename, ' '.join(main_commands)))
 
     return pd.DataFrame(data, columns=['text','command', 'target', 'gamename'])
 
@@ -226,6 +227,7 @@ def qa_dataloader(dataset_path = '/home/taku/Downloads/cog2019_ftwp/cogni_datase
     return dataloader
 
 
+
 def train(model = None, checkpoint_directory = '../exp/auto_filename', epoch = 0, batch_size = 16, suffix = ''):
     from accelerate import Accelerator
     accelerator = Accelerator()
@@ -265,7 +267,7 @@ def train(model = None, checkpoint_directory = '../exp/auto_filename', epoch = 0
         if global_step % 1000 == 0: # 每1000个step输出一次，这个值是过往的累计值
             acc = metrics.accuracy_score(labels, predictions)
             f1 = metrics.f1_score(labels, predictions)
-            print('[{}] Loss {:f} Acc {:f} F1 {:f}'.format(step,
+            dbg('[{}] Loss {:f} Acc {:f} F1 {:f}'.format(step,
                         tr_loss/nb_tr_steps, acc, f1))
     # Save checkpoint each epoch
     checkpoint_path = os.path.join(checkpoint_directory, f'qa_model_checkpoint_epoch_{epoch}_{suffix}.tch')
@@ -287,19 +289,29 @@ def validate(model, batch_size = 16):
         input_ids, input_mask, segment_ids, label_ids = batch
         with torch.no_grad():
             logits, loss = model(input_ids, segment_ids, input_mask, label_ids)
-            proba = F.softmax(logits, dim=1)
+            proba = F.softmax(logits, dim=1) 
             cumloss += loss.item()
         nsteps += 1
         outputs = np.vstack([outputs, proba.detach().cpu().numpy()])
         labels = np.concatenate([labels, label_ids.detach().cpu().numpy()])
 
-    acc = metrics.accuracy_score(labels, np.argmax(outputs, axis=1))
+    acc = metrics.accuracy_score(labels, np.argmax(outputs, axis=1)) # 这里的
     f1 = metrics.f1_score(labels, np.argmax(outputs, axis=1))
-    dbg('Validation loss {:f} Acc {:f} F1 {:f}'.format(cumloss/nsteps, acc, f1))
+    print('Validation loss {:f} Acc {:f} F1 {:f}'.format(cumloss/nsteps, acc, f1))
 
 
-def run_train(epochs = 5):
-    model = QAModel()
-    for epoch in range(epochs):
-        train(model, epoch = epoch, batch_size=16, suffix=f'repeat_1')
-        validate(model, batch_size=16)
+def run_train(epochs = 1, repeat = 3):
+    for rp in range(repeat):
+        model = QAModel()
+        for epoch in range(epochs):
+            train(model, epoch = epoch, batch_size=16, suffix=f'repeat_{rp}')
+            validate(model, batch_size=16)
+
+# ========== TESTING ==================
+
+# NOTE: For test
+def check_prompt(dataset_path = '/home/taku/Downloads/cog2019_ftwp/cogni_dataset', train = False):
+    csv_name = 'walkthrough_train.csv' if train else 'walkthrough_valid.csv'
+    df = os.path.join(dataset_path, csv_name)
+    spawned_df = generate_qa_datasets(df) # 一个正确case，5个错误case
+    return spawned_df

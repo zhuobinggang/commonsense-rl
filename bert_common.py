@@ -26,6 +26,16 @@ class Game_state:
         self.description = '' # 用于存储游戏描述
         self.command_templates = [] # 用于存储command_templates
         self.entities = []
+    def from_csv_row(self, row):
+        self.action_list = row['admissible_commands']
+        self.location = common.extract_room_name(row['description'])
+        self.recipe_raw = row['recipe']
+        self.recipe = common.extract_recipe(row['recipe'])
+        self.inventory_raw = row['inventory']
+        self.inventory = common.handle_inventory_text(row['inventory'])
+        self.description = row['description']
+        self.command_templates = row['command_templates']
+        self.entities = row['entities']
 
 class Abs_model_policy_gradient:
     def clean_gradient(self):
@@ -331,13 +341,18 @@ def load_trained_model(path):
 # ==== auto play ========
 
 
-def trained_model_autoplay(game, bert, save_readable = True, sample_command_func = get_next_command_by_command_logits_argmax_simple, score_record_steps = [10, 20, 30, 40, 50], steps_limit = 99):
+def trained_model_autoplay(game, bert, 
+                           save_readable = True, 
+                           sample_command_func = get_next_command_by_command_logits_argmax_simple, 
+                           score_record_steps = [10, 20, 30, 40, 50], 
+                           steps_limit = 99):
     bert.eval()
     game.reset()
     max_score = game.get_max_score()
     num_steps = 0
     middle_scores = []
     dic = {'score': 0, 'max_score': max_score, 'steps': 0, 'middle_scores': []}
+    command = ''
     while not any([num_steps >= steps_limit, game.is_won(), game.is_lost()]):
         game_state = game.construct_game_state()
         if hasattr(bert, 'next_action'):
@@ -349,6 +364,12 @@ def trained_model_autoplay(game, bert, save_readable = True, sample_command_func
         if num_steps in score_record_steps:
             middle_scores.append(game.get_score()) # BUG: 这里不小心用get_score() / max_score了，导致分数很低，需要重新计算
         num_steps += 1
+    if game.is_lost(): # NOTE: 2025.4.2 用于更新危险指令
+        print(f'Bad action! {command}')
+        if hasattr(bert, 'update_danger_action'):
+            bert.update_danger_action(command)
+    else:
+        dic['nothing_to_learn'] = True
     if save_readable:
         game.save_readable()
     if num_steps >= 30:
@@ -376,6 +397,65 @@ def valid_paths():
     from ftwp_info import all_valid_game_paths
     return all_valid_game_paths(shuffle = True)[-30:]
 
+
+def batch_test_learnable(model, save_readable = False, test_game_paths = [], file_prefix = '', txtLogger = common.Fake_text_logger(verbose=False), steps_limit = 99, game_init_func = Game_for_rl):
+    if len(test_game_paths) < 1:
+        test_game_paths = valid_paths()
+    scores = []
+    max_scores = []
+    # kitchen info: 排除没有访问到kitchen的scores和max_scores并计算该情况的得分
+    scores_without_kitchen = []
+    max_scores_without_kitchen = []
+    kitchen_visited_counter = 0
+    # steps info
+    scores_at_30 = []
+    # steps per game
+    steps = []
+    score, max_score, num_steps = 0, 0, 0
+    print(f'game_init_func: {game_init_func}')
+    for path in tqdm(test_game_paths):
+        for i in range(9): # 用于模型学习
+            game = game_init_func(path)
+            game.verbose = False
+            game.filename = file_prefix + game.filename # Added 2025.2.8
+            dic = trained_model_autoplay(game, model, save_readable, steps_limit = steps_limit)
+            score, max_score, num_steps = dic['score'], dic['max_score'], dic['num_steps']
+            if 'nothing_to_learn' in dic:
+                print('已经没什么可以学习的了，直接输出性能')
+                break
+            print(f'Game {i}:  {score} / {max_score}')
+        # score, max_score, num_steps = dic['score'], dic['max_score'], dic['num_steps']
+        print(f'Game Final:  {score} / {max_score}')
+        scores.append(score)
+        max_scores.append(max_score)
+        # steps info
+        steps.append(num_steps)
+        if num_steps > 30: # 如果>=会导致BUG
+            scores_at_30.append(dic['middle_scores'][2])
+            txtLogger.add(f'Steps at {num_steps} & norm score at {score / max_score}: {game.filename}')
+        else:
+            scores_at_30.append(score)
+        # kitchen info
+        if not game.kitchen_visited:
+            txtLogger.add(f'Score at {score} & kitchen not visited: {game.filename}')
+        else:
+            scores_without_kitchen.append(score)
+            max_scores_without_kitchen.append(max_score)
+        kitchen_visited_counter += game.kitchen_visited
+        txtLogger.write_txt_log()
+    score_final = sum(scores) / sum(max_scores)
+    # kitchen infos in txt log
+    kitchen_visited_rate = kitchen_visited_counter / len(test_game_paths)
+    scores_without_kitchen = sum(scores_without_kitchen) / sum(max_scores_without_kitchen)
+    txtLogger.add(f'score: {score_final}')
+    txtLogger.add(f'kitchen_rate: {kitchen_visited_rate}')
+    txtLogger.add(f'score_with_kitchen: {scores_without_kitchen}')
+    # log score at 30
+    txtLogger.add(f'score at 30: {sum(scores_at_30) / sum(max_scores)}')
+    txtLogger.write_txt_log()
+    # average steps
+    return score_final
+
 def batch_test(model, save_readable = False, test_game_paths = [], file_prefix = '', txtLogger = common.Fake_text_logger(verbose=False), steps_limit = 99, game_init_func = Game_for_rl):
     if len(test_game_paths) < 1:
         test_game_paths = valid_paths()
@@ -390,7 +470,7 @@ def batch_test(model, save_readable = False, test_game_paths = [], file_prefix =
     # steps per game
     steps = []
     print(f'game_init_func: {game_init_func}')
-    for path in test_game_paths:
+    for path in tqdm(test_game_paths):
         game = game_init_func(path)
         game.verbose = False
         game.filename = file_prefix + game.filename # Added 2025.2.8
@@ -430,19 +510,27 @@ def batch_valid(model, save_readable = True, steps_limit = 99):
     return batch_test(model, save_readable = save_readable, test_game_paths=valid_paths(), steps_limit = steps_limit)
 
 
-def run_test_full(model, file_prefix = '', game_init_func = Game_for_rl, game_count = -1):
+def run_test_full(model, file_prefix = '', game_init_func = Game_for_rl, game_count = -1, learnable = False):
     from ftwp_info import all_game_paths
     txtLogger = common.Logger_simple(file_name=f'run_test_full_{file_prefix}_log')
     test_game_paths=  all_game_paths()
     if game_count > 0:
         test_game_paths = test_game_paths[:game_count]
-    return batch_test(model, save_readable=False, test_game_paths=test_game_paths, txtLogger=txtLogger, game_init_func=game_init_func)
+    if not learnable:
+        return batch_test(model, save_readable=False, test_game_paths=test_game_paths, txtLogger=txtLogger, game_init_func=game_init_func)
+    else:
+        return batch_test_learnable(model, save_readable=False, test_game_paths=test_game_paths, txtLogger=txtLogger, game_init_func=game_init_func)
 
-def run_valid_full(model, file_prefix = ''):
+def run_valid_full(model, file_prefix = '', game_count = -1, save_readable=False, learnable = False):
     from ftwp_info import all_valid_game_paths
     txtLogger = common.Logger_simple(file_name=f'run_valid_full_{file_prefix}_log')
-    valid_game_paths=  all_valid_game_paths()
-    return batch_test(model, save_readable=False, test_game_paths=valid_game_paths, txtLogger=txtLogger)
+    valid_game_paths =  all_valid_game_paths()
+    if game_count > 0:
+        valid_game_paths = valid_game_paths[:game_count]
+    if not learnable:
+        return batch_test(model, save_readable=save_readable, test_game_paths=valid_game_paths, txtLogger=txtLogger)
+    else:
+        return batch_test_learnable(model, save_readable=save_readable, test_game_paths=valid_game_paths, txtLogger=txtLogger)
 
 SOME_GAMES = {
     'game_easy': 0,

@@ -2,7 +2,7 @@ from bert_cogni_agent import *
 from bert_bc_ucb1 import choose_action_ubc1, game_state_to_ucb1_key
 import common
 
-logger = logging.getLogger('cogni_agent_ucb1')
+logger = logging.getLogger('ucb1')
 dbg = logger.debug
 
 class QAUcb1(QAModel):

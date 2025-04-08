@@ -1,4 +1,4 @@
-# 复刻cogni的ner模型
+# 复刻cogni agent training dataset -> train.csv, valid.csv
 import os
 import pandas as pd
 from ftwp_info import all_game_paths

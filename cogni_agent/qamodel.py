@@ -7,7 +7,15 @@ from torch.utils.data import TensorDataset, DataLoader, SequentialSampler
 from functools import lru_cache
 import re
 import numpy as np
+import logging
 
+DEBUG = True
+if DEBUG:
+    logging.basicConfig(filename='cogni_agent_logger.log', filemode='w', level=logging.DEBUG)
+else:
+    logging.basicConfig(level=logging.WARNING)
+logger = logging.getLogger('cogni_agent_base')
+dbg = logger.debug
 
 BERT_BASE_UNCASED_MODEL_ID = 'bert-base-uncased'
 
@@ -31,7 +39,9 @@ class Game_state:
         self.action_list = []
         # 2025.3.16 散装的信息
         self.location = '' # room name
+        self.recipe_raw = '' # recipe text
         self.recipe = '' # recipe text
+        self.inventory_raw = '' # inventory item string
         self.inventory = '' # inventory item string set
         self.action_obs_pairs = [] # (action, obs)
         self.world_map = {} # 用于存储地图
@@ -51,6 +61,8 @@ class QAModel(nn.Module):
         self.max_seq_length = 480
         self.tokenizer = default_tokenizer()
         self.eval_batch_size = 16
+        self.device = 'cuda'
+        self.cuda()
 
     def forward(self, input_ids, token_type_ids=None, attention_mask=None, labels=None):
         out = self.bert(input_ids = input_ids, token_type_ids = token_type_ids, attention_mask = attention_mask)
@@ -65,23 +77,34 @@ class QAModel(nn.Module):
         else:
             return logits
 
-    def save_checkpoint(self, path = None):
+    def save_checkpoint_old(self, path = None):
         if not path:
             self.bert.save_pretrained(f'../exp/auto_filename/{self.checkpoint_name}.tch')
         else:
             self.bert.save_pretrained(path)
 
-    def load_checkpoint(self, path = None):
+    def load_checkpoint_old(self, path = None):
         if not path:
             self.bert, _ = load_trained_model(f'../exp/auto_filename/{self.checkpoint_name}.tch')
         else:
             self.bert, _ = load_trained_model(path)
         self.bert.cuda()
 
+    def save_checkpoint(self, path = None, epoch = -1):
+        torch.save({
+            'iteration': epoch,
+            'state': self.state_dict(),
+        }, path)
+
+    def load_checkpoint(self, path = None):
+        checkpoint = torch.load(path, map_location='cpu', weights_only=True)
+        self.load_state_dict(checkpoint['state'])
+        self.cuda()
+
     def get_command_probs(self, game_state: Game_state):
         # 将game_state的信息压缩
-        pp = CompactPreprocessor()
-        prompt = pp.convert(game_state.description, game_state.recipe, game_state.inventory, game_state.entities)
+        cp = CompactPreprocessor()
+        prompt = cp.convert(game_state.description, game_state.recipe_raw, game_state.inventory_raw, game_state.entities)
         commands = game_state.action_list
         # 将所有commands装入一个Dataloader中，同时处理
         evaldata = bprocess([prompt]*len(commands),
@@ -98,21 +121,29 @@ class QAModel(nn.Module):
                 pred = self.forward(input_ids, segment_ids, input_mask) # (batch_size, 2)
                 pred = pred[:,1].detach().cpu().numpy() # (batch_size) 相当于模型对于这个command的置信度
                 probs.append(pred)
-                self.n_model_evals += 1
+                # self.n_model_evals += 1
         probs = np.concatenate(probs) if len(probs) > 0 else np.array(probs) # (commands_length)
 
         top_commands = list(reversed(sorted(zip(commands, probs), key=lambda x: x[1]))) # 根据置信度排序
         commands = [v[0] for v in top_commands]
         probs = np.array([v[1] for v in top_commands])
-        dbg('State: {}'.format(text))
-        dbg('Predicted: ' + ','.join(
-                '({}, {:5.2f})'.format(c,p) for c,p in reversed(
-                    sorted(zip(commands, results), key=lambda x: x[1]))))
+        # dbg('State: {}'.format(prompt))
+        # dbg('Predicted: ' + ','.join(
+        #         '({}, {:5.2f})'.format(c,p) for c,p in reversed(
+        #             sorted(zip(commands, probs), key=lambda x: x[1]))))
         return commands, probs
     
     def next_action(self, game_state):
         commands, probs = self.get_command_probs(game_state)
         return commands[0]
+    
+    def test_full(self):
+        from bert_common import run_test_full
+        run_test_full(self, file_prefix=self.checkpoint_name)
+
+    def test_partial(self, game_count = 30):
+        from bert_common import run_test_full
+        run_test_full(self, file_prefix=self.checkpoint_name, game_count=game_count)
 
 
 

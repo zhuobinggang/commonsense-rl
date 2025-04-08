@@ -8,6 +8,7 @@ from functools import lru_cache
 import re
 import numpy as np
 import logging
+from bert_common import Game_state
 
 DEBUG = True
 if DEBUG:
@@ -33,22 +34,6 @@ def load_trained_model(path):
     model.cuda()
     return model, tokenizer
 
-class Game_state:
-    def __init__(self) -> None:
-        self.x = ''
-        self.action_list = []
-        # 2025.3.16 散装的信息
-        self.location = '' # room name
-        self.recipe_raw = '' # recipe text
-        self.recipe = '' # recipe text
-        self.inventory_raw = '' # inventory item string
-        self.inventory = '' # inventory item string set
-        self.action_obs_pairs = [] # (action, obs)
-        self.world_map = {} # 用于存储地图
-        self.description = '' # 用于存储游戏描述
-        self.command_templates = [] # 用于存储command_templates
-        self.entities = []
-
 
 class QAModel(nn.Module):
     def __init__(self, num_labels = 2):
@@ -72,28 +57,39 @@ class QAModel(nn.Module):
 
         if labels is not None:
             loss_fct = nn.CrossEntropyLoss()
-            loss = loss_fct(logits.view(-1, self.num_labels), labels.view(-1))
+            loss = loss_fct(logits.view(-1, self.num_labels), labels.view(-1)) # (batch_size, 2), (batch_size)
             return logits, loss
         else:
             return logits
 
-    def save_checkpoint(self, path = None):
+    def save_checkpoint_old(self, path = None):
         if not path:
             self.bert.save_pretrained(f'../exp/auto_filename/{self.checkpoint_name}.tch')
         else:
             self.bert.save_pretrained(path)
 
-    def load_checkpoint(self, path = None):
+    def load_checkpoint_old(self, path = None):
         if not path:
             self.bert, _ = load_trained_model(f'../exp/auto_filename/{self.checkpoint_name}.tch')
         else:
             self.bert, _ = load_trained_model(path)
         self.bert.cuda()
 
+    def save_checkpoint(self, path = None, epoch = -1):
+        torch.save({
+            'iteration': epoch,
+            'state': self.state_dict(),
+        }, path)
+
+    def load_checkpoint(self, path = None):
+        checkpoint = torch.load(path, map_location='cpu', weights_only=True)
+        self.load_state_dict(checkpoint['state'])
+        self.cuda()
+
     def get_command_probs(self, game_state: Game_state):
         # 将game_state的信息压缩
-        pp = CompactPreprocessor()
-        prompt = pp.convert(game_state.description, game_state.recipe_raw, game_state.inventory_raw, game_state.entities)
+        cp = CompactPreprocessor()
+        prompt = cp.convert(game_state.description, game_state.recipe_raw, game_state.inventory_raw, game_state.entities)
         commands = game_state.action_list
         # 将所有commands装入一个Dataloader中，同时处理
         evaldata = bprocess([prompt]*len(commands),
@@ -108,7 +104,8 @@ class QAModel(nn.Module):
 
             with torch.no_grad():
                 pred = self.forward(input_ids, segment_ids, input_mask) # (batch_size, 2)
-                pred = pred[:,1].detach().cpu().numpy() # (batch_size) 相当于模型对于这个command的置信度
+                # pred = pred[:,1].detach().cpu().numpy() # (batch_size) 相当于模型对于这个command的置信度
+                pred = pred.softmax(dim=1)[:,1].detach().cpu().numpy() # NOTE: taku于2025.4.3修改，会提高模型的性能。
                 probs.append(pred)
                 # self.n_model_evals += 1
         probs = np.concatenate(probs) if len(probs) > 0 else np.array(probs) # (commands_length)
@@ -116,10 +113,10 @@ class QAModel(nn.Module):
         top_commands = list(reversed(sorted(zip(commands, probs), key=lambda x: x[1]))) # 根据置信度排序
         commands = [v[0] for v in top_commands]
         probs = np.array([v[1] for v in top_commands])
-        # dbg('State: {}'.format(prompt))
-        # dbg('Predicted: ' + ','.join(
-        #         '({}, {:5.2f})'.format(c,p) for c,p in reversed(
-        #             sorted(zip(commands, probs), key=lambda x: x[1]))))
+        dbg('State: {}'.format(prompt))
+        dbg('Predicted: ' + ','.join(
+                '({}, {:5.2f})'.format(c,p) for c,p in reversed(
+                    sorted(zip(commands, probs), key=lambda x: x[1]))))
         return commands, probs
     
     def next_action(self, game_state):
@@ -284,3 +281,7 @@ def convert_examples_to_features(texts, labels, max_seq_length, tokenizer, label
         label_id = label_map[label]
         features.append([input_ids,input_mask,segment_ids,label_id])
     return features
+
+
+def check_prompt_from_csv_is_ok():
+    pass

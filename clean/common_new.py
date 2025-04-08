@@ -1,3 +1,5 @@
+import re
+
 # NOTE: without these commands, we can still get max score
 # BUG: 注意，不能把drop去掉，因为物品栏有限制，如果不drop，会导致物品栏满了，无法继续拿东西
 FILTER_STARTWORD_LIST = ['examine', 'close', 'eat', 'look', 'inventory', 'drink', 'put', 'insert']
@@ -228,7 +230,7 @@ def is_recipe_feedback(feedback):
 def recipe_raw_from_obs(obs):
     return obs.replace('You open the copy of "Cooking: A Modern Approach (3rd Ed.)" and start reading: ', '\n')
 
-def extract_recipe(text):
+def extract_recipe(text, need_clean = True):
     """
     从给定的文本中提取 'Ingredients:' 后面的内容。
     
@@ -245,7 +247,10 @@ def extract_recipe(text):
     # 如果找到了 "Ingredients:"
     if index != -1:
         # 返回从 "Ingredients:" 后面开始的内容
-        return text[index:].strip()
+        text = text[index:]
+        if need_clean:
+            text = ' '.join(text.split()).strip()
+        return text
     else:
         # 如果没有找到，返回空字符串
         return ""
@@ -348,8 +353,19 @@ def handle_inventory_text(inventory_text):
 def handle_recipe(recipe):
     return extract_recipe(recipe)
     
+def is_description_feedback(obs):
+    return obs.strip().startswith('-=')
 
-def is_move_command(command):
-    if not command:
-        return False
-    return command.startswith('go ')
+def cut_description(obs):
+    roomname = extract_room_name(obs)
+    return f'You entered {roomname}.'
+
+def description_simplify(description):
+    txt = description
+    txt = re.sub(r'\n', ' ', txt)
+    # convert names with hiffen with space
+    txt = re.sub(r'(\w)\-(\w)', r'\1 \2', txt)
+    # remove punctuation
+    txt = re.sub(r'([.:\-!=#",?])', r' ', txt)
+    txt = re.sub(r'\s{2,}', ' ', txt)
+    return txt.strip('.').strip()
