@@ -45,19 +45,10 @@ class Fake_model:
         if self.counter >= len(info['extra.walkthrough']):
             self.counter = 0
         return action
-
-def test_game(game: Game, model = Fake_model()):
-    obs, info = game.reset()
-    counter = 0
-    while counter < 100:
-        counter += 1
-        action = model.predict(game_state_from_game(game))
-        obs, reward, done, info = game.act(action)
-        if done:
-            break
-    # result = (counter, info['score'], info['max_score'], info)
-    result = TestResult(counter, info['score'], info['max_score'], info)
-    return result
+    def eval(self):
+        pass
+    def cuda(self):
+        pass
 
 # ============
 
@@ -91,6 +82,22 @@ class Game_handle_recipe(Game_with_history):
     
 def default_game():
     return Game_handle_recipe('/home/taku/Downloads/cog2019_ftwp/games/valid/tw-cooking-recipe1+cook+cut+drop+go6-M2qEFeOXcol3H1ql.ulx')
+
+
+def test_game(game: Game_handle_recipe, model = Fake_model()):
+    model.eval()
+    model.cuda()
+    obs, info = game.reset()
+    counter = 0
+    while counter < 100:
+        counter += 1
+        action = model.predict(game_state_from_game(game))
+        obs, reward, done, info = game.act(action)
+        if done:
+            break
+    # result = (counter, info['score'], info['max_score'], info)
+    result = TestResult(counter, info['score'], info['max_score'], info)
+    return result
 
 @lru_cache(maxsize=128) # 一个episode最多为100步，因此128足够了
 def clean_action_obs(action, obs):

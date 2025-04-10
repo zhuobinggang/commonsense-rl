@@ -1,4 +1,12 @@
 import re
+import logging
+
+LOG_FILE = 'log/ours.log'
+DEBUG = True
+if DEBUG:
+    logging.basicConfig(filename=LOG_FILE, filemode='w', level=logging.DEBUG)
+else:
+    logging.basicConfig(level=logging.WARNING)
 
 # NOTE: without these commands, we can still get max score
 # BUG: 注意，不能把drop去掉，因为物品栏有限制，如果不drop，会导致物品栏满了，无法继续拿东西

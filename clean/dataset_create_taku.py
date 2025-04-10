@@ -4,6 +4,9 @@ from tqdm import tqdm
 from functools import lru_cache
 from game import Game_handle_recipe, game_state_from_game, Game_state
 import common_new as common
+import logging
+logger = logging.getLogger('dataset_create_taku')
+dbg = logger.debug
 
 BASE_PATH = '/home/taku/Downloads/cog2019_ftwp/games'
 TRAIN_PATH = '/home/taku/Downloads/cog2019_ftwp/games/train'
@@ -11,7 +14,6 @@ TEST_PATH = '/home/taku/Downloads/cog2019_ftwp/games/test'
 VALID_PATH = '/home/taku/Downloads/cog2019_ftwp/games/valid'
 
 
-DEBUG = False
 
 
 @lru_cache(maxsize=None)
@@ -33,7 +35,7 @@ def get_game_name(gamepath):
     return os.path.split(gamepath)[-1]
 
 
-def extract_walkthrough_dataset(split = 'fake_test'):
+def extract_walkthrough_dataset(split = 'fake_test', skip_bad_actions = True):
     datapath = BASE_PATH
     train_games = get_cv_games(datapath, split)
     gamesteps = []
@@ -45,6 +47,15 @@ def extract_walkthrough_dataset(split = 'fake_test'):
             if game.done:
                 break
             game_state = game_state_from_game(game)
+            # 过滤掉不好的动作
+            admissible_commands = game_state.filtered_available_commands()
+            if skip_bad_actions and cmd not in admissible_commands:
+                if cmd == 'eat meal':
+                    dbg(f'Eat meal not in admissible_commands, I will add it to make sure the game can done.')
+                    admissible_commands.append(cmd)
+                else:
+                    dbg(f'Command {cmd} not in admissible_commands, I will skip it.')
+                    continue
             game_step = {
                 'game_path': get_game_name(game_path),
                 'room': game_state.room,
@@ -53,7 +64,7 @@ def extract_walkthrough_dataset(split = 'fake_test'):
                 'action_obs_pairs': game_state.clean_action_obs_pairs(),
                 'recipe': game_state.recipe_clean(),
                 'inventory': game_state.inventory_clean(),
-                'admissible_commands': game_state.filtered_available_commands(),
+                'admissible_commands': admissible_commands,
                 'description': game_state.description_clean(),
                 'won': game.info['won'],
                 'lost': game.info['lost'],
@@ -79,6 +90,7 @@ def read_csv_dataset(inputpath = 'good_dataset', split = 'fake', suffix = ''):
     df['action_obs_pairs'] = df['action_obs_pairs'].apply(eval)
     df['admissible_commands'] = df['admissible_commands'].apply(eval)
     df['recipe'] = df['recipe'].fillna('')
+    df['inventory'] = df['inventory'].fillna('')
     return df
 
 
