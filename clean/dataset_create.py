@@ -106,7 +106,6 @@ def run_game(gamefile):
     assert dones # ?
     return gamesteps
 
-
 def extract_datasets(datapath, outputpath, need_valid = True, need_train = True, suffix = ''):
     """ runs all games and saves dataframes with state/command """
     if not os.path.exists(outputpath):
