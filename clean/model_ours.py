@@ -106,6 +106,7 @@ def train(model, batch_size = 8, split = 'train'):
     accelerator = Accelerator()
     # model.cuda()
     model.train()
+    dbg('Model train on.')
     optimizer = optim.AdamW(model.parameters(), lr=2e-5) # 从1e-3到2e-5
     model, optimizer, train_dataloader = accelerator.prepare(
         model, optimizer, train_dataloader
@@ -125,11 +126,13 @@ def valid_all(model: Model, split = 'partial_valid'):
     game_paths = get_cv_games(split=split)
     score = 0
     max_score = 0
-    for game_path in game_paths:
+    dbg(f'Validating {split} games, total {len(game_paths)}')
+    for game_path in tqdm(game_paths, desc=f"Validating {split} games"):
         game = Game_handle_recipe(game_path)
         result = test_game(game, model)
         score += result.score
         max_score += result.max_score
+        dbg(f'Valid results,  {result.score} / {result.max_score}, steps {result.step}, game {game_path}')
     return score / max_score
 
 def valid_all_by_model_path(model_path: str):
@@ -157,3 +160,26 @@ def train_reapeat(repeat = 3, epoch = 3, batch_size = 8):
             dbg(f'Valid results, repeat {rp} epoch {i} score: {score}')
             # get_writer().add_scalar(f'Score/valid_rp{rp}', score, i)
             model.save_checkpoint(base_path= '/home/taku/Downloads/cog2019_ftwp/trained_models/roberta_ours', epoch=i)
+
+# 补充2个epoch的训练
+def train_reapeat_plus(batch_size = 8):
+    start = 2
+    for rp in range(3):
+        path = f'/home/taku/Downloads/cog2019_ftwp/trained_models/roberta_ours/roberta_ours_repeat_2_epoch_{start}.pth'
+        model = get_model(path)
+        model.prefix = f'roberta_ours_repeat_{rp}'
+        for epoch_continue in range(3, 5): # epoch 3 ~ 5
+            train(model, batch_size=batch_size, split='train')
+            score = valid_all(model, split='partial_valid')
+            dbg(f'Valid results, repeat {rp} epoch {epoch_continue} score: {score}')
+            # get_writer().add_scalar(f'Score/valid_rp{rp}', score, i)
+            model.save_checkpoint(base_path= '/home/taku/Downloads/cog2019_ftwp/trained_models/roberta_ours', epoch=epoch_continue)
+
+def test_trained():
+    best_model_index = [1,2,1]
+    for rp in range(3):
+        model = get_model(f'/home/taku/Downloads/cog2019_ftwp/trained_models/roberta_ours/roberta_ours_repeat_{rp}_epoch_{best_model_index[rp]}.pth')
+        s1 = valid_all(model, split='valid')
+        dbg(f'Full valid score ({rp}): {s1}')
+        s2 = valid_all(model, split='test')
+        dbg(f'Full test score ({rp}): {s2}')

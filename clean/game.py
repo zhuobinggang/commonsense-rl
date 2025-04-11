@@ -3,6 +3,10 @@ import textworld.gym
 from textworld import EnvInfos, gym
 from functools import lru_cache
 from recordclass import recordclass
+import logging
+
+logger = logging.getLogger('game.py')
+dbg = logger.debug
 
 # 重新实现game
 def init_env(game_file):
@@ -85,8 +89,13 @@ def default_game():
 
 
 def test_game(game: Game_handle_recipe, model = Fake_model()):
-    model.eval()
-    model.cuda()
+    # dbg('Testing: Model eval on, model cuda on.')
+    if model.training:
+        model.eval()
+        dbg('Model eval on.')
+    if not next(model.parameters()).is_cuda:
+        model.cuda()
+        dbg('Model cuda on.')
     obs, info = game.reset()
     counter = 0
     while counter < 100:

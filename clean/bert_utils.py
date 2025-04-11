@@ -95,8 +95,8 @@ def bert_tokenize_prompt_cut(game_state: Game_state, need_action_history = True)
         length_limit = MAX_TOKEN_SIZE - len(before_history_tokens) - len(after_history_tokens)
         start = max(0, len(history_tokens) - length_limit)
         history_tokens = history_tokens[start:]
-        dbg(f'prompt tokens length > {MAX_TOKEN_SIZE}, trim history tokens:')
-        dbg(toker.decode(before_history_tokens + history_tokens + after_history_tokens))
+        # dbg(f'prompt tokens length > {MAX_TOKEN_SIZE}, trim history tokens:')
+        # dbg(toker.decode(before_history_tokens + history_tokens + after_history_tokens))
     return before_history_tokens + history_tokens + after_history_tokens
 
 def test_bert_tokenize_prompt_cut(): # DONE: 2025.4.10, changed history_window to 100 to test
