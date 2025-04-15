@@ -8,6 +8,8 @@ import logging
 logger = logging.getLogger('game.py')
 dbg = logger.debug
 
+MAX_STEP = 100
+
 # 重新实现game
 def init_env(game_file):
     requested_infos = EnvInfos(description=True, inventory=True,
@@ -16,7 +18,7 @@ def init_env(game_file):
                                entities=True, max_score=True, won=True, score=True,
                                moves = True,
                                lost=True, extras=["walkthrough"]) # 注意，取不到recipe，只能从obs中获取
-    env_id = textworld.gym.register_games([game_file], requested_infos)
+    env_id = textworld.gym.register_games([game_file], requested_infos, max_episode_steps = MAX_STEP)
     env = gym.make(env_id)
     return env
 
@@ -129,8 +131,12 @@ class Game_state:
         self.admissible_commands = []
         self.filtered_commands = None
     def recipe_clean(self):
+        if self.recipe_raw == '':
+            return ''
         return common.extract_recipe(self.recipe_raw, need_clean=True)
     def inventory_clean(self):
+        if self.inventory_raw == '':
+            return ''
         return common.handle_inventory_text(self.inventory_raw)
     def description_clean(self):
         return common.description_simplify(self.description_raw)
